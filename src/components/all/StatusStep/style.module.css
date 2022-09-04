@@ -1,0 +1,92 @@
+.supremeBox {
+    font-family: 'Heebo';
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--orange100-color);
+    background-color: var(--orange5-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: 40px;
+}
+
+.currentStage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    padding: 0px 15px;
+
+}
+
+.supremeBoxCenter {
+    font-family: 'Heebo';
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; 
+    color: var( --orange100-color);
+    background-color:var( --orange5-color);
+    border-radius: 12px;
+    width: 100%;
+    height: 40px;
+  }
+  .currentStageCenter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 15px;
+   
+  }
+
+.rightSide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 0px 15px;
+
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.stageNow{
+    padding: 0px 15px;
+
+}
+
+.stageNum {
+    background-color: var(--orange10-color);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px 4px;
+
+}
+
+.waitingFor{
+    font-weight: 700;
+    padding: 0px 15px;
+
+}
+.leftSide{
+    padding: 0px 15px;
+
+}
+
+.waitingTime {
+    background: var(--orange10-color);
+    border-radius: 4px;
+    padding: 0px 4px;
+}

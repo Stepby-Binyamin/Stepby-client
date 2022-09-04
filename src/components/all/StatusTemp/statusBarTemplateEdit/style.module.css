@@ -1,0 +1,19 @@
+.templateEdit{
+    font-family: 'Heebo';
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var( --orange100-color);
+    background-color:var( --orange5-color);
+    border-radius: 12px;
+    width: 100%;
+    height: 40px;
+    padding: 0px 15px;
+}
+
+.templateEditInfo{
+    padding: 0px 15px;
+
+}
