@@ -1,0 +1,19 @@
+.button {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--grey1-color);
+    height: 52px;
+    border-radius: 12px;
+    width: 100%;
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+    align-items: center;
+    color: #FFFFFF;
+}
+.img {
+    height: 10px;
+    margin-left: 15px;
+}
