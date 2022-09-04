@@ -1,7 +1,8 @@
 import React from 'react'
+import Confirm from '../../components/all/Confirm'
 
 export default function Michal() {
    return (
-      <div>Michal</div>
+      <div><Confirm/></div>
    )
 }
