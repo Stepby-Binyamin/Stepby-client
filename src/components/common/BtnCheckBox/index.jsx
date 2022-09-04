@@ -6,7 +6,7 @@ const BtnCheckBox = ({
   icon = "",
   style = {},
   text,
-  textColor = "gray",
+  textColor = "#7C818D",
   isSoon = false,
   ...props
 }) => {
