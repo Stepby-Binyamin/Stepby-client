@@ -1,0 +1,13 @@
+.pos {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.pos2 {
+    max-width: calc(100% - 28px);
+    margin: 21.5px 14px 21.5px 14px;
+    display: flex;
+    width: 100%;
+    gap: 12px;
+}
