@@ -1,16 +1,15 @@
-import React from 'react'
+import React, { version } from 'react'
 import BtnIcon from '../../common/BtnIcon'
 import styles from "./style.module.css"
 
-const AdditionNew = ({ style = {}, ...props }) => {
+const MoreProject = ({ style = {}, ...props }) => {
 
    return (
-      <div className={styles.additionNew}>
-         <div className={styles.btn}><BtnIcon icon='/images/icons/newTemplate.svg' text='תבנית חדשה' />      </div>
-         <div className={styles.btn1}><BtnIcon icon='/images/icons/newCustomer.svg' text='לקוח חדש' />      </div>
-         <div><BtnIcon icon='/images/icons/newProject.svg' text='פרויקט חדש ללקוח קיים ' />      </div>
+      <div className={styles.MoreProject}>
+         <div className={styles.btn}><BtnIcon icon='/images/icons/completed.svg' text='סימון הפרויקט כ"הושלם"' />      </div>
+         <div className={styles.btn}><BtnIcon icon='/images/icons/delete.svg' text='מחיקת פרויקט' textColor="#EF0E0E" />      </div>
       </div>
    )
 }
 
-export default AdditionNew
+export default MoreProject
