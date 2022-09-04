@@ -1,8 +1,8 @@
 import React from 'react'
-import BtnSave from '../../components/common/BtnSave'
+import BtnSubmit from '../../components/common/Btnsubmit'
 
 export default function Nehorai() {
    return (
-      <BtnSave/>
+      <BtnSubmit/>
    )
 }

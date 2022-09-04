@@ -1,6 +1,5 @@
-.button {
-    position: fixed;
-    bottom: 0;
+.btn{
+    align-items: center;
     background-color: var(--grey1-color);
     height: 52px;
     border-radius: 12px;
@@ -10,10 +9,15 @@
     font-weight: 400;
     font-size: 17px;
     line-height: 25px;
-    align-items: center;
     color: #FFFFFF;
+    justify-content: center;
 }
-.img {
-    height: 10px;
+.img{
     margin-left: 15px;
+}
+.con{
+    padding: 12px 15px 12px 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
