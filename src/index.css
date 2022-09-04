@@ -1,0 +1,38 @@
+@import url("https://use.typekit.net/pod3heu.css");
+
+body {
+  font-family: heebo, sans-serif;
+  direction: rtl;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --orange100-color: #FF4F00;
+  --orange10-color: rgba(255, 79, 0, 0.1);
+  --orange5-color: rgba(255, 79, 0, 0.05);
+  --orange15-color: rgba(255, 79, 0, 0.15);
+
+  --red-color: #EF0E0E;
+
+  --white-color: #fff;
+  --grey5-color: #F5F5F5;
+  --grey4-color: #D7D7D9;
+  --grey3-color: #B0B0B0;
+  --grey2-color: #7C818D;
+  --grey1-color: #4B4F57;
+  --grey0-color: rgba(0, 0, 0, 0.8);
+
+  --app-height: 100vh;
+  --box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.1);;
+  --border-radius: 12px;
+}
+
+button {
+  color: var(--primary-color);
+  border: none;
+}
