@@ -2,18 +2,27 @@
     width: 100%;
     height: 54px;
     list-style: none;
+}
+.navlink{
+    text-decoration: none;
     display: flex;
     align-items: center;
+    padding:0 15px;
 }
 .triangle{
-    margin-left: 11.5px;
-    height: 11px;
-    width: 13px;
+margin-left: 11.5px;
+/* margin-right: 14.5px; */
+height: 11px;
+width: 13px;
 }
 .circle{
     margin-left: 12px;
+    /* margin-right: 15px; */
     height: 11px;
     width: 12px;
+}
+.checked{
+    margin-left: 15px;
 }
 .row{
     display: flex;
@@ -44,14 +53,31 @@
     color: var(--orange100-color);
     height: 19px;
 }
-.onHold{
+.secondaryTitle{
     color:#7C818D;
     font-size: 13px;
+}
+.secondaryTitleTriangle{
+    color:#7C818D;
+    font-size: 13px;
+    margin: 0 4px;
+}
+.secondaryBold{
+    color:#7C818D;
+    font-size: 13px;
+    font-weight: 500;
 }
 .time{
     background: rgba(255, 79, 0, 0.1);
     border-radius: 4px;
     color: var(--orange100-color);
     margin-right: 8px;
+    font-size: 13px;
+}
+.timeEnd{
+    background: rgba(255, 79, 0, 0.1);
+    border-radius: 4px;
+    color: var(--orange100-color);
+    margin-right: auto;
     font-size: 13px;
 }
