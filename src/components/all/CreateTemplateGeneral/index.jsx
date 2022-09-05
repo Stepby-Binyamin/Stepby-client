@@ -13,19 +13,20 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     return (
         <div className={styles.container}>
             <Keyboard placeholder={"שם התבנית החדשה..."} />
-            <div className={styles.radioButton}>
-                <RadioBtn arr={['כללי', 'לקוח מסוים']} />
-                <div className={styles.rightContainer}>
-                    <img src='/images/icons/target.svg' alt="" />
-                    <div className={styles.text}>תפוצה</div>
+            <div style={{ padding: "12px" }}>
+                <div className={styles.radioButton}>
+                    <RadioBtn arr={['כללי', 'לקוח מסוים']} />
+                    <div className={styles.rightContainer}>
+                        <img src='/images/icons/target.svg' alt="" />
+                        <div className={styles.text}>תפוצה</div>
+                    </div>
                 </div>
+
+                {categoris.map(elem => <BtnCheckBox name={elem.name} id={elem.id} />)}
+
             </div>
 
-            {categoris.map(elem => <BtnCheckBox name={elem.name} id={elem.id} />)}
-
-
             <div className={styles.btn}> <BtnSubmitText color={"gray"} text="שמירה" icon={"v to text.svg"} /> </div>
-
         </div>
     )
 }
