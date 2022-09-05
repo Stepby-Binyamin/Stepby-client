@@ -29,21 +29,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center; 
-    color: var( --orange100-color);
-    background-color:var( --orange5-color);
+    justify-content: center;
+    color: var(--orange100-color);
+    background-color: var(--orange5-color);
     border-radius: 12px;
     width: 100%;
     height: 40px;
-  }
-  .currentStageCenter {
+}
+
+.currentStageCenter {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     padding: 0px 15px;
-   
-  }
+
+}
 
 .rightSide {
     display: flex;
@@ -54,14 +55,14 @@
 
 }
 
-.center{
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
 }
 
-.stageNow{
+.stageNow {
     padding: 0px 15px;
 
 }
@@ -75,12 +76,13 @@
 
 }
 
-.waitingFor{
+.waitingFor {
     font-weight: 700;
     padding: 0px 15px;
 
 }
-.leftSide{
+
+.leftSide {
     padding: 0px 15px;
 
 }
