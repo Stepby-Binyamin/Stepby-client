@@ -29,6 +29,8 @@ export const Test = () => {
          <Route path='/bezalel' element={<Bezalel />} />
          <Route path='/eldad' element={<Eldad />} />
          <Route path='/yael' element={<Yael />} />
+         <Route path='/templates' element={<Oriya />} />
+         <Route path='/projects' element={<Oriya />} />
          <Route path='*' element={<></>} />
       </Routes>
    )
