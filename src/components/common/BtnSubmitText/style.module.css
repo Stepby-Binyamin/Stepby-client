@@ -7,6 +7,10 @@
     font-weight: 400;
     font-size: 17px;
     line-height: 25px;
+    padding: 0 0 0 20px ;
+}
+.btn > img{
+    padding-left: 12px;
 }
 .gray{
     background-color: var(--grey1-color);
@@ -20,4 +24,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
+}
+.line{
+    border-top: outset;
+    margin-bottom: 10px;
 }

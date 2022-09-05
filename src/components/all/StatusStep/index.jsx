@@ -4,7 +4,7 @@ import styles from './style.module.css';
 
 export default function StatusStep({ user, numOfStage, time, ...props }) {
     const theCurrentStage = ' השלב הנוכחי ';
-    const nowWaiting = 'כרגע מחכים ';
+    const nowWaiting = 'כרגע ממתינים ';
 
     return (
         <div className={`${time?styles.supremeBox:styles.supremeBoxCenter}`}>

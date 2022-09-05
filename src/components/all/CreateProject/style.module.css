@@ -27,5 +27,6 @@
 .innerContainer > img{
     width: 268px;
     align-self: center;
+    margin-bottom: 32px;
 }
 

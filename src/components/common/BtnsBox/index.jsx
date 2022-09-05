@@ -2,7 +2,9 @@ import BtnSubmitText from "../BtnSubmitText";
 import styles from "./style.module.css"
 
 export default function BtnsBox(...props){
-return(<div className={styles.conteiner}>
+return(<>
+        <div className={styles.line}></div>
+<div className={styles.conteiner}>
     <div className={styles.r}>
 <BtnSubmitText icon={"v to text.svg"} color="gray" text={"שמירה"}/>
     </div>
@@ -10,5 +12,6 @@ return(<div className={styles.conteiner}>
 <BtnSubmitText  color="lite" text={"שמירה + יצירת שלב נוסף"}/>
     </div>
 </div>
+</>
 );
 }
