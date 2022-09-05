@@ -33,8 +33,8 @@ const ListItem = ({
          }
 
          {inTreatmentOf === "me" ?
-            <img src={`/images/icons/triangle.svg`} alt="triangle" style={{ "marginLeft": "11.5px" }} /> :
-            <img src={`/images/icons/circle.svg`} alt="circle" style={{ "marginLeft": "12px" }} />
+            <img src={`/images/icons/triangle.svg`} alt="triangle" className={styles.triangle} /> :
+            <img src={`/images/icons/circle.svg`} alt="circle" className={styles.circle} />
          }
 
          {current ?

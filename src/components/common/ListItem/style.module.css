@@ -3,6 +3,17 @@
     height: 54px;
     list-style: none;
     display: flex;
+    align-items: center;
+}
+.triangle{
+    margin-left: 11.5px;
+    height: 11px;
+    width: 13px;
+}
+.circle{
+    margin-left: 12px;
+    height: 11px;
+    width: 12px;
 }
 .row{
     display: flex;
