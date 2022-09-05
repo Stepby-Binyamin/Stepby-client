@@ -3,6 +3,9 @@ import StatusCompleted from '../../components/all/StatusCompleted'
 import StatusStep from '../../components/all/StatusStep'
 import StatusTemp from '../../components/all/StatusTemp'
 import UserNumberVerification from '../../components/all/UserNumberVerification'
+import SomethingWentWrong from '../../components/all/somethingWentWrong'
+import SignUpInfo from '../../components/all/SignUpInfo'
+
 
 export default function Yehoshua({ name, num, ...props }) {
    return (<>
@@ -16,6 +19,9 @@ export default function Yehoshua({ name, num, ...props }) {
       <StatusCompleted />
       <br></br>
       <UserNumberVerification phoneNum="0509876544"/>
+      <SomethingWentWrong/>
+      <br></br>
+      <SignUpInfo/>
    </>
    )
 }
