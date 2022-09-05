@@ -6,7 +6,7 @@ export default function BtnSubmitText ({icon,color, text, func, ...props}) {
       <div className={styles.line}></div>
         <div className={styles.con}>
         <button className={`${styles[color]} ${styles.btn}`} onClick={()=> func}>
-        <img src={`./images/icon-btns/${icon}`} alt="" /> {text}   
+        <img src={`./images/icon-btns/${icon}`}  alt="" /> {text}   
       </button>
         </div>
     </>
