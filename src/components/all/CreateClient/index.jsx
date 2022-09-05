@@ -4,7 +4,7 @@ import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 
-const CreateClient = ({ placeholder, iconSrc, ...props }) => {
+const CreateClient = () => {
 
 
     return (
