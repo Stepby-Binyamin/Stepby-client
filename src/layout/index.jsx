@@ -1,12 +1,16 @@
 import React from 'react'
 
-const Layout = ({ children }) => {
+const Layout = ({
+   children
+}
 
-   return (
-      <>
-         {children}
-      </>
-   )
+) => {
+
+   return (<> {
+      children
+   }
+
+   </>)
 }
 
 export default Layout

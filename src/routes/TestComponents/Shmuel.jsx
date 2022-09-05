@@ -8,7 +8,7 @@ export default function Shmuel() {
 
    return (
       <>
-         <Answer src={"/images/icons/upload.svg"} isAdmin={true} title={title} p={p} isTitleFirst={isTitleFirst} isDone={false} onClick={""} />
+         <Answer src={"/images/icons/upload.svg"} isAdmin={true} title={title} p={p} isTitleFirst={isTitleFirst} isDone={true} onClick={""} />
       </>
    )
 }

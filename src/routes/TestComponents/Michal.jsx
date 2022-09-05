@@ -6,6 +6,6 @@ import MoreProject from '../../components/all/AdditionNew';
 
 export default function Michal() {
    return (
-      <div> <MoreProject /> </div>
-      )
+      <div> <AdditionNew /> </div>
+   )
 }

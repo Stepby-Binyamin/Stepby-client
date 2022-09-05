@@ -12,8 +12,6 @@
 }
 
 .input:focus {
-    border-radius: var(--border-radius);
-    border: 1px solid var(--orange100-color);
     width: 80%;
     height: 76px;
     background-color: var(--white-color);
@@ -21,11 +19,11 @@
     align-items: center;
     font-size: 18px;
     font-family: 'Heebo';
+    border-radius: var(--border-radius);
+    border: 1px solid var(--orange100-color);
 }
 
 .input::placeholder {
-
-
     color: var(--grey3-color);
     font-size: 18px;
     font-family: 'Heebo';
