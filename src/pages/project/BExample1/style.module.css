@@ -1,0 +1,56 @@
+.page {
+    padding: 0 15px;
+}
+
+.title {
+    width: 73%;
+    height: 70px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 35px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+
+    /* Greyscale/Gray 0 */
+
+    color: #292D35;
+
+    margin: 32px 0 20px 0;
+
+}
+
+.text {
+    width: 100%;
+    min-height: 200px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+
+    /* Greyscale/Gray 2 */
+
+    color: #7C818D;
+
+}
+
+.pdf {
+    margin: 32px 0 63px 0;
+}
+.btns{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+.boxHolder {
+    border-radius: 12px;
+    border: 1px solid gray;
+    width: 52px;
+    height: 52px;
+}
