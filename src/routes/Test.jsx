@@ -11,7 +11,7 @@ import Ariel from './TestComponents/Ariel'
 import Oriya from './TestComponents/Oriya'
 import Bezalel from './TestComponents/Bezalel'
 import Eldad from './TestComponents/Eldad'
-import Yael from './TestComponents/Yael'
+// import Yael from './TestComponents/Yael'
 
 export const Test = () => {
 
@@ -28,7 +28,7 @@ export const Test = () => {
          <Route path='/oriya' element={<Oriya />} />
          <Route path='/bezalel' element={<Bezalel />} />
          <Route path='/eldad' element={<Eldad />} />
-         <Route path='/yael' element={<Yael />} />
+         {/* <Route path='/yael' element={<Yael />} /> */}
          <Route path='*' element={<></>} />
       </Routes>
    )
