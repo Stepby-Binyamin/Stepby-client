@@ -1,0 +1,70 @@
+.admin {
+
+    border-style: solid;
+
+}
+
+.user {
+
+    border-style: dashed;
+    height: Hug (88px);
+
+}
+
+.border {
+    display: flex;
+    border-radius: var(--border-radius);
+    border-color: #F7F7F7;
+    height: 80px;
+    position: relative;
+    width: 100%;
+}
+
+.iconSize {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+    width: 40px;
+}
+
+.done {
+    background-color: #E3E4D3;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .done>img {
+    height: 10px;
+    width: 10px;
+} */
+
+.centerText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.centerText>p {
+    color: #7C818D;
+    font-size: 13px;
+}
+
+.centerText>h4 {
+    color: #4B4F57;
+    font-size: 17px;
+}
