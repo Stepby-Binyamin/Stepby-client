@@ -1,0 +1,31 @@
+.container{
+ display: flex;
+ justify-content: center;
+}
+
+.innerContainer{
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    color: var(--grey2-color);
+    justify-content: center;
+}
+
+.title{
+    font-size: 44px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.subtitle{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.innerContainer > img{
+    width: 268px;
+    align-self: center;
+}
+
