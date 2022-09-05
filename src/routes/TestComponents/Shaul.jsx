@@ -10,6 +10,8 @@ import Input from '../../components/common/Input/Input'
 
 import { headerTitleContext } from '../../helper/Context'
 
+import BExample1 from '../../pages/BExample1'
+
 export default function Shaul() {
    //HeaderLogo
    const [isArrow, setIsArrow] = useState(true)
@@ -37,9 +39,10 @@ export default function Shaul() {
 
    return (
       <>
-         <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} />
-         <HeaderTitle drawerFunc={drawerFunc} isArrow={isArrow} isHamburguer={isHamburguer} />
-         {dataTest.map(elem => <BtnCheckBox name={elem} id={elem} />)}
+         {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} />
+         <HeaderTitle drawerFunc={drawerFunc} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
+         {/* {dataTest.map(elem => <BtnCheckBox name={elem} id={elem} />)} */}
+         <BExample1 />
       </>
    )
 }
