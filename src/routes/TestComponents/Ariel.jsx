@@ -3,8 +3,8 @@ import ListItem from '../../components/common/ListItem'
 
 export default function Ariel() {
    return (
-      <div>Ariel
+      <>Ariel
          <ListItem />
-      </div>
+      </>
    )
 }

@@ -1,6 +1,6 @@
 .ListItem{
     width: 100%;
-
+    height: 54px;
     list-style: none;
     display: flex;
 }
@@ -29,7 +29,6 @@
     height: 19px;
 }
 .complete{
-    
     font-size: 13px;
     color: var(--orange100-color);
     height: 19px;
@@ -37,7 +36,6 @@
 .onHold{
     color:#7C818D;
     font-size: 13px;
-    
 }
 .time{
     background: rgba(255, 79, 0, 0.1);
@@ -45,5 +43,4 @@
     color: var(--orange100-color);
     margin-right: 8px;
     font-size: 13px;
-    
 }
