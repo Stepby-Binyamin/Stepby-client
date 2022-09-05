@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./style.module.css"
 import BtnConfirm from "../BtnConfirm"
-
+import LinkWhatsapp from '../LinkWhatsapp';
 export default function BtnFinishTask({btn, ...props}) {
     return(
         <div className={styles.pos}>
