@@ -1,12 +1,12 @@
 import React from 'react'
-import BtnSubmitIcon from '../../components/common/BtnSubmitIcon'
+import BtnSubmitText from '../../components/common/BtnSubmitText'
 
-// creator: nehorai
-// chooze color: orange , gray , lite
-// vhooze icon: plus.svg, Arrow.svg , v.svg
+
 
 export default function Nehorai() {
-   return (
-      <BtnSubmitIcon icon="Property 1=more.svg" color={"gray"}/>
+   return (<>
+      <BtnSubmitText color="gray" icon={"v to text.svg"} text={"שמירה"}/>
+      <BtnSubmitText color="lite"  text={"שמירה + יצירת שלב נוסף"}/>
+   </>
    )
 }
