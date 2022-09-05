@@ -46,11 +46,11 @@
 .btns{
     display: flex;
     flex-wrap: nowrap;
+    gap: 6px;
 }
 .boxHolder {
     border-radius: 12px;
     border: 1px solid gray;
     width: 52px;
     height: 52px;
-    margin-left: 12px;
 }
