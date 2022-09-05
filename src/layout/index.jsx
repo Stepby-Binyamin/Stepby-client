@@ -1,19 +1,30 @@
-import React from 'react'
-import { useState } from 'react';
-import { headerTitleContext } from '../helper/Context'
+import React, { useContext } from 'react'
+
+import Main from './Main';
+
+import HeaderLogo from '../components/common/HeaderLogo';
+import HeaderTitle from '../components/common/HeaderTitle';
+
+// import dataContext from '../context/dataContext';
+import mainContext from '../context/mainContext';
+
+import MainDrawer from '../drawer/MainDrawer';
 
 
 const Layout = ({ children }) => {
 
-   const [title, setTitle] = useState()
-   const [subtitle, setSubtitle] = useState()
- 
+   const { header, drawer } = useContext(mainContext);
+   // const { projectsData } = useContext(dataContext);
+
    return (
       <>
-         <headerTitleContext.Provider value={{ title, setTitle, subtitle, setSubtitle }}>
-            {children}
-         </headerTitleContext.Provider>
+         {header.isTitle ?
+            <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} drawerFunc={header.drawerFunc} /> :
+            <HeaderLogo />}
 
+         <Main />
+
+        {drawer.drawer && <MainDrawer>{drawer.drawer}</MainDrawer>}
       </>
    )
 }

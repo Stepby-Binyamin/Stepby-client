@@ -26,10 +26,10 @@ const projects = [
                title: 'description of pdf',
                content: 'files/blabla.pdf',
                index: 1,
-               isRequired : true
+               isRequired: true
             }]
          },]
    },
 ]
 
-module.exports = { projects }
+module.exports = projects 

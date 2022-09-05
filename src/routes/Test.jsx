@@ -12,6 +12,7 @@ import Oriya from './TestComponents/Oriya'
 import Bezalel from './TestComponents/Bezalel'
 import Eldad from './TestComponents/Eldad'
 import Yael from './TestComponents/Yael'
+import Aviad from './TestComponents/Aviad'
 
 export const Test = () => {
 
@@ -29,6 +30,7 @@ export const Test = () => {
          <Route path='/bezalel' element={<Bezalel />} />
          <Route path='/eldad' element={<Eldad />} />
          <Route path='/yael' element={<Yael />} />
+         <Route path='/aviad' element={<Aviad />} />
          <Route path='*' element={<></>} />
       </Routes>
    )
