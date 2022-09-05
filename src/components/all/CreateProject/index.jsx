@@ -1,7 +1,10 @@
 import React from 'react'
 import styles from "./style.module.css"
+import BtnSubmitText from '../../common/BtnSubmitText'
 
 const subtitle = 'כדי להתחיל פרויקט עבור לקוח שיצרת במערכת, עליך לבחור תבנית מרשימת התבניות וללחוץ על האייקון המשולש (Play) בפינה השמאלית התחתונה של מסך התבנית שבחרת.'
+const buttonText = 'הבנתי, יאללה לבחירת תבנית...'
+
 const CreateProject = ({ style = {}, ...props }) => {
 
 //TODO: insert template button
@@ -12,7 +15,7 @@ const CreateProject = ({ style = {}, ...props }) => {
         <div className= {styles.title}>מתחילים?</div>
         <div className={styles.subtitle}>{subtitle}</div>
         <img src= '\images\createProject.svg' alt="" />
-        <button>Example</button>
+        <BtnSubmitText color={'gray'} icon={'v to text.svg'} text={buttonText}/>
         </div>
       </div>
    )
