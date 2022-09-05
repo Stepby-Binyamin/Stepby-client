@@ -12,6 +12,7 @@ import Oriya from './TestComponents/Oriya'
 import Bezalel from './TestComponents/Bezalel'
 import Eldad from './TestComponents/Eldad'
 import Yael from './TestComponents/Yael'
+import Login from '../pages/Login__Signup'
 
 export const Test = () => {
 

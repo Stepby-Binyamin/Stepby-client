@@ -1,0 +1,56 @@
+.box{
+    padding: 0 15px;
+}
+
+.logo{
+height: 137px;
+padding: 48px 40px;
+}
+
+.sub{
+    padding: 0 48px;
+}
+
+@media only screen and (max-width: 330px) {
+    .box{
+        padding: 0;
+    }
+    .sub{
+        padding: 20px 24px;
+    }
+}
+@media only screen and (max-width: 375px) {
+    .box{
+        padding: 0;
+    }
+}
+@media only screen and (min-width: 394px) {
+    .box{
+        padding: 0 30px;
+    }
+}
+@media only screen and (min-width: 424px) {
+    .box{
+        padding: 0 50px;
+    }
+}
+@media only screen and (min-width: 464px) {
+    .box{
+        padding: 0 70px;
+    }
+}
+@media only screen and (min-width: 504px) {
+    .box{
+        padding: 0 90px;
+    }
+}
+@media only screen and (min-width: 544px) {
+    .box{
+        padding: 0 110px;
+    }
+}
+@media only screen and (min-width: 584px) {
+    .box{
+        padding: 0 120px;
+    }
+}
