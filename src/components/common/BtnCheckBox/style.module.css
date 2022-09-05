@@ -1,44 +1,57 @@
-.btnCeckBoxContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  border-radius: 12px;
-  border-color: #d7d7d9;
-  width: 100%;
-  height: 53px;
-  border: 1px solid #d7d7d9;
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px 0;
+
+    width: 100%;
+    height: 53px;
+    /* Greyscale/White */
+
+    background: var(--white-color);
+    /* Color/Orange 100 */
+
+    /* border: 1px solid var(--orange100-color); */
+    border: 1px solid var(--grey4-color);
+    /* color: var(--grey4-color); */
+
+    border-radius: var(--border-radius);
+
 }
 
-.innerContainer {
-  display: flex;
-  width: 90%;
-  /* flex-direction: row; */
-  justify-content: space-between;
-  align-items: center;
+.container img {
+    width: 24px;
+    height: 24px;
+    margin-right: 14.5px;
 }
 
-.right {
-  display: flex;
-  flex-direction: row;
-  width: 140px;
-  justify-content: space-between;
-  font-size: 18px;
+.container label {
+    width: 92px;
+    height: 29px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 162%;
+
+    margin-right: 21.19px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--grey4-color);
 }
 
-.left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 29px;
-  background-color: rgba(255, 79, 0, 0.05);
-  border-radius: 4px;
-  color: #FF4F00;
+.container.active {
+    border: 1px solid var(--orange100-color);
+}
 
-  font-family: 'Heebo';
-/* font-style: normal; */
-/* font-weight: 400; */
-font-size: 13px;
-/* line-height: 162%; */
+label.active {
+    color: var(--orange100-color);
+}
+
+img.active{
+    fill: blue;
+
 }
