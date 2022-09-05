@@ -13,10 +13,12 @@ import BtnConfirm from '../../components/common/BtnConfirm';
 import BtnSubmitIcon from '../../components/common/BtnSubmitIcon'
 import BtnSubmitText from '../../components/common/BtnSubmitText';
 import CreateClient from '../../components/all/CreateClient';
+import CreateTemplate from '../../components/all/CreateTemplate'
+
 export default function Michal() {
    return (
       <>
-         <div><CreateClient /></div>
+         <div><CreateTemplate /></div>
 
       </>
    )
