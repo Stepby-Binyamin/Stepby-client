@@ -14,5 +14,10 @@
 }
 
 .btn {
-    margin-top: 180px;
+    /* margin-top: 180px; */
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+
 }
