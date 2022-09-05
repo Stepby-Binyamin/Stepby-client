@@ -3,8 +3,8 @@
     background-color: rgba(255, 79, 0, 0.05);
     border-radius: var(--border-radius);
     color:#FF4F00;
-    padding: 7px;
-    height: 133px;
+    padding: 14px;
+    /* height:s 133px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,11 +28,12 @@
     display: flex;
     justify-content: center;
     align-content: center;
+    align-items: center;
     background-color: white;
     padding: 5px;
     margin: 10px;
     border-radius:4px;
-
+height: 43px;
   }
   .link > a{
     margin-right: 10px;
