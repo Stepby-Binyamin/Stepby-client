@@ -7,7 +7,7 @@
 .keyboard {
     border: none;
     font-family: 'heebo';
-    color: var(--grey3-color);
+    color: var(--grey1-color);
     font-size: 17px;
     border-bottom: inset;
     width: 100%;
