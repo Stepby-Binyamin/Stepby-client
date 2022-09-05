@@ -1,0 +1,46 @@
+.ListItem{
+    width: 100%;
+    height: 54px;
+    list-style: none;
+    display: flex;
+}
+.row{
+    display: flex;
+    align-items: center;
+}
+.col{}
+.current{
+    color:#4B4F57;
+    font-weight: 500;
+    font-size: 17px;
+}
+.grey{
+    color:#7C818D;
+    font-size: 17px;
+}
+.firstStep{
+    margin-right: 16px;
+    color:#7C818D;
+    background: #F5F5F5;
+    border-radius: 4px;
+    padding: 0px 4px;
+    font-size: 13px;
+    /* width: 77px; */
+    height: 19px;
+}
+.complete{
+    font-size: 13px;
+    color: var(--orange100-color);
+    height: 19px;
+}
+.onHold{
+    color:#7C818D;
+    font-size: 13px;
+}
+.time{
+    background: rgba(255, 79, 0, 0.1);
+    border-radius: 4px;
+    color: var(--orange100-color);
+    margin-right: 8px;
+    font-size: 13px;
+}

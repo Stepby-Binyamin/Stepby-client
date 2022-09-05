@@ -1,15 +1,7 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const BtnIcon = ({
-  onClick,
-  icon = "",
-  style = {},
-  text,
-  textColor = "#7C818D",
-  isSoon = false,
-  ...props
-}) => {
+const BtnIcon = ({ onClick, icon = "", style = {}, text, textColor = "#7C818D", isSoon = false, ...props }) => {
   return (
     <button
       onClick={onClick}
