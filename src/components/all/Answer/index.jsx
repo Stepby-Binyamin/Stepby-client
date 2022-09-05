@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./style.module.css"
 
-const Answer = ({ isDone, isAdmin, src, title, p, isTitleFirst, onClick }) => {
+const Answer = ({ isDone, isAdmin, src, title, p, isTitleFirst, onClick, ...props }) => {
 
     return (
         <div className={`${isAdmin ? styles.admin : styles.user} ${styles.border}`} onClick={onClick} >
