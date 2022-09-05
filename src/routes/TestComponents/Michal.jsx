@@ -9,8 +9,15 @@ import MoreMenuTemplate from '../../components/all/MoreMenuTemplate';
 import MoreMenuStep from '../../components/all/MoreMenuStep';
 import Keyboard from '../../components/all/Keyboard'
 import SubKeyboard from '../../components/all/SubKeyboard';
+import BtnConfirm from '../../components/common/BtnConfirm';
+import BtnSubmitIcon from '../../components/common/BtnSubmitIcon'
+import BtnSubmitText from '../../components/common/BtnSubmitText';
+import CreateClient from '../../components/all/CreateClient';
 export default function Michal() {
    return (
-      <div> <SubKeyboard placeholder={"טלפון"} iconSrc={"/images/icons/video.svg"} /> </div>
+      <>
+         <div><CreateClient /></div>
+
+      </>
    )
 }
