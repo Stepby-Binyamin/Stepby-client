@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useEffect } from 'react'
 
 import HeaderLogo from '../../components/common/HeaderLogo'
 import HeaderTitle from '../../components/common/HeaderTitle'
@@ -20,9 +21,11 @@ export default function Shaul() {
 
    //setting context
    const headerTitleContextLocal = useContext(headerTitleContext)
-   headerTitleContextLocal.setTitle("איסוף השראות ומתחרים")
-   headerTitleContextLocal.setSubtitle("אפיון ועיצוב אתר תדמית מו...")
-
+   useEffect(() => {
+      headerTitleContextLocal.setTitle("איסוף השראות ")
+      headerTitleContextLocal.setSubtitle("אפיון ועיצוב אתר תדמית מו...")
+   }, [])
+   
    return (
       <>
          <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} />
