@@ -1,0 +1,35 @@
+.UserOnlyContainer{
+
+}
+.inputContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 200px;
+}
+.radioButton{
+    display: flex;
+    flex-direction: row-reverse;
+    /* justify-content: flex-end; */
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: inset;
+    width: 90%;
+    height: 60.2px;
+    align-self: center;
+    color: var(--grey2-color);
+
+}
+
+.radioButton > img{
+    margin-left: 8px;
+}
+
+.text{
+    width: 50px;
+}
+
+.rightContainer{
+display: flex;
+gap: 8px;
+}
