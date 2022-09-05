@@ -1,7 +1,8 @@
 import React from 'react'
+import StatusProject from '../../components/all/StatusProject'
 
 export default function Efrat() {
    return (
-      <div>Efrat</div>
+      <StatusProject />
    )
 }

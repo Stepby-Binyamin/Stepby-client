@@ -1,15 +1,7 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const BtnCheckBox = ({
-  onClick,
-  icon = "",
-  style = {},
-  text,
-  textColor = "gray",
-  isSoon = false,
-  ...props
-}) => {
+const BtnIcon = ({ onClick, icon = "", style = {}, text, textColor = "#7C818D", isSoon = false, ...props }) => {
   return (
     <button
       onClick={onClick}
@@ -30,4 +22,4 @@ const BtnCheckBox = ({
   );
 };
 
-export default BtnCheckBox;
+export default BtnIcon;

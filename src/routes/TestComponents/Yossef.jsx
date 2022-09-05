@@ -1,11 +1,11 @@
 import React from 'react'
-import BtnCheckBox from '../../components/common/BtnCheckBox'
+import BtnIcon from '../../components/common/BtnIcon'
 
 
 export default function Yossef() {
    return (
       <div>
-         <BtnCheckBox icon='/images/icons/image.svg' isSoon ={true} textColor = "#EF0E0E" text ="מחיקת תבנית"/>
+         <BtnIcon icon='/images/icons/image.svg' isSoon ={true} textColor = "#EF0E0E" text ="פרויקט חדש ללקוח קיים"/>
       </div>
    )
 }
