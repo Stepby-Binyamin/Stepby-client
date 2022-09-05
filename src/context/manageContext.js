@@ -1,7 +1,7 @@
 import { useState } from "react";
 import mainContext from './mainContext'
 import dataContext from './dataContext'
-import fakeProject from "../data/fakeProjects";
+import { projects, categories } from "../data/fakeProjects";
 
 export const ContextProvider = ({ children }) => {
 
@@ -12,11 +12,8 @@ export const ContextProvider = ({ children }) => {
     const [isArrow, setIsArrow] = useState(true);
     const [isHamburguer, setIsHamburguer] = useState(false);
     const [drawerFunc, setDrawerFunc] = useState(false);
-    
-    const [drawer, setDrawer] = useState(); // content of drawer
 
-    // *** fake data ***
-    const [projectsData, setProjectsData] = useState(fakeProject);
+    const [drawer, setDrawer] = useState(); // content of drawer
 
     return (
         <mainContext.Provider value={{
@@ -39,10 +36,10 @@ export const ContextProvider = ({ children }) => {
                 setDrawerFunc,
             }
         }}>
-            <dataContext.Provider value={{ projectsData, setProjectsData }}>
+            <dataContext.Provider value={{ data: { projects, categories } }} >
                 {children}
             </dataContext.Provider>
-        </mainContext.Provider>
+        </mainContext.Provider >
     )
 }
 

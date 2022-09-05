@@ -68,6 +68,6 @@ const projects = [
          },]
    },
 ]
-const categoris=[{name:"עיצוב אתרים",id:1},{name:"עיצוב פנים",id:2},{name:"שיווק דיגיטלי",id:3},{name:"אימון כושר גופני",id:4}]
+const categories=[{name:"עיצוב אתרים",id:1},{name:"עיצוב פנים",id:2},{name:"שיווק דיגיטלי",id:3},{name:"אימון כושר גופני",id:4}]
 
-module.exports = { projects,categoris }
+module.exports = { projects,categories }
