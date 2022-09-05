@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "./style.module.css";
 
+//TODO 
+//textColor - the color
+//check why the global font doesn't work.
+
+
 const BtnIcon = ({ onClick, icon = "", style = {}, text, textColor = "#7C818D", isSoon = false, ...props }) => {
   return (
     <button
