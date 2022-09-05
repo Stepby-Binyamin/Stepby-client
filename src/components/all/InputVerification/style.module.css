@@ -1,0 +1,26 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+
+input{
+    width: 75px;
+    height: 76px;
+    border: 1px solid var(--grey4-color);
+    border-radius: 12px;
+    font-size: 70px;
+    text-align: center;
+}
+
+input:focus {
+    outline-width: 0;
+}
+
+.active{
+    border: 1px solid var(--orange100-color);
+}

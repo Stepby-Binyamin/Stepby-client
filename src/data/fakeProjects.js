@@ -26,7 +26,7 @@ const projects = [
                title: 'description of pdf',
                content: 'files/blabla.pdf',
                index: 1,
-               isRequired : true
+               isRequired: true
             }]
          },         {
             _id: Math.random(),
