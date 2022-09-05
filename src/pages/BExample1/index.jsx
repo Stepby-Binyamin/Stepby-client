@@ -11,6 +11,7 @@ import BtnIcon from "../../components/common/BtnIcon"
 import BtnsBox from "../../components/common/BtnsBox"
 import BtnConfirm from "../../components/common/BtnSubmitIcon"
 import Answer from "../../components/all/Answer"
+import BtnHolder from "../../components/common/BtnHolder/BtnHolder"
 
 const BExample1 = () => {
     const headerTitleContextLocal = useContext(headerTitleContext)
@@ -40,9 +41,9 @@ const BExample1 = () => {
             </div>
 
             <div className={styles.btns}>
-                <div className={styles.boxHolder}></div>
-                {/* <BtnHolder color="gray" icon="pencil"/> */}
-                <BtnConfirm />
+                {/* <div className={styles.boxHolder}></div> */}
+                <BtnHolder color="lite" icon="pencil"/>
+                <BtnConfirm icon="v.svg" color="gray" />
             </div>
         </div>
     )
