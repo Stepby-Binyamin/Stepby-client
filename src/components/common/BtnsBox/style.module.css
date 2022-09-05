@@ -18,3 +18,7 @@
 .l{
     width: 217px;
 }
+.line{
+    border-top: outset;
+    margin-bottom: 10px;
+}

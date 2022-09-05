@@ -6,11 +6,13 @@ import styles from "./style.module.css"
 // vhooze icon: plus.svg, Arrow.svg , v.svg
 
 export default function BtnConfirm({ color, icon, func, ...props }) {
-    return (
+    return (<>
+        <div className={styles.line}></div>
         <div className={styles.conteiner}>
             <button className={`${styles[color]} ${styles.submit}`} onClick={() => func}>
                 <img src={"/images/icon-btns/" + icon} alt="" />
             </button>
         </div>
+    </>
     );
 }
