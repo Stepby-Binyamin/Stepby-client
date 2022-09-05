@@ -7,7 +7,6 @@ export default function Eldad() {
   return (
      <>
       <div>
-        <div>sadasd</div>
         <MainDrawer Component={<Efrat />} />
       </div>
     </>

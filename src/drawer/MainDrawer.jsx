@@ -5,7 +5,7 @@ export default function MainDrawer({Component}){
     const [popup,setpopup] = useState('popDown')
     const [container, setcontainer] = useState('containerOff')
 
-    function poping(){
+    function popUpAndDown(){
         if(popup === 'popDown'){
             return (
                 setpopup('popUp'),
@@ -17,16 +17,9 @@ export default function MainDrawer({Component}){
 
     return(
         <>
-        <button onClick={poping}>click me</button>
-        <div className={styles[container]} onClick={poping} >
+        <div className={styles[container]} onClick={popUpAndDown} >
         <div className={styles[popup]}>
-            <div onClick={poping} className={styles.lower}></div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
+            <div onClick={popUpAndDown} className={styles.lower}></div>
             {Component}
         </div>
         </div>
