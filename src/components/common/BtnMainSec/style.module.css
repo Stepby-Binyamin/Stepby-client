@@ -1,0 +1,10 @@
+.conteiner{
+    display: flex;
+    border-top: outset ;
+    padding: 10px ;
+}
+.l{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
