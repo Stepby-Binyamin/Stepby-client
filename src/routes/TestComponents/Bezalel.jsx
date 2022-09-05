@@ -1,13 +1,26 @@
 import React from 'react'
-import Icon24 from '../../components/common/BtnHolder/BtnHolder'
+import BtnHolder from '../../components/common/BtnHolder/BtnHolder'
 import Input from '../../components/common/Input/Input'
 
 
 
 export default function Bezalel() {
-   return (
 
-      // <div><Icon24 onChange={"onChange()"} src={'../../../../public/images/icons/Icon24.png'} /></div>
-      <div><Input name={"name"} placeholder={"שם החברה"} onChange={"onChange()"}type={"text"}/></div>
+
+   return (
+      <>
+
+         <div><BtnHolder color={"orange"} icon={"+"} /></div>
+         <div><BtnHolder color={"gray"} icon={"3points"} /></div>
+         <div><BtnHolder color={"lite"} icon={"wahtsapp"} /></div>
+         <div><BtnHolder color={"lite"} icon={"1to2"} /></div>
+         <div><BtnHolder color={"lite"} icon={"2to1"} /></div>
+         <div><BtnHolder color={"orange"} icon={"V"} /></div>
+         <div><BtnHolder color={"lite"} icon={"pencil"} /></div>
+         <div><BtnHolder color={"gray"} icon={"triangle"} /></div>
+
+
+         {/* <div><Input name={"name"} placeholder={"שם החברה"} onChange={"onChange()"}type={"text"}/></div> */}
+      </>
    )
 }
