@@ -6,6 +6,7 @@
     background-color: var(--white-color);
     font-size: 18px;
     font-family: 'Heebo';
+    margin: 10%;
 
 
 
@@ -19,16 +20,18 @@
     background-color: var(--white-color);
     box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.1);
     align-items: center;
+
     font-size: 18px;
     font-family: 'Heebo';
+    margin: 10%;
 }
 
 .input::placeholder {
 
-
     color: var(--grey3-color);
     font-size: 18px;
     font-family: 'Heebo';
+    padding-right: 2%;
 
 
 }
