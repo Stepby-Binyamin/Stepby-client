@@ -1,11 +1,17 @@
 import styles from './style.module.css'
 
 
-const Icon24 = ({ name,onChange,src }) => {
+// color option--> gray,lite,orenge,green
+// icon  option--> +.svg , 1to2.svg , 2to1.svg , 3points.svg , wahtsapp.svg , V.svg , triangle.svg ,pencil
+
+const BtnHolder = ({ color, func, icon }) => {
+ 
 
   return (
-    <image className={styles.input} onChange={onChange} name={name} src={src}/>
+    <button className={`${styles[color]} ${styles.submit}`} onClick={() => func}>
+      <img src={"/images/icon-btns/" + icon+".svg"} alt={icon} />
+    </button>
   );
 }
 
-export default Icon24;
+export default BtnHolder;
