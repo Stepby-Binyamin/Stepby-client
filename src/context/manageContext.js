@@ -11,7 +11,7 @@ export const ContextProvider = ({ children }) => {
     const [isTitle, setIsTitle] = useState(true);
     const [isArrow, setIsArrow] = useState(true);
     const [isHamburguer, setIsHamburguer] = useState(false);
-    const [drawerFunc, setDrawerFunc] = useState(false);
+    const [drawerContent, setDrawerContent] = useState();
 
     const [drawer, setDrawer] = useState(); // content of drawer
 
@@ -32,8 +32,8 @@ export const ContextProvider = ({ children }) => {
                 setIsArrow,
                 isHamburguer,
                 setIsHamburguer,
-                drawerFunc,
-                setDrawerFunc,
+                drawerContent,
+                setDrawerContent,
             }
         }}>
             <dataContext.Provider value={{ data: { projects, categories } }} >

@@ -2,7 +2,7 @@ import React from 'react'
 import BtnHolder from '../../components/common/BtnHolder/BtnHolder'
 import Input from '../../components/common/Input/Input'
 import Logo from '../../components/all/Logo'
-import Splash from '../../pages/Splash/splash'
+// import Splash from '../../pages/Splash/splash'
 
 
 
@@ -24,7 +24,7 @@ export default function Bezalel() {
 {/* <Logo logo={"./images/stepby.svg"}/> */}
 
          {/* <div><Input name={"name"} placeholder={"שם החברה"} onChange={"onChange()"}type={"text"}/></div> */}
-         <Splash/>
+         {/* <Splash/> */}
       </>
    )
 }

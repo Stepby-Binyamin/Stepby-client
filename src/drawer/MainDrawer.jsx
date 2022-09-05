@@ -21,7 +21,7 @@ export default function MainDrawer({ children }) {
         <>
             <div className={styles[drawer.drawer ? 'containerOn' : 'containerOff']} onClick={() => drawer.setDrawer('')} >
                 <div className={styles[drawer.drawer ? 'popUp' : 'popDown']}>
-                    <div onClick={() => drawer.setDrawer('')} className={styles.lower}></div>
+                    <div onClick={() => drawer.setDrawer()} className={styles.lower}></div>
                     {children}
                 </div>
             </div>

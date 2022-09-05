@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
    return (
       <>
          {header.isTitle ?
-            <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} drawerFunc={header.drawerFunc} /> :
+            <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} drawerContent={header.drawerContent} /> :
             <HeaderLogo />}
 
          <Main />
