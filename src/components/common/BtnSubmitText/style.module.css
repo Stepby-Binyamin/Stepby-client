@@ -25,3 +25,7 @@
     display: flex;
     justify-content: center;
 }
+.line{
+    border-top: outset;
+    margin-bottom: 10px;
+}
