@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon24 from '../../components/common/Icon24/Icon24'
+import Icon24 from '../../components/common/BtnHolder/BtnHolder'
 import Input from '../../components/common/Input/Input'
 
 
