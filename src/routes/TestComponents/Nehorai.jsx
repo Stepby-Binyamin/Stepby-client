@@ -1,8 +1,13 @@
 import React from 'react'
-import BtnFinishTask from '../../components/common/BtnFinishTask'
+ 
+import BtnsBox from '../../components/common/BtnsBox'
+import BtnSubmitText from '../../components/common/BtnSubmitText'
+
+
 
 export default function Nehorai() {
    return (
-      <BtnFinishTask/>
+   <BtnsBox/>
+   //<BtnSubmitText/>
    )
 }
