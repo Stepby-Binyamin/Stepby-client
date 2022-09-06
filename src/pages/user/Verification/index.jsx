@@ -9,21 +9,31 @@ import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import InputVerification from '../../../components/all/InputVerification'
 import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
-import { useLocation } from 'react-router-dom'
+
+
+import { useLocation, useNavigate } from 'react-router-dom'
+
 export default function Verification({ props }) {
+
   const { header } = useContext(mainContext)
+  const navigate= useNavigate()
+  const [counter,setCounter]=useState(0)
+  const phoneNumber = useLocation()
+
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
 
-  const phoneNumber = useLocation()
+
     useEffect(()=>{
         header.setIsTitle(false)
         console.log(phoneNumber.state)
     },[])
 
-  const [counter,setCounter]=useState(0)
   
+  function goToBiz(){
+navigate('/user-name')
+  }
 
   return (
     <div className={styles.box}>
@@ -40,7 +50,7 @@ export default function Verification({ props }) {
         <SomethingWentWrong setCounter={setCounter} />
       </div>
       <div className={styles.btn}>
-        <BtnSubmitIcon color='orange' icon='Arrow.svg' />
+        <BtnSubmitIcon color='orange' icon='Arrow.svg' func={goToBiz} />
       </div>
     </div >
   )
