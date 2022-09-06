@@ -15,7 +15,3 @@
 .lite{
     background-color: var(--grey5-color);
 }
-.line{
-    border-top: outset;
-    margin-bottom: 10px;
-}
