@@ -116,6 +116,7 @@ export const languages = [
             AWAIT: "כרגע ממתינים לך",
             CARE_OF: "כרגע בטיפול של",
             NO: "לא"
+
         }
     },
 ]
