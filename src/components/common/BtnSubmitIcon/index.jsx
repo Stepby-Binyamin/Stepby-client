@@ -5,7 +5,7 @@ import styles from "./style.module.css"
 // chooze color: orange , gray , lite
 // chooze icon: plus.svg, Arrow.svg , v.svg
 
-export default function BtnConfirm({ color, icon, func, ...props }) {
+export default function BtnSubmitIcon({ color, icon, func, ...props }) {
     return (<>
         <div className={styles.line}></div>
         <div className={styles.conteiner}>
