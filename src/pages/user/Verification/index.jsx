@@ -7,10 +7,13 @@ import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import InputVerification from '../../../components/all/InputVerification'
+import { useLocation } from 'react-router-dom'
 export default function Verification() {
     const {header} = useContext(mainContext)
+    const phoneNumber = useLocation()
     useEffect(()=>{
         header.setIsTitle(false)
+        console.log(phoneNumber.state)
     },[])
     
   return (
