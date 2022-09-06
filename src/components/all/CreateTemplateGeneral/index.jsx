@@ -16,29 +16,44 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        //     setData(values => ({ ...values, [name]: value }))
+        setData(values => ({ ...values, [name]: value }))
     }
+    console.log(data);
 
-    // if (data.radio === "כללי") {
-    //     setSelect(true)
-    // }
-    // else {
-    //     setSelect(false)
-    // }
+    useEffect(() => {
+
+        if (data.radio == "כללי") {
+            setSelect(true)
+        }
+        if (data.radio == "לקוח מסוים") {
+            setSelect(false)
+        }
+
+    }, [data])
+
+
+
 
     return (
         <div className={styles.container}>
             <Keyboard placeholder={"שם התבנית החדשה..."} />
-            <div style={{ padding: "12px" }}>
+            <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
-                    <RadioBtn arr={['כללי', 'לקוח מסוים']} changFunc={(e) => { handleChange(e) }} />
+                    <RadioBtn arr={['כללי', 'לקוח מסוים']} changeFunc={(e) => { handleChange(e) }} />
                     <div className={styles.rightContainer}>
                         <img src='/images/icons/target.svg' alt="" />
                         <div className={styles.text}>תפוצה</div>
                     </div>
                 </div>
+                {select &&
+                    <>
+                        {categoris.map(elem => <BtnCheckBox name={elem.name} id={elem.id} />)}
+                    </>
 
-                {categoris.map(elem => <BtnCheckBox name={elem.name} id={elem.id} />)}
+                }
+                {!select &&
+
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={" טלפון המשתמש"} />}
 
             </div>
             <div className={styles.btn}> <BtnSubmitText color={"gray"} text="שמירה" icon={"v to text.svg"} /> </div>
