@@ -1,0 +1,33 @@
+.StepBasicsContainer{
+    display: flex;
+    justify-content: center;
+}
+.StepBasicsInnerContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.radioButton{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: inset;
+}
+.rightContainer{
+    display: flex;
+}
+
+.rightContainer > img{
+    max-width:21.6px;
+    max-height:21.6px;
+}
+
+.text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+    color: var(--grey2-color);
+    width: 88%;
+    margin: 12px;
+
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import CreateProject from '../../components/all/CreateProject'
+import StepBasics from '../../components/all/StepBasics'
 import UserOnly from '../../components/all/UserOnly'
 import BtnIcon from '../../components/common/BtnIcon'
 
@@ -9,7 +10,8 @@ export default function Yossef() {
       <div>
          {/* <BtnIcon icon='/images/icons/image.svg' isSoon ={true} textColor = "#EF0E0E" text ="פרויקט חדש ללקוח קיים"/> */}
          {/* <CreateProject/> */}
-         <UserOnly/>
+         {/* <UserOnly/> */}
+         <StepBasics/>
       </div>
    )
 }
