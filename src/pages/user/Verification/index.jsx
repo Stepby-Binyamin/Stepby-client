@@ -15,17 +15,14 @@ export default function Verification({ props }) {
     header.setIsTitle(false)
   }, [])
 
+  // const phoneNumber = useLocation()
+  //   useEffect(()=>{
+  //       header.setIsTitle(false)
+  //       console.log(phoneNumber.state)
+  //   },[])
+
   const [counter,setCounter]=useState(0)
-  useEffect(()=>{
-    localStorage.getItem('counter',JSON.parse(counter))
-  },[])
-  function countUp(){
-    setCounter(1)
-    // useEffect(()=>{
-    //     localStorage.setItem('counter',JSON.stringify(counter))
-    //     console.log(counter);
-    // })
-  }
+  
 
   return (
     <div className={styles.box}>
@@ -36,10 +33,10 @@ export default function Verification({ props }) {
         <InputVerification />
       </div>
       <div className={styles.phoneNum}>
-        <UserNumberVerification phoneNum={"0547668489"} />
+        <UserNumberVerification counter={counter} phoneNum={"0547668489"} />
       </div>
       <div className={styles.someThingWrong}>
-        <SomethingWentWrong />
+        <SomethingWentWrong setCounter={setCounter} />
       </div>
       <div className={styles.btn}>
         <BtnSubmitIcon color='orange' icon='Arrow.svg' />

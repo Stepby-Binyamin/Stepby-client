@@ -5,8 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 
-export default function UserNumberVerification({ phoneNum }) {
-    let counter = 0
+export default function UserNumberVerification({ counter, phoneNum }) {
     const sendCode = languages[0].dict.SEND_CODE
     let start = phoneNum.slice(0, 3)
     let end = phoneNum.slice(3)
