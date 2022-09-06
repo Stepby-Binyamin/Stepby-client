@@ -1,9 +1,9 @@
 import React from 'react'
-import CreateTemplate from '../../components/all/CreateTemplate'
+import MoreProject from '../../components/all/MoreProject'
 
 export default function Nehorai() {
    return (<>
-      <CreateTemplate/>
+      <MoreProject/>
     </>
    )
 }
