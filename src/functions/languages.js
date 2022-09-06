@@ -113,7 +113,9 @@ export const languages = [
             COMPLET:"הושלם",
             CURRENT_STEP:"השלב הנוכחי",
             AWAIT:"כרגע ממתינים לך",
-            CARE_OF:"כרגע בטיפול של"
+            CARE_OF:"כרגע בטיפול של",
+            TO_THE_WAY:"יוצאים לדרך!"
+
         }
     },
 ]
