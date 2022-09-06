@@ -6,8 +6,24 @@ import BtnSubmitText from "../../common/BtnSubmitText"
 
 const CreateClient = () => {
     
+
+    function collect(e){
+        e.preventDefault();
+        const fd = new FormData(e.target);
+
+        const data = {
+            name:fd.get("name", e.target.name.value) ,
+            phoneNumber:fd.get("phoneNumber", e.target.phoneNumber.value) ,
+            email :fd.get("email", e.target.email.value)
+        }
+        
+        console.log(data)
+        // now all the data inside FormData (fd).
+    }
+
+
     return (
-        <form className={styles.container} >
+        <form className={styles.container} onSubmit={(e)=> collect(e)} >
             <Keyboard placeholder={"שם מלא של הלקוח"} name="name"  />
             <SubKeyboard placeholder={"טלפון"} iconSrc={"/images/icons/tell.svg"} name="phoneNumber"  />
             <SubKeyboard placeholder={"אימייל"} iconSrc={"/images/icons/email.svg"} name="email"  />
