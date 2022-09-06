@@ -19,7 +19,7 @@ import CreateProject from '../../components/all/CreateProject'
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import mainContext from '../../context/mainContext';
-
+import MoreTemp from '../../components/all/MoreTemp'
 export default function Michal() {
    const { header, drawer } = useContext(mainContext)
    // useEffect(() => {
@@ -29,7 +29,7 @@ export default function Michal() {
    // }, [])
    return (
       <>
-         <div><CreateTemplateGeneral /></div>
+         <div><MoreTemp /></div>
 
       </>
    )
