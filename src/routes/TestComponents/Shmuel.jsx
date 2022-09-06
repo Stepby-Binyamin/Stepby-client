@@ -1,4 +1,4 @@
-import Swipe from "../../components/all/SwipeLeft"
+import SwipeDown from "../../components/all/SwipeDown"
 
 
 export default function Shmuel() {
@@ -7,7 +7,7 @@ export default function Shmuel() {
    }
    return (
       <>
-         <Swipe onSwipe={func} ></Swipe>
+         <SwipeDown onSwipe={func} ></SwipeDown>
       </>
    )
 }
