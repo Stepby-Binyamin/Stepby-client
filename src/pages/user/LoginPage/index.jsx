@@ -14,17 +14,24 @@ export default function Login() {
 
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
-  [phoneNumber, setPhoneNumber] = useState()
+  [phoneNumber, setPhoneNumber] = useState(),
+  [limitDigits, setLimitDigits] = useState('')
 
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
 
-  const handleChange = (e)=>[
+  const handleChange = (e)=>{
+    if(e.target.value.toString().length === 10){
+      return
+    }
+    setLimitDigits(e.target.value)
     setPhoneNumber(e.target.value)
-  ]
+}
 
   const handleClick = ()=>{
+    // TODO verify phone number 
+    if (phoneNumber.toString().length < 9) return
     navigate('/verification', {state:phoneNumber})
   }
 
@@ -34,7 +41,7 @@ export default function Login() {
         <UserTitle text={languages[0].dict.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
+        <Input value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>

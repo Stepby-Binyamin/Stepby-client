@@ -9,17 +9,18 @@ import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import InputVerification from '../../../components/all/InputVerification'
 import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
+import { useLocation } from 'react-router-dom'
 export default function Verification({ props }) {
   const { header } = useContext(mainContext)
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
 
-  // const phoneNumber = useLocation()
-  //   useEffect(()=>{
-  //       header.setIsTitle(false)
-  //       console.log(phoneNumber.state)
-  //   },[])
+  const phoneNumber = useLocation()
+    useEffect(()=>{
+        header.setIsTitle(false)
+        console.log(phoneNumber.state)
+    },[])
 
   const [counter,setCounter]=useState(0)
   
@@ -33,7 +34,7 @@ export default function Verification({ props }) {
         <InputVerification />
       </div>
       <div className={styles.phoneNum}>
-        <UserNumberVerification counter={counter} phoneNum={"0547668489"} />
+        <UserNumberVerification counter={counter} phoneNum={phoneNumber.state} />
       </div>
       <div className={styles.someThingWrong}>
         <SomethingWentWrong setCounter={setCounter} />
