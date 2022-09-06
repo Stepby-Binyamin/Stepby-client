@@ -1,4 +1,4 @@
-import Swipe from "../../components/all/Swipe"
+import Swipe from "../../components/all/SwipeLeft"
 
 
 export default function Shmuel() {
