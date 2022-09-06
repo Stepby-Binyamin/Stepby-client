@@ -1,9 +1,9 @@
 import React from 'react'
-import CreateClient from '../../components/all/CreateClient'
+import MoreProject from '../../components/all/MoreProject'
 
 export default function Nehorai() {
    return (<>
-      <CreateClient/>
+      <MoreProject/>
     </>
    )
 }
