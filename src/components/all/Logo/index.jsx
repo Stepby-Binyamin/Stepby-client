@@ -1,10 +1,16 @@
 import React from 'react'
 
-const Logo = ({ style = {}, ...props }) => {
+
+
+// logo option-->stepbyOrange,stepby
+
+
+const Logo = ({ logo, style = {}, ...props }) => {
 
    return (
       <div style={style} {...props} >
-         <img src="./images/stepbyOrange.svg" />
+         <img src={logo + ".svg"} />
+         {/* "./images/stepbyOrange.svg" */}
       </div>
    )
 }

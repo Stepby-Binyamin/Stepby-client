@@ -8,29 +8,16 @@ import HeaderLogo from '../../components/common/HeaderLogo'
 import HeaderTitle from '../../components/common/HeaderTitle'
 import Input from '../../components/common/Input/Input'
 
-import { headerTitleContext } from '../../helper/Context'
-
-import BExample1 from '../../pages/BExample1'
+import BExample1 from '../../pages/project/BExample1'
 
 export default function Shaul() {
    //HeaderLogo
-   const [isArrow, setIsArrow] = useState(true)
-   const [isHeaderSet, setIsHeaderSet] = useState(true)
-
-   //HeaderTitle
    // const [isArrow, setIsArrow] = useState(true)
-   const [isHamburguer, setIsHamburguer] = useState(false)
+   // const [isHeaderSet, setIsHeaderSet] = useState(true)
 
-   const drawerFunc = () => {
-      alert("drawerFunc on HeaderTitle")
+   const drawerContent = () => {
+      alert("drawerContent on HeaderTitle")
    }
-
-   //setting context
-   const headerTitleContextLocal = useContext(headerTitleContext)
-   useEffect(() => {
-      headerTitleContextLocal.setTitle("איסוף השראות ")
-      headerTitleContextLocal.setSubtitle("אפיון ועיצוב אתר תדמית מו...")
-   }, [])
    
 
    //BtnCheckBox
@@ -40,7 +27,7 @@ export default function Shaul() {
    return (
       <>
          {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} />
-         <HeaderTitle drawerFunc={drawerFunc} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
+         <HeaderTitle drawerContent={drawerContent} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
          {/* {dataTest.map(elem => <BtnCheckBox name={elem} id={elem} />)} */}
          <BExample1 />
       </>
