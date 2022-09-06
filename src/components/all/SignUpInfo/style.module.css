@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    color: var(--grey2-color);
+    justify-content: center;
+    padding:  0 10px  ;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    
+}
+
+
+b {
+    color: var(--orange100-color);
+}
