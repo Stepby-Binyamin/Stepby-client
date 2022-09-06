@@ -19,7 +19,9 @@ export const ContextProvider = ({ children }) => {
         <mainContext.Provider value={{
             drawer: {
                 drawer,
-                setDrawer
+                setDrawer,
+                drawerContent,
+                setDrawerContent,
             },
             header: {
                 title,
@@ -32,8 +34,7 @@ export const ContextProvider = ({ children }) => {
                 setIsArrow,
                 isHamburguer,
                 setIsHamburguer,
-                drawerContent,
-                setDrawerContent,
+
             }
         }}>
             <dataContext.Provider value={{ data: { projects, categories } }} >
