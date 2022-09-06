@@ -115,7 +115,8 @@ export const languages = [
             CURRENT_STEP: "השלב הנוכחי",
             AWAIT: "כרגע ממתינים לך",
             CARE_OF: "כרגע בטיפול של",
-            NO: "לא"
+            NO: "לא",
+            TO_THE_WAY:"יוצאים לדרך!"
 
         }
     },
