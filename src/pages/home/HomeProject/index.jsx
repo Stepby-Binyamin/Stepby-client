@@ -18,6 +18,9 @@ const HomeProject = ({ style = {}, ...props }) => {
    const { data } = useContext(dataContext)
    const { header } = useContext(mainContext)
 
+   const bizCounter = data.projects.filter(item => item.status === 'biz').length
+   const clientCounter = data.projects.filter(item => item.status === 'client').length
+
 
    // console.log(data.projects[0].lastApprove);
 
@@ -31,7 +34,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       <div className={styles.HomeProject} style={style} {...props} >
 
          <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
-         <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter={data.projects.length} />
+         <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter2={bizCounter} counter3={clientCounter} />
 
          <ul className={styles.list}>
             {data.projects && (
@@ -214,7 +217,5 @@ const HomeProject = ({ style = {}, ...props }) => {
       </div>
    )
 }
-
-
 
 export default HomeProject
