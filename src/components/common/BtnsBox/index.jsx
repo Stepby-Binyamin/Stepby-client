@@ -3,7 +3,6 @@ import styles from "./style.module.css"
 
 export default function BtnsBox(...props){
 return(<>
-        <div className={styles.line}></div>
 <div className={styles.conteiner}>
     <div className={styles.r}>
 <BtnSubmitText icon={"v to text.svg"} color="gray" text={"שמירה"}/>

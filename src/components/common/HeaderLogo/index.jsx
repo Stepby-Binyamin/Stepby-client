@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./style.module.css"
-
 import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../all/Logo'

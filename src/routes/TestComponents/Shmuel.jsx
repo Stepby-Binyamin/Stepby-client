@@ -1,14 +1,13 @@
-import Answer from "../../components/all/Answer"
+import SwipeDown from "../../components/all/SwipeDown"
+
 
 export default function Shmuel() {
-
-   const title = "gggg "
-   const p = "ffff"
-   const isTitleFirst = true
-
+   function func() {
+      console.log("Enter function")
+   }
    return (
       <>
-         <Answer src={"/images/icons/upload.svg"} isAdmin={true} title={title} p={p} isTitleFirst={isTitleFirst} isDone={false} onClick={""} />
+         <SwipeDown onSwipe={func} ></SwipeDown>
       </>
    )
 }
