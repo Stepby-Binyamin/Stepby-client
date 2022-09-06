@@ -12,6 +12,7 @@ export default function Yehoshua({ name, num, ...props }) {
    return (<>
       <div>Yehoshua</div>
       <InputVerification />
+      <SignUpInfo/>
    </>
    )
 }
