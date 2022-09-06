@@ -4,13 +4,8 @@ import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 
-
-
 const CreateClient = () => {
     
-    
-
-
     return (
         <form className={styles.container} >
             <Keyboard placeholder={"שם מלא של הלקוח"} name="name"  />
