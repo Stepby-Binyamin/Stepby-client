@@ -1,4 +1,4 @@
-function convertDate(date){
+export  function convertDate(date){
     //convert Date to number of days/weeks elpased
     const current = Date.now()
     const diff =  current -  date.getTime()
