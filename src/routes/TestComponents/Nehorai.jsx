@@ -1,9 +1,9 @@
 import React from 'react'
-import CreateClient from '../../components/all/CreateClient'
+import CreateTemplate from '../../components/all/CreateTemplate'
 
 export default function Nehorai() {
    return (<>
-      <CreateClient/>
+      <CreateTemplate/>
     </>
    )
 }

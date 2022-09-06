@@ -18,7 +18,7 @@ const CreateClient = () => {
             email :fd.get("email", e.target.email.value)
         }
         
-        // console.log(data)
+        console.log(data)
         // now all the data inside FormData (fd).
     }
 
