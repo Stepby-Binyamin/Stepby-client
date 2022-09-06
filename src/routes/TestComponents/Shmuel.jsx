@@ -1,13 +1,13 @@
 import Swipe from "../../components/all/Swipe"
-import { useState } from "react"
+
 
 export default function Shmuel() {
-   function console() {
-
+   function func() {
+      console.log("Enter function")
    }
    return (
       <>
-         <Swipe onSwipe={console} ></Swipe>
+         <Swipe onSwipe={func} ></Swipe>
       </>
    )
 }

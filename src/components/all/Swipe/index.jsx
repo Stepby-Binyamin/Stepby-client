@@ -3,17 +3,17 @@ import styles from "./style.module.css"
 
 const Swipe = ({ style = {}, onSwipe, children, ...props }) => {
     const [touchStart, setTouchStart] = useState(0);
+    const [swipe, setSwipe] = useState(true)
 
 
     const handleTouchStart = (e) => {
-        // onSwipe(false)
-        console.log(e.targetTouches[0].clientX)
+        setSwipe(true)
         setTouchStart(e.targetTouches[0].clientX);
     }
 
     const handleTouchMove = (e) => {
-        console.log(touchStart - e.targetTouches[0].clientX)
-        if (touchStart - e.targetTouches[0].clientX > 250) {
+        if ((touchStart - e.targetTouches[0].clientX) > 250 && swipe) {
+            setSwipe(false)
             onSwipe()
         }
     }
@@ -23,7 +23,6 @@ const Swipe = ({ style = {}, onSwipe, children, ...props }) => {
 
     return (
         <div className={styles.Name} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}  >
-
             {children}
         </div>
     )
