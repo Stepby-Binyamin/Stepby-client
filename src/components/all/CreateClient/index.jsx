@@ -4,8 +4,6 @@ import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 
-
-
 const CreateClient = () => {
     
     function collect(e){
