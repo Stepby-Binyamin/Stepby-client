@@ -3,7 +3,7 @@ import CreateProject from '../../components/all/CreateProject'
 import StepBasics from '../../components/all/StepBasics'
 import UserOnly from '../../components/all/UserOnly'
 import BtnIcon from '../../components/common/BtnIcon'
-
+import MoreProject from '../../components/all/MoreProject'
 
 export default function Yossef() {
    return (
@@ -12,6 +12,7 @@ export default function Yossef() {
          {/* <CreateProject/> */}
          {/* <UserOnly/> */}
          <StepBasics/>
+         {/* <MoreProject/> */}
       </div>
    )
 }
