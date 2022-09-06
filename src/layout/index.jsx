@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
 
          <Main />
 
-        {drawer.drawer && <MainDrawer>{drawer.drawer}</MainDrawer>}
+         <MainDrawer>{drawer.drawer}</MainDrawer>
       </>
    )
 }
