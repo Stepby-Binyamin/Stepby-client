@@ -6,12 +6,12 @@ const ListItem = ({
    style = {},
    inTreatmentOf = "b",  //"c"
    mainTitle = "איסוף הרשאות",
-   secondaryTitle = "בהמתנה ל",  //"בטיפול " "complete"
+   secondaryTitle = "בהמתנה ל",  //"בטיפול " "done"
    sconderyBoldTitle = "אפיון",
    firstStep = true, //or false
    time = "0d",
    link,  //path
-   complete, //true or false
+   done, //true or false
    up,
    down,
    ...props
@@ -42,14 +42,14 @@ const ListItem = ({
             {inTreatmentOf === "c" &&
                <img src={`/images/icons/circle.svg`} alt="circle" className={styles.circle} />
             }
-            {complete &&
+            {done &&
                <img src={'/images/icons/smallCheckedGrey.svg'} alt="checked" className={styles.checked} />}
 
             {secondaryTitle ?
                <div className={styles.col}>
                   <div className={styles.row}>
 
-                     <div className={complete? styles.grey: styles.current }>{mainTitle}</div>
+                     <div className={done ? styles.grey : styles.current}>{mainTitle}</div>
 
                      {firstStep &&
                         <div className={styles.firstStep}>יוצאים לדרך!</div>
@@ -57,8 +57,8 @@ const ListItem = ({
 
                   </div>
 
-                  {secondaryTitle === "complete" ?
-                     <div className={styles.complete}>
+                  {secondaryTitle === "done" ?
+                     <div className={styles.done}>
                         <img src={'/images/icons/smallChecked.svg'} alt="checked" style={{ "marginLeft": "4px" }} />
                         הושלם
                      </div> :
@@ -69,7 +69,12 @@ const ListItem = ({
                            <div className={styles.secondaryTitleTriangle}>{seperatorIcon}</div>
                            <div className={styles.secondaryBold}>{sconderyBoldTitle}</div>
                         </>}
-                        <div className={sconderyBoldTitle ? styles.timeEnd : styles.time}>{time}</div>
+                        <div className={
+                           sconderyBoldTitle && inTreatmentOf === "b" ? styles.timeEndOrange :
+                              sconderyBoldTitle && inTreatmentOf === "c" ? styles.timeEndGrey :
+                                 inTreatmentOf === "b" ? styles.timeOrange :
+                                    styles.timeGrey
+                        }>{time}</div>
                      </div>
                   }
 
