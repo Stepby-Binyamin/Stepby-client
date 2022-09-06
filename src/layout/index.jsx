@@ -5,7 +5,7 @@ import Main from './Main';
 
 import HeaderLogo from '../components/common/HeaderLogo';
 import HeaderTitle from '../components/common/HeaderTitle';
-
+import SwipeDown from '../components/all/SwipeDown'
 // import dataContext from '../context/dataContext';
 import mainContext from '../context/mainContext';
 
@@ -22,9 +22,7 @@ const Layout = ({ children }) => {
          {header.isTitle ?
             <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} drawerContent={header.drawerContent} /> :
             <HeaderLogo />}
-
          <Main />
-
          <MainDrawer>{drawer.drawer}</MainDrawer>
       </>
    )
