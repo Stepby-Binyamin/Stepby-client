@@ -25,7 +25,7 @@ const BExample2 = () => {
     var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
-        header.setDrawerContent(<Confirm />)
+        drawer.setDrawerContent(<Confirm />)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         findStep.data[0].owner  === "biz" ? header.setIsArrow(true): header.setIsArrow(false)
