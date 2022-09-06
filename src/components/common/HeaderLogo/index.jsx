@@ -16,7 +16,7 @@ const HeaderLogo = ({ isArrow, isHeaderSet }) => {
             </div>
 
             <div>
-                <Logo />
+                <Logo logo="/images/stepbyOrange"/>
             </div>
 
             <div  className={styles.svgDiv}>
