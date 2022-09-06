@@ -1,31 +1,30 @@
 import styles from "./style.module.css"
 import React, { useContext, useEffect, useState } from 'react'
 
-import { headerTitleContext } from '../../helper/Context'
-
-import HeaderTitle from "../../components/common/HeaderTitle"
-import StatusStep from "../../components/all/StatusStep"
+import HeaderTitle from "../../../components/common/HeaderTitle"
+import StatusStep from "../../../components/all/StatusStep"
 
 import dataBEx1 from "./dataBEx1.js"
-import BtnIcon from "../../components/common/BtnIcon"
-import BtnsBox from "../../components/common/BtnsBox"
-import BtnConfirm from "../../components/common/BtnSubmitIcon"
-import Answer from "../../components/all/Answer"
+import BtnConfirm from "../../../components/common/BtnSubmitIcon"
+import Answer from "../../../components/all/Answer"
+import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
+import mainContext from "../../../context/mainContext"
+import Confirm from "../../../components/all/Confirm"
 
 const BExample1 = () => {
-    const headerTitleContextLocal = useContext(headerTitleContext)
-
-    const [isArrow, setIsArrow] = useState(true)
-    const [isHamburguer, setIsHamburguer] = useState(false)
+    const {header,drawer} = useContext(mainContext)
 
     useEffect(() => {
-        headerTitleContextLocal.setTitle("אתר מרכז הצדקה")
-        headerTitleContextLocal.setSubtitle("מורדי איזנשטיין")
+        header.setIsTitle(false)
+        // header.setDrawerContent(<Confirm/>)
+        // header.setTitle("אתר מרכז הצדקה")
+        // header.setSubTitle("מורדי איזנשטיין")
+        // header.setIsArrow(true)
+        // header.setIsHamburguer(false)
     }, [])
 
     return (
         <div className={styles.page}>
-            <HeaderTitle isArrow={isArrow} isHamburguer={isHamburguer} />
             <StatusStep numOfStage="5" user="לעמרם" time="1W" />
             <div className={styles.title}>{dataBEx1[0].title}</div>
             <div className={styles.text}>{dataBEx1[0].text}</div>
@@ -40,9 +39,9 @@ const BExample1 = () => {
             </div>
 
             <div className={styles.btns}>
-                <div className={styles.boxHolder}></div>
-                {/* <BtnHolder color="gray" icon="pencil"/> */}
-                <BtnConfirm />
+                {/* <div className={styles.boxHolder}></div> */}
+                <BtnHolder color="lite" icon="pencil"/>
+                <BtnConfirm icon="v.svg" color="gray" />
             </div>
         </div>
     )

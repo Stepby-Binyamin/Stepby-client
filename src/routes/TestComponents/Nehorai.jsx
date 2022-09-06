@@ -1,11 +1,9 @@
 import React from 'react'
-import BtnConfirm from '../../components/common/BtnConfirm'
-import BtnSubmitText from '../../components/common/BtnSubmitText'
+import CreateClient from '../../components/all/CreateClient'
 
 export default function Nehorai() {
    return (<>
-      <BtnSubmitText color={"gray"} icon={"v to text.svg"}text="fjidjvjf hvkd fjhk dfhvk dfhv fivif"/>
-      <BtnConfirm/>
+      <CreateClient/>
     </>
    )
 }

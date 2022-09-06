@@ -8,40 +8,34 @@ import HeaderLogo from '../../components/common/HeaderLogo'
 import HeaderTitle from '../../components/common/HeaderTitle'
 import Input from '../../components/common/Input/Input'
 
-import { headerTitleContext } from '../../helper/Context'
-
-import BExample1 from '../../pages/BExample1'
+import BExample1 from '../../pages/project/BExample1'
 
 export default function Shaul() {
-   //HeaderLogo
-   const [isArrow, setIsArrow] = useState(true)
-   const [isHeaderSet, setIsHeaderSet] = useState(true)
 
-   //HeaderTitle
-   // const [isArrow, setIsArrow] = useState(true)
-   const [isHamburguer, setIsHamburguer] = useState(false)
+   //BtnCheckBox - how to set <BtnCheckBox /> example - dont DELETE IT
 
-   const drawerFunc = () => {
-      alert("drawerFunc on HeaderTitle")
-   }
+   // const dataTest = [
+   //    { title: "A", isActive: false },
+   //    { title: "B", isActive: false },
+   //    { title: "C", isActive: false },
+   //    { title: "D", isActive: false },]
 
-   //setting context
-   const headerTitleContextLocal = useContext(headerTitleContext)
-   useEffect(() => {
-      headerTitleContextLocal.setTitle("איסוף השראות ")
-      headerTitleContextLocal.setSubtitle("אפיון ועיצוב אתר תדמית מו...")
-   }, [])
-   
+   // useEffect(() => {
+   //    setData(dataTest)
+   // }, [])
 
-   //BtnCheckBox
-  
-   const dataTest = ["A", "B", "C", "D"]
+   // const [data, setData] = useState()
+
+   // const handleClick = (name) => {
+   //    const result = data.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+   //    setData(result)
+   // }
 
    return (
       <>
-         {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} />
-         <HeaderTitle drawerFunc={drawerFunc} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
-         {/* {dataTest.map(elem => <BtnCheckBox name={elem} id={elem} />)} */}
+         {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} /> */}
+         {/* <HeaderTitle drawerContent={drawerContent} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
+         {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
          <BExample1 />
       </>
    )

@@ -7,6 +7,7 @@ const Keyboard = ({ placeholder, onChange, required, defaultValue, ...props }) =
     return (
         <div className={styles.container}>
             <input {...props} required={required} className={styles.keyboard} autoFocus placeholder={placeholder} onChange={onChange} defaultValue={defaultValue} />
+
         </div>
     )
 }
