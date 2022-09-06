@@ -12,7 +12,7 @@ const Keyboard = ({ placeholder, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <input className={styles.keyboard} ref={inputRef} placeholder={placeholder}></input>
+            <input {...props}  className={styles.keyboard} ref={inputRef} placeholder={placeholder}></input>
             {/* <input className={styles.keyboard} ref={inputRef} placeholder="שם מלא של הלקוח..."></input> */}
 
         </div>
