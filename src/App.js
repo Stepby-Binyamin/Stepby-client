@@ -1,27 +1,17 @@
 import styles from './App.module.css';
-
-import { useState } from 'react';
-import { BrowserRouter } from "react-router-dom"
-import MainRoutes from './routes';
-
+import { ContextProvider } from './context/manageContext';
 import Layout from './layout';
+// import Login from './login';
 
-import { headerTitleContext } from './helper/Context.jsx'
 
 const App = () => {
 
-  const [title, setTitle] = useState()
-  const [subtitle, setSubtitle] = useState()
-
   return (
     <div className={styles.main}>
-      <headerTitleContext.Provider value={{title, setTitle, subtitle, setSubtitle}}>
-        <BrowserRouter>
-          <Layout>
-            <MainRoutes />
-          </Layout>
-        </BrowserRouter>
-      </headerTitleContext.Provider>
+      <ContextProvider>
+        <Layout />
+      </ContextProvider>
+      {/* <Login/> */}
     </div>
   );
 }

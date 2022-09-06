@@ -1,0 +1,15 @@
+.completed {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--orange5-color);
+    border-radius: 12px;
+    height: 52px;
+    font-size: 12px;
+}
+
+.completedInfo {
+    padding: 0px 15px;
+    color: var(--orange100-color);
+}

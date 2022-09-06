@@ -1,30 +1,13 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { useState } from 'react'
-
 import { useNavigate } from 'react-router-dom'
-
-import { headerTitleContext } from '../../../helper/Context'
 import { useContext } from 'react'
+import mainContext from '../../../context/mainContext'
+import Confirm from '../../all/Confirm'
 
-const HeaderTitle = ({ drawerFunc, isArrow, isHamburguer }) => {
+const HeaderTitle = ({ drawerContent, isArrow, isHamburguer,title, subTitle }) => {
     const navigate = useNavigate()
-
-    const headerTitleContextLocal = useContext(headerTitleContext)
-
-
-    const [isSubtitle, setIsSubtitle] = useState(true)
-
-    const [title, setTitle] = useState("Title")
-    const [subtitle, setSubtitle] = useState("Subtitle")
-
-
-    const handleRightArrow = () => {
-        alert("previous page")
-        // 
-    }
-
-
+    const {drawer} = useContext(mainContext)
     return (
         <div className={styles.container}>
             <div className={styles.svgDiv}>
@@ -34,12 +17,12 @@ const HeaderTitle = ({ drawerFunc, isArrow, isHamburguer }) => {
             </div>
 
             <div className={styles.headerCenter}>
-                <div>{headerTitleContextLocal.title}</div>
-                {headerTitleContextLocal.subtitle && <div> <span>{headerTitleContextLocal.subtitle}</span></div>}
+                <div>{title}</div>
+                {subTitle && <div> <span>{subTitle}</span></div>}
             </div>
 
             <div className={styles.svgDiv}>
-                <img src="/images/icons/3dots.svg" alt="icon3Dots" onClick={drawerFunc} />
+                <img src="/images/icons/3dots.svg" alt="icon3Dots" onClick={()=>{drawer.setDrawer(drawerContent)}} />
             </div>
         </div>
     );
