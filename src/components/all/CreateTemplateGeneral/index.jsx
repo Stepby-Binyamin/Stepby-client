@@ -5,6 +5,7 @@ import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
+import Line from '../../common/Line'
 
 const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     const text = "זה שם שמיועד לשימוש פנימי שלך (הלקוחות שלך לא יהיו חשופים אליו)."
@@ -25,9 +26,9 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
                 {categoris.map(elem => <BtnCheckBox name={elem.name} id={elem.id} />)}
 
             </div>
-
             <div className={styles.btn}> <BtnSubmitText color={"gray"} text="שמירה" icon={"v to text.svg"} /> </div>
         </div>
+
     )
 }
 
