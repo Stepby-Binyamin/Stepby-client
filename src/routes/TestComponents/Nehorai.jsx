@@ -1,9 +1,9 @@
 import React from 'react'
-import CreateClient from '../../components/all/CreateClient'
+import BtnsBox from '../../components/common/BtnsBox'
 
 export default function Nehorai() {
    return (<>
-      <CreateClient/>
+      <BtnsBox/>
     </>
    )
 }
