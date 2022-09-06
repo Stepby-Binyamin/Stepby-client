@@ -1,6 +1,7 @@
 .btn {
     border-radius: 12px;
     height: 52px;
+    width: 100%;
     font-family: 'Heebo';
     font-style: normal;
     font-weight: 400;
