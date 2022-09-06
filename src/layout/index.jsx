@@ -3,11 +3,7 @@ import { useState } from 'react';
 import { headerTitleContext } from '../helper/Context'
 
 
-const Layout = ({
-   children
-}
-
-) => {
+const Layout = ({ children }) => {
    const [title, setTitle] = useState()
    const [subtitle, setSubtitle] = useState()
 

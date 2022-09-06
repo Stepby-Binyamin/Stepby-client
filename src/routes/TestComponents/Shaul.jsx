@@ -42,7 +42,7 @@ export default function Shaul() {
          {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} />
          <HeaderTitle drawerFunc={drawerFunc} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
          {/* {dataTest.map(elem => <BtnCheckBox name={elem} id={elem} />)} */}
-         <BExample1 />
+         {/* <BExample1 /> */}
       </>
    )
 }
