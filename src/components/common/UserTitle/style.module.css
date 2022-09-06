@@ -1,0 +1,16 @@
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+}
+
+.box>h1 {
+    width: fit-content;
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    color: var(--grey0-color);
+    margin: 0;
+}
