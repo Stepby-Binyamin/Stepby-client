@@ -39,12 +39,12 @@ const HomeProject = ({ style = {}, ...props }) => {
 
             <ListItem
             key={item._id}
-            inTreatmentOf={item.status} //  biz/client/done
+            inTreatmentOf={"biz"} //  biz/client/done
                mainTitle={item.client.clientName}
                secondaryTitle={item.name} 
                sconderyBoldTitle={item.steps[0].name}  //get current temp
                // isFirstStep={true} 
-               time={"0d"}
+               time={ item.status==="done"? "" : convertDate(item.lastApprove)}
                link  //path
                up={up}
                down={down}
@@ -54,6 +54,19 @@ const HomeProject = ({ style = {}, ...props }) => {
          </ul>
       </div>
    )
+}
+
+function convertDate(date){
+   //convert Date to number of days/weeks elpased
+   const current = Date.now()
+   const diff =  current -  date.getTime()
+   const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+   if(!(diffDays % 7)){
+       const weeks= diffDays/7
+       return {type:"w",time:weeks}
+   }
+    return   {type:"d",time:diffDays}
+
 }
 
 export default HomeProject
