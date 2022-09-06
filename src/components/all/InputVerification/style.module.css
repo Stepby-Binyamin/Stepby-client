@@ -8,7 +8,7 @@
 }
 
 
-input{
+.input{
     width: 75px;
     height: 76px;
     border: 1px solid var(--grey4-color);
