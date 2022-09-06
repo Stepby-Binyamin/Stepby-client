@@ -9,7 +9,7 @@ const projects = [
       },
       isTemplate: false,
       status: 'done', //'biz', 'client' , 'new' 
-      lastApprove: new Date("25/08/2022"),
+      lastApprove: new Date("08/25/2022"),
       isActive: true,
       steps: [
          {
