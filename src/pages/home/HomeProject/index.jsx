@@ -11,7 +11,8 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const up =()=>{};
    const down =()=>{};
-   const [whoClicked, setWhoClicked] = useState()
+   const [api, setapi] = useState()
+   const [sortListBy, setsortListBy] = useState()
 
 
    useEffect(()=>{
@@ -33,7 +34,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       <div className={styles.HomeProject} style={style} {...props} >
          <HeaderLogo />
          <NavLink />
-         <NavLinkTab onClick={[whoClicked, setWhoClicked]} firstText secondText thirdText counter />
+         <NavLinkTab state={sortListBy} setState= {setsortListBy} firstText={"הכל"} secondText={"בטיפול שלי"} thirdText={"ממתין ללקוח"} counter={1} />
          <ListItem
             inTreatmentOf={"b"} //c
             mainTitle={"איסוף הרשאות"}
