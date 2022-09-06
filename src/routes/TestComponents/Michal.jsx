@@ -20,6 +20,7 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import mainContext from '../../context/mainContext';
 import MoreTemp from '../../components/all/MoreTemp'
+import MoreStep from '../../components/all/MoreStep';
 export default function Michal() {
    const { header, drawer } = useContext(mainContext)
    // useEffect(() => {
@@ -29,7 +30,7 @@ export default function Michal() {
    // }, [])
    return (
       <>
-         <div><MoreTemp /></div>
+         <div><MoreStep /></div>
 
       </>
    )
