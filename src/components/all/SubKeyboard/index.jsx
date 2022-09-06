@@ -6,7 +6,7 @@ const SubKeyboard = ({ placeholder, iconSrc, onChange, required, defaultValue, .
 
     return (
         <div className={styles.container}>
-            <input className={styles.keyboard} {...props} required={required} placeholder={placeholder} onChange={onChange} defaultValue={defaultValue} style={{ background: `url(${iconSrc}) no-repeat scroll` }}></input>
+            <input name = "subKeyboard" className={styles.keyboard} {...props} required={required} placeholder={placeholder} onChange={onChange} defaultValue={defaultValue} style={{ background: `url(${iconSrc}) no-repeat scroll` }}></input>
 
         </div>
     )

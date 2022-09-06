@@ -8,7 +8,16 @@ import RadioBtn from '../../all/radioBtn/withoutIcon'
 import Line from '../../common/Line'
 
 const CreateTemplateGeneral = ({ placeholder, ...props }) => {
-    const categoris = [{ name: "עיצוב אתרים", id: 1 }, { name: "עיצוב פנים", id: 2 }, { name: "שיווק דיגיטלי", id: 3 }, { name: "אימון כושר גופני", id: 4 }]
+    //TODO: tell Nehorai to change the '()=> func' to 'func' in BtnSubmitText
+    const categoris = [
+        { title: "עיצוב אתרים", isActive: false,id: 1 },
+        { title: "עיצוב פנים", isActive: false,id: 2 },
+        { title: "שיווק דיגיטלי", isActive: false,id: 3 },
+        { title: "אימון כושר גופני", isActive: false,id: 4 },]
+        
+        useEffect(() => {
+            setData((current) => ({ ...current, categoris }))
+        }, [])
 
     const [data, setData] = useState({})
     const [select, setSelect] = useState(true)
@@ -18,15 +27,26 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
         const value = event.target.value;
         setData(values => ({ ...values, [name]: value }))
     }
+
+    const btnCheckBoxHandler = (name) => {
+        const categoris = data.categoris.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+        setData((current) => ({ ...current, categoris }))
+    }
+
+    const btnSubmitTextHandler = () => {
+        console.log("yossef");
+        console.log(data);
+    }
     console.log(data);
+
 
     useEffect(() => {
 
         if (data.radio == "כללי") {
-            setSelect(true)
+            setSelect(true);
         }
         if (data.radio == "לקוח מסוים") {
-            setSelect(false)
+            setSelect(false);
         }
 
     }, [data])
@@ -36,7 +56,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard placeholder={"שם התבנית החדשה..."} />
+            <Keyboard onChange={handleChange} placeholder={"שם התבנית החדשה..."} />
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
                     <RadioBtn arr={['כללי', 'לקוח מסוים']} changeFunc={(e) => { handleChange(e) }} />
@@ -47,16 +67,16 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
                 </div>
                 {select &&
                     <>
-                        {categoris.map(elem => <BtnCheckBox name={elem.name} id={elem.id} />)}
+                        {data.categoris?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.title} id={elem.id} isActive={elem.isActive} key={elem.title}/>)}
                     </>
 
                 }
                 {!select &&
 
-                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={" טלפון המשתמש"} />}
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={" טלפון המשתמש"} onChange={handleChange} />}
 
             </div>
-            <div className={styles.btn}> <BtnSubmitText color={"gray"} text="שמירה" icon={"v to text.svg"} /> </div>
+            <div className={styles.btn}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text="שמירה" icon={"v to text.svg"} /> </div>
         </div>
 
     )
