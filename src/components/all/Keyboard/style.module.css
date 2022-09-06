@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.keyboard {
+    border: none;
+    font-family: 'heebo';
+    color: var(--grey1-color);
+    font-size: 17px;
+    border-bottom: inset;
+    width: 100%;
+    padding: 12px;
+    caret-color: var(--orange100-color);
+    text-align: right;
+    border-radius: 0%
+}
+
+
+.keyboard:focus {
+    outline: none;
+}
+
+.keyboard::placeholder {
+    color: var(--grey3-color);
+
+}

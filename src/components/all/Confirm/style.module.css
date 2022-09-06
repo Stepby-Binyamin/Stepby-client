@@ -1,0 +1,92 @@
+.Confirm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 15px 0px;
+    background: #FFFFFF;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.areYouSure {
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 65px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #7C818D;
+
+}
+
+.user {
+
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #7C818D;
+
+}
+
+.step {
+
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #7C818D;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    gap: 12px;
+    border-top: outset;
+    margin-top: 30px;
+    padding-top: 12px;
+    justify-content: center;
+
+}
+
+.button {
+    background-color: var(--grey1-color);
+    height: 52px;
+    border-radius: 12px;
+    width: 217px;
+    width: 60%;
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.buttonNo {
+    background-color: #F5F5F5;
+    height: 52px;
+    border-radius: 12px;
+    width: 116px;
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+    align-items: center;
+    color: #7C818D;
+    width: 30%;
+
+}
+
+.img {
+    height: 10px;
+    margin-left: 15px;
+}

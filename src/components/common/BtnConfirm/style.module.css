@@ -1,0 +1,10 @@
+.confirm {
+    background-color: var(--grey1-color);
+    height: 52px;
+    border-radius: 12px;
+    width: 100%;
+}
+.line{
+    border-top: outset;
+    margin-bottom: 10px;
+}

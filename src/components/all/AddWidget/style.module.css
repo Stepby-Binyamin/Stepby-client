@@ -1,0 +1,10 @@
+.addWidget{
+    margin: 15px;
+}
+.addWidget  label{
+    font-size: 16px;
+    color: var(--grey2-color);
+}
+.addWidget > div{
+    margin-bottom: 8px;
+}

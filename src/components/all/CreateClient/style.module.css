@@ -1,0 +1,12 @@
+.container {
+    height: auto;
+}
+
+.btn {
+    /* margin-top: 130px; */
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+
+}

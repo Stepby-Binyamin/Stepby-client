@@ -1,19 +1,17 @@
 import styles from './App.module.css';
-import { BrowserRouter } from "react-router-dom"
-import MainRoutes from './routes';
+import { ContextProvider } from './context/manageContext';
 import Layout from './layout';
-import MainDrawer from './drawer/MainDrawer';
+// import Login from './login';
+
 
 const App = () => {
 
   return (
     <div className={styles.main}>
-      <BrowserRouter>
-        <Layout>
-          <MainRoutes />
-          <MainDrawer />
-        </Layout>
-      </BrowserRouter>
+      <ContextProvider>
+        <Layout />
+      </ContextProvider>
+      {/* <Login/> */}
     </div>
   );
 }
