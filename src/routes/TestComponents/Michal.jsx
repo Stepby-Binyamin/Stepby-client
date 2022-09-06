@@ -19,7 +19,7 @@ import CreateProject from '../../components/all/CreateProject'
 export default function Michal() {
    return (
       <>
-         <div><CreateTemplateGeneral /></div>
+         <div><Confirm /></div>
 
       </>
    )
