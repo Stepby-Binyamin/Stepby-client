@@ -1,12 +1,11 @@
 import React from 'react'
-import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
-import { useState } from 'react'
-import { useEffect } from 'react'
+
 
 
 export default function UserNumberVerification({ counter, phoneNum }) {
-    const sendCode = languages[0].dict.SEND_CODE,start="054",end="7668489"
+    const sendCode = languages[0].dict.SEND_CODE;
+    let start="054",end="7668489";
     if(phoneNum){
          start = phoneNum.slice(0, 3)
          end = phoneNum.slice(3)
