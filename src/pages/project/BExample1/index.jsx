@@ -5,8 +5,6 @@ import HeaderTitle from "../../../components/common/HeaderTitle"
 import StatusStep from "../../../components/all/StatusStep"
 
 import dataBEx1 from "./dataBEx1.js"
-import BtnIcon from "../../../components/common/BtnIcon"
-import BtnsBox from "../../../components/common/BtnsBox"
 import BtnConfirm from "../../../components/common/BtnSubmitIcon"
 import Answer from "../../../components/all/Answer"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
@@ -17,11 +15,12 @@ const BExample1 = () => {
     const {header,drawer} = useContext(mainContext)
 
     useEffect(() => {
-        header.setDrawerContent(<Confirm/>)
-        header.setTitle("אתר מרכז הצדקה")
-        header.setSubTitle("מורדי איזנשטיין")
-        header.setIsArrow(true)
-        header.setIsHamburguer(false)
+        header.setIsTitle(false)
+        // header.setDrawerContent(<Confirm/>)
+        // header.setTitle("אתר מרכז הצדקה")
+        // header.setSubTitle("מורדי איזנשטיין")
+        // header.setIsArrow(true)
+        // header.setIsHamburguer(false)
     }, [])
 
     return (
