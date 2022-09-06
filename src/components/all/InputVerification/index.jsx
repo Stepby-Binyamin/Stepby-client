@@ -40,7 +40,7 @@ export default function InputVerification() {
 
     return (
         <div className={styles.container}>
-                <input className={styles.input} onChange={handleChange} value={input1}maxLength={1} className={clicked === 4? styles.active : ''} onInput={handleInput} onKeyPress={()=>handlePress(window.event)} onClick={()=>handleClick(4)}  type='number'/>
+                <input onChange={handleChange} value={input1}maxLength={1} className={clicked === 4? styles.active : ''} onInput={handleInput} onKeyPress={()=>handlePress(window.event)} onClick={()=>handleClick(4)}  type='number'/>
                 {/* <input maxLength={1} className={clicked === 3? styles.active : ''} onChange={()=>handleChange()} onKeyPress={()=>handlePress(window.event)} onClick={()=>handleClick(3)} type='number'/>
                 <input maxLength={1} className={clicked === 2? styles.active : ''} onChange={()=>handleChange()} onKeyPress={()=>handlePress(window.event)} onClick={()=>handleClick(2)} type='number'/>
                 <input maxLength={1} className={clicked === 1? styles.active : ''} onChange={()=>handleChange()} onKeyPress={()=>handlePress(window.event)} onClick={()=>handleClick(1)} type='number'/> */}
