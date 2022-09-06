@@ -7,7 +7,6 @@ import styles from "./style.module.css"
 
 export default function BtnSubmitIcon({ color, icon, func, ...props }) {
     return (<>
-        <div className={styles.line}></div>
         <div className={styles.conteiner}>
             <button className={`${styles[color]} ${styles.submit}`} onClick={() => func}>
                 <img src={"/images/icon-btns/" + icon} alt="" />
