@@ -4,7 +4,7 @@ import HomeProject from '../../pages/home/HomeProject'
 
 export default function Ariel() {
    return (
-      <>Ariel
+      <>
          {/* <ListItem /> */}
         <HomeProject />
       </>

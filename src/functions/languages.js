@@ -32,7 +32,7 @@ export const languages = [
             FIRST_AND_LAST_NAME:"שם פרטי ומשפחה",
             AREAS_PRACTICE:"תחומי עיסוק",
             LOGGING_OFF:"התנתקות",
-            LETS_GO:"פשוט, בוא נתחיל",
+            LETS_GO:"פשוט, בואו נתחיל",
             ICON:"האייקון",
             CALL_YOU:"...קורא לך",
             TEMPLATES_NAME:"שם התבנית החדשה ",

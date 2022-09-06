@@ -23,6 +23,7 @@ const ListItem = ({
    const [showMoveArrow, setShowMoveArrow] = useState(false);
 
    const moveItem = () => {
+      up && down &&
       setShowMoveArrow(!showMoveArrow);
    }
 
