@@ -1,7 +1,10 @@
 import React from 'react'
+import { AddWidget } from '../../components/all/AddWidget'
+import StatusProject from '../../components/all/StatusProject'
 
 export default function Efrat() {
    return (
-      <div>Efrat</div>
+      // <StatusProject />
+      <AddWidget />
    )
 }

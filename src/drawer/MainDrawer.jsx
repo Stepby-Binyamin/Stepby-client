@@ -1,33 +1,16 @@
-import { useState } from "react"
+import { useContext } from "react"
 import styles from "./style.module.css"
 
-export default function MainDrawer({Component}){
-    const [popup,setpopup] = useState('popDown')
-    const [container, setcontainer] = useState('containerOff')
-
-    function poping(){
-        if(popup === 'popDown'){
-            return (
-                setpopup('popUp'),
-                setcontainer('containerOn')
-             )
-        }
-        return (setpopup('popDown'), setcontainer('containerOff') )
-    }
-
+export default function MainDrawer(){
+    // const popUpCompState = useContext(PopupContext);
+    // const popUpComp = popUpCompState[0];
+    // const setpopUpComp = popUpCompState[1];
     return(
         <>
-        <button onClick={poping}>click me</button>
-        <div className={styles[container]} onClick={poping} >
-        <div className={styles[popup]}>
-            <div onClick={poping} className={styles.lower}></div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            <div>b b bb b</div>
-            {Component}
+        <div className={ popUpComp? styles.containerOn : styles.containerOff} onClick={setpopUpComp(false)} >
+        <div className={ popUpComp? styles.popUp : styles.popDown}>
+            <div onClick={setpopUpComp(false)} className={styles.lower}></div>
+            {popUpComp}
         </div>
         </div>
         </>
