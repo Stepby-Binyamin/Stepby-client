@@ -46,13 +46,17 @@
 .buttons {
     display: flex;
     flex-direction: row-reverse;
-    width: 100%;
     gap: 12px;
-    border-top: outset;
     margin-top: 30px;
-    padding-top: 12px;
     justify-content: center;
     margin-bottom: 10px;
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
 
 }
 

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import React, { useContext } from 'react'
 
 import Main from './Main';
@@ -24,7 +25,7 @@ const Layout = ({ children }) => {
 
          <Main />
 
-        {drawer.drawer && <MainDrawer>{drawer.drawer}</MainDrawer>}
+         <MainDrawer>{drawer.drawer}</MainDrawer>
       </>
    )
 }
