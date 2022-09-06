@@ -10,6 +10,7 @@ const Swipe = ({ style = {}, ...props }) => {
         setTouchStart(e.targetTouches[0].clientX);
     }
     const handleTouchMove = (e) => {
+        console.log("hs");
         console.log(e.targetTouches[0].clientX)
         setTouchEnd(e.targetTouches[0].clientX);
     }
@@ -26,7 +27,7 @@ const Swipe = ({ style = {}, ...props }) => {
 
 
     return (
-        <div className={styles.Name} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} handleTouchMove={handleTouchMove}  >
+        <div className={styles.Name} onTouchStart={handleTouchStart} onTouchMoveCapturse={handleTouchMove}  >
 
 
         </div>
