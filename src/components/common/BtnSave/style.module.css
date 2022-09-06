@@ -1,4 +1,4 @@
-.btn{
+.btn {
     align-items: center;
     background-color: var(--grey1-color);
     height: 52px;
@@ -12,12 +12,17 @@
     color: #FFFFFF;
     justify-content: center;
 }
-.img{
+
+.img {
     margin-left: 15px;
 }
-.con{
+
+.con {
     padding: 12px 15px 12px 15px;
-    position: fixed;
+    /* position: fixed;
     bottom: 0;
     width: 100%;
+    max-width: 600px;
+    padding-left: 10px;
+    padding-right: 10px; */
 }
