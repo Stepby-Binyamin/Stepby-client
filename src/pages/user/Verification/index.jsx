@@ -9,7 +9,10 @@ import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import InputVerification from '../../../components/all/InputVerification'
 import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
+
+
 import { useLocation, useNavigate } from 'react-router-dom'
+
 export default function Verification({ props }) {
 
   const { header } = useContext(mainContext)
@@ -20,6 +23,7 @@ export default function Verification({ props }) {
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
+
 
     useEffect(()=>{
         header.setIsTitle(false)
