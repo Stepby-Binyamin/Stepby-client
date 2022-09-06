@@ -28,7 +28,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -36,7 +36,7 @@ const projects = [
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            status: 'done', //'biz', 'client' 
+            status: 'client', //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -44,9 +44,31 @@ const projects = [
                title: 'איסוף מידע הוא כלי חשוב (מקור: שאטרסטוק)',
                content: '/images/pic.png',
                index: 1,
-               isRequired : true
+               isRequired: true
+            },
+            {
+               owner: 'biz',// 'client',
+               type: 'pdf', // 'img' , 'file' , 'answer'
+               title: 'מה זה ״השראות ומתחרים״ בכלל?',
+               content: 'לצפייה בקובץ לוחצים כאן',
+               index: 2,
+               isRequired: true
+            }, {
+               owner: 'biz',// 'client',
+               type: 'file', // 'img' , 'file' , 'answer'
+               title: 'מי המתחרה העיקרי שלך באינטרנט?',
+               content: '',
+               index: 3,
+               isRequired: true
+            }, {
+               owner: 'biz',// 'client',
+               type: 'answer', // 'img' , 'file' , 'answer'
+               title: 'העלאת צילומי מסך של מתחרים טובים',
+               content: 'מגבלת נפח: 4Mb',
+               index: 4,
+               isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 2,
             isCreatorApprove: false,
@@ -63,11 +85,11 @@ const projects = [
                title: 'אפיון ודוגמאות ששווה לראות',
                content: 'files/blabla.pdf',
                index: 1,
-               isRequired : false
+               isRequired: false
             }]
          },]
    },
 ]
-const categories=[{name:"עיצוב אתרים",id:1},{name:"עיצוב פנים",id:2},{name:"שיווק דיגיטלי",id:3},{name:"אימון כושר גופני",id:4}]
+const categories = [{ name: "עיצוב אתרים", id: 1 }, { name: "עיצוב פנים", id: 2 }, { name: "שיווק דיגיטלי", id: 3 }, { name: "אימון כושר גופני", id: 4 }]
 
-module.exports = { projects,categories }
+module.exports = { projects, categories }

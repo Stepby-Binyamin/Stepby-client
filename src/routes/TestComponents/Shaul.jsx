@@ -9,6 +9,7 @@ import HeaderTitle from '../../components/common/HeaderTitle'
 import Input from '../../components/common/Input/Input'
 
 import BExample1 from '../../pages/project/BExample1'
+import BExample2 from '../../pages/project/BExample2'
 
 export default function Shaul() {
 
@@ -36,7 +37,8 @@ export default function Shaul() {
          {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} /> */}
          {/* <HeaderTitle drawerContent={drawerContent} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
          {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
-         <BExample1 />
+         {/* <BExample1 /> */}
+         <BExample2 />
       </>
    )
 }
