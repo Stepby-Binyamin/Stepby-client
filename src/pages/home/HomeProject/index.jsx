@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-// import axios from 'axios'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from "./style.module.css"
-import HeaderLogo from '../../../components/common/HeaderLogo'
+import { languages } from '../../../functions/languages'
+import mainContext from '../../../context/mainContext'
+import dataContext from '../../../context/dataContext'
+// import HeaderLogo from '../../../components/common/HeaderLogo'
 import NavLink from '../../../components/common/NavLink'
 import NavLinkTab from '../../../components/common/NavLinkTab'
 import ListItem from '../../../components/common/ListItem'
@@ -9,44 +11,47 @@ import ListItem from '../../../components/common/ListItem'
 const HomeProject = ({ style = {}, ...props }) => {
 
 
-   const up =()=>{};
-   const down =()=>{};
+   const { ALL, MY_CARE, WAITING_CUSTOMER, TREATMENT, COMPLET, LETS_GO, ICON, CALL_YOU } = languages[0].dict
+   const up = () => { };
+   const down = () => { };
    const [api, setapi] = useState()
    const [sortListBy, setsortListBy] = useState()
+   const { data } = useContext(dataContext)
+   const { header } = useContext(mainContext)
 
 
-   useEffect(()=>{
+   useEffect(() => {
 
-      // axios.get('http://localhost:3002/api/',
-      // { headers: { Authorization: 'Bearer ' + localStorage.userToken } } )
-      // .then(response =>{  
-      //     console.log(response.data);
-      //     setSongs(response.data);
-      // })
-      // .catch(error =>{
-      //     console.log(error)
-      //     setPopup(error.response.data);
-      // });
+      header.setIsTitle(true)
+      header.setIsArrow(false)
+      console.log(data.projects[0]);
 
-   },[])
+   }, [])
 
    return (
       <div className={styles.HomeProject} style={style} {...props} >
-         <HeaderLogo />
+         {/* <HeaderLogo /> */}
          <NavLink />
-         <NavLinkTab state={sortListBy} setState= {setsortListBy} firstText={"הכל"} secondText={"בטיפול שלי"} thirdText={"ממתין ללקוח"} counter={1} />
-         <ListItem
-            inTreatmentOf={"b"} //c
-            mainTitle={"איסוף הרשאות"}
-            secondaryTitle={"בהמתנה ל"}  //"בטיפול " "complete"
-            sconderyBoldTitle={"אפיון"}
-            firstStep={true} //or false
-            time={"0d"}
-            link  //path
-            complete ={''} //true or false
-            up={up}
-            down={down}
-         />
+         <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter={1} />
+
+         <ul className={styles.list}>
+            {data.projects && data.projects.map(item=>
+
+            <ListItem
+            key={item._id}
+            inTreatmentOf={item.status} //  biz/client/done
+               mainTitle={item.client.clientName}
+               secondaryTitle={item.name} 
+               sconderyBoldTitle={item.steps[0].name}  //get current temp
+               // isFirstStep={true} 
+               time={"0d"}
+               link  //path
+               up={up}
+               down={down}
+            />
+
+            )}
+         </ul>
       </div>
    )
 }
