@@ -7,7 +7,9 @@ export const languages = [
         dict:{
             ENTER_PHONE:"פשוט להכניס את מספר הטלפון שלך:",
             YOUR_PHONE:"הטלפון שלך",
-            SIMPLE_TASK_MESSAGE:"אנחנו ב stepby בעניין להפוך את תהליכי העבודה שלך לפשוטים ונוחים יותר - לך וללקוחות שלך. בואו נתחיל...",
+            TASK_MESSAGE_START:"אנחנו ב ",
+            STEPBY:"stepby",
+            TASK_MESSAGE_END:"בעניין להפוך את תהליכי העבודה שלך לפשוטים ונוחים יותר - לך וללקוחות שלך. בואו נתחיל...",
             SUBMIT_CODE:"שלחנו קוד אימות, זמן מעולה להקליד אותו:",
             SEND_CODE:"שלחנו למספר",
             SOMETHINGS_WRONG:"משהו לא סבבה?",
