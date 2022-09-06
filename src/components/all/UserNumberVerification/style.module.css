@@ -5,3 +5,9 @@
     color: var(--grey0-color);
     font-size: 18px;
 }
+
+
+.numVerify b{
+    color: var(--grey0-color);
+
+}
