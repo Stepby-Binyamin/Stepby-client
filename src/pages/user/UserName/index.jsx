@@ -7,7 +7,7 @@ import { useContext } from 'react'
 import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
-export default function UserName({newUser = true, firstName, lastName}) {
+export default function UserName({newUser = false, firstName, lastName}) {
   
     const {header} = useContext(mainContext)
     useEffect(()=>{
@@ -25,7 +25,7 @@ export default function UserName({newUser = true, firstName, lastName}) {
         {newUser && <Input placeholder={languages[0].dict.EMAIL}/>}
         </div>
         <div className={styles.btn}>
-        <BtnSubmitIcon color='orange' icon='Arrow.svg'/>
+       {newUser ? <BtnSubmitIcon color='orange' icon='Arrow.svg'/> : <BtnSubmitIcon color='orange' icon='v to text.svg'/>}
         </div>
     </div>
   )
