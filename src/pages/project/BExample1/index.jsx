@@ -1,22 +1,21 @@
 import styles from "./style.module.css"
 import React, { useContext, useEffect, useState } from 'react'
 
-import HeaderTitle from "../../../components/common/HeaderTitle"
 import StatusStep from "../../../components/all/StatusStep"
-
-import dataBEx1 from "./dataBEx1.js"
-import BtnIcon from "../../../components/common/BtnIcon"
-import BtnsBox from "../../../components/common/BtnsBox"
-import BtnConfirm from "../../../components/common/BtnSubmitIcon"
 import Answer from "../../../components/all/Answer"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
-import mainContext from "../../../context/mainContext"
+import BtnConfirm from "../../../components/common/BtnSubmitIcon"
 import Confirm from "../../../components/all/Confirm"
+
+import mainContext from "../../../context/mainContext"
+
+import dataBEx1 from "./dataBEx1.js"
 
 const BExample1 = () => {
     const {header,drawer} = useContext(mainContext)
 
     useEffect(() => {
+        header.setIsTitle(false)
         header.setDrawerContent(<Confirm/>)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
@@ -40,7 +39,6 @@ const BExample1 = () => {
             </div>
 
             <div className={styles.btns}>
-                {/* <div className={styles.boxHolder}></div> */}
                 <BtnHolder color="lite" icon="pencil"/>
                 <BtnConfirm icon="v.svg" color="gray" />
             </div>

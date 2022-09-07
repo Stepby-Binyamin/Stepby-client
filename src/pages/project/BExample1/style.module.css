@@ -14,9 +14,8 @@
     align-items: center;
     text-align: right;
 
-    /* Greyscale/Gray 0 */
-
-    color: #292D35;
+    /* TODO: change color to var() */
+    color: #292D35; 
 
     margin: 32px 0 20px 0;
 
@@ -34,9 +33,7 @@
     align-items: center;
     text-align: right;
 
-    /* Greyscale/Gray 2 */
-
-    color: #7C818D;
+    color: var(--grey2-color);
 
 }
 
@@ -47,6 +44,7 @@
     display: flex;
     flex-wrap: nowrap;
     gap: 6px;
+    margin-bottom: 29px;
 }
 .boxHolder {
     border-radius: 12px;

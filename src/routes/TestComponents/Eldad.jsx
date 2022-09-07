@@ -1,18 +1,46 @@
-import React from "react";
-// import MainDrawer from "../../drawer/MainDrawer";
-// import Efrat from "./Efrat";
-import RadioBtn from "../../components/all/radioBtn/withoutIcon";
-import RadioBtnWithIcon from "../../components/all/radioBtn/WithIcon";
+import React, { useEffect } from "react";
+import { useState } from "react";
+// import RadioBtn from "../../components/all/radioBtn/withoutIcon";
+// import RadioBtnWithIcon from "../../components/all/radioBtn/WithIcon";
+// import BtnSubmitText from "../../components/common/BtnSubmitText";
+import { useContext } from "react";
+import mainContext from "../../context/mainContext";
+import MoreMenuTemplate from "../../components/all/MoreMenuTemplate"
+import CreateClient from "../../components/all/CreateClient";
+import CreateTemplateGeneral from "../../components/all/CreateTemplateGeneral";
 
 export default function Eldad() {
+  const [data, setdata] = useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setdata((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(data);
+  };
+
+  const { drawer } = useContext(mainContext);
+
+  useEffect(() => {
+    drawer.setDrawerContent(<><CreateTemplateGeneral/><CreateTemplateGeneral/></>);
+    drawer.setDrawer(true);
+  }, []);
 
   return (
-     <>
-      <RadioBtn arr={['לקוח מסוים',"שתיים"]} />
-      <RadioBtnWithIcon obj={[{name: 'שלי', icon: 'image'},{name: 'הלקוח', icon: 'pdf'}]} />
-
-      {/* <div>
-        <MainDrawer Component={<Efrat />} />
+    <>
+    <button onClick={()=>{drawer.setDrawer(true) }}>blablabla</button>
+      {/* <RadioBtnWithIcon obj={[{name: 'bla', icon: 'triangle'},{name: 'dat', icon: 'circle'}]}/>
+      <div>
+         <form  onSubmit={(e)=>{handleSubmit(e)}}>
+            <RadioBtn arr={['כללי', 'לא כללי']} changeFunc={(e)=>handleChange(e)}/>
+            <input type="text" name='inputText' value={data.inputText || ''} onChange={(e)=>handleChange(e)} /> 
+            <BtnSubmitText icon='plus.svg' text='submit' color='gray' />
+         </form>
+         
       </div> */}
     </>
   );

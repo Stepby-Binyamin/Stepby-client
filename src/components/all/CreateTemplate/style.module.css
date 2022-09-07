@@ -1,5 +1,5 @@
 .container {
-    height: auto;
+    height: 400px;
 }
 
 .text {
@@ -14,10 +14,11 @@
 }
 
 .btn {
-    /* margin-top: 180px; */
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
     position: fixed;
     bottom: 0;
     background-color: white;
     width: 100%;
-
+    max-width: 600px;
 }
