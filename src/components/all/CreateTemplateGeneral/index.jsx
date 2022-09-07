@@ -10,6 +10,7 @@ import { languages } from '../../../functions/languages'
 const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     const dict = languages[0].dict;
 
+
     const categoris = [
         { title: "עיצוב אתרים", isActive: false, id: 1 },
         { title: "עיצוב פנים", isActive: false, id: 2 },
@@ -24,13 +25,14 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
         setData((current) => ({ ...current, categoris }))
     }, [])
 
-    const [data, setData] = useState({})
-    const [select, setSelect] = useState(true)
+    const [data, setData] = useState({});
+    const [select, setSelect] = useState(true);
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setData(values => ({ ...values, [name]: value }))
+        setData(values => ({ ...values, [name]: value }));
+   
     }
 
     const btnCheckBoxHandler = (name) => {
@@ -39,11 +41,8 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     }
 
     const btnSubmitTextHandler = () => {
-        console.log("yossef");
         console.log(data);
     }
-    console.log(data);
-
 
     useEffect(() => {
 
@@ -51,6 +50,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
             setSelect(true);
         }
         if (data.radio == dict.SOME_CUSTOMER) {
+
             setSelect(false);
         }
 
@@ -61,7 +61,8 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME} />
+            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME}  name={"templateName"}/>
+
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
                     <RadioBtn arr={[dict.GENERAL, dict.SOME_CUSTOMER]} changeFunc={(e) => { handleChange(e) }} />
@@ -78,7 +79,8 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
                 }
                 {!select &&
 
-                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={dict.USER_PHONE} onChange={handleChange} />}
+
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={dict.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
 
             </div>
             <div className={styles.btn}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={dict.SAVE} icon={"v to text.svg"} /> </div>
@@ -87,4 +89,4 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     )
 }
 
-export default CreateTemplateGeneral
+export default CreateTemplateGeneral;
