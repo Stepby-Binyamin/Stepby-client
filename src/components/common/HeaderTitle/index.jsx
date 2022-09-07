@@ -13,7 +13,6 @@ const HeaderTitle = ({ drawerContent }) => {
     const handleClick = () => {
         // drawer.setDrawer(drawerContent)
         drawer.setDrawer(true)
-        console.log("click");
     }
 
     return (
