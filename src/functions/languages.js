@@ -112,7 +112,8 @@ export const languages = [
             COMPLET:"הושלם",
             CURRENT_STEP:"השלב הנוכחי",
             AWAIT:"כרגע ממתינים לך",
-            CARE_OF:"כרגע בטיפול של"
+            CARE_OF:"כרגע בטיפול של",
+            BUSINESS_NAME:"שם העסק"
         }
     },
 ]
