@@ -1,9 +1,9 @@
 import React from 'react'
-import BtnsBox from '../../components/common/BtnsBox'
+import Progect from '../../pages/common/project'
 
 export default function Nehorai() {
    return (<>
-      <BtnsBox/>
+      <Progect/>
     </>
    )
 }
