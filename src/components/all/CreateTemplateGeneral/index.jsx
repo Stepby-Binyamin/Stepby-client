@@ -5,19 +5,24 @@ import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
-import Line from '../../common/Line'
+import { languages } from '../../../functions/languages'
 
 const CreateTemplateGeneral = ({ placeholder, ...props }) => {
-    //TODO: tell Nehorai to change the '()=> func' to 'func' in BtnSubmitText
+    const dict = languages[0].dict;
+
     const categoris = [
-        { title: "עיצוב אתרים", isActive: false,id: 1 },
-        { title: "עיצוב פנים", isActive: false,id: 2 },
-        { title: "שיווק דיגיטלי", isActive: false,id: 3 },
-        { title: "אימון כושר גופני", isActive: false,id: 4 },]
-        
-        useEffect(() => {
-            setData((current) => ({ ...current, categoris }))
-        }, [])
+        { title: "עיצוב אתרים", isActive: false, id: 1 },
+        { title: "עיצוב פנים", isActive: false, id: 2 },
+        { title: "שיווק דיגיטלי", isActive: false, id: 3 },
+        { title: "אימון כושר גופני", isActive: false, id: 4 },
+        { title: "עיצוב אתרים", isActive: false, id: 1 },
+        { title: "עיצוב פנים", isActive: false, id: 2 },
+        { title: "שיווק דיגיטלי", isActive: false, id: 3 },
+        { title: "אימון כושר גופני", isActive: false, id: 4 },]
+
+    useEffect(() => {
+        setData((current) => ({ ...current, categoris }))
+    }, [])
 
     const [data, setData] = useState({})
     const [select, setSelect] = useState(true)
@@ -42,10 +47,10 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
 
     useEffect(() => {
 
-        if (data.radio == "כללי") {
+        if (data.radio == dict.GENERAL) {
             setSelect(true);
         }
-        if (data.radio == "לקוח מסוים") {
+        if (data.radio == dict.SOME_CUSTOMER) {
             setSelect(false);
         }
 
@@ -56,27 +61,27 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={"שם התבנית החדשה..."} />
+            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME} />
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
-                    <RadioBtn arr={['כללי', 'לקוח מסוים']} changeFunc={(e) => { handleChange(e) }} />
+                    <RadioBtn arr={[dict.GENERAL, dict.SOME_CUSTOMER]} changeFunc={(e) => { handleChange(e) }} />
                     <div className={styles.rightContainer}>
                         <img src='/images/icons/target.svg' alt="" />
-                        <div className={styles.text}>תפוצה</div>
+                        <div className={styles.text}>{dict.DISPERSTION}</div>
                     </div>
                 </div>
                 {select &&
-                    <>
-                        {data.categoris?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.title} id={elem.id} isActive={elem.isActive} key={elem.title}/>)}
-                    </>
+                    <div className={styles.categoris}>
+                        {data.categoris?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.title} id={elem.id} isActive={elem.isActive} key={elem.title} />)}
+                    </div>
 
                 }
                 {!select &&
 
-                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={" טלפון המשתמש"} onChange={handleChange} />}
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={dict.USER_PHONE} onChange={handleChange} />}
 
             </div>
-            <div className={styles.btn}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text="שמירה" icon={"v to text.svg"} /> </div>
+            <div className={styles.btn}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={dict.SAVE} icon={"v to text.svg"} /> </div>
         </div>
 
     )
