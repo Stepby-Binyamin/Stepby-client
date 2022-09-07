@@ -15,8 +15,11 @@ import projects from "../../../data/fakeProjects.js"
 
 const BExample2 = () => {
     const index = 1
-    const findStep = projects.projects[0].steps.find(step => step.index === index)
+    const _id = '14'
 
+    const findProject = projects.projects.find(project => project._id === _id)
+    const findStep = findProject.steps.find(step => step.index === index)
+console.log(findProject.client.clientName);
     const { header, drawer } = useContext(mainContext)
 
     // Calculate the Days
@@ -28,15 +31,17 @@ const BExample2 = () => {
         drawer.setDrawerContent(<Confirm />)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
-        findStep.data[0].owner  === "biz" ? header.setIsArrow(true): header.setIsArrow(false)
-        findStep.data[0].owner  === "biz" ? header.setIsHamburguer(false): header.setIsHamburguer(true)
+        findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
+        findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
+
+    console.log(findStep);
 
     return (
         <div className={styles.page}>
             {findStep.data[0].owner === "biz"  // can be client or biz
-                ? <StatusStep numOfStage={findStep.index} user="לעמרם" time={Difference_In_Days} />
-                : <StatusStep numOfStage={findStep.index} user="לעמרם" />}
+                ? <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} time={Difference_In_Days} />
+                : <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} />}
 
             <div className={styles.title}>{findStep.name}</div>
             <div className={styles.text}>{findStep.des}</div>

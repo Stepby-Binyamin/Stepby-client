@@ -35,11 +35,11 @@ export default function Shaul() {
    return (
       <>
          {/* <HeaderLogo isArrow={isArrow} isHeaderSet={isHeaderSet} /> */}
-         {/* <HeaderTitle drawerContent={drawerContent} isArrow={isArrow} isHamburguer={isHamburguer} /> */}
+         <HeaderTitle drawerContent={drawerContent} isArrow={isArrow} isHamburguer={isHamburguer} />
 
          {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
          {/* <BExample1 /> */}
-         <BExample2 />
+         {/* <BExample2 /> */}
       </>
    )
 }
