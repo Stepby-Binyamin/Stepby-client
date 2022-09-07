@@ -8,7 +8,7 @@ import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useNavigate } from 'react-router-dom'
-export default function UserName({ newUser = false, firstName, lastName }) {
+export default function UserName({ newUser = true, firstName, lastName }) {
 
   const { header } = useContext(mainContext)
   const navigate = useNavigate()
