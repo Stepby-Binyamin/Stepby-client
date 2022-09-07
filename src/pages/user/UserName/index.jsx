@@ -13,12 +13,11 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
     location = useLocation(),
-    code = location.state,
-    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '' });
+    [data, setData] = useState(location.state)
 
   useEffect(() => {
     header.setIsTitle(false)
-    console.log(code);
+    console.log(data);
   }, [])
 
   const saveData = (e) => {
@@ -30,11 +29,11 @@ export default function UserName({ newUser = true, firstName, lastName }) {
     }
     if (e.target.name === 'email' && e.target.value !== '') {
       setData({ ...data, email: e.target.value })
-    } console.log(e.target.name, e.target.value);
+    } 
   }
 
   const handleClick = () => {
-    navigate('/business-name', { state: data})
+    navigate('/business-name', { state: data })
   }
 
   return (

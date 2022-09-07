@@ -14,7 +14,7 @@ export const ContextProvider = ({ children }) => {
     const [isDots, setIsDots] = useState(true)
     const [isHeaderSet, setIsHeaderSet] = useState(true)
     
-    const [drawer, setDrawer] = useState(); // content of drawer
+    const [drawer, setDrawer] = useState();
     const [drawerContent, setDrawerContent] = useState();
 
     return (

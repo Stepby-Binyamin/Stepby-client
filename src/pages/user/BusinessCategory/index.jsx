@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import BtnCheckBox from '../../../components/common/BtnCheckBox'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
+import UserTitle from '../../../components/common/UserTitle'
+import mainContext from '../../../context/mainContext'
 import projects from '../../../data/fakeProjects'
 export default function BusinessCategory() {
-  const [data, setData] = useState(),
-    newUser = true,
-    navigate = useNavigate();
+  const { header } = useContext(mainContext)
+  const newUser = true,
+  [info,setInfo]=useState(),
+    navigate = useNavigate(),
+    location = useLocation(),
+    [data, setData] = useState(location.state)
   let catArr = [],
     categories1 = projects.categories.map((i) => {
       catArr.push({ title: i.name })
@@ -18,36 +23,42 @@ export default function BusinessCategory() {
   })
 
   useEffect(() => {
-    setData(dataTest)
+    header.setIsTitle(false)
+    setInfo(dataTest)
+    console.log(info);
   }, [])
 
   function goToNextPage() {
     console.log("blahblah BusinessCategory");
-    if(newUser){
+    console.log(data);
+    
+    if (newUser) {
       // fake link
-      navigate('/projects')
+      navigate('/projects',)
 
-    }else{
+    } else {
       // fake link
 
       navigate('/settings')
     }
   }
   const handleClick = (name) => {
-    const result = data.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
-    setData(result)
-    console.log(data);
+    const result = info.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+    setInfo(result)
+    console.log(info);
+    setData({...data,theCategories:info})
+console.log(data);
   }
 
   useEffect(() => {
-    console.log(data);
+    console.log(info);
   }, [handleClick])
 
 
 
   return (<>
-
-    {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)}
+    <UserTitle text={"cmon man"} />
+    {info?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)}
     {/* //  {newUser? console.log("dd"):
    
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
