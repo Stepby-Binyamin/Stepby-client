@@ -2,12 +2,10 @@ import ListItem from "../../components/common/ListItem"
 
 
 export default function Shmuel() {
-   function func() {
-      console.log("Enter function")
-   }
+
    return (
       <>
-         <ListItem />
+         <ListItem mainTitle="dsg" secondaryTitle="sdggsd" sconderyBoldTitle="dsgrgdfv" up={"t"} down={"f"} />
       </>
    )
 }
