@@ -1,13 +1,11 @@
-import SwipeDown from "../../components/all/SwipeDown"
+import ListItem from "../../components/common/ListItem"
 
 
 export default function Shmuel() {
-   function func() {
-      console.log("Enter function")
-   }
+
    return (
       <>
-         <SwipeDown onSwipe={func} ></SwipeDown>
+         <ListItem mainTitle="dsg" secondaryTitle="sdggsd" sconderyBoldTitle="dsgrgdfv" up={"t"} down={"f"} />
       </>
    )
 }

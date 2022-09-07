@@ -1,0 +1,25 @@
+ .upload {
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+     height: 200px;
+     border: 2px solid black;
+     align-items: center;
+ }
+
+ /* .upload label{
+
+ } */
+
+ input[type=file]::file-selector-button {
+     color: rgb(0, 0, 0);
+     background-color: white;
+     height: 2rem;
+     border: 2px solid aqua;
+     border-radius: 20px;
+ }
+
+ input[type=file]::file-selector-button:hover {
+     background-color: #81ecec;
+     border: 2px solid #00cec9;
+ }

@@ -1,4 +1,6 @@
-.HomeProject{}
+.HomeProject{
+height: 100%;
+}
 .list{
     margin-top: 32px;
 }
@@ -23,6 +25,9 @@ color: var(--grey2-color);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.iconCallIcon{
+    border-radius: 12px;
 }
 .sortDirection{
     position: fixed;
