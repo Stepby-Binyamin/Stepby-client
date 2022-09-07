@@ -15,7 +15,10 @@ import projects from "../../../data/fakeProjects.js"
 
 const BExample2 = () => {
     const index = 1
-    const findStep = projects.projects[0].steps.find(step => step.index === index)
+    const _id = '14'
+
+    const findProject = projects.projects.find(project => project._id === _id)
+    const findStep = findProject.steps.find(step => step.index === index)
 
     const { header, drawer } = useContext(mainContext)
 
@@ -28,15 +31,16 @@ const BExample2 = () => {
         drawer.setDrawerContent(<Confirm />)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
-        findStep.data[0].owner  === "biz" ? header.setIsArrow(true): header.setIsArrow(false)
-        findStep.data[0].owner  === "biz" ? header.setIsHamburguer(false): header.setIsHamburguer(true)
+        // header.setIsDots(false)                 // HeaderTitle
+        findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
+        findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
 
     return (
         <div className={styles.page}>
             {findStep.data[0].owner === "biz"  // can be client or biz
-                ? <StatusStep numOfStage={findStep.index} user="לעמרם" time={Difference_In_Days} />
-                : <StatusStep numOfStage={findStep.index} user="לעמרם" />}
+                ? <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} time={Difference_In_Days} />
+                : <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} />}
 
             <div className={styles.title}>{findStep.name}</div>
             <div className={styles.text}>{findStep.des}</div>
@@ -46,11 +50,13 @@ const BExample2 = () => {
                     switch (data.type) {
                         case "img":
                             return <ImageView
+                                key={data.title}
                                 imgDescription={data.title}
                                 imgPath={data.content}
                             />
                         case "pdf":
                             return <Answer src="/images/icon-btns/filePDF.svg"
+                                key={data.title}
                                 onClick={() => console.log("PDF")}
                                 title={data.title}
                                 p={data.content}
@@ -59,6 +65,7 @@ const BExample2 = () => {
                             />
                         case "file":
                             return <Answer src="/images/icon-btns/answer.svg"
+                                key={data.title}
                                 onClick={() => console.log("Answer")}
                                 title={data.title}
                                 p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
@@ -67,6 +74,7 @@ const BExample2 = () => {
                             />
                         case "answer":
                             return <Answer src="\images\icon-btns\Upload.svg"
+                                key={data.title}
                                 onClick={() => console.log("Upload")}
                                 title={data.title}
                                 p={data.content}
