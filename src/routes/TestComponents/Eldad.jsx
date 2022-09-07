@@ -7,6 +7,8 @@ import { useContext } from "react";
 import mainContext from "../../context/mainContext";
 import CreateTemplateGeneral from "../../components/all/CreateTemplateGeneral";
 import CreateProject from "../../components/all/CreateProject";
+import CreateClient from "../../components/all/CreateClient"
+import AllAction from "../../components/all/AllAction"
 
 export default function Eldad() {
   const [data, setdata] = useState({});
@@ -25,22 +27,16 @@ export default function Eldad() {
   const { drawer } = useContext(mainContext);
 
   useEffect(() => {
-    drawer.setDrawerContent(<CreateTemplateGeneral/>);
+    drawer.setDrawerContent(<AllAction 
+      newTempFunc={e=> {drawer.setDrawerContent(<CreateTemplateGeneral/>)}} 
+      newUserFunc={e=> {drawer.setDrawerContent(<CreateClient/>)}} 
+      projectToUserFunc={e=> {drawer.setDrawerContent(<CreateProject/>)}}/>);
     drawer.setDrawer(true);
   }, []);
 
   return (
     <>
-    <button onClick={()=>{drawer.setDrawer(true) }}>blablabla</button>
-      {/* <RadioBtnWithIcon obj={[{name: 'bla', icon: 'triangle'},{name: 'dat', icon: 'circle'}]}/>
-      <div>
-         <form  onSubmit={(e)=>{handleSubmit(e)}}>
-            <RadioBtn arr={['כללי', 'לא כללי']} changeFunc={(e)=>handleChange(e)}/>
-            <input type="text" name='inputText' value={data.inputText || ''} onChange={(e)=>handleChange(e)} /> 
-            <BtnSubmitText icon='plus.svg' text='submit' color='gray' />
-         </form>
-         
-      </div> */}
+      <button onClick={()=>drawer.setDrawer(true)}>sakjdhkjsadhkjs</button>
     </>
   );
 }
