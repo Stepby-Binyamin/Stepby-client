@@ -33,7 +33,13 @@ export default function Eldad() {
       projectToUserFunc={e=> {drawer.setDrawerContent(<CreateProject/>)}}/>);
     drawer.setDrawer(true);
   }, []);
-
+  function allActionsClick() {
+   drawer.setDrawerContent(<AllAction 
+       newTempFunc={e=> {drawer.setDrawerContent(<CreateTemplateGeneral/>)}} 
+       newUserFunc={e=> {drawer.setDrawerContent(<CreateClient/>)}} 
+       projectToUserFunc={e=> {drawer.setDrawerContent(<CreateProject/>)}}/>);
+     drawer.setDrawer(true)
+}
   return (
     <>
       <button onClick={()=>drawer.setDrawer(true)}>sakjdhkjsadhkjs</button>
