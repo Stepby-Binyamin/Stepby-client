@@ -9,7 +9,7 @@ import mainContext from "../../../context/mainContext"
 import fakeProjects from "../../../data/fakeProjects"
 import styles from "./style.module.css"
 
-export default function Project({ mode = "biz" }) {
+export default function Project({ mode = "template" }) {
     const { header } = useContext(mainContext)
 
   
@@ -27,7 +27,7 @@ export default function Project({ mode = "biz" }) {
         {/* to change isFirstStep to notFirstStep and to connect to index */}
         {fakeProjects.projects[0].steps.map(v => <ListItem status={v.status} mainTitle={v.name} isFirstStep={true} key={v._id} />)}
         {(mode === "client" ) && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' }]}/>}
-        {mode === "template" && <BtnHolder buttons={[{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' },{ color: "lite", icon: "triangle", func: ()=>{console.log("Hello") }, link: '' }]}  />}
+        {mode === "template" && <BtnHolder buttons={[{ color: "lite", icon: "triangle", func: ()=>{console.log("Hello") }, link: '' },{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' }]}  />}
         { mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' },{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' }]} />}
     </>)
 }
