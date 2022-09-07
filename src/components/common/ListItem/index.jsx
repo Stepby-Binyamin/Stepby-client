@@ -1,29 +1,27 @@
 import React, { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 
 const ListItem = ({
    style = {},
-   status = "",  // "biz" / client" / "done"
-   mainTitle = "",
-   secondaryTitle ='', 
-   sconderyBoldTitle = "",
-   isFirstStep = false, //or true
-   time = "", // `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`
+   inTreatmentOf = "b",  //"c"
+   mainTitle = "איסוף הרשאות",
+   secondaryTitle = "בהמתנה ל",  //"בטיפול " "complete"
+   sconderyBoldTitle = "אפיון",
+   firstStep = true, //or false
+   time = "0d",
    link,  //path
-   up,   //change index function
-   down, //change index function
+   complete, //true or false
+   up,
+   down,
    ...props
 }) => {
 
-   const {TO_THE_WAY, COMPLET} = languages[0].dict
    const seperatorIcon = ">";
    const { pathname } = useLocation();
    const [showMoveArrow, setShowMoveArrow] = useState(false);
 
    const moveItem = () => {
-      up && down &&
       setShowMoveArrow(!showMoveArrow);
    }
 
@@ -38,31 +36,31 @@ const ListItem = ({
                   <img src={`/images/icons/listArrowUp.svg`} onClick={() => up()} alt="move up" style={{ "marginLeft": "7.5px" }} /> </>
             }
 
-            {status === "biz" &&
+            {inTreatmentOf === "b" &&
                <img src={`/images/icons/triangle.svg`} alt="triangle" className={styles.triangle} />
             }
-            {status === "client" &&
+            {inTreatmentOf === "c" &&
                <img src={`/images/icons/circle.svg`} alt="circle" className={styles.circle} />
             }
-            {status === "done" &&
+            {complete &&
                <img src={'/images/icons/smallCheckedGrey.svg'} alt="checked" className={styles.checked} />}
 
             {secondaryTitle ?
                <div className={styles.col}>
                   <div className={styles.row}>
 
-                     <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>{mainTitle}</div>
+                     <div className={complete ? styles.grey : styles.current}>{mainTitle}</div>
 
-                     {isFirstStep &&
-                        <div className={styles.firstStep}>{TO_THE_WAY}</div>
+                     {firstStep &&
+                        <div className={styles.firstStep}>יוצאים לדרך!</div>
                      }
 
                   </div>
 
-                  {secondaryTitle === "done" ?
-                     <div className={styles.done}>
+                  {secondaryTitle === "complete" ?
+                     <div className={styles.complete}>
                         <img src={'/images/icons/smallChecked.svg'} alt="checked" style={{ "marginLeft": "4px" }} />
-                        {COMPLET}
+                        הושלם
                      </div> :
 
                      <div className={styles.row}>
@@ -71,12 +69,7 @@ const ListItem = ({
                            <div className={styles.secondaryTitleTriangle}>{seperatorIcon}</div>
                            <div className={styles.secondaryBold}>{sconderyBoldTitle}</div>
                         </>}
-                        <div className={
-                           sconderyBoldTitle && status === "biz" ? styles.timeEndOrange :
-                              sconderyBoldTitle && status === "client" ? styles.timeEndGrey :
-                                 status === "biz" ? styles.timeOrange :
-                                    styles.timeGrey
-                        }>{time}</div>
+                        <div className={sconderyBoldTitle ? styles.timeEnd : styles.time}>{time}</div>
                      </div>
                   }
 
