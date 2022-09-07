@@ -8,7 +8,7 @@ const projects = [
          clientName: "ברנקו וייס",
       },
       isTemplate: false,
-      status: 'done', //'biz', 'client' , 'new' 
+      projectStatus: 'done', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/25/2022"),
       isActive: true,
       steps: [
@@ -19,7 +19,7 @@ const projects = [
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
             status:  'biz', //'client' 
-            isDone: true,
+            stepDone: true,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',

@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, version } from "react"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
@@ -16,8 +16,7 @@ export default function Project({ mode = "template" }) {
     useEffect(() => {
         header.setTitle(fakeProjects.projects[0].name)
         mode !== "template" && header.setSubTitle(fakeProjects.projects[0].client.clientName)
-        mode === "client" ? header.setIsArrow(false) : header.setIsArrow(true)
-        mode === "client" ? header.setIsDots(false) : header.setIsDots(true)
+        mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) :header.setIsDots(true) && header.setIsArrow(true)
     }, [])
 
     return (<>
@@ -25,7 +24,7 @@ export default function Project({ mode = "template" }) {
         {mode === "template" && <StatusTemp />}
         {/* connect to real databace and filter by email/ phone */}
         {/* to change isFirstStep to notFirstStep and to connect to index */}
-        {fakeProjects.projects[0].steps.map(v => <ListItem status={v.status} mainTitle={v.name} isFirstStep={true} key={v._id} />)}
+        {fakeProjects.projects[0].steps.map(v => <ListItem status={v.status} secondaryTitle={v.stepDone === true ? "הושלם":`הפרוייקט מחכה ל${v.status}`} mainTitle={v.name} isFirstStep={v.index === 0 ? true : false} key={v._id} />)}
         {(mode === "client" ) && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' }]}/>}
         {mode === "template" && <BtnHolder buttons={[{ color: "lite", icon: "triangle", func: ()=>{console.log("Hello") }, link: '' },{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' }]}  />}
         { mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' },{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' }]} />}
