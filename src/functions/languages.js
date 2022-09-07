@@ -121,8 +121,12 @@ export const languages = [
             CARE_OF: "כרגע בטיפול של",
             NO: "לא",
             TO_THE_WAY: "יוצאים לדרך!",
-            DISPERSTION: "תפוצה"
-
+            DISPERSTION: "תפוצה",
+            SUB_TITLE_SPLASH:"הלקוחות שלך, היעילות שלנו",
+            MY_TEMP:"התבניות שלי",
+            RECOMENDED: "המומלצים שלנו",
+            LAST_DUPLICATED:"שוכפל לאחרונה לפני ",
+            CREATED_BY:'נוצר ע"י '
         }
     },
 ]

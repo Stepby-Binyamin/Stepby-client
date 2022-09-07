@@ -19,6 +19,7 @@
     /* margin-right: 14.5px; */
     height: 11px;
     width: 13px;
+    color: var(--orange100-color);
 }
 .circle{
     margin-left: 12px;
@@ -79,6 +80,12 @@
 .secondaryTitle{
     color:#7C818D;
     font-size: 13px;
+}
+.secondaryTitleWeight{
+    color:#7C818D;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 4px;
 }
 .secondaryTitleTriangle{
     color:#7C818D;

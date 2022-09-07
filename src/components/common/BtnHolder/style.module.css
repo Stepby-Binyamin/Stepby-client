@@ -30,7 +30,7 @@
     bottom: 4%;
     left: 2%;
     gap: 10px;
-    display: flex;
+    display: grid;
     flex-direction: column-reverse;
 }
 
