@@ -1,11 +1,21 @@
 import React from 'react'
+import CreateProject from '../../components/all/CreateProject'
+import StepBasics from '../../components/all/StepBasics'
+import UserOnly from '../../components/all/UserOnly'
 import BtnIcon from '../../components/common/BtnIcon'
-
+import MoreProject from '../../components/all/MoreProject'
+import CreateTemplateGeneral from '../../components/all/CreateTemplateGeneral'
 
 export default function Yossef() {
    return (
       <div>
-         <BtnIcon icon='/images/icons/image.svg' isSoon ={true} textColor = "#EF0E0E" text ="פרויקט חדש ללקוח קיים"/>
+         {/* <BtnIcon icon='/images/icons/image.svg' isSoon ={true} textColor = "#EF0E0E" text ="פרויקט חדש ללקוח קיים"/> */}
+         {/* <CreateProject/> */}
+         {/* <UserOnly/> */}
+         {/* <StepBasics/> */}
+         {/* <MoreProject/> */}
+         {/* <UserOnly/> */}
+         <CreateTemplateGeneral/>
       </div>
    )
 }

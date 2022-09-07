@@ -1,0 +1,25 @@
+.conteiner{
+    display: flex;
+}
+.btn{
+    background-color: var(--grey5-color);
+    height: 52px;
+    font-family: 'Heebo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+    color: #7C818D;
+    border-radius: 12px;
+}
+.r{
+    width: 116px;
+}
+.l{
+    width: 217px;
+    padding-right: 12px;
+}
+.line{
+    border-top: outset;
+    margin-bottom: 10px;
+}

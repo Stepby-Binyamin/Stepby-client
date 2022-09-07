@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./style.module.css"
-
 import { useNavigate } from 'react-router-dom'
 
 import Logo from '../../all/Logo'
@@ -16,11 +15,11 @@ const HeaderLogo = ({ isArrow, isHeaderSet }) => {
             </div>
 
             <div>
-                <Logo />
+                <Logo logo="/images/stepbyOrange"/>
             </div>
 
             <div  className={styles.svgDiv}>
-                {isHeaderSet && <img src="/images/icons/header-set.svg" alt="iconPeopleSet" onClick={() => navigate("home/settings")} />}
+                {isHeaderSet && <img src="/images/icons/header-set.svg" alt="iconPeopleSet" onClick={() => navigate("/home/settings")} />}
             </div>
         </div>
     );

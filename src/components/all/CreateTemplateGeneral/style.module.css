@@ -1,0 +1,45 @@
+.container {
+    height: auto;
+    /* padding: 12px; */
+}
+
+.subContainer {
+    padding: 12px;
+    padding-top: 0px;
+}
+
+.radioButton {
+    display: flex;
+    flex-direction: row-reverse;
+    /* justify-content: flex-end; */
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: inset;
+    /* width: 90%; */
+    height: 58px;
+    align-self: center;
+    color: var(--grey2-color);
+}
+
+.radioButton>img {
+    margin-left: 8px;
+}
+
+.text {
+    width: 50px;
+}
+
+.rightContainer {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+}

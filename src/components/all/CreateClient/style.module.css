@@ -1,0 +1,13 @@
+.container {
+    height: auto;
+}
+
+.btn {
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+}

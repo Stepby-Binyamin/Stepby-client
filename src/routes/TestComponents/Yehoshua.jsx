@@ -1,16 +1,19 @@
 import React from 'react'
-import StatusStep from '../../components/all/StatusStep/StatusStep'
-import StatusTemp from '../../components/all/StatusTemp/statusBarTemplateEdit/StatusTemp'
+import StatusCompleted from '../../components/all/StatusCompleted'
+import StatusStep from '../../components/all/StatusStep'
+import StatusTemp from '../../components/all/StatusTemp'
+import UserNumberVerification from '../../components/all/UserNumberVerification'
+import SomethingWentWrong from '../../components/all/somethingWentWrong'
+import SignUpInfo from '../../components/all/SignUpInfo'
+import InputVerification from '../../components/all/InputVerification'
 
-export default function Yehoshua({name,num,...props}) {
+
+export default function Yehoshua({ name, num, ...props }) {
    return (<>
       <div>Yehoshua</div>
-      <StatusStep numOfStage="5" user="לעמרם" time="7W"    />
-<br>
-</br>
-      <StatusStep numOfStage="5" user="לך"/>
-      <br></br>
-      <StatusTemp/>
+      <InputVerification />
+      <SignUpInfo/>
+     <StatusStep numOfStage={"3"} time={14}  user={"solly"}/>
    </>
    )
 }

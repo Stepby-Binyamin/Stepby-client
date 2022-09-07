@@ -3,11 +3,11 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding: 2px 4px 2px 4px;
 gap: 9px;
 height: 38px;
 background: var(--orange15-color);
 border-radius: 8px;
+padding: 4px;
 }
 
 .main > a{
@@ -15,7 +15,7 @@ border-radius: 8px;
     align-items: center;
     justify-content: center;
     width: 50%;
-    height: 90%;
+    height: 100%;
     font-size: 15px;
     color: var( --grey2-color);
     cursor: pointer;
