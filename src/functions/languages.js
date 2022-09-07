@@ -121,7 +121,8 @@ export const languages = [
             CARE_OF: "כרגע בטיפול של",
             NO: "לא",
             TO_THE_WAY: "יוצאים לדרך!",
-            DISPERSTION: "תפוצה"
+            DISPERSTION: "תפוצה",
+            SUB_TITLE_SPLASH:"הלקוחות שלך, היעילות שלנו"
 
         }
     },
