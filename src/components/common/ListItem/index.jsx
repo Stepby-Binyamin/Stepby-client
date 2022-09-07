@@ -8,8 +8,9 @@ const ListItem = ({
    style = {},
    status = "",  // "biz" / client" / "done"
    mainTitle = "",
-   secondaryTitle = '',
-   sconderyBoldTitle = "",
+   secondaryTitle = '',  // "done"  / small fontsize, light grey
+   secondaryTitleWeight = '',  //next to secondaryTitle, small fontsize, light grey, weight 500
+   sconderyBoldTitle = "",     //triangle-seperator ,time at end, small fontsize, light grey, weight 500 
    isFirstStep = false, //or true
    time = "", // `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`
    link,  //path
@@ -44,7 +45,7 @@ const ListItem = ({
                }
 
                {status === "biz" &&
-                  <img src={`/images/icons/triangle.svg`} alt="triangle" className={styles.triangle} />
+                  <img src={`/images/icons/triangleOrange.svg`} alt="triangle" className={styles.triangle} />
                }
                {status === "client" &&
                   <img src={`/images/icons/circle.svg`} alt="circle" className={styles.circle} />
@@ -72,6 +73,8 @@ const ListItem = ({
 
                         <div className={styles.row}>
                            <div className={styles.secondaryTitle}>{secondaryTitle}</div>
+                           {secondaryTitleWeight &&
+                              <div className={styles.secondaryTitleWeight}>{secondaryTitleWeight}</div>}
                            {sconderyBoldTitle && <>
                               <div className={styles.secondaryTitleTriangle}>{seperatorIcon}</div>
                               <div className={styles.secondaryBold}>{sconderyBoldTitle}</div>
