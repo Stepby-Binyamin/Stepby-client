@@ -20,7 +20,7 @@
     height: 100%;
     max-width: 600px;
     bottom: 0;
-    z-index: 1;
+    z-index: 49;
     opacity: 1;
     overflow: hidden;
     transition: 0.7s;
@@ -28,13 +28,12 @@
     flex-direction: column-reverse;
 }
 
-
 .lower{
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
     top: 24px;
-    border-bottom: 1px solid var(--grey3-color);
+    border-bottom: 1.5px solid var(--grey3-color);
     width: 37.9px;
 }
 
@@ -42,12 +41,14 @@
     position: relative;
     background-color: white;
     width: 100%;
-    z-index: 50;
-    padding-bottom: 1%;
+    max-height: 85%;
+    z-index: 500;
     border-radius: 12px 12px 0 0;
     transform: translateY(0);
     transition: 0.7s;
-    padding-top: 36px;
+    padding: 15px;
+    overflow: auto;
+    padding-top: 0;
 }
 
 .popDown{
