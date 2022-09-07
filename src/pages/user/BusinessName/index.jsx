@@ -9,32 +9,31 @@ import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+
 export default function BusinessName({ newUser = true, BusinessName }) {
 
     const { header } = useContext(mainContext),
+        [data, setData] = useState(),
         navigate = useNavigate(),
-        [input, setInput] = useState();
-    let userData = useLocation();
-    userData = userData.state;
+        location = useLocation(),
+        userData = location.state;
 
     useEffect(() => {
         header.setIsTitle(false)
-        console.log(userData);
+        console.log(location);
     }, [])
 
     const handleChange = (e) => {
-        userData.businessNm = e.target.value
+        setData({ ...userData, businessNm: e.target.value })
         console.log(0);
     }
 
     const handleClickNew = () => {
-        navigate('/category', { state: userData })
-        console.log(userData);
-
+        navigate('/business-category', { state: data })
     }
 
     const handleClickExist = () => {
-        console.log(input);
+        console.log('exist');
     }
 
     return (

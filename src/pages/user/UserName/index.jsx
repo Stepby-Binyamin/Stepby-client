@@ -14,7 +14,7 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   const navigate = useNavigate(),
     location = useLocation(),
     code = location.state,
-    [data, setData] = useState({ fName: '', lName: '', email: '' });
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '' });
 
   useEffect(() => {
     header.setIsTitle(false)
@@ -34,9 +34,9 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   }
 
   const handleClick = () => {
-    navigate('/business-name', { state: data })
+    navigate('/business-name', { state: data})
   }
-  
+
   return (
     <div className={styles.box}>
       <div className={styles.title}>
