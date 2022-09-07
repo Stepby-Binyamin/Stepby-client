@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
 import StatusTemp from "../../../components/all/StatusTemp"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
@@ -8,10 +9,10 @@ import mainContext from "../../../context/mainContext"
 import fakeProjects from "../../../data/fakeProjects"
 import styles from "./style.module.css"
 
-export default function Project({ mode = "template" }) {
+export default function Project({ mode = "biz" }) {
     const { header } = useContext(mainContext)
 
-
+  
     useEffect(() => {
         header.setTitle(fakeProjects.projects[0].name)
         mode !== "template" && header.setSubTitle(fakeProjects.projects[0].client.clientName)
@@ -25,8 +26,8 @@ export default function Project({ mode = "template" }) {
         {/* connect to real databace and filter by email/ phone */}
         {/* to change isFirstStep to notFirstStep and to connect to index */}
         {fakeProjects.projects[0].steps.map(v => <ListItem status={v.status} mainTitle={v.name} isFirstStep={true} key={v._id} />)}
-        {(mode === "client" || mode === "biz") && <BtnHolder color={"lite"} icon="whatsapp" />}
-        {mode === "template" && <BtnHolder color={"lite"} icon="triangle" />}
-        {(mode === "template" || mode === "biz") && <BtnHolder color={"gray"} icon="+" />}
+        {(mode === "client" ) && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' }]}/>}
+        {mode === "template" && <BtnHolder buttons={[{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' },{ color: "lite", icon: "triangle", func: ()=>{console.log("Hello") }, link: '' }]}  />}
+        { mode === "biz" && <BtnHolder buttons={[{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' },{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' }]} />}
     </>)
 }
