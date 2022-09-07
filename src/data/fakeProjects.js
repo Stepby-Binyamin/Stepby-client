@@ -44,9 +44,9 @@ const projects = [
                title: 'איסוף מידע הוא כלי חשוב (מקור: שאטרסטוק)',
                content: '/images/pic.png',
                index: 1,
-               isRequired : true
+               isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 2,
             isCreatorApprove: false,
@@ -63,11 +63,10 @@ const projects = [
                title: 'אפיון ודוגמאות ששווה לראות',
                content: 'files/blabla.pdf',
                index: 1,
-               isRequired : false
+               isRequired: false
             }]
          },]
-   },
-   {
+   }, {
       _id: "13",
       name: "אתר תדמית פשוט",
       creatorId: "1234",
@@ -96,7 +95,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -107,14 +106,14 @@ const projects = [
             status: 'done', //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
-               owner: 'biz',// 'client',
+               owner: 'client',// 'client',
                type: 'img', // 'img' , 'file' , 'answer'
                title: 'איסוף מידע הוא כלי חשוב (מקור: שאטרסטוק)',
                content: '/images/pic.png',
                index: 1,
-               isRequired : true
+               isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 2,
             isCreatorApprove: false,
@@ -131,11 +130,11 @@ const projects = [
                title: 'אפיון ודוגמאות ששווה לראות',
                content: 'files/blabla.pdf',
                index: 1,
-               isRequired : false
+               isRequired: false
             }]
          },]
-   },
-   {
+   }, { // SHAUL - PLEASE DONT CHANGE INFO ON THIS _id and STEPS OR DATA, 
+      //IM USING THIS DATA FOR TESTING
       _id: "14",
       name: "אתר תדמית פשוט",
       creatorId: "1234",
@@ -164,7 +163,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -172,7 +171,7 @@ const projects = [
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            status: 'done', //'biz', 'client' 
+            status: 'biz', //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',

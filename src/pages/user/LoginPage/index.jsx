@@ -21,8 +21,21 @@ export default function Login() {
     header.setIsTitle(false)
   }, [])
 
+  // const handlePress = (e)=>{
+  //  if ( e.keyCode ===69 ){
+  //   console.log(e.target.value);
+  //   //  setLimitDigits(e.target.value)
+  //   }//console.log(e.target.value);
+  // }
+
   const handleChange = (e)=>{
-    if(e.target.value.toString().length === 10){
+    if(e.keyCode === '53'){
+      console.log(e.target.value.length-1);
+      // setLimitDigits(e.target.value.toString().length-1)
+    }
+    console.log(e);
+    console.log(typeof e.target.value);
+    if(e.target.value.length > 10){
       return
     }
     setLimitDigits(e.target.value)
@@ -31,7 +44,8 @@ export default function Login() {
 
   const handleClick = ()=>{
     // TODO verify phone number 
-    if (phoneNumber.toString().length < 9) return
+    console.log(typeof phoneNumber);
+    if (phoneNumber.length < 10) return
     navigate('/verification', {state:phoneNumber})
   }
 

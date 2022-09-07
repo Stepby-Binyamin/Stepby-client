@@ -13,7 +13,7 @@ const SwipeDown = ({ style = {}, onSwipe, children, ...props }) => {
 
     const handleTouchMove = (e) => {
 
-        if ((touchStart - e.targetTouches[0].clientY) < -30 && swipe) {
+        if ((touchStart - e.targetTouches[0].clientY) < -40 && swipe) {
             setSwipe(false)
             onSwipe()
         }
