@@ -58,6 +58,8 @@
     color:#7C818D;
     font-size: 17px;
     border-bottom: solid 1px #D7D7D9;
+    display: flex;
+    align-items: center;
 }
 .firstStep{
     margin-right: 16px;

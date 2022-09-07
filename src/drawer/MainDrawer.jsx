@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+
 import mainContext from "../context/mainContext";
 import styles from "./style.module.css";
 
@@ -18,6 +19,7 @@ export default function MainDrawer({ children }) {
       drawer.setDrawer(false);
     }
   };
+
 
   return (
     <>
