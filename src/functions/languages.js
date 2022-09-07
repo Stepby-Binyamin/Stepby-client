@@ -122,8 +122,11 @@ export const languages = [
             NO: "לא",
             TO_THE_WAY: "יוצאים לדרך!",
             DISPERSTION: "תפוצה",
-            SUB_TITLE_SPLASH:"הלקוחות שלך, היעילות שלנו"
-
+            SUB_TITLE_SPLASH:"הלקוחות שלך, היעילות שלנו",
+            MY_TEMP:"התבניות שלי",
+            RECOMENDED: "המומלצים שלנו",
+            LAST_DUPLICATED:"שוכפל לאחרונה לפני ",
+            CREATED_BY:'נוצר ע"י '
         }
     },
 ]

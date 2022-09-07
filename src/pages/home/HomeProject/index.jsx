@@ -52,7 +52,9 @@ const HomeProject = ({ style = {}, ...props }) => {
          <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter2={bizCounter} counter3={clientCounter} />
 
          <ul className={styles.list}>
-            {!dataState ? <div>loading...</div> : (
+            {
+            // !dataState ? <div>loading...</div> : 
+            (
                dataState.length === 0 ?
 
                   <div className={styles.noProjects} >

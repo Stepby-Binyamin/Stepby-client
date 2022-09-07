@@ -15,8 +15,10 @@ export const ContextProvider = ({ children }) => {
     const [isHamburguer, setIsHamburguer] = useState(false);
     const [isDots, setIsDots] = useState(true)
     const [isHeaderSet, setIsHeaderSet] = useState(true)
+
     const [userData, setUserData] = useState(user)//only one user
     const [drawer, setDrawer] = useState(); // content of drawer
+
     const [drawerContent, setDrawerContent] = useState();
     
     return (
