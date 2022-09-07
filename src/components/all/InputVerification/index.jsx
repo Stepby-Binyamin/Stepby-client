@@ -1,3 +1,4 @@
+import { keyboard } from '@testing-library/user-event/dist/keyboard'
 import React from 'react'
 import { useRef } from 'react'
 import { useEffect } from 'react'
@@ -32,9 +33,15 @@ export default function InputVerification() {
             setInputData({ ...inputData, inputThree: e.target.value[e.target.value.length - 1] })
         }
         if (e.target.name === 'inputFour' && e.target.value !== 0) {
-
             setInputData({ ...inputData, inputFour: e.target.value[e.target.value.length - 1] })
-            console.log("in theory here i go to button");
+            // console.log("in theory here i go to button");
+        }
+
+        if (e.target.name === 'inputOne' && e.key === "Backspace") {
+            // console.log("123 mashu");
+            // setInputData({ ...inputData, inputOne:"" })
+            // console.log(inputOne);
+            // inputOne.current.focus()
         }
 
     }
@@ -44,7 +51,7 @@ export default function InputVerification() {
             <input className={styles.input} name='inputOne' value={inputData.inputOne} ref={inputOne} min={0} max={9} onChange={handlePress} type='number' />
             <input className={styles.input} name='inputTwo' value={inputData.inputTwo} ref={inputTwo} min={0} max={9} onChange={handlePress} type='number' />
             <input className={styles.input} name='inputThree' value={inputData.inputThree} ref={inputThree} min={0} max={9} onChange={handlePress} type='number' />
-            <input className={styles.input} name='inputFour' value={inputData.inputFour} ref={inputFour} min={0} max={9} maxLength={1} onChange={handlePress} type='number' />
+            <input className={styles.input} name='inputFour' value={inputData.inputFour} ref={inputFour} min={0} max={9} onChange={handlePress} type='number' />
         </div>
     )
 }

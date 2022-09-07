@@ -9,22 +9,30 @@ import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import InputVerification from '../../../components/all/InputVerification'
 import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
+
+
+import { useLocation, useNavigate } from 'react-router-dom'
+
 export default function Verification({ props }) {
+
   const { header } = useContext(mainContext)
+  const navigate= useNavigate()
+  const [counter,setCounter]=useState(0)
+  const phoneNumber = useLocation()
+
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
 
-  const [counter,setCounter]=useState(0)
-  useEffect(()=>{
-    localStorage.getItem('counter',JSON.parse(counter))
-  },[])
-  function countUp(){
-    setCounter(1)
-    // useEffect(()=>{
-    //     localStorage.setItem('counter',JSON.stringify(counter))
-    //     console.log(counter);
-    // })
+
+    useEffect(()=>{
+        header.setIsTitle(false)
+        console.log(phoneNumber.state)
+    },[])
+
+  
+  function goToBiz(){
+navigate('/user-name')
   }
 
   return (
@@ -36,13 +44,13 @@ export default function Verification({ props }) {
         <InputVerification />
       </div>
       <div className={styles.phoneNum}>
-        <UserNumberVerification phoneNum={"0547668489"} />
+        <UserNumberVerification counter={counter} phoneNum={phoneNumber.state} />
       </div>
       <div className={styles.someThingWrong}>
-        <SomethingWentWrong />
+        <SomethingWentWrong setCounter={setCounter} />
       </div>
       <div className={styles.btn}>
-        <BtnSubmitIcon color='orange' icon='Arrow.svg' />
+        <BtnSubmitIcon color='orange' icon='Arrow.svg' func={goToBiz} />
       </div>
     </div >
   )
