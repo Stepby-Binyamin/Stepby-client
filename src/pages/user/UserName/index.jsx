@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
 export default function UserName({ newUser = true, firstName, lastName }) {
+
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
     location = useLocation(),

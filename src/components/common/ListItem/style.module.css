@@ -43,6 +43,15 @@
     font-weight: 500;
     font-size: 17px;
 }
+.mainGrey{
+    color: var(--grey2-color);
+    font-size: 17px;
+}
+.mainGreyBold{
+    color: var(--grey2-color);
+    font-size: 17px;
+    font-weight: 500;
+}
 .grey{
     width: 100%;
     height: 100%;

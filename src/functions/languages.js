@@ -7,6 +7,7 @@ export const languages = [
         dict: {
             ENTER_PHONE: "פשוט להכניס את מספר הטלפון שלך:",
             YOUR_PHONE: "הטלפון שלך",
+            USER_PHONE: "טלפון המשתמש",
             TASK_MESSAGE_START: "אנחנו ב ",
             STEPBY: "stepby ",
             TASK_MESSAGE_END: "בעניין להפוך את תהליכי העבודה שלך לפשוטים ונוחים יותר - לך וללקוחות שלך. בואו נתחיל...",
@@ -115,7 +116,9 @@ export const languages = [
             CURRENT_STEP: "השלב הנוכחי",
             AWAIT: "כרגע ממתינים לך",
             CARE_OF: "כרגע בטיפול של",
-            NO: "לא"
+            NO: "לא",
+            TO_THE_WAY: "יוצאים לדרך!",
+            DISPERSTION: "תפוצה"
 
         }
     },

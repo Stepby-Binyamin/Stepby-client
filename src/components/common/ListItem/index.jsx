@@ -5,19 +5,19 @@ import { languages } from '../../../functions/languages'
 
 const ListItem = ({
    style = {},
-   inTreatmentOf = "",  // "biz" / client" / "done"
+   status = "",  // "biz" / client" / "done"
    mainTitle = "",
-   secondaryTitle ='', // "בהמתנה ל" "בטיפול " "done"
+   secondaryTitle ='', 
    sconderyBoldTitle = "",
    isFirstStep = false, //or true
-   time = "",
+   time = "", // `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`
    link,  //path
-   up,
-   down,
+   up,   //change index function
+   down, //change index function
    ...props
 }) => {
 
-   const {ALL, MY_CARE, WAITING_CUSTOMER, TREATMENT, COMPLET, LETS_GO, ICON, CALL_YOU} = languages[0].dict
+   const {TO_THE_WAY, COMPLET} = languages[0].dict
    const seperatorIcon = ">";
    const { pathname } = useLocation();
    const [showMoveArrow, setShowMoveArrow] = useState(false);
@@ -38,23 +38,23 @@ const ListItem = ({
                   <img src={`/images/icons/listArrowUp.svg`} onClick={() => up()} alt="move up" style={{ "marginLeft": "7.5px" }} /> </>
             }
 
-            {inTreatmentOf === "biz" &&
+            {status === "biz" &&
                <img src={`/images/icons/triangle.svg`} alt="triangle" className={styles.triangle} />
             }
-            {inTreatmentOf === "client" &&
+            {status === "client" &&
                <img src={`/images/icons/circle.svg`} alt="circle" className={styles.circle} />
             }
-            {inTreatmentOf === "done" &&
+            {status === "done" &&
                <img src={'/images/icons/smallCheckedGrey.svg'} alt="checked" className={styles.checked} />}
 
             {secondaryTitle ?
                <div className={styles.col}>
                   <div className={styles.row}>
 
-                     <div className={inTreatmentOf === "client" ? styles.grey : styles.current}>{mainTitle}</div>
+                     <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>{mainTitle}</div>
 
                      {isFirstStep &&
-                        <div className={styles.firstStep}>יוצאים לדרך!</div>
+                        <div className={styles.firstStep}>{TO_THE_WAY}</div>
                      }
 
                   </div>
@@ -62,7 +62,7 @@ const ListItem = ({
                   {secondaryTitle === "done" ?
                      <div className={styles.done}>
                         <img src={'/images/icons/smallChecked.svg'} alt="checked" style={{ "marginLeft": "4px" }} />
-                        הושלם
+                        {COMPLET}
                      </div> :
 
                      <div className={styles.row}>
@@ -72,9 +72,9 @@ const ListItem = ({
                            <div className={styles.secondaryBold}>{sconderyBoldTitle}</div>
                         </>}
                         <div className={
-                           sconderyBoldTitle && inTreatmentOf === "biz" ? styles.timeEndOrange :
-                              sconderyBoldTitle && inTreatmentOf === "client" ? styles.timeEndGrey :
-                                 inTreatmentOf === "biz" ? styles.timeOrange :
+                           sconderyBoldTitle && status === "biz" ? styles.timeEndOrange :
+                              sconderyBoldTitle && status === "client" ? styles.timeEndGrey :
+                                 status === "biz" ? styles.timeOrange :
                                     styles.timeGrey
                         }>{time}</div>
                      </div>
