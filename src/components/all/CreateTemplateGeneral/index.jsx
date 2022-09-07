@@ -32,7 +32,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
         const name = event.target.name;
         const value = event.target.value;
         setData(values => ({ ...values, [name]: value }));
-   
+
     }
 
     const btnCheckBoxHandler = (name) => {
@@ -52,6 +52,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
         if (data.radio == dict.SOME_CUSTOMER) {
 
             setSelect(false);
+
         }
 
     }, [data])
@@ -61,7 +62,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME}  name={"templateName"}/>
+            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME} name={"templateName"} />
 
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
@@ -83,7 +84,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
                     <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={dict.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
 
             </div>
-            <div className={styles.btn}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={dict.SAVE} icon={"v to text.svg"} /> </div>
+            <div className={select ? styles.btn : styles.btnFix}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={dict.SAVE} icon={"v to text.svg"} /> </div>
         </div>
 
     )
