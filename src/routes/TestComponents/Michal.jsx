@@ -30,7 +30,7 @@ export default function Michal() {
    }, [])
    return (
       <>
-         <div><CreateProject /></div>
+         {/* <div><CreateTemplateGeneral /></div> */}
 
       </>
    )

@@ -52,7 +52,7 @@
     margin-bottom: 10px;
     border-top: solid 1px #D7D7D9;
     padding: 10px;
-    position: fixed;
+    position: sticky;
     bottom: 0;
     background-color: white;
     width: 100%;
