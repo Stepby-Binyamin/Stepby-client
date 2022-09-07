@@ -1,7 +1,10 @@
 import React from 'react'
 import styles from './style.module.css'
+import { languages } from '../../../functions/languages'
+
 export default function SignUpInfo() {
-    const  stepby = " stepby ", dataStart = " אנחנו ב", restOfData = "בעניין להפוך את תהליכי העבודה שלך לפשוטים ונוחים יותר - לך וללקוחות שלך. בואו נתחיל..."
+
+    const  stepby = languages[0].dict.STEPBY, dataStart = languages[0].dict.TASK_MESSAGE_START, restOfData = languages[0].dict.TASK_MESSAGE_END
     // console.log(dataStart, stepby, restOfData);
 
     return (

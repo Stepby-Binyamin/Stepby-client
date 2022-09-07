@@ -1,5 +1,5 @@
 .conteiner{
-    width: 90%;
+    width: 100%;
 }
 .submit{
     height: 52px;
@@ -14,8 +14,4 @@
 }
 .lite{
     background-color: var(--grey5-color);
-}
-.line{
-    border-top: outset;
-    margin-bottom: 10px;
 }

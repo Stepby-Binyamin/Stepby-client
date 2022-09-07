@@ -1,14 +1,11 @@
-import Answer from "../../components/all/Answer"
+import ListItem from "../../components/common/ListItem"
+
 
 export default function Shmuel() {
 
-   const title = "gggg "
-   const p = "ffff"
-   const isTitleFirst = true
-
    return (
       <>
-         <Answer src={"/images/icons/upload.svg"} isAdmin={true} title={title} p={p} isTitleFirst={isTitleFirst} isDone={false} onClick={""} />
+         <ListItem mainTitle="dsg" secondaryTitle="sdggsd" sconderyBoldTitle="dsgrgdfv" up={"t"} down={"f"} />
       </>
    )
 }
