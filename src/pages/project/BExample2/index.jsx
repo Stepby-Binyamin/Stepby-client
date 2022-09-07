@@ -19,7 +19,7 @@ const BExample2 = () => {
 
     const findProject = projects.projects.find(project => project._id === _id)
     const findStep = findProject.steps.find(step => step.index === index)
-console.log(findProject.client.clientName);
+
     const { header, drawer } = useContext(mainContext)
 
     // Calculate the Days
@@ -31,11 +31,10 @@ console.log(findProject.client.clientName);
         drawer.setDrawerContent(<Confirm />)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
+        // header.setIsDots(false)                 // HeaderTitle
         findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
         findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
-
-    console.log(findStep);
 
     return (
         <div className={styles.page}>
@@ -51,11 +50,13 @@ console.log(findProject.client.clientName);
                     switch (data.type) {
                         case "img":
                             return <ImageView
+                                key={data.title}
                                 imgDescription={data.title}
                                 imgPath={data.content}
                             />
                         case "pdf":
                             return <Answer src="/images/icon-btns/filePDF.svg"
+                                key={data.title}
                                 onClick={() => console.log("PDF")}
                                 title={data.title}
                                 p={data.content}
@@ -64,6 +65,7 @@ console.log(findProject.client.clientName);
                             />
                         case "file":
                             return <Answer src="/images/icon-btns/answer.svg"
+                                key={data.title}
                                 onClick={() => console.log("Answer")}
                                 title={data.title}
                                 p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
@@ -72,6 +74,7 @@ console.log(findProject.client.clientName);
                             />
                         case "answer":
                             return <Answer src="\images\icon-btns\Upload.svg"
+                                key={data.title}
                                 onClick={() => console.log("Upload")}
                                 title={data.title}
                                 p={data.content}
