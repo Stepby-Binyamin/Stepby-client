@@ -11,9 +11,9 @@ export const ContextProvider = ({ children }) => {
     const [isTitle, setIsTitle] = useState(true);
     const [isArrow, setIsArrow] = useState(true);
     const [isHamburguer, setIsHamburguer] = useState(false);
-    const [drawerContent, setDrawerContent] = useState();
+    const [drawerContent, setDrawerContent] = useState();// content of drawer
 
-    const [drawer, setDrawer] = useState(); // content of drawer
+    const [drawer, setDrawer] = useState(); 
 
     return (
         <mainContext.Provider value={{
