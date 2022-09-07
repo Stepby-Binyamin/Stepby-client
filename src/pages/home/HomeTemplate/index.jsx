@@ -14,11 +14,13 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    const { header } = useContext(mainContext)
    const { data } = useContext(dataContext)
    const [dataState, setDataState] = useState(data.projects)
-   const [recomend, setRecomend] = useState()
+   const [recomend, setRecomend] = useState(data.projects)
    const [sortListBy, setSortListBy] = useState(MY_TEMP)
 
+   const filterTemp = dataState && dataState.filter(item=> item.isTemplate)
+   const dataToPrint = sortListBy === MY_TEMP ? filterTemp : recomend
 
-   const tempCounter = data.projects && data.projects.filter(item => item.isTemplate).length
+   const tempCounter = filterTemp.length
 
    useEffect(() => {
       header.setIsTitle(false)
@@ -33,15 +35,17 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          <NavLinkTab state={sortListBy} setState={setSortListBy} firstText={MY_TEMP} secondText={RECOMENDED} counter={tempCounter} />
 
          <ul className={styles.list}>
-            {!dataState ? <div>loading...</div> :
+            {
+            // !dataToPrint ? <div>loading...</div> :
 
-               dataState.map(item =>
+               dataToPrint.map(item =>
                   <ListItem
                      key={item._id}
-                     mainTitle={item.name}
-                     secondaryTitle={sortListBy === MY_TEMP ?
-                        `${LAST_DUPLICATED}${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct date
-                        `${CREATED_BY}${item.creatorId}`}   // get user name
+                     mainTitle={item.name}  // get corect name
+                     secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}   // get user name
+                     secondaryTitleWeight={sortListBy === MY_TEMP ?
+                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct date}  
+                        item.creatorId}
                      link={`/template/${item._id}`}  //path
                   />)
 
