@@ -16,8 +16,6 @@ const Setting = ({ style = {}, ...props }) => {
         interests: ["בניית אתרים ", "שיווק דיגיטלי"]
     }
     let interest = user.interests.join()
-    console.log(interest)
-
 
     const logof = () => {
         console.log("need fuction exit")
@@ -28,7 +26,8 @@ const Setting = ({ style = {}, ...props }) => {
             <div>
                 <ul>
                     <li >
-                        <LiComp header={lan.FIRST_AND_LAST_NAME} subTitle={user.firstName + " " + user.lastName} />
+                        <LiComp header={lan.FIRST_AND_LAST_NAME} subTitle={user.firstName + " " + user.lastName}
+                            link="/user-name" />
                     </li>
                     <li>
                         <LiComp header={lan.BUSINESS_NAME} subTitle={user.businessName} />

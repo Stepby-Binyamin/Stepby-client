@@ -16,10 +16,23 @@ import CreateClient from '../../components/all/CreateClient';
 import CreateTemplate from '../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../components/all/CreateTemplateGeneral';
 import CreateProject from '../../components/all/CreateProject'
+import { useEffect } from 'react';
+import { useContext } from 'react';
+import mainContext from '../../context/mainContext';
+import MoreTemp from '../../components/all/MoreTemp'
+import MoreStep from '../../components/all/MoreStep';
+import StepBasics from '../../components/all/StepBasics';
+
 export default function Michal() {
+   const { header, drawer } = useContext(mainContext)
+   useEffect(() => {
+      drawer.setDrawer(true)
+      drawer.setDrawerContent(<StepBasics />)
+
+   }, [])
    return (
       <>
-         <div><CreateTemplateGeneral /></div>
+         {/* <div><CreateTemplateGeneral /></div> */}
 
       </>
    )
