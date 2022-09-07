@@ -3,7 +3,7 @@ import BtnIcon from '../../common/BtnIcon'
 import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
 
-const AllAction = ({ style = {}, newTempFunc, newUserFunc, projectToUserFunc, ...props }) => {
+const AllAction = ({ newTempFunc, newUserFunc, projectToUserFunc }) => {
    const dict = languages[0].dict;
    return (
       <div className={styles.additionNew}>

@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useContext } from "react";
 import mainContext from "../../context/mainContext";
 import MoreMenuTemplate from "../../components/all/MoreMenuTemplate"
+import CreateClient from "../../components/all/CreateClient";
+import CreateTemplateGeneral from "../../components/all/CreateTemplateGeneral";
 
 export default function Eldad() {
   const [data, setdata] = useState({});
@@ -24,12 +26,13 @@ export default function Eldad() {
   const { drawer } = useContext(mainContext);
 
   useEffect(() => {
-    drawer.setDrawerContent(<MoreMenuTemplate/>);
+    drawer.setDrawerContent(<><CreateTemplateGeneral/><CreateTemplateGeneral/></>);
     drawer.setDrawer(true);
   }, []);
 
   return (
     <>
+    <button onClick={()=>{drawer.setDrawer(true) }}>blablabla</button>
       {/* <RadioBtnWithIcon obj={[{name: 'bla', icon: 'triangle'},{name: 'dat', icon: 'circle'}]}/>
       <div>
          <form  onSubmit={(e)=>{handleSubmit(e)}}>
