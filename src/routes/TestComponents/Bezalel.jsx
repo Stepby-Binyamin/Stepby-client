@@ -10,7 +10,7 @@ export default function Bezalel() {
    let buttons = [
 
       { color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' },
-      { color: "lite", icon: "wahtsapp", func: '', link: "+972535277354" }
+      { color: "lite", icon: "whatsapp", func: '', link: "+972535277354" }
    ];
 
 
