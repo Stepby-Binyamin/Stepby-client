@@ -58,7 +58,7 @@ const ListItem = ({
 
                         <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>{mainTitle}</div>
 
-                        {isFirstStep &&
+                        {isFirstStep && secondaryTitle !== "done" &&
                            <div className={styles.firstStep}>{TO_THE_WAY}</div>
                         }
 
