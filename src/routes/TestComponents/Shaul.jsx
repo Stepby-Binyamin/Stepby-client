@@ -8,7 +8,7 @@ import BtnIcon from '../../components/common/BtnIcon'
 import HeaderLogo from '../../components/common/HeaderLogo'
 import HeaderTitle from '../../components/common/HeaderTitle'
 import Input from '../../components/common/Input/Input'
-import UploadFiles from '../../components/common/UploadFiles'
+import UploadIMG from '../../components/common/UploadIMG'
 import mainContext from '../../context/mainContext'
 
 import BExample1 from '../../pages/project/BExample1'
@@ -59,7 +59,7 @@ export default function Shaul() {
          {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
          {/* <BExample1 /> */}
          <BExample2 />
-         <UploadFiles />
+         {/* <UploadIMG /> */}
       </>
    )
 }
