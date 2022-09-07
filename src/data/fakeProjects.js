@@ -18,7 +18,8 @@ const projects = [
             isCreatorApprove: false,
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            status: 'done', //'biz', 'client' 
+            status:  'biz', //'client' 
+            isDone: true,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',

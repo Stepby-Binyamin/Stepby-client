@@ -1,9 +1,9 @@
 import React from 'react'
-import Progect from '../../pages/common/project'
+import Project from '../../pages/common/Project'
 
 export default function Nehorai() {
    return (<>
-      <Progect/>
+      <Project/>
     </>
    )
 }
