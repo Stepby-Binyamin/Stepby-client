@@ -15,7 +15,7 @@ export default function Yehoshua({ name, num, ...props }) {
       {/* <InputVerification />
       <SignUpInfo/>
      <StatusStep numOfStage={"3"} time={97}  user={"לשאול"}/> */}
-     <BusinessCategory/>
+      <BusinessCategory />
    </>
    )
 }
