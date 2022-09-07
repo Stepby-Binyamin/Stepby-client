@@ -8,13 +8,13 @@ import mainContext from "../../../context/mainContext"
 import fakeProjects from "../../../data/fakeProjects"
 import styles from "./style.module.css"
 
-export default function Project({ mode = "biz" }) {
+export default function Project({ mode = "template" }) {
     const { header } = useContext(mainContext)
 
 
     useEffect(() => {
         header.setTitle(fakeProjects.projects[0].name)
-        header.setSubTitle(fakeProjects.projects[0].client.clientName)
+        mode !== "template" && header.setSubTitle(fakeProjects.projects[0].client.clientName)
         mode === "client" ? header.setIsArrow(false) : header.setIsArrow(true)
         mode === "client" ? header.setIsDots(false) : header.setIsDots(true)
     }, [])
