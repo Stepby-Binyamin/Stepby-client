@@ -14,10 +14,7 @@ function User() {
          <Route path='/verification' element={<Verification/>} />
          <Route path='/user-name' element={<UserName/>} />
          <Route path='/business-name' element={<BusinessName/>} />
-         <Route path='/businessCategory' element={<BusinessCategory/>} />
-
-    
-
+         <Route path='/business-category' element={<BusinessCategory/>} />
          <Route path='*' element={<></>} />
       </Routes>
    )
