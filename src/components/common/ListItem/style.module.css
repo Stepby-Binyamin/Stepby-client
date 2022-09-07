@@ -19,6 +19,7 @@
     /* margin-right: 14.5px; */
     height: 11px;
     width: 13px;
+    color: var(--orange100-color);
 }
 .circle{
     margin-left: 12px;
