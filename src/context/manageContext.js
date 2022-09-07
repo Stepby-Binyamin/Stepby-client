@@ -12,6 +12,8 @@ export const ContextProvider = ({ children }) => {
     const [isArrow, setIsArrow] = useState(true);
     const [isHamburguer, setIsHamburguer] = useState(false);
     const [drawerContent, setDrawerContent] = useState();
+    const [isDots, setIsDots] = useState(true);
+    const [isHeaderSet, setIsHeaderSet] = useState(true);
 
     const [drawer, setDrawer] = useState(); // content of drawer
 
@@ -34,6 +36,10 @@ export const ContextProvider = ({ children }) => {
                 setIsArrow,
                 isHamburguer,
                 setIsHamburguer,
+                isDots,
+                setIsDots,
+                isHeaderSet,
+                setIsHeaderSet
 
             }
         }}>
