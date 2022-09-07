@@ -18,6 +18,9 @@ const HomeProject = ({ style = {}, ...props }) => {
    const { data } = useContext(dataContext)
    const { header } = useContext(mainContext)
 
+   const bizCounter = data.projects.filter(item => item.status === 'biz').length
+   const clientCounter = data.projects.filter(item => item.status === 'client').length
+
 
    // console.log(data.projects[0].lastApprove);
 
@@ -31,7 +34,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       <div className={styles.HomeProject} style={style} {...props} >
 
          <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
-         <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter={data.projects.length} />
+         <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter2={bizCounter} counter3={clientCounter} />
 
          <ul className={styles.list}>
             {data.projects && (
@@ -41,38 +44,41 @@ const HomeProject = ({ style = {}, ...props }) => {
                   <div className={styles.noProjects} >
                      <div className={styles.noProjectsContainer}>
                         <div className={styles.letStart} >{LETS_GO}</div>
-                        <div className={styles.iconCall} >{ICON}<img src='/images/icons/iconCallYou.svg' alt="iconCallYou" /> {CALL_YOU}</div>
+                        <div className={styles.iconCall} >
+                           {ICON}
+                           <img src='/images/icons/iconCallYou.svg' alt="iconCallYou" />
+                           {CALL_YOU}
+                        </div>
                      </div>
                   </div> :
 
-                  sortListBy === ALL && sortDirection ?
-
-                     data.projects
-                        .sort((a, b) => {
-                           return (new Date(b.lastApprove).getTime() - new Date(a.lastApprove).getTime())
-                        })
-                        .map(item =>
-                           <ListItem
-                              key={item._id}
-                              inTreatmentOf={item.status}
-                              mainTitle={item.client.clientName}
-                              secondaryTitle={item.name}
-                              sconderyBoldTitle={item.steps[0].name}  //get current temp
-                              time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
-                              link={`/project/${item._id}`}  //path
-                           />
-                        )
-                     :
-                     sortListBy === ALL && !sortDirection ?
-
+                  sortListBy === ALL && sortDirection ?  //ignore done
+                     <>{
                         data.projects
+                           .filter(item => item.status !== 'done')
                            .sort((a, b) => {
-                              return (new Date(a.lastApprove).getTime() - new Date(b.lastApprove).getTime())
+                              return (new Date(b.lastApprove).getTime() - new Date(a.lastApprove).getTime())
                            })
                            .map(item =>
                               <ListItem
                                  key={item._id}
-                                 inTreatmentOf={item.status}
+                                 status={item.status}  // item.steps[0].status
+                                 mainTitle={item.client.clientName}
+                                 secondaryTitle={item.name}
+                                 sconderyBoldTitle={item.steps[0].name}  //get current temp
+                                 time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
+                                 link={`/project/${item._id}`}  //path
+                              />
+                           )}
+                        {data.projects
+                           .filter(item => item.status === 'done')
+                           .sort((a, b) => {
+                              return (new Date(b.lastApprove).getTime() - new Date(a.lastApprove).getTime())
+                           })
+                           .map(item =>
+                              <ListItem
+                                 key={item._id}
+                                 status={item.status}  // item.steps[0].status
                                  mainTitle={item.client.clientName}
                                  secondaryTitle={item.name}
                                  sconderyBoldTitle={item.steps[0].name}  //get current temp
@@ -80,7 +86,44 @@ const HomeProject = ({ style = {}, ...props }) => {
                                  link={`/project/${item._id}`}  //path
                               />
                            )
-                        :
+                        }</> :
+
+                     sortListBy === ALL && !sortDirection ?
+                        <>{
+
+                           data.projects
+                              .filter(item => item.status !== 'done')
+                              .sort((a, b) => {
+                                 return (new Date(a.lastApprove).getTime() - new Date(b.lastApprove).getTime())
+                              })
+                              .map(item =>
+                                 <ListItem
+                                    key={item._id}
+                                    status={item.status}
+                                    mainTitle={item.client.clientName}
+                                    secondaryTitle={item.name}
+                                    sconderyBoldTitle={item.steps[0].name}  //get current temp
+                                    time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
+                                    link={`/project/${item._id}`}  //path
+                                 />
+                              )}{
+                              data.projects
+                                 .filter(item => item.status === 'done')
+                                 .sort((a, b) => {
+                                    return (new Date(a.lastApprove).getTime() - new Date(b.lastApprove).getTime())
+                                 })
+                                 .map(item =>
+                                    <ListItem
+                                       key={item._id}
+                                       status={item.status}
+                                       mainTitle={item.client.clientName}
+                                       secondaryTitle={item.name}
+                                       sconderyBoldTitle={item.steps[0].name}  //get current temp
+                                       time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
+                                       link={`/project/${item._id}`}  //path
+                                    />
+                                 )
+                           }</> :
 
                         sortListBy === MY_CARE && sortDirection ?
 
@@ -92,7 +135,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                                  item.status === "biz" &&
                                  <ListItem
                                     key={item._id}
-                                    inTreatmentOf={item.status}
+                                    status={item.status}
                                     mainTitle={item.client.clientName}
                                     secondaryTitle={item.name}
                                     sconderyBoldTitle={item.steps[0].name}  //get current temp
@@ -112,7 +155,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                                     item.status === "biz" &&
                                     <ListItem
                                        key={item._id}
-                                       inTreatmentOf={item.status}
+                                       status={item.status}
                                        mainTitle={item.client.clientName}
                                        secondaryTitle={item.name}
                                        sconderyBoldTitle={item.steps[0].name}  //get current temp
@@ -132,7 +175,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                                        item.status === "client" &&
                                        <ListItem
                                           key={item._id}
-                                          inTreatmentOf={item.status}
+                                          status={item.status}
                                           mainTitle={item.client.clientName}
                                           secondaryTitle={item.name}
                                           sconderyBoldTitle={item.steps[0].name}  //get current temp
@@ -152,7 +195,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                                           item.status === "client" &&
                                           <ListItem
                                              key={item._id}
-                                             inTreatmentOf={item.status}
+                                             status={item.status}
                                              mainTitle={item.client.clientName}
                                              secondaryTitle={item.name}
                                              sconderyBoldTitle={item.steps[0].name}  //get current temp
@@ -174,7 +217,5 @@ const HomeProject = ({ style = {}, ...props }) => {
       </div>
    )
 }
-
-
 
 export default HomeProject
