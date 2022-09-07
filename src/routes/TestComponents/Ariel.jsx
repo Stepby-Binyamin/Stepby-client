@@ -5,8 +5,7 @@ import HomeProject from '../../pages/home/HomeProject'
 export default function Ariel() {
    return (
       <>
-         {/* <ListItem /> */}
-         <ListItem
+         {/* <ListItem
                               // key={}
                               status={"biz"}  // item.steps[0].status
                               mainTitle={"dsdsd"}
@@ -14,7 +13,7 @@ export default function Ariel() {
                               sconderyBoldTitle={"item.steps[0].name"}  //get current temp
                               time={"2d"}
                               link={`/project/`}  //path
-                           />
+                           /> */}
         <HomeProject />
       </>
    )
