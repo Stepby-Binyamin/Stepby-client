@@ -1,4 +1,7 @@
 import React from 'react'
+import AllAction from '../../components/all/AllAction'
+import CreateProject from '../../components/all/CreateProject'
+
 import ListItem from '../../components/common/ListItem'
 import HomeProject from '../../pages/home/HomeProject'
 
@@ -19,6 +22,7 @@ export default function Ariel() {
                              down = {""} //change inpath
                            />
         {/* <HomeProject /> */}
+        {/* <CreateTemplate /> */}
       </>
    )
 }
