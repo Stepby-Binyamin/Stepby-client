@@ -26,7 +26,7 @@ export default function Verification({ props }) {
   }, [])
 
   function goToNextPage() {
-    console.log(code);
+    // console.log(code);
     //make an if clause if a user is new he will go to line 30 , else- if he is an existing user then go to 31
     navigate('/user-name', { state: code })
     // navigate('/projects', { state: code })
