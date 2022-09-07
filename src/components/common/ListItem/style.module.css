@@ -2,18 +2,23 @@
     width: 100%;
     height: 54px;
     list-style: none;
+    display: flex;
+    align-items: center;
 }
 .navlink{
+    width: 100%;
+    height: 100%;
     text-decoration: none;
     display: flex;
     align-items: center;
+    /* justify-content: center; */
     padding:0 15px;
 }
 .triangle{
-margin-left: 11.5px;
-/* margin-right: 14.5px; */
-height: 11px;
-width: 13px;
+    margin-left: 11.5px;
+    /* margin-right: 14.5px; */
+    height: 11px;
+    width: 13px;
 }
 .circle{
     margin-left: 12px;
@@ -28,15 +33,31 @@ width: 13px;
     display: flex;
     align-items: center;
 }
-.col{}
+.col{
+    width: 100%;
+    height: 100%;
+    border-bottom: solid 1px #D7D7D9;
+}
 .current{
     color:#4B4F57;
     font-weight: 500;
     font-size: 17px;
 }
+.mainGrey{
+    color: var(--grey2-color);
+    font-size: 17px;
+}
+.mainGreyBold{
+    color: var(--grey2-color);
+    font-size: 17px;
+    font-weight: 500;
+}
 .grey{
+    width: 100%;
+    height: 100%;
     color:#7C818D;
     font-size: 17px;
+    border-bottom: solid 1px #D7D7D9;
 }
 .firstStep{
     margin-right: 16px;
@@ -48,7 +69,7 @@ width: 13px;
     /* width: 77px; */
     height: 19px;
 }
-.complete{
+.done{
     font-size: 13px;
     color: var(--orange100-color);
     height: 19px;
@@ -67,17 +88,31 @@ width: 13px;
     font-size: 13px;
     font-weight: 500;
 }
-.time{
+.timeOrange{
     background: rgba(255, 79, 0, 0.1);
     border-radius: 4px;
     color: var(--orange100-color);
     margin-right: 8px;
     font-size: 13px;
 }
-.timeEnd{
+.timeGrey{
+    background: var(--grey5-color);
+    border-radius: 4px;
+    color: var(--grey2-color);
+    margin-right: 8px;
+    font-size: 13px;
+}
+.timeEndOrange{
     background: rgba(255, 79, 0, 0.1);
     border-radius: 4px;
     color: var(--orange100-color);
+    margin-right: auto;
+    font-size: 13px;
+}
+.timeEndGrey{
+    background: var(--grey5-color);
+    border-radius: 4px;
+    color: var(--grey2-color);
     margin-right: auto;
     font-size: 13px;
 }

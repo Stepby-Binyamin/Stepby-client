@@ -12,6 +12,8 @@ export default function Yehoshua({ name, num, ...props }) {
    return (<>
       <div>Yehoshua</div>
       <InputVerification />
+      <SignUpInfo/>
+     <StatusStep numOfStage={"3"} time={14}  user={"solly"}/>
    </>
    )
 }

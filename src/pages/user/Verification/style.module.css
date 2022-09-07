@@ -17,6 +17,15 @@
     padding: 20px 0 15px;
 }
 
+.phoneNum{
+    padding: 15px 0;
+
+}
+
+.someThingWrong{
+padding: 0 0 20px 0;
+}
+
 .btn{
     align-items: center;
     padding: 10px 0;
@@ -27,9 +36,7 @@
     .box{
         padding: 0;
     }
-    .sub{
-        padding: 20px 24px;
-    }
+
 }
 @media only screen and (max-width: 374px) {
     .box{

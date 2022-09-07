@@ -1,32 +1,39 @@
-.container{
- display: flex;
- justify-content: center;
+.container {
+    display: flex;
+    justify-content: center;
 }
 
-.innerContainer{
+.innerContainer {
     display: flex;
-    width: 80%;
+    width: 100%;
     flex-direction: column;
     color: var(--grey2-color);
     justify-content: center;
 }
 
-.title{
+.title {
     font-size: 44px;
     text-align: center;
     font-weight: 300;
 }
 
-.subtitle{
+.subtitle {
     font-size: 14px;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.innerContainer > img{
+.innerContainer>img {
     width: 268px;
     align-self: center;
     margin-bottom: 32px;
 }
 
+.btnContainer {
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+}

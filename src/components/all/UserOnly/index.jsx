@@ -13,6 +13,7 @@ const UserOnly = ({ style = {}, ...props }) => {
       <div className={styles.UserOnlyContainer}>
       <div className={styles.inputContainer}>
          <Keyboard placeholder={keyboardPlaceholder}/>
+         
          <div className={styles.radioButton}>
          <RadioBtn arr={['כללי','לקוח מסוים']}/>
          <div className={styles.rightContainer}>
