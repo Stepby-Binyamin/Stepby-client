@@ -17,7 +17,7 @@ export default function StatusStep({ user, numOfStage, time, ...props }) {
                     </div>
                 </div>
                 <div className={`${time?styles.leftSide:styles.center}`}>
-                 { time%7===0?  <div className={styles.waitingTime}>{time/7+"w"}</div>:<div className={styles.waitingTime}>{time+"d"}</div>}
+                {time?<div>{ time%7===0?  <div className={styles.waitingTime}>{time/7+"w"}</div>:<div className={styles.waitingTime}>{time+"d"}</div>}</div>:null}
                 </div>
             </div>
         </div>

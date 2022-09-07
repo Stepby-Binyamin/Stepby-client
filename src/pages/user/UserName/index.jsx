@@ -7,14 +7,15 @@ import { useContext } from 'react'
 import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 export default function UserName({ newUser = false, firstName, lastName }) {
 
   const { header } = useContext(mainContext)
   const navigate = useNavigate()
-
+const location= useLocation()
   useEffect(() => {
     header.setIsTitle(false)
+    console.log(location.state);
   }, [])
 
   return (
