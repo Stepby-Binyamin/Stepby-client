@@ -5,9 +5,8 @@ import { useState } from "react";
 // import BtnSubmitText from "../../components/common/BtnSubmitText";
 import { useContext } from "react";
 import mainContext from "../../context/mainContext";
-import MoreMenuTemplate from "../../components/all/MoreMenuTemplate"
-import CreateClient from "../../components/all/CreateClient";
 import CreateTemplateGeneral from "../../components/all/CreateTemplateGeneral";
+import CreateProject from "../../components/all/CreateProject";
 
 export default function Eldad() {
   const [data, setdata] = useState({});
@@ -26,7 +25,7 @@ export default function Eldad() {
   const { drawer } = useContext(mainContext);
 
   useEffect(() => {
-    drawer.setDrawerContent(<><CreateTemplateGeneral/><CreateTemplateGeneral/></>);
+    drawer.setDrawerContent(<CreateTemplateGeneral/>);
     drawer.setDrawer(true);
   }, []);
 
