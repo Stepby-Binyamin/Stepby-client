@@ -21,20 +21,19 @@ export default function Login() {
     header.setIsTitle(false)
   }, [])
 
-  const handlePress = (e)=>{
-    const withoutE = e.target.value
-    console.log(withoutE);
-   if ( e.keyCode === 69 ){
-    console.log(e.target.value);
-     setLimitDigits(withoutE)
-   }
-  }
+  // const handlePress = (e)=>{
+  //  if ( e.keyCode ===69 ){
+  //   console.log(e.target.value);
+  //   //  setLimitDigits(e.target.value)
+  //   }//console.log(e.target.value);
+  // }
 
   const handleChange = (e)=>{
     if(e.keyCode === '53'){
       console.log(e.target.value.length-1);
       // setLimitDigits(e.target.value.toString().length-1)
     }
+    console.log(e);
     console.log(typeof e.target.value);
     if(e.target.value.length > 10){
       return
@@ -56,7 +55,7 @@ export default function Login() {
         <UserTitle text={languages[0].dict.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input onKeyDown={handlePress} value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
+        <Input value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>

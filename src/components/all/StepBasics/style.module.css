@@ -1,15 +1,18 @@
-.StepBasicsContainer{
+.StepBasicsContainer {
     display: flex;
     justify-content: center;
+    height: 500px;
 }
-.StepBasicsInnerContainer{
+
+.StepBasicsInnerContainer {
     display: flex;
     flex-direction: column;
     /* width: 100%; */
-    justify-content: center;
+    /* justify-content: center; */
     /* gap: 10px; */
 }
-.radioButton{
+
+.radioButton {
     display: flex;
     justify-content: space-between;
     border-bottom: inset;
@@ -18,20 +21,23 @@
     height: 58px;
     align-items: center;
 }
-.rightContainer{
+
+.rightContainer {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.rightContainer > img{
-    max-width:21.6px;
-    max-height:21.6px;
+.rightContainer>img {
+    max-width: 21.6px;
+    max-height: 21.6px;
 }
-.radioText{
+
+.radioText {
     size: 17px;
     color: var(--grey2-color);
 }
+
 .text {
     font-weight: 400;
     font-size: 14px;
@@ -43,7 +49,7 @@
     align-self: center;
 }
 
-.buttonsContainer{
+.buttonsContainer {
     display: flex;
     align-self: center;
     gap: 12px;
@@ -58,11 +64,12 @@
     justify-content: center;
 }
 
-.saveButton{
+.saveButton {
     /* width: 116px; */
-    width: auto;
+    width: 30%;
 }
-.saveAndCreateButton{
-  /* width: 217px; */
-  width: 50%;
+
+.saveAndCreateButton {
+    /* width: 217px; */
+    width: 60%;
 }
