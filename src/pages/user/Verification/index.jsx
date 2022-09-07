@@ -22,7 +22,7 @@ export default function Verification({ props }) {
 
   useEffect(() => {
     header.setIsTitle(false)
-    console.log(data);
+    // console.log(data);
   }, [])
 
   function goToNextPage() {
