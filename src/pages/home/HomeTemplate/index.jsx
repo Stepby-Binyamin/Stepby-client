@@ -13,6 +13,8 @@ import CreateClient from '../../../components/all/CreateClient'
 import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
+import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
+
 
 const HomeTemplate = ({ style = {}, ...props }) => {
 
@@ -76,7 +78,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          </ul>
 
          {sortListBy === MY_TEMP &&
-            <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} />
+            <BtnHolder buttons={[{ color: "gray", icon: "+", func: openDrawer }]} />
          }
       </div>
    )
