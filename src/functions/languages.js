@@ -34,7 +34,7 @@ export const languages = [
             CARE: "בטיפול...",
             WAITING_CUSTOMER: "ממתין ללקוח",
             FIRST_AND_LAST_NAME: "שם פרטי ומשפחה",
-            AREAS_PRACTICE: "תחומי עיסוק",
+            AREAS_PRACTICE: " מה תחומי עיסוק של",
             LOGGING_OFF: "התנתקות",
             LETS_GO: "פשוט, בוא נתחיל",
             ICON: "האייקון",
@@ -121,8 +121,12 @@ export const languages = [
             CARE_OF: "כרגע בטיפול של",
             NO: "לא",
             TO_THE_WAY: "יוצאים לדרך!",
-            DISPERSTION: "תפוצה"
-
+            DISPERSTION: "תפוצה",
+            SUB_TITLE_SPLASH:"הלקוחות שלך, היעילות שלנו",
+            MY_TEMP:"התבניות שלי",
+            RECOMENDED: "המומלצים שלנו",
+            LAST_DUPLICATED:"שוכפל לאחרונה לפני ",
+            CREATED_BY:'נוצר ע"י '
         }
     },
 ]

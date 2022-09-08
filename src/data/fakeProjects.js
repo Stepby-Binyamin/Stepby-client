@@ -81,7 +81,7 @@ const projects = [
          _id: "4599",
          clientName: "מרכז הצדקה",
       },
-      isTemplate: false,
+      isTemplate: true,
       status: 'client', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/03/2022"),
       isActive: true,
@@ -239,7 +239,7 @@ const projects = [
          _id: "34567",
          clientName: 'טכנולוגיות בעמ',
       },
-      isTemplate: false,
+      isTemplate: true,
       status: 'biz', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/09/2022"),
       isActive: true,
