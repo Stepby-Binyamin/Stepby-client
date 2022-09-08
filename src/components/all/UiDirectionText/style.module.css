@@ -2,16 +2,20 @@
     height: 100%;
     display: flex;
 } 
-.noProjectsContainer{
+.innerContainer{
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.letStart{
+.mainTitle{
     font-weight: 300;
-font-size: 44px;
-line-height: 65px;
-color: var(--grey2-color);
+    font-size: 44px;
+    line-height: 65px;
+    color: var(--grey2-color);
 }
-.iconCall{
+.secondRaw{
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
@@ -21,5 +25,5 @@ color: var(--grey2-color);
     align-items: center;
 }
 .iconCallIcon{
-    border-radius: 12px;
+   margin: 0 7px;
 }
