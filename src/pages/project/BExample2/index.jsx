@@ -32,7 +32,7 @@ const BExample2 = () => {
     var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
-        drawer.setDrawerContent(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
+        drawer.setDrawerContentHeader(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         // header.setIsDots(false)                 // HeaderTitle
