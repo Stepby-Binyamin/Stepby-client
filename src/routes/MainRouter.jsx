@@ -29,7 +29,7 @@ function MainRouter() {
             <Route path='/template/:id'  >
                 <Route index element={<Project mode="template" />} />
                 <Route path='step/:stepId' element={<Step />} />
-                <Route path='edit-step/:stepId' element={<EditStep mode="template" />} />
+                <Route path='edit-step/:stepId' element={<EditStep />} />
 
             </Route>
             <Route path='project'>
@@ -37,7 +37,7 @@ function MainRouter() {
                     <Route path=':id'  >
                         <Route index element={<Project mode="biz" />} />
                         <Route path='step/:stepId' element={<Step />} />
-                        <Route path='edit-step/:stepId' element={<EditStep mode="template" />} />
+                        <Route path='edit-step/:stepId' element={<EditStep />} />
 
                     </Route>
                 </Route>
