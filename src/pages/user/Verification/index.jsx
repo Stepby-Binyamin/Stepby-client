@@ -11,8 +11,8 @@ import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-export default function Verification({ props }) {
-
+export default function Verification({ newUser = true }) {
+// need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext)
   const navigate = useNavigate()
   const [counter, setCounter] = useState(0)
@@ -27,10 +27,12 @@ export default function Verification({ props }) {
 
   function goToNextPage() {
     // console.log(code);
-    //make an if clause if a user is new he will go to line 30 , else- if he is an existing user then go to 31
+    //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to 31
     setData({...data, code:code})
     navigate('/user-name', { state: data })
-    // navigate('/projects', { state: code })
+    if(!newUser){
+      navigate('/home/projects', {state: data })
+    }
 
   }
 
