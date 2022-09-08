@@ -438,4 +438,4 @@ const users = [{
 }
 ]
 
-module.exports = { projects, categories }
+module.exports = { projects, categories, users }
