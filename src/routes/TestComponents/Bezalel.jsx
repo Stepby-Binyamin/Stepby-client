@@ -30,7 +30,7 @@ export default function Bezalel() {
          {/* <Logo logo={"./images/stepby.svg"}/> */}
 
          {/* <div><Input name={"name"} placeholder={"שם החברה"} onChange={"onChange()"}type={"text"}/></div> */}
-         <Splash/>
+         {/* <Splash/> */}
          {/* <Input/> */}
 
       </>
