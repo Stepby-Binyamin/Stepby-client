@@ -24,7 +24,7 @@ export default function Yossef() {
 
    const onClickHandler = (e) => {
       drawer.setDrawer(true)
-      drawer.setDrawerContent(<StepBasics />)
+      drawer.setDrawerContentHeader(<StepBasics />)
    }
 
    return (

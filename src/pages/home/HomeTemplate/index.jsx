@@ -39,11 +39,11 @@ const HomeTemplate = ({ style = {}, ...props }) => {
       drawer.setDrawer(<CreateClient />)
    }
    const createProject = () => {
-      navigate('/home/templates')
+      // navigate('/home/templates')
       drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
-      navigate('/template')
+      // navigate('/template')
       drawer.setDrawer(<CreateTemplate />)
       // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
    }

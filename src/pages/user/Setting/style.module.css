@@ -1,0 +1,14 @@
+.Name {
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    padding: 0px 15px;
+    list-style-type: none;
+}
+
+.btnff {
+    display: flex;
+    margin-top: auto;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}

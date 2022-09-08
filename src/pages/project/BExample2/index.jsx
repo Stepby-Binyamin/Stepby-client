@@ -16,6 +16,8 @@ import UploadIMG from "../../../components/common/UploadIMG"
 import UploadPDF from "../../../components/common/UploadPDF"
 import UploadAnswer from "../../../components/common/UploadAnswer"
 import UploadFile from "../../../components/common/UploadFile"
+// import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
+// import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 const BExample2 = () => {
     const index = 1
@@ -32,7 +34,7 @@ const BExample2 = () => {
     var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
-        drawer.setDrawerContent(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
+        drawer.setDrawerContentHeader(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         // header.setIsDots(false)                 // HeaderTitle
@@ -43,6 +45,7 @@ const BExample2 = () => {
     function handleIMG() {
         drawer.setDrawer(<UploadIMG />);
     }
+
 
     function handlePDF() {
         drawer.setDrawer(<UploadPDF />);

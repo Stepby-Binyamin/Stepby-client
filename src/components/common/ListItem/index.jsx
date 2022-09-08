@@ -45,7 +45,8 @@ const ListItem = ({
                }
 
                {status === "biz" &&
-                  <img src={`/images/icons/triangleOrange.svg`} alt="triangle" className={styles.triangle} />
+                  <img src={`/images/icons/trialgeOrenge.svg`} alt="trialgeOrenge" className={styles.triangle} />
+
                }
                {status === "client" &&
                   <img src={`/images/icons/circle.svg`} alt="circle" className={styles.circle} />

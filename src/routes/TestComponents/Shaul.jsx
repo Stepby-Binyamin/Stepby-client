@@ -40,7 +40,7 @@ export default function Shaul() {
 
 
    // useEffect(() => {
-   //    drawer.setDrawerContent(<Confirm />)
+   //    drawer.setDrawerContentHeader(<Confirm />)
    //    // header.setIsTitle(false)
    //    header.setTitle("אתר מרכז הצדקה")      // HeaderTitle
    //    header.setSubTitle("מורדי איזנשטיין")  // HeaderTitle
@@ -49,12 +49,14 @@ export default function Shaul() {
    //    header.setIsArrow(false)                // HeaderLogo and HeaderTitle
    //    // header.setIsHeaderSet(false)            // HeaderLogo
    // }, [])
-
+   function add() {
+      drawer.setDrawer(<></>)
+   }
 
    return (
       <>
          {/* <HeaderLogo /> */}
-         {/* <HeaderTitle drawerContent={drawerContent} /> */}
+         {/* <HeaderTitle DrawerContentHeader={DrawerContentHeader} /> */}
 
          {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
          {/* <BExample1 /> */}
