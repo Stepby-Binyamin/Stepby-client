@@ -18,6 +18,8 @@ import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
 
+   const admin = false
+
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
    const { header, drawer } = useContext(mainContext)
    const { data } = useContext(dataContext)
@@ -46,11 +48,15 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    }
    const createTemp = () => {
       // navigate('/template')
-      drawer.setDrawer(<CreateTemplate />)
-      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
+      admin ? drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
+         drawer.setDrawer(<CreateTemplate printData={printData} />)
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+   }
+
+   const printData = (d) => {
+      console.log("printData:", d);
    }
 
    return (
