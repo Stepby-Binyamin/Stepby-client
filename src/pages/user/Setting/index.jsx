@@ -4,10 +4,12 @@ import { languages } from "../../../functions/languages.js"
 import FakeData from "../../../data/fakeProjects"
 import LiComp from './liComponnet'
 import BtnIcon from "../../../components/common/BtnIcon"
+import { useNavigate } from 'react-router-dom'
 
 const Setting = ({ style = {}, ...props }) => {
     const lan = languages[0].dict
     console.log(FakeData.projects[0])
+    const navigate = useNavigate()
     //  TODO: add real data from context
     const user = {
         firstName: "דורון",
@@ -18,6 +20,7 @@ const Setting = ({ style = {}, ...props }) => {
     let interest = user.interests.join()
 
     const logof = () => {
+        navigate("/login")
         console.log("need fuction exit")
     }
 
