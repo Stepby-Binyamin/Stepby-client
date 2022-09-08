@@ -29,7 +29,7 @@ color: var(--grey2-color);
 .iconCallIcon{
     border-radius: 12px;
 }
-.sortDirection{
+/* .sortDirection{
     position: fixed;
     left: 15px;
     bottom: 93px;
@@ -39,4 +39,4 @@ color: var(--grey2-color);
     left: 14.82px;
     bottom: 29px;
 
-}
+} */

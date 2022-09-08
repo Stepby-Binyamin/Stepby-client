@@ -9,7 +9,7 @@ const projects = [
          clientName: "ברנקו וייס",
       },
       isTemplate: false,
-      projectStatus: 'done', //'biz', 'client' , 'new' 
+      status: 'done', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/25/2022"),
       isActive: true,
       steps: [
