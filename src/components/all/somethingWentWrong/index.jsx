@@ -15,17 +15,18 @@ export default function SomethingWentWrong(props) {
     //go to login get new phoneNum
     console.log("wrongNumber");
     navigate('/login')
+    drawer.setDrawer( )
   }
-
+  
   function newCodeFunc() {
     // close the drawer and make the counter=1
     console.log("counter  1");
-
+    drawer.setDrawer( )
     props.setCounter(1)
   }
 
   function openDrawer() {
-    drawer.setDrawer(<VerifyProblem func1={wrongPhonFunc} func2={newCodeFunc} />)
+    drawer.setDrawer(<VerifyProblem wrongPhonFunc={wrongPhonFunc} newCodeFunc={newCodeFunc} />)
     // drawer.setDrawerContent(<VerifyProblem func1={fixPhoneNum} func2={sendCodeAgain} />)
   }
 
