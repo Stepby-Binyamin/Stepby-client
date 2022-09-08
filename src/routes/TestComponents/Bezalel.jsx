@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext} from 'react'
 import BtnHolder from '../../components/common/BtnHolder/BtnHolder'
 import UserName from '../../pages/user/UserName';
 import Input from '../../components/common/Input/Input'
 import Logo from '../../components/all/Logo'
-import Splash from '../../pages/Splash/splash'
+// import Splash from '../../pages/Splash/Splash'
+
 
 
 export default function Bezalel() {
+   // 
    // let buttons = [
 
    //    { color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' },

@@ -44,7 +44,7 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text={languages[0].dict.PERSONAL_INFORMATION} />
+        <UserTitle text1={languages[0].dict.PERSONAL_INFORMATION} />
       </div>
       <div className={styles.input}>
         <Input onChange={saveData} type='text' name='firstName' placeholder={newUser ? languages[0].dict.FIRST_NAME : ''} defaultValue={!newUser ? firstName : ''} />

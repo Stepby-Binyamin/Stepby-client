@@ -19,10 +19,14 @@ export default function Verification({ newUser = true }) {
   const [code, setCode] = useState("")
   const location = useLocation()
   const [data, setData] = useState(location.state)
+  
+
 
   useEffect(() => {
     header.setIsTitle(false)
-    // console.log(data);
+    header.setIsHeaderSet(false)
+    header.setIsArrow(false)  
+
   }, [])
 
   function goToNextPage() {
@@ -39,7 +43,7 @@ export default function Verification({ newUser = true }) {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text={languages[0].dict.SUBMIT_CODE} />
+        <UserTitle text1={languages[0].dict.SUBMIT_CODE} text2={languages[0].dict.SUBMIT_CODE_END} />
       </div>
       <div className={styles.input}>
         <InputVerification setData={setData} data={data} />
