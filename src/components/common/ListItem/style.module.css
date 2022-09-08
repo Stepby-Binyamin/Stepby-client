@@ -81,6 +81,12 @@
     color:#7C818D;
     font-size: 13px;
 }
+.secondaryTitleWeight{
+    color:#7C818D;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 4px;
+}
 .secondaryTitleTriangle{
     color:#7C818D;
     font-size: 13px;
