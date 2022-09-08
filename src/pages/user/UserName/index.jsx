@@ -8,7 +8,7 @@ import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
-// import userContext from '../../../context/userContext'
+import userContext from '../../../context/userContext'
 
 
 export default function UserName({ newUser = true, firstName, lastName }) {

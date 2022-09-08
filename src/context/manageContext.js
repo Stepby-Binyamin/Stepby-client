@@ -1,9 +1,9 @@
 import { useState } from "react";
 import mainContext from './mainContext'
 import dataContext from './dataContext'
-// import userContext from "./userContext";
+import userContext from "./userContext";
 import { projects, categories } from "../data/fakeProjects";
-// import { user } from "../data/fakeUser";
+import { user } from "../data/fakeUser";
 
 export const ContextProvider = ({ children }) => {
 
