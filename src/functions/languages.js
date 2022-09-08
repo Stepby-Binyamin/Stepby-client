@@ -113,7 +113,14 @@ export const languages = [
             CURRENT_STEP:"השלב הנוכחי",
             AWAIT:"כרגע ממתינים לך",
             CARE_OF:"כרגע בטיפול של",
-            BUSINESS_NAME:"שם העסק"
+            BUSINESS_NAME:"שם העסק",
+            NO: "לא",
+            TO_THE_WAY: "יוצאים לדרך!",
+            DISPERSTION: "תפוצה",
+            SUB_TITLE_SPLASH:"הלקוחות שלך, היעילות שלנו",
+            MY_TEMP:"התבניות שלי",
+            RECOMENDED: "המומלצים שלנו",
+            LAST_DUPLICATED:"שוכפל לאחרונה לפני ",
+            CREATED_BY:'נוצר ע"י ',
         }
-    },
-]
+    }]
