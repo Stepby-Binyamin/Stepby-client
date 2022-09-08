@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import StatusStep from "../../../components/all/StatusStep"
 
-import BtnConfirm from "../../../components/common/BtnSubmitIcon"
+import BtnSubmitIcon from "../../../components/common/BtnSubmitIcon"
 import Answer from "../../../components/all/Answer"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
 import mainContext from "../../../context/mainContext"
@@ -16,8 +16,11 @@ import UploadIMG from "../../../components/common/UploadIMG"
 import UploadPDF from "../../../components/common/UploadPDF"
 import UploadAnswer from "../../../components/common/UploadAnswer"
 import UploadFile from "../../../components/common/UploadFile"
-// import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
+import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
 // import UploadedIMGView from "../../../components/common/UploadedIMGView"
+
+import Pdf from "../../../test.pdf"
+import UploadPicture from "../../../components/common/UploadPicture"
 
 const BExample2 = () => {
     const index = 1
@@ -43,20 +46,15 @@ const BExample2 = () => {
     }, [])
 
     function handleIMG() {
-        drawer.setDrawer(<UploadIMG />);
+        drawer.setDrawer(<UploadPicture />)
     }
 
-
-    function handlePDF() {
+    function handleFile() {
         drawer.setDrawer(<UploadPDF />);
     }
 
     function handleAnswer() {
-        drawer.setDrawer(<UploadAnswer />);
-    }
-
-    function handleFile() {
-        drawer.setDrawer(<UploadFile />);
+        drawer.setDrawer(<UploadCShortAnswer />);
     }
 
     return (
@@ -68,6 +66,7 @@ const BExample2 = () => {
             <div className={styles.title}>{findStep.name}</div>
             <div className={styles.text}>{findStep.des}</div>
 
+
             <div className={styles.pdf} >
                 {findStep.data.map(data => {
                     switch (data.type) {
@@ -77,17 +76,17 @@ const BExample2 = () => {
                                 imgDescription={data.title}
                                 imgPath={data.content}
                                 onClick={handleIMG}
-
                             />
                         case "pdf":
-                            return <Answer src="/images/icon-btns/filePDF.svg"
-                                key={data.title}
-                                onClick={handlePDF}
-                                title={data.title}
-                                p={data.content}
-                                isTitleFirst={true}
-                                isAdmin={false}
-                            />
+                            return <a href={Pdf} target="_blank">
+                                <Answer src="/images/icon-btns/filePDF.svg"
+                                    key={data.title}
+                                    // onClick={handlePDF}
+                                    title={data.title}
+                                    p={data.content}
+                                    isTitleFirst={true}
+                                    isAdmin={false}
+                                /></a>
                         case "file":
                             return <Answer src="/images/icon-btns/answer.svg"
                                 key={data.title}
@@ -113,14 +112,19 @@ const BExample2 = () => {
             </div>
 
             <div className={styles.btns}>
-                {/* {findStep.data[0].owner === "client" && findStep.status === "client" ?
-                    <><BtnHolder color="lite" icon="wahtsapp" /><BtnConfirm icon="v.svg" color="gray" /></>
+                {findStep.data[0].owner === "client" && findStep.status === "client" ?
+                    <>
+                        <div style={{ width: "14%" }}><BtnSubmitIcon icon="whatsapp.svg" color="lite" /></div>
+                        <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
                     : findStep.data[0].owner === "client" && findStep.status === "biz" ?
-                        <BtnHolder color="lite" icon="wahtsapp" />
+                        <div style={{ width: "14%" }}><BtnSubmitIcon icon="whatsapp.svg" color="lite" /></div>
                         : findStep.data[0].owner === "biz" && findStep.status === "biz" ?
-                            <><BtnHolder color="lite" icon="pencil" /><BtnConfirm icon="v.svg" color="gray" /></>
-                            : <BtnHolder color="lite" icon="V" />
-                } */}
+                            <>
+                                <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
+                                <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
+                            : <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
+                }
+
 
             </div>
         </div>
