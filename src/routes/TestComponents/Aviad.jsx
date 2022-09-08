@@ -5,13 +5,13 @@ import HeaderTitle from '../../components/common/HeaderTitle'
 import mainContext from '../../context/mainContext'
 
 export default function Aviad() {
-   
-   const {header,drawer} = useContext(mainContext);
+
+   const { header, drawer } = useContext(mainContext);
    return (
       <>
-      <HeaderTitle isArrow={true} 
-      title="בדיקה כותרת ראשית" subTitle="כותרת משנית" 
-      drawerContent={()=>drawer.setDrawer(<MoreMenuStep/>)}/>
+         <HeaderTitle isArrow={true}
+            title="בדיקה כותרת ראשית" subTitle="כותרת משנית"
+            DrawerContentHeader={() => drawer.setDrawer(<MoreMenuStep />)} />
       </>
-      )
+   )
 }

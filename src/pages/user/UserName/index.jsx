@@ -12,8 +12,9 @@ import userContext from '../../../context/userContext'
 
 
 export default function UserName({ newUser = true, firstName, lastName }) {
-  const{userData,setUserData}= useContext(userContext)
-console.log(userData);
+  const { userData, setUserData } = useContext(userContext)
+  console.log(userData);
+
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
     location = useLocation(),
@@ -33,7 +34,7 @@ console.log(userData);
     }
     if (e.target.name === 'email' && e.target.value !== '') {
       setData({ ...data, email: e.target.value })
-    } 
+    }
   }
 
   const handleClick = () => {

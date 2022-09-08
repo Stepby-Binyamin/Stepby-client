@@ -18,17 +18,16 @@ export const ContextProvider = ({ children }) => {
 
     const [userData, setUserData] = useState(user)//only one user
     const [drawer, setDrawer] = useState(); // content of drawer
+    const [DrawerContentHeader, setDrawerContentHeader] = useState();
 
-    const [drawerContent, setDrawerContent] = useState();
-    
     return (
-       
+
         <mainContext.Provider value={{
             drawer: {
                 drawer,
                 setDrawer,
-                drawerContent,
-                setDrawerContent,
+                DrawerContentHeader,
+                setDrawerContentHeader,
             },
             header: {
                 title,
@@ -46,12 +45,12 @@ export const ContextProvider = ({ children }) => {
                 isHeaderSet,
                 setIsHeaderSet,
             },
-           
+
         }}>
-            <userContext.Provider value={{userData,setUserData}}>
-            <dataContext.Provider value={{ data: { projects, categories } }} >
-                {children}
-            </dataContext.Provider>
+            <userContext.Provider value={{ userData, setUserData }}>
+                <dataContext.Provider value={{ data: { projects, categories } }} >
+                    {children}
+                </dataContext.Provider>
             </userContext.Provider>
         </mainContext.Provider >
     )
