@@ -6,7 +6,7 @@
     height: 76px;
     font-size: 18px;
     font-family: 'Heebo';
-    outline: "none"
+    outline: none;
 
 }
 
@@ -19,7 +19,7 @@
     align-items: center;
     font-size: 18px;
     font-family: 'Heebo';
-    outline: "none"
+    outline: none;
 }
 
 .input::placeholder {
