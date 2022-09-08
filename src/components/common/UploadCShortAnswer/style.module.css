@@ -1,0 +1,19 @@
+.drawerPage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    width: 100%;
+    height: 319px;
+
+    padding: 0px;
+    /* gap: 32px; */
+
+    justify-content: flex-start;
+
+    border: 1px solid lightgrey;
+}
+
+.drawerPage :nth-child(3){
+    margin-bottom: 12px;
+}

@@ -12,13 +12,15 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 export default function Login() {
 
-  const { header } = useContext(mainContext)
-  const navigate = useNavigate(),
-  [phoneNumber, setPhoneNumber] = useState(),
-  [limitDigits, setLimitDigits] = useState('')
+  const { header } = useContext(mainContext),
+    navigate = useNavigate(),
+    [limitDigits, setLimitDigits] = useState(''),
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '' ,theCategories:''});
 
   useEffect(() => {
     header.setIsTitle(false)
+    header.setIsHeaderSet(false)
+    header.setIsArrow(false)  
   }, [])
 
   // const handlePress = (e)=>{
@@ -28,31 +30,29 @@ export default function Login() {
   //   }//console.log(e.target.value);
   // }
 
-  const handleChange = (e)=>{
-    if(e.keyCode === '53'){
-      console.log(e.target.value.length-1);
+  const handleChange = (e) => {
+    if (e.keyCode === '53') {
+      console.log(e.target.value.length - 1);
       // setLimitDigits(e.target.value.toString().length-1)
     }
     console.log(e);
     console.log(typeof e.target.value);
-    if(e.target.value.length > 10){
+    if (e.target.value.length > 10) {
       return
     }
     setLimitDigits(e.target.value)
-    setPhoneNumber(e.target.value)
-}
+    setData({ ...data, phoneNum: e.target.value })
+  }
 
-  const handleClick = ()=>{
-    // TODO verify phone number 
-    console.log(typeof phoneNumber);
-    if (phoneNumber.length < 10) return
-    navigate('/verification', {state:phoneNumber})
+  const handleClick = () => {
+    if (data.phoneNum.length < 10) return
+    navigate('/verification', { state: data })
   }
 
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text={languages[0].dict.ENTER_PHONE} />
+        <UserTitle text1={languages[0].dict.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
         <Input value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />

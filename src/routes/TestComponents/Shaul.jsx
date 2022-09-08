@@ -8,6 +8,7 @@ import BtnIcon from '../../components/common/BtnIcon'
 import HeaderLogo from '../../components/common/HeaderLogo'
 import HeaderTitle from '../../components/common/HeaderTitle'
 import Input from '../../components/common/Input/Input'
+import UploadIMG from '../../components/common/UploadIMG'
 import mainContext from '../../context/mainContext'
 
 import BExample1 from '../../pages/project/BExample1'
@@ -39,7 +40,7 @@ export default function Shaul() {
 
 
    // useEffect(() => {
-   //    drawer.setDrawerContent(<Confirm />)
+   //    drawer.setDrawerContentHeader(<Confirm />)
    //    // header.setIsTitle(false)
    //    header.setTitle("אתר מרכז הצדקה")      // HeaderTitle
    //    header.setSubTitle("מורדי איזנשטיין")  // HeaderTitle
@@ -48,16 +49,19 @@ export default function Shaul() {
    //    header.setIsArrow(false)                // HeaderLogo and HeaderTitle
    //    // header.setIsHeaderSet(false)            // HeaderLogo
    // }, [])
-
+   function add() {
+      drawer.setDrawer(<></>)
+   }
 
    return (
       <>
          {/* <HeaderLogo /> */}
-         {/* <HeaderTitle drawerContent={drawerContent} /> */}
+         {/* <HeaderTitle DrawerContentHeader={DrawerContentHeader} /> */}
 
          {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
          {/* <BExample1 /> */}
          <BExample2 />
+         {/* <UploadIMG /> */}
       </>
    )
 }

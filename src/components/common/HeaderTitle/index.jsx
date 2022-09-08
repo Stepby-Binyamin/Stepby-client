@@ -6,14 +6,14 @@ import mainContext from '../../../context/mainContext'
 
 import Confirm from '../../all/Confirm'
 
-const HeaderTitle = ({ drawerContent }) => {
+const HeaderTitle = ({ DrawerContentHeader }) => {
     const navigate = useNavigate()
     const { header, drawer } = useContext(mainContext)
 
+    const DrawerContentHeaderToRender = drawer.DrawerContentHeader
+
     const handleClick = () => {
-        // drawer.setDrawer(drawerContent)
-        drawer.setDrawer(true)
-        console.log("click");
+        drawer.setDrawer(DrawerContentHeaderToRender)
     }
 
     return (

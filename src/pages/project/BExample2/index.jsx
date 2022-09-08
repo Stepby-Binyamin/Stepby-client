@@ -12,6 +12,12 @@ import Confirm from "../../../components/all/Confirm"
 import ImageView from "../../../components/all/ImageView"
 
 import projects from "../../../data/fakeProjects.js"
+import UploadIMG from "../../../components/common/UploadIMG"
+import UploadPDF from "../../../components/common/UploadPDF"
+import UploadAnswer from "../../../components/common/UploadAnswer"
+import UploadFile from "../../../components/common/UploadFile"
+// import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
+// import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 const BExample2 = () => {
     const index = 1
@@ -28,13 +34,30 @@ const BExample2 = () => {
     var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
-        drawer.setDrawerContent(<Confirm />)
+        drawer.setDrawerContentHeader(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         // header.setIsDots(false)                 // HeaderTitle
         findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
         findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
+
+    function handleIMG() {
+        drawer.setDrawer(<UploadIMG />);
+    }
+
+
+    function handlePDF() {
+        drawer.setDrawer(<UploadPDF />);
+    }
+
+    function handleAnswer() {
+        drawer.setDrawer(<UploadAnswer />);
+    }
+
+    function handleFile() {
+        drawer.setDrawer(<UploadFile />);
+    }
 
     return (
         <div className={styles.page}>
@@ -53,11 +76,13 @@ const BExample2 = () => {
                                 key={data.title}
                                 imgDescription={data.title}
                                 imgPath={data.content}
+                                onClick={handleIMG}
+
                             />
                         case "pdf":
                             return <Answer src="/images/icon-btns/filePDF.svg"
                                 key={data.title}
-                                onClick={() => console.log("PDF")}
+                                onClick={handlePDF}
                                 title={data.title}
                                 p={data.content}
                                 isTitleFirst={true}
@@ -66,7 +91,7 @@ const BExample2 = () => {
                         case "file":
                             return <Answer src="/images/icon-btns/answer.svg"
                                 key={data.title}
-                                onClick={() => console.log("Answer")}
+                                onClick={handleAnswer}
                                 title={data.title}
                                 p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
                                 isTitleFirst={true}
@@ -75,7 +100,7 @@ const BExample2 = () => {
                         case "answer":
                             return <Answer src="\images\icon-btns\Upload.svg"
                                 key={data.title}
-                                onClick={() => console.log("Upload")}
+                                onClick={handleFile}
                                 title={data.title}
                                 p={data.content}
                                 isTitleFirst={true}
@@ -88,14 +113,14 @@ const BExample2 = () => {
             </div>
 
             <div className={styles.btns}>
-                {findStep.data[0].owner === "client" && findStep.status === "client" ?
+                {/* {findStep.data[0].owner === "client" && findStep.status === "client" ?
                     <><BtnHolder color="lite" icon="wahtsapp" /><BtnConfirm icon="v.svg" color="gray" /></>
                     : findStep.data[0].owner === "client" && findStep.status === "biz" ?
                         <BtnHolder color="lite" icon="wahtsapp" />
                         : findStep.data[0].owner === "biz" && findStep.status === "biz" ?
                             <><BtnHolder color="lite" icon="pencil" /><BtnConfirm icon="v.svg" color="gray" /></>
                             : <BtnHolder color="lite" icon="V" />
-                }
+                } */}
 
             </div>
         </div>

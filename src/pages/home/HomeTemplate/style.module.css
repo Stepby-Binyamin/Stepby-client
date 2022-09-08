@@ -1,0 +1,13 @@
+.HomeTemplate{
+    height: 100%;
+    padding: 0 15px;
+    }
+    .list{
+        margin-top: 32px;
+    }
+    .drw{
+        position: fixed;
+        left: 14.82px;
+        bottom: 29px;
+    
+    }    

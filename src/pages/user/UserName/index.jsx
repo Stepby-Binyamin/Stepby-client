@@ -8,17 +8,21 @@ import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
+import userContext from '../../../context/userContext'
+
+
 export default function UserName({ newUser = true, firstName, lastName }) {
+  const { userData, setUserData } = useContext(userContext)
+  console.log(userData);
 
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
     location = useLocation(),
-    code = location.state,
-    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '' });
+    [data, setData] = useState(location.state)
 
   useEffect(() => {
     header.setIsTitle(false)
-    console.log(code);
+    console.log(data);
   }, [])
 
   const saveData = (e) => {
@@ -30,17 +34,17 @@ export default function UserName({ newUser = true, firstName, lastName }) {
     }
     if (e.target.name === 'email' && e.target.value !== '') {
       setData({ ...data, email: e.target.value })
-    } console.log(e.target.name, e.target.value);
+    }
   }
 
   const handleClick = () => {
-    navigate('/business-name', { state: data})
+    navigate('/business-name', { state: data })
   }
 
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text={languages[0].dict.PERSONAL_INFORMATION} />
+        <UserTitle text1={languages[0].dict.PERSONAL_INFORMATION} />
       </div>
       <div className={styles.input}>
         <Input onChange={saveData} type='text' name='firstName' placeholder={newUser ? languages[0].dict.FIRST_NAME : ''} defaultValue={!newUser ? firstName : ''} />
