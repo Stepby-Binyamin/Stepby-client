@@ -1,9 +1,9 @@
 import { useState } from "react";
 import mainContext from './mainContext'
 import dataContext from './dataContext'
-// import userContext from "./userContext";
+import userContext from "./userContext";
 import { projects, categories } from "../data/fakeProjects";
-// import { user } from "../data/fakeUser";
+import { user } from "../data/fakeUser";
 
 export const ContextProvider = ({ children }) => {
 
@@ -16,7 +16,7 @@ export const ContextProvider = ({ children }) => {
     const [isDots, setIsDots] = useState(true)
     const [isHeaderSet, setIsHeaderSet] = useState(true)
 
-    // const [userData, setUserData] = useState(user)//only one user
+    const [userData, setUserData] = useState(user)//only one user
     const [drawer, setDrawer] = useState(); // content of drawer
     const [drawerContent, setDrawerContent] = useState();
 
@@ -47,11 +47,11 @@ export const ContextProvider = ({ children }) => {
             },
 
         }}>
-            {/* <userContext.Provider value={{userData,setUserData}}> */}
-            <dataContext.Provider value={{ data: { projects, categories } }} >
-                {children}
-            </dataContext.Provider>
-            {/* </userContext.Provider> */}
+            <userContext.Provider value={{ userData, setUserData }}>
+                <dataContext.Provider value={{ data: { projects, categories } }} >
+                    {children}
+                </dataContext.Provider>
+            </userContext.Provider>
         </mainContext.Provider >
     )
 }
