@@ -27,7 +27,7 @@ export default function Michal() {
    const { header, drawer } = useContext(mainContext)
    useEffect(() => {
       drawer.setDrawer(true)
-      drawer.setDrawerContent(<StepBasics />)
+      drawer.setDrawerContentHeader(<StepBasics />)
 
    }, [])
    return (

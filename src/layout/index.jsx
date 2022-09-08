@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
    return (
       <>
          {header.isTitle ?
-            <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} drawerContent={header.drawerContent} /> :
+            <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} DrawerContentHeader={header.DrawerContentHeader} /> :
             <HeaderLogo />}
          <Main />
          <MainDrawer>{drawer.drawer}</MainDrawer>

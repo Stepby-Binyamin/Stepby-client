@@ -19,8 +19,8 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
    const { header, drawer } = useContext(mainContext)
    const { data } = useContext(dataContext)
-   const [dataState, setDataState] = useState(data.projects)
-   const [recomend, setRecomend] = useState(data.projects)
+   const [dataState, setDataState] = useState(data.projects)  //temp created && used by doron
+   const [recomend, setRecomend] = useState(data.projects)     //temp created by admin under Doron’s business vertical
    const [sortListBy, setSortListBy] = useState(MY_TEMP)
    const navigate = useNavigate()
 
@@ -36,20 +36,19 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
 
    const createClient = () => {
-      drawer.setDrawerContent(<CreateClient />)
+      drawer.setDrawer(<CreateClient />)
    }
    const createProject = () => {
-      navigate('/home/templates')
-      drawer.setDrawerContent(<CreateProject />)
+      // navigate('/home/templates')
+      drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
-      navigate('/template')
-      drawer.setDrawerContent(<CreateTemplate />)
-      // drawer.setDrawerContent(<CreateTemplateGeneral />)  // if admin
+      // navigate('/template')
+      drawer.setDrawer(<CreateTemplate />)
+      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
    }
    const openDrawer = () => {
-      drawer.setDrawerContent(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-      drawer.setDrawer(true)
+      drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
    }
 
    return (
@@ -68,7 +67,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                      mainTitle={item.name}  // get corect name
                      secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}   // get user name
                      secondaryTitleWeight={sortListBy === MY_TEMP ?
-                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct date}  
+                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct duplication date}  
                         item.creatorId}
                      link={`/template/${item._id}`}  //path
                   />)

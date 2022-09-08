@@ -13,6 +13,7 @@ import CreateClient from '../../../components/all/CreateClient'
 import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
+import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 
 
 const HomeProject = ({ style = {}, ...props }) => {
@@ -53,20 +54,20 @@ const HomeProject = ({ style = {}, ...props }) => {
    }, [])
 
    const createClient = () => {
-      drawer.setDrawerContent(<CreateClient />)
+      drawer.setDrawer(<CreateClient />)
    }
    const createProject = () => {
-      navigate('/home/templates')
-      drawer.setDrawerContent(<CreateProject />)
+      // navigate('/home/templates')
+      drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
-      navigate('/template')
-      drawer.setDrawerContent(<CreateTemplate />)
-      // drawer.setDrawerContent(<CreateTemplateGeneral />)  // if admin
+      // navigate('/template')
+      drawer.setDrawer(<CreateTemplate />)
+      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
    }
    const openDrawer = () => {
-      drawer.setDrawerContent(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-      drawer.setDrawer(true)
+      drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+      
    }
 
    return (
@@ -123,7 +124,8 @@ const HomeProject = ({ style = {}, ...props }) => {
                <img src='/images/icon-btns/2to1.svg' alt='sort by date' />
             }
          </div>
-         <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} />
+         {/* <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} /> */}
+         <BtnHolder buttons={[{color:"gray",icon:"+",func:openDrawer}]} />
       </div>
    )
 }

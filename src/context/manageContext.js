@@ -18,7 +18,7 @@ export const ContextProvider = ({ children }) => {
 
     const [userData, setUserData] = useState(user)//only one user
     const [drawer, setDrawer] = useState(); // content of drawer
-    const [drawerContent, setDrawerContent] = useState();
+    const [DrawerContentHeader, setDrawerContentHeader] = useState();
 
     return (
 
@@ -26,8 +26,8 @@ export const ContextProvider = ({ children }) => {
             drawer: {
                 drawer,
                 setDrawer,
-                drawerContent,
-                setDrawerContent,
+                DrawerContentHeader,
+                setDrawerContentHeader,
             },
             header: {
                 title,
