@@ -1,11 +1,11 @@
-import ListItem from "../../components/common/ListItem"
+import Setting from "../../pages/user/Setting"
 
 
 export default function Shmuel() {
 
    return (
       <>
-         <ListItem mainTitle="dsg" secondaryTitle="sdggsd" sconderyBoldTitle="dsgrgdfv" up={"t"} down={"f"} />
+         <Setting />
       </>
    )
 }
