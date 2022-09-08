@@ -16,6 +16,8 @@ import UploadIMG from "../../../components/common/UploadIMG"
 import UploadPDF from "../../../components/common/UploadPDF"
 import UploadAnswer from "../../../components/common/UploadAnswer"
 import UploadFile from "../../../components/common/UploadFile"
+// import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
+// import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 const BExample2 = () => {
     const index = 1
@@ -44,7 +46,6 @@ const BExample2 = () => {
         drawer.setDrawerContent(<UploadIMG/>);
         drawer.setDrawer(true);
     }
-
     function handlePDF (){
         drawer.setDrawerContent(<UploadPDF/>);
         drawer.setDrawer(true);
