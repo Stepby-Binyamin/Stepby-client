@@ -14,6 +14,7 @@ const ListItem = ({
    isFirstStep = false, //set true if step index=0
    time = "", // `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`
    link,  //path to navigate to onclick
+   linkState='', //state fo navigate
    up,   //send function to change index up
    down, //send function to change index down
    ...props
@@ -28,17 +29,13 @@ const ListItem = ({
       up && down &&
          setShowMoveArrow(true);
    }
-   // const closeItem = () => {
-   //    setShowMoveArrow(false)
-   // }
    const handleOnClick = () => {
-      showMoveArrow? setShowMoveArrow(false) : link && navigate(link)
+      showMoveArrow? setShowMoveArrow(false) : link && navigate(link,linkState)
    }
 
    return (
       <SwipeLeft onSwipe={moveItem}>
          <li className={styles.ListItem} onClick={handleOnClick} style={style} {...props} >
-            {/* <NavLink to={link || pathname} className={styles.navlink}> */}
 
 
                {
@@ -62,13 +59,13 @@ const ListItem = ({
 
                         <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>{mainTitle}</div>
 
-                        {isFirstStep && secondaryTitle !== "done" &&
+                        {isFirstStep && secondaryTitle !== COMPLET &&
                            <div className={styles.firstStep}>{TO_THE_WAY}</div>
                         }
 
                      </div>
 
-                     {secondaryTitle === "done" ?
+                     {secondaryTitle === COMPLET ?
                         <div className={styles.done}>
                            <img src={'/images/icons/smallChecked.svg'} alt="checked" style={{ "marginLeft": "4px" }} />
                            {COMPLET}
@@ -95,7 +92,6 @@ const ListItem = ({
                   <div className={styles.grey}>{mainTitle}</div>
                }
 
-            {/* </NavLink> */}
          </li>
       </SwipeLeft>
    )
