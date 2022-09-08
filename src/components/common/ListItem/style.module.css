@@ -81,6 +81,12 @@
     color:#7C818D;
     font-size: 13px;
 }
+.secondaryTitleWeight{
+    color:#7C818D;
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 4px;
+}
 .secondaryTitleTriangle{
     color:#7C818D;
     font-size: 13px;
@@ -97,6 +103,7 @@
     color: var(--orange100-color);
     margin-right: 8px;
     font-size: 13px;
+    padding: 0px 4px;
 }
 .timeGrey{
     background: var(--grey5-color);
@@ -104,6 +111,7 @@
     color: var(--grey2-color);
     margin-right: 8px;
     font-size: 13px;
+    padding: 0px 4px;
 }
 .timeEndOrange{
     background: rgba(255, 79, 0, 0.1);
@@ -111,6 +119,7 @@
     color: var(--orange100-color);
     margin-right: auto;
     font-size: 13px;
+    padding: 0px 4px;
 }
 .timeEndGrey{
     background: var(--grey5-color);
@@ -118,4 +127,5 @@
     color: var(--grey2-color);
     margin-right: auto;
     font-size: 13px;
+    padding: 0px 4px;
 }
