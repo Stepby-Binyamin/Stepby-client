@@ -21,7 +21,7 @@ const HeaderLogo = () => {
             </div>
 
             <div className={styles.svgDiv}>
-                {header.isHeaderSet && <img src="/images/icons/header-set.svg" alt="iconPeopleSet" onClick={() => navigate("/home/settings")} />}
+                {header.isHeaderSet && <img src="/images/icons/header-set.svg" alt="iconPeopleSet" onClick={() => navigate("/setting")} />}
             </div>
         </div>
     );
