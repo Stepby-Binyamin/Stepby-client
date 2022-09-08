@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
 import SwipeLeft from "../../all/SwipeLeft"
@@ -11,31 +11,34 @@ const ListItem = ({
    secondaryTitle = '',  // "done"  / small fontsize, light grey
    secondaryTitleWeight = '',  //next to secondaryTitle, small fontsize, light grey, weight 500
    sconderyBoldTitle = "",     //triangle-seperator ,time at end, small fontsize, light grey, weight 500 
-   isFirstStep = false, //or true
+   isFirstStep = false, //set true if step index=0
    time = "", // `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`
-   link,  //path
-   up,   //change index function
-   down, //change index function
+   link,  //path to navigate to onclick
+   up,   //send function to change index up
+   down, //send function to change index down
    ...props
 }) => {
 
    const { TO_THE_WAY, COMPLET } = languages[0].dict
    const seperatorIcon = ">";
-   const { pathname } = useLocation();
+   const navigate = useNavigate()
    const [showMoveArrow, setShowMoveArrow] = useState(false);
 
    const moveItem = () => {
       up && down &&
          setShowMoveArrow(true);
    }
-   const closeItem = () => {
-      setShowMoveArrow(false)
+   // const closeItem = () => {
+   //    setShowMoveArrow(false)
+   // }
+   const handleOnClick = () => {
+      showMoveArrow? setShowMoveArrow(false) : link && navigate(link)
    }
 
    return (
       <SwipeLeft onSwipe={moveItem}>
-         <li className={styles.ListItem} onClick={closeItem} style={style} {...props} >
-            <NavLink to={link || pathname} className={styles.navlink}>
+         <li className={styles.ListItem} onClick={handleOnClick} style={style} {...props} >
+            {/* <NavLink to={link || pathname} className={styles.navlink}> */}
 
 
                {
@@ -92,7 +95,7 @@ const ListItem = ({
                   <div className={styles.grey}>{mainTitle}</div>
                }
 
-            </NavLink>
+            {/* </NavLink> */}
          </li>
       </SwipeLeft>
    )
