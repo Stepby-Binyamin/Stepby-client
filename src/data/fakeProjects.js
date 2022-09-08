@@ -16,11 +16,10 @@ const projects = [
          {
             _id: Math.random(),
             index: 0,
-            isCreatorApprove: false,
+            isCreatorApprove: false, //creator / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            stepStatus:  'biz', //'client' 
-            stepDone: true,
+            isApprove: true,
             isNext: false,
             approvedDate: new Date(),
             data: [{
@@ -40,6 +39,7 @@ const projects = [
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
             stepStatus: 'biz', //'biz', 'client'
+            isApprove: false,
             stepDone: false,
             isNext: true, 
             approvedDate: new Date(),
@@ -61,6 +61,7 @@ const projects = [
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
             stepStatus: 'client', //'biz', 'client' 
+            isApprove: false,
             stepDone: false,
             isNext: false,
             approvedDate: new Date(),
