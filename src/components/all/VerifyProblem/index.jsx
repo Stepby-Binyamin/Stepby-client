@@ -9,7 +9,7 @@ const VerifyProblem = ({ style = {}, wrongPhonFunc, newCodeFunc, ...props }) => 
    return (
       <div className={styles.VerifyProblem}>
          <div className={styles.btn}><BtnIcon icon='/images/icons/phone.svg' text={dict.WRONG_PONE} onClick={wrongPhonFunc} />      </div>
-         <div className={styles.btn}><BtnIcon icon='/images/icons/again.svg' text={dict.NEW_CODE} onClick={newCodeFunc} />      </div>
+         <div className={styles.btn}><BtnIcon icon='/images/icons/again.svg' text={dict.SEND_CODE_AGAIN} onClick={newCodeFunc} />      </div>
       </div>
    )
 }

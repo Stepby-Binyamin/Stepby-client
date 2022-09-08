@@ -3,6 +3,7 @@ const projects = [
       _id: "12",
       name: "אתר תדמית מורכב",
       creatorId: "1234",
+      creatorName:"דורון",
       client: {
          _id: "4567",
          clientName: "ברנקו וייס",
@@ -15,10 +16,11 @@ const projects = [
          {
             _id: Math.random(),
             index: 0,
-            isCreatorApprove: false,
+            isCreatorApprove: false, //creator / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            status: 'done', //'biz', 'client' 
+            isApprove: true,
+            isNext: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -36,7 +38,10 @@ const projects = [
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            status: 'biz', //'biz', 'client' 
+            stepStatus: 'biz', //'biz', 'client'
+            isApprove: false,
+            stepDone: false,
+            isNext: true, 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -55,7 +60,10 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            status: 'client', //'biz', 'client' 
+            stepStatus: 'client', //'biz', 'client' 
+            isApprove: false,
+            stepDone: false,
+            isNext: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -74,7 +82,7 @@ const projects = [
          _id: "4599",
          clientName: "מרכז הצדקה",
       },
-      isTemplate: false,
+      isTemplate: true,
       status: 'client', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/03/2022"),
       isActive: true,
@@ -232,7 +240,7 @@ const projects = [
          _id: "34567",
          clientName: 'טכנולוגיות בעמ',
       },
-      isTemplate: false,
+      isTemplate: true,
       status: 'biz', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/09/2022"),
       isActive: true,
