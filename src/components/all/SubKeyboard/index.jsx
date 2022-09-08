@@ -1,12 +1,12 @@
 import React, { version, useRef, useEffect } from 'react'
 import styles from "./style.module.css"
 
-const SubKeyboard = ({ placeholder, iconSrc, onChange, required, defaultValue, ...props }) => {
+const SubKeyboard = ({ placeholder, iconSrc, onChange, required, defaultValue,name, type="text", ...props }) => {
 
 
     return (
         <div className={styles.container}>
-            <input name = "subKeyboard" className={styles.keyboard} {...props} required={required} placeholder={placeholder} onChange={onChange} defaultValue={defaultValue} style={{ background: `url(${iconSrc}) no-repeat scroll` }}></input>
+            <input type ={type} name = {name} className={styles.keyboard} {...props} required={required} placeholder={placeholder} onChange={onChange} defaultValue={defaultValue} style={{ background: `url(${iconSrc}) no-repeat scroll` }}></input>
 
         </div>
     )

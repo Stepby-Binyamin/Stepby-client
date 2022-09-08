@@ -12,27 +12,39 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 export default function Login() {
 
-  const { header } = useContext(mainContext)
-  const navigate = useNavigate(),
-  [phoneNumber, setPhoneNumber] = useState(),
-  [limitDigits, setLimitDigits] = useState('')
+  const { header } = useContext(mainContext),
+    navigate = useNavigate(),
+    [limitDigits, setLimitDigits] = useState(''),
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '' ,theCategories:''});
 
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
 
-  const handleChange = (e)=>{
-    if(e.target.value.toString().length === 10){
+  // const handlePress = (e)=>{
+  //  if ( e.keyCode ===69 ){
+  //   console.log(e.target.value);
+  //   //  setLimitDigits(e.target.value)
+  //   }//console.log(e.target.value);
+  // }
+
+  const handleChange = (e) => {
+    if (e.keyCode === '53') {
+      console.log(e.target.value.length - 1);
+      // setLimitDigits(e.target.value.toString().length-1)
+    }
+    console.log(e);
+    console.log(typeof e.target.value);
+    if (e.target.value.length > 10) {
       return
     }
     setLimitDigits(e.target.value)
-    setPhoneNumber(e.target.value)
-}
+    setData({ ...data, phoneNum: e.target.value })
+  }
 
-  const handleClick = ()=>{
-    // TODO verify phone number 
-    if (phoneNumber.toString().length < 9) return
-    navigate('/verification', {state:phoneNumber})
+  const handleClick = () => {
+    if (data.phoneNum.length < 10) return
+    navigate('/verification', { state: data })
   }
 
   return (
