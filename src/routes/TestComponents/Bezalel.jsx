@@ -1,9 +1,9 @@
 import React from 'react'
-// import BtnHolder from '../../components/common/BtnHolder/BtnHolder'
+import BtnHolder from '../../components/common/BtnHolder/BtnHolder'
 import UserName from '../../pages/user/UserName';
-// import Input from '../../components/common/Input/Input'
-// import Logo from '../../components/all/Logo'
-// import Splash from '../../pages/Splash/splash'
+import Input from '../../components/common/Input/Input'
+import Logo from '../../components/all/Logo'
+import Splash from '../../pages/Splash/splash'
 
 
 export default function Bezalel() {
@@ -31,7 +31,7 @@ export default function Bezalel() {
          {/* <Splash/> */}
 
 
-         <UserName/>
+         <UserName />
       </>
    )
 }
