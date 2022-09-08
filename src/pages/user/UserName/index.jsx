@@ -8,7 +8,12 @@ import mainContext from '../../../context/mainContext'
 import { useEffect } from 'react'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
+import userContext from '../../../context/userContext'
+
+
 export default function UserName({ newUser = true, firstName, lastName }) {
+  const { userData, setUserData } = useContext(userContext)
+  console.log(userData);
 
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
@@ -29,7 +34,7 @@ export default function UserName({ newUser = true, firstName, lastName }) {
     }
     if (e.target.name === 'email' && e.target.value !== '') {
       setData({ ...data, email: e.target.value })
-    } 
+    }
   }
 
   const handleClick = () => {

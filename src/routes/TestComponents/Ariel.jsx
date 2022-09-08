@@ -1,20 +1,28 @@
 import React from 'react'
+import AllAction from '../../components/all/AllAction'
+import CreateProject from '../../components/all/CreateProject'
+
 import ListItem from '../../components/common/ListItem'
 import HomeProject from '../../pages/home/HomeProject'
 
 export default function Ariel() {
    return (
       <>
-         {/* <ListItem
-                              // key={}
-                              status={"biz"}  // item.steps[0].status
-                              mainTitle={"dsdsd"}
-                              // secondaryTitle={item.name}
-                              sconderyBoldTitle={"item.steps[0].name"}  //get current temp
-                              time={"2d"}
-                              link={`/project/`}  //path
-                           /> */}
-        <HomeProject />
+         <ListItem
+
+            status={"biz"}  // "biz" / client" / "done"
+            mainTitle={"געגככענ"}
+            secondaryTitle={'fddf'} // "done"  / small fontsize, light grey
+            secondaryTitleWeight={''}  //next to secondaryTitle, small fontsize, light grey, weight 500
+            sconderyBoldTitle={""}    //triangle-seperator ,time at end, small fontsize, light grey, weight 500 
+            isFirstStep={""} //or true
+            time={"4d"} // `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`
+            link={""}  //path
+            up={""}   //change index function
+            down={""} //change inpath
+         />
+         {/* <HomeProject /> */}
+         {/* <CreateTemplate /> */}
       </>
    )
 }

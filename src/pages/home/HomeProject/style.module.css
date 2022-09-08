@@ -34,3 +34,9 @@ color: var(--grey2-color);
     left: 15px;
     bottom: 93px;
 }
+.drw{
+    position: fixed;
+    left: 14.82px;
+    bottom: 29px;
+
+}
