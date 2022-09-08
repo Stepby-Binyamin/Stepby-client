@@ -11,19 +11,22 @@ export default function SomethingWentWrong(props) {
   let navigate = useNavigate()
   const { drawer } = useContext(mainContext)
 
-  function fixPhoneNum() {
+  function wrongPhonFunc() {
     //go to login get new phoneNum
+    console.log("wrongNumber");
     navigate('/login')
   }
 
-  function sendCodeAgain() {
+  function newCodeFunc() {
     // close the drawer and make the counter=1
+    console.log("counter  1");
+
     props.setCounter(1)
   }
 
   function openDrawer() {
-    drawer.setDrawer(true)
-    drawer.setDrawerContent(<VerifyProblem func1={fixPhoneNum} func2={sendCodeAgain} />)
+    drawer.setDrawer(<VerifyProblem func1={wrongPhonFunc} func2={newCodeFunc} />)
+    // drawer.setDrawerContent(<VerifyProblem func1={fixPhoneNum} func2={sendCodeAgain} />)
   }
 
   const somethingWrong = languages[0].dict.SOMETHINGS_WRONG

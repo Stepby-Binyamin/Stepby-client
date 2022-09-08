@@ -35,11 +35,11 @@ export default function BusinessCategory({ newUser = true }) {
 
     if (newUser) {
       // fake link
-      navigate('/projects',{ state: data })
+      navigate('/home/projects',{ state: data })
 
     } else {
       // fake link
-      navigate('/settings',{ state: data })
+      navigate('/setting',{ state: data })
     }
   }
   const handleClick = (name) => {
@@ -50,9 +50,10 @@ export default function BusinessCategory({ newUser = true }) {
 
   }
 
-  // useEffect(() => {
-  //   console.log(info);
-  // }, [handleClick])
+  useEffect(() => {
+    console.log(data);
+
+  }, [handleClick])
 
 
 
