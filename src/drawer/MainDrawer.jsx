@@ -32,8 +32,8 @@ export default function MainDrawer({ children }) {
           <div id='lower' className={styles.drewerTop}>
             <div className={styles.lower} />
           </div>
-          <div id='drawerContent' onTouchStart={e=>{e.stopPropagation()}}>
-            {drawer.drawerContent}
+          <div id='drawerContent' onTouchStart={e => { e.stopPropagation() }}>
+            {drawer.drawer}
           </div>
         </div>
       </div>

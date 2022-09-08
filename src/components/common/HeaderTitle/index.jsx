@@ -10,9 +10,10 @@ const HeaderTitle = ({ drawerContent }) => {
     const navigate = useNavigate()
     const { header, drawer } = useContext(mainContext)
 
+    const drawerContentToRender = drawer.drawerContent
+
     const handleClick = () => {
-        // drawer.setDrawer(drawerContent)
-        drawer.setDrawer(true)
+        drawer.setDrawer(drawerContentToRender)
     }
 
     return (
