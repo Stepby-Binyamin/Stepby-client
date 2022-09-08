@@ -30,10 +30,10 @@ const Setting = ({ style = {}, ...props }) => {
                             link="/user-name" />
                     </li>
                     <li>
-                        <LiComp header={lan.BUSINESS_NAME} subTitle={user.businessName} />
+                        <LiComp header={lan.BUSINESS_NAME} subTitle={user.businessName} link="/business-name" />
                     </li>
                     <li>
-                        <LiComp header={lan.AREAS_PRACTICE} subTitle={interest} />
+                        <LiComp header={lan.AREAS_PRACTICE} subTitle={interest} link="/business-category" />
                     </li>
                 </ul>
             </div>

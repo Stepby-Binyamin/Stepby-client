@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
 import { convertDate } from '../../../functions/convertDate'
@@ -7,17 +8,23 @@ import dataContext from '../../../context/dataContext'
 import NavLink from '../../../components/common/NavLink'
 import NavLinkTab from '../../../components/common/NavLinkTab'
 import ListItem from '../../../components/common/ListItem'
+import AllAction from '../../../components/all/AllAction'
+import CreateClient from '../../../components/all/CreateClient'
+import CreateProject from '../../../components/all/CreateProject'
+import CreateTemplate from '../../../components/all/CreateTemplate'
+import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
 
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
-   const { header } = useContext(mainContext)
+   const { header, drawer } = useContext(mainContext)
    const { data } = useContext(dataContext)
    const [dataState, setDataState] = useState(data.projects)
    const [recomend, setRecomend] = useState(data.projects)
    const [sortListBy, setSortListBy] = useState(MY_TEMP)
+   const navigate = useNavigate()
 
-   const filterTemp = dataState && dataState.filter(item=> item.isTemplate)
+   const filterTemp = dataState && dataState.filter(item => item.isTemplate)
    const dataToPrint = sortListBy === MY_TEMP ? filterTemp : recomend
 
    const tempCounter = filterTemp.length
@@ -28,6 +35,23 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    }, [])
 
 
+   const createClient = () => {
+      drawer.setDrawerContentHeader(<CreateClient />)
+   }
+   const createProject = () => {
+      navigate('/home/templates')
+      drawer.setDrawerContentHeader(<CreateProject />)
+   }
+   const createTemp = () => {
+      navigate('/template')
+      drawer.setDrawerContentHeader(<CreateTemplate />)
+      // drawer.setDrawerContentHeader(<CreateTemplateGeneral />)  // if admin
+   }
+   const openDrawer = () => {
+      drawer.setDrawerContentHeader(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+      drawer.setDrawer(true)
+   }
+
    return (
       <div className={styles.HomeTemplate} style={style} {...props} >
 
@@ -36,7 +60,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
          <ul className={styles.list}>
             {
-            // !dataToPrint ? <div>loading...</div> :
+               // !dataToPrint ? <div>loading...</div> :
 
                dataToPrint.map(item =>
                   <ListItem
@@ -51,6 +75,10 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
             }
          </ul>
+
+         {sortListBy === MY_TEMP &&
+            <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} />
+         }
       </div>
    )
 }

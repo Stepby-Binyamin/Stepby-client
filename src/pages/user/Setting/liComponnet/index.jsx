@@ -11,7 +11,7 @@ const LiComp = ({ style = {}, header, subTitle, link, ...props }) => {
             <h4 className={styles.hederSize}>{header}</h4>
             <div style={{ display: "flex" }}>
                 <h6 className={styles.subTitle}>{subTitle}</h6>
-                <img style={{ width: "13px" }} src="/images/icon-btns/pencil.svg" alt="icon"></img>
+                <img style={{ width: "13px" }} src="/images/icon-btns/grayPancile.svg" alt="icon"></img>
             </div>
             <div className={styles.border}>
 

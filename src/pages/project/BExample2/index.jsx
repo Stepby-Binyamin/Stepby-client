@@ -16,6 +16,8 @@ import UploadIMG from "../../../components/common/UploadIMG"
 import UploadPDF from "../../../components/common/UploadPDF"
 import UploadAnswer from "../../../components/common/UploadAnswer"
 import UploadFile from "../../../components/common/UploadFile"
+// import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
+// import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 const BExample2 = () => {
     const index = 1
@@ -32,7 +34,7 @@ const BExample2 = () => {
     var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
-        // drawer.setDrawerContent(<UploadFiles/>)
+        drawer.setDrawerContentHeader(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         // header.setIsDots(false)                 // HeaderTitle
@@ -40,22 +42,21 @@ const BExample2 = () => {
         findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
 
-    function handleIMG (){
-        drawer.setDrawerContent(<UploadIMG/>);
-        drawer.setDrawer(true);
+    function handleIMG() {
+        drawer.setDrawer(<UploadIMG />);
     }
 
-    function handlePDF (){
-        drawer.setDrawerContent(<UploadPDF/>);
-        drawer.setDrawer(true);
+
+    function handlePDF() {
+        drawer.setDrawer(<UploadPDF />);
     }
-    function handleAnswer (){
-        drawer.setDrawerContent(<UploadAnswer/>);
-        drawer.setDrawer(true);
+
+    function handleAnswer() {
+        drawer.setDrawer(<UploadAnswer />);
     }
-    function handleFile (){
-        drawer.setDrawerContent(<UploadFile/>);
-        drawer.setDrawer(true);
+
+    function handleFile() {
+        drawer.setDrawer(<UploadFile />);
     }
 
     return (
@@ -112,14 +113,14 @@ const BExample2 = () => {
             </div>
 
             <div className={styles.btns}>
-                {findStep.data[0].owner === "client" && findStep.status === "client" ?
+                {/* {findStep.data[0].owner === "client" && findStep.status === "client" ?
                     <><BtnHolder color="lite" icon="wahtsapp" /><BtnConfirm icon="v.svg" color="gray" /></>
                     : findStep.data[0].owner === "client" && findStep.status === "biz" ?
                         <BtnHolder color="lite" icon="wahtsapp" />
                         : findStep.data[0].owner === "biz" && findStep.status === "biz" ?
                             <><BtnHolder color="lite" icon="pencil" /><BtnConfirm icon="v.svg" color="gray" /></>
                             : <BtnHolder color="lite" icon="V" />
-                }
+                } */}
 
             </div>
         </div>
