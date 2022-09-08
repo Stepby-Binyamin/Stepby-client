@@ -10,32 +10,36 @@ import InputVerification from '../../../components/all/InputVerification'
 import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
 import { useLocation, useNavigate } from 'react-router-dom'
+import userContext from '../../../context/userContext'
 
-export default function Verification({ newUser = true }) {
-// need to add navigation to existing user that will show his projects page
+export default function Verification({ newUser = false }) {
+  // need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext)
   const navigate = useNavigate()
   const [counter, setCounter] = useState(0)
   const [code, setCode] = useState("")
   const location = useLocation()
   const [data, setData] = useState(location.state)
-  
+
+  const { userData, setUserData } = useContext(userContext)
 
 
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
-    header.setIsArrow(false)  
+    header.setIsArrow(false)
 
   }, [])
 
   function goToNextPage() {
     // console.log(code);
     //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to 31
-    setData({...data, code:code})
+    setData({ ...data, code: code })
+    setUserData("user")
+    console.log(userData);
     navigate('/user-name', { state: data })
-    if(!newUser){
-      navigate('/home/projects', {state: data })
+    if (!newUser) {
+      navigate('/home/projects', { state: data })
     }
 
   }
