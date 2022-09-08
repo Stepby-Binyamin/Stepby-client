@@ -1,4 +1,5 @@
-import React, { version, useRef, useEffect, useState } from 'react'
+import React, { version, useRef, useEffect, useState, useContext } from 'react'
+import { useNavigate } from "react-router-dom";
 import Keyboard from '../Keyboard'
 import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
@@ -6,23 +7,19 @@ import BtnSubmitText from "../../common/BtnSubmitText"
 import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import { languages } from '../../../functions/languages'
+import mainContext from '../../../context/mainContext'
+import { categories } from '../../../data/fakeProjects'
 
-const CreateTemplateGeneral = ({ placeholder, ...props }) => {
+
+
+const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
     const dict = languages[0].dict;
+    const { header, drawer } = useContext(mainContext)
+    let navigate = useNavigate();
 
-
-    const categoris = [
-        { title: "עיצוב אתרים", isActive: false, id: 1 },
-        { title: "עיצוב פנים", isActive: false, id: 2 },
-        { title: "שיווק דיגיטלי", isActive: false, id: 3 },
-        { title: "אימון כושר גופני", isActive: false, id: 4 },
-        { title: "עיצוב אתרים", isActive: false, id: 1 },
-        { title: "עיצוב פנים", isActive: false, id: 2 },
-        { title: "שיווק דיגיטלי", isActive: false, id: 3 },
-        { title: "אימון כושר גופני", isActive: false, id: 4 },]
 
     useEffect(() => {
-        setData((current) => ({ ...current, categoris }))
+        setData((current) => ({ ...current, categories }))
     }, [])
 
     const [data, setData] = useState({});
@@ -36,12 +33,16 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
     }
 
     const btnCheckBoxHandler = (name) => {
-        const categoris = data.categoris.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
-        setData((current) => ({ ...current, categoris }))
+        const categories = data.categories.map(elem => elem.name === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+        setData((current) => ({ ...current, categories }))
     }
 
     const btnSubmitTextHandler = () => {
-        console.log(data);
+        console.log("createTamplateGeneral:", data);
+        drawer.setDrawer()
+        printData(data)
+        navigate('/template/1234')
+
     }
 
     useEffect(() => {
@@ -62,7 +63,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME} name={"templateName"} />
+            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME} name={"NewTemplate"} />
 
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
@@ -74,7 +75,7 @@ const CreateTemplateGeneral = ({ placeholder, ...props }) => {
                 </div>
                 {select &&
                     <div className={styles.categoris}>
-                        {data.categoris?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.title} id={elem.id} isActive={elem.isActive} key={elem.title} />)}
+                        {data.categories?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.name} id={elem.id} isActive={elem.isActive} key={elem.name} />)}
                     </div>
 
                 }

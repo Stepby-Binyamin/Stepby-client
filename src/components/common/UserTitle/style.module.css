@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 72px;
+    flex-direction: column;
 }
 
 .box>h1 {

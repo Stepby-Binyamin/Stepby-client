@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
-    padding: 15px;
+    padding: 15px 0 10px 0;
     direction: ltr;
 }
 
@@ -12,7 +12,7 @@
 
 .input {
 
-    width: 75px;
+    width: 23%;
     height: 76px;
     border: 1px solid var(--grey4-color);
     border-radius: 12px;

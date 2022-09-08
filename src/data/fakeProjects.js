@@ -3,7 +3,7 @@ const projects = [
       _id: "12",
       name: "אתר תדמית מורכב",
       creatorId: "1234",
-      creatorName:"דורון",
+      creatorName: "דורון",
       client: {
          _id: "4567",
          clientName: "ברנקו וייס",
@@ -16,11 +16,10 @@ const projects = [
          {
             _id: Math.random(),
             index: 0,
-            isCreatorApprove: false,
+            isCreatorApprove: false, //creator / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            stepStatus:  'biz', //'client' 
-            stepDone: true,
+            isApprove: true,
             isNext: false,
             approvedDate: new Date(),
             data: [{
@@ -40,8 +39,9 @@ const projects = [
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
             stepStatus: 'biz', //'biz', 'client'
+            isApprove: false,
             stepDone: false,
-            isNext: true, 
+            isNext: true,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -61,6 +61,7 @@ const projects = [
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
             stepStatus: 'client', //'biz', 'client' 
+            isApprove: false,
             stepDone: false,
             isNext: false,
             approvedDate: new Date(),
@@ -260,7 +261,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -322,6 +323,6 @@ const projects = [
          },]
    },
 ]
-const categories = [{ name: "עיצוב אתרים", id: 1 }, { name: "עיצוב פנים", id: 2 }, { name: "שיווק דיגיטלי", id: 3 }, { name: "אימון כושר גופני", id: 4 }]
+const categories = [{ name: "עיצוב אתרים", id: 1, isActive: false }, { name: "עיצוב פנים", id: 2, isActive: false }, { name: "שיווק דיגיטלי", id: 3, isActive: false }, { name: "אימון כושר גופני", id: 4, isActive: false }]
 
 module.exports = { projects, categories }
