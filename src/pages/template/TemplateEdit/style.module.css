@@ -10,3 +10,31 @@
     padding: 15px;
     color: var(--grey2-color);
 }
+.clientTreat{
+    width: 107.5px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #FF4F00;
+    color:#FF4F00;
+border-radius: 12px;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 8px;
+gap: 8px;
+}
+.inTreatTitle{
+    font-size: 17px;
+}
+.treatOf{
+    font-size: 15px;
+}
+.desText{
+    font-size: 15px;
+line-height: 22px;
+}
+.displayAll{
+    font-size: 15px;
+    line-height: 22px;
+text-decoration: underline;
+}
