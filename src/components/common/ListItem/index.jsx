@@ -25,8 +25,9 @@ const ListItem = ({
    const navigate = useNavigate()
    const [showMoveArrow, setShowMoveArrow] = useState(false);
 
+
    const moveItem = () => {
-      up && down &&
+      if(up && down) 
          setShowMoveArrow(true);
    }
    const handleOnClick = () => {
