@@ -18,7 +18,7 @@ export const Test = () => {
 
    return (
       <Routes>
-         <Route path='/shaul' element={<Shaul />} />
+         <Route path='/' element={<Shaul />} />
          <Route path='/nehorai' element={<Nehorai />} />
          <Route path='/michal' element={<Michal />} />
          <Route path='/efrat' element={<Efrat />} />
