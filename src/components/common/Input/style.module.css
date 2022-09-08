@@ -7,10 +7,13 @@
     font-size: 18px;
     font-family: 'Heebo';
     outline: none;
+    padding-right: 3%;
+
 
 }
 
 .input:focus {
+    outline: none;
     border-radius: var(--border-radius);
     border: 1px solid var(--orange100-color);
     width: 100%;
@@ -20,6 +23,7 @@
     font-size: 18px;
     font-family: 'Heebo';
     outline: none;
+
 }
 
 .input::placeholder {
