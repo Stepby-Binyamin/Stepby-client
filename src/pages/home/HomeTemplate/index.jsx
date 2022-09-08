@@ -36,19 +36,19 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
 
    const createClient = () => {
-      drawer.setDrawerContent(<CreateClient />)
+      drawer.setDrawerContentHeader(<CreateClient />)
    }
    const createProject = () => {
       navigate('/home/templates')
-      drawer.setDrawerContent(<CreateProject />)
+      drawer.setDrawerContentHeader(<CreateProject />)
    }
    const createTemp = () => {
       navigate('/template')
-      drawer.setDrawerContent(<CreateTemplate />)
-      // drawer.setDrawerContent(<CreateTemplateGeneral />)  // if admin
+      drawer.setDrawerContentHeader(<CreateTemplate />)
+      // drawer.setDrawerContentHeader(<CreateTemplateGeneral />)  // if admin
    }
    const openDrawer = () => {
-      drawer.setDrawerContent(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+      drawer.setDrawerContentHeader(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
       drawer.setDrawer(true)
    }
 

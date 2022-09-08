@@ -11,7 +11,7 @@ export default function Aviad() {
       <>
          <HeaderTitle isArrow={true}
             title="בדיקה כותרת ראשית" subTitle="כותרת משנית"
-            drawerContent={() => drawer.setDrawer(<MoreMenuStep />)} />
+            DrawerContentHeader={() => drawer.setDrawer(<MoreMenuStep />)} />
       </>
    )
 }
