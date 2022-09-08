@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
 import { convertDate } from '../../../functions/convertDate'
@@ -14,6 +14,7 @@ import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
+import UiDirectionText from '../../../components/all/UiDirectionText'
 
 
 const HomeProject = ({ style = {}, ...props }) => {
@@ -21,12 +22,12 @@ const HomeProject = ({ style = {}, ...props }) => {
    const { PROJECTS, TEMPLATES, ALL, MY_CARE, WAITING_CUSTOMER, LETS_GO, ICON, CALL_YOU } = languages[0].dict
    const { header, drawer } = useContext(mainContext)
    const { data } = useContext(dataContext)
+   // data.projects=[]
    const [dataState, setDataState] = useState(data.projects)
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
-   const navigate = useNavigate()
+   // const navigate = useNavigate()
 
-   // data.projects=[]
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
    const clientCounter = data.projects && data.projects.filter(item => item.status === 'client').length
 
@@ -67,7 +68,6 @@ const HomeProject = ({ style = {}, ...props }) => {
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-
    }
    const handleDirection = () => {
       setSortDirection(!sortDirection)
@@ -82,19 +82,11 @@ const HomeProject = ({ style = {}, ...props }) => {
          <ul className={styles.list}>
             {
                // !dataState ? <div>loading...</div> : 
-               (
+               // (
                   dataState.length === 0 ?
 
-                     <div className={styles.noProjects} >
-                        <div className={styles.noProjectsContainer}>
-                           <div className={styles.letStart} >{LETS_GO}</div>
-                           <div className={styles.iconCall} >
-                              {ICON}
-                              <img src='/images/icons/iconCallYou.svg' alt="iconCallYou" className={styles.iconCallIcon} />
-                              {CALL_YOU}
-                           </div>
-                        </div>
-                     </div> :
+                  <UiDirectionText mainTitle={LETS_GO} text1={ICON} text2={CALL_YOU} />
+                      :
                      <>{
                         dataToPrint.activeStatus.map(item =>
                            <ListItem
@@ -118,7 +110,8 @@ const HomeProject = ({ style = {}, ...props }) => {
                                  link={`/project/${item._id}`}  //path
                               />)
                         }</>
-               )}
+               // )
+               }
          </ul>
          <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, { color: "gray", icon: "+", func: openDrawer }]} />
       </div>
