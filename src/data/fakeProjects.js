@@ -36,7 +36,7 @@ const projects = [
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            status: 'biz', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -55,7 +55,7 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -75,7 +75,7 @@ const projects = [
          clientName: "מרכז הצדקה",
       },
       isTemplate: false,
-      status: 'client', //'biz', 'client' , 'new' 
+      status: "new", //'biz', 'client' , 'new' 
       lastApprove: new Date("08/03/2022"),
       isActive: true,
       steps: [
@@ -85,7 +85,7 @@ const projects = [
             isCreatorApprove: false,
             name: "חתימה על חוזה",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -122,7 +122,7 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -143,7 +143,7 @@ const projects = [
          clientName: 'טכנולוגיות בעמ',
       },
       isTemplate: false,
-      status: 'biz', //'biz', 'client' , 'new' 
+      status: "client", //'biz', 'client' , 'new' 
       lastApprove: new Date("08/27/2022"),
       isActive: true,
       steps: [
@@ -153,7 +153,7 @@ const projects = [
             isCreatorApprove: false,
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -171,7 +171,7 @@ const projects = [
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            status: 'biz', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -212,7 +212,7 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -228,14 +228,9 @@ const projects = [
       _id: "15",
       name: "אתר תדמית מורכב",
       creatorId: "9876",
-      client: {
-         _id: "1234",
-         clientName: 'חיים כהן',
-      },
       isTemplate: true,
-      templateByClient: ['1234'],
+      templateByClient: ['0523000111'],
       templateByCayrgory: [1, 3],
-      status: 'biz', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/27/2022"),
       isActive: true,
       steps: [
@@ -245,7 +240,7 @@ const projects = [
             isCreatorApprove: false,
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -259,11 +254,11 @@ const projects = [
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
+            isApprove: true, //'biz', 'client' 
             name: "איסוף הרשאות ומתחרים",
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            status: 'biz', //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -304,7 +299,7 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            status: 'client', //'biz', 'client' 
+            isApprove: true, //'biz', 'client' 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -324,7 +319,8 @@ const users = [{
    name: 'חיים',
    lastName: 'כהן',
    email: "chaim@gmail.com",
-   phonNumber: '0523000111',
+   phoneNumber: '0523000111',
+   bizName: "חיים כהן דיגיטל",
    interest: [{ name: "עיצוב אתרים", id: 1 }, { name: "שייוק דיגיטלי", id: 3 }],
    permission: 'user', // 'admin'
    clients: [{
@@ -344,9 +340,6 @@ const users = [{
    phonNumber: '0523000000',
    interest: [{ name: "עיצוב אתרים", id: 1 }, { name: "שייוק דיגיטלי", id: 3 }],
    permission: 'admin', // 'user'
-   clients: [{
-      _id: "1234",
-   }],
    lastActive: new Date()
 }
 ]
