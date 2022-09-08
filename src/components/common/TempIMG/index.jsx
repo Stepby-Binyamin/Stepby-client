@@ -1,12 +1,11 @@
 import styles from "./style.module.css"
 import React, { useState } from 'react'
 
-import BtnIcon from "../../../components/common/BtnIcon"
-import Input from "../../../components/common/Input/Input.jsx"
+import BtnIcon from "../BtnIcon"
+import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 
-
-const UploadPicture = () => {
+const TempIMG = () => {
 
     const [currentFile, setCurrentFile] = useState()
     const [answer, setAnswer] = useState()
@@ -40,7 +39,7 @@ const UploadPicture = () => {
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />
             <Input
-                name={"UploadPicture"}
+                name={"TempIMG"}
                 htmlFor="fileUpload"
                 placeholder="תיאור לתמונה"
                 onChange={(e) => handleChange(e)}
@@ -49,7 +48,7 @@ const UploadPicture = () => {
             />
             <div className={styles.upload}>
                 <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>טעינת קובץ</span></label>
-                <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])}/>
+                <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])} />
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
@@ -60,4 +59,4 @@ const UploadPicture = () => {
     )
 }
 
-export default UploadPicture
+export default TempIMG

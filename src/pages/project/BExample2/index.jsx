@@ -1,23 +1,17 @@
 import styles from "./style.module.css"
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import StatusStep from "../../../components/all/StatusStep"
 
 import BtnSubmitIcon from "../../../components/common/BtnSubmitIcon"
 import Answer from "../../../components/all/Answer"
-import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
 import mainContext from "../../../context/mainContext"
-import Confirm from "../../../components/all/Confirm"
 
 import ImageView from "../../../components/all/ImageView"
 
 import projects from "../../../data/fakeProjects.js"
-import UploadIMG from "../../../components/common/UploadIMG"
-import UploadPDF from "../../../components/common/UploadPDF"
-import UploadAnswer from "../../../components/common/UploadAnswer"
-import UploadFile from "../../../components/common/UploadFile"
+import UploadPDF from "../../../components/common/TempPDF"
 import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
-// import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 import Pdf from "../../../test.pdf"
 import UploadPicture from "../../../components/common/UploadPicture"
