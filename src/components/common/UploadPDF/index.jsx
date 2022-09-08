@@ -14,10 +14,10 @@ const UploadPDF = () => {
     const showInfo = (file) => {
         console.log(file.size);
         setCurrentFile(file);
-        if (file.size / 1024 > 4) {
-            alert("file is too big")
-            return
-        }
+        // if (file.size / 1024 > 4) {
+        //     alert("file is too big")
+        //     return
+        // }
         setIsButton(true)
     }
 
