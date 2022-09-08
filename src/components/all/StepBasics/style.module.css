@@ -1,0 +1,68 @@
+.StepBasicsContainer{
+    display: flex;
+    justify-content: center;
+}
+.StepBasicsInnerContainer{
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    justify-content: center;
+    /* gap: 10px; */
+}
+.radioButton{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: inset;
+    width: 90%;
+    align-self: center;
+    height: 58px;
+    align-items: center;
+}
+.rightContainer{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rightContainer > img{
+    max-width:21.6px;
+    max-height:21.6px;
+}
+.radioText{
+    size: 17px;
+    color: var(--grey2-color);
+}
+.text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+    color: var(--grey2-color);
+    width: 88%;
+    margin: 12px;
+    align-self: center;
+}
+
+.buttonsContainer{
+    display: flex;
+    align-self: center;
+    gap: 12px;
+
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;
+}
+
+.saveButton{
+    /* width: 116px; */
+    width: auto;
+}
+.saveAndCreateButton{
+  /* width: 217px; */
+  width: 50%;
+}

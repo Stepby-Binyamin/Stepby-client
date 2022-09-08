@@ -3,6 +3,11 @@
     /* padding: 12px; */
 }
 
+.subContainer {
+    padding: 12px;
+    padding-top: 0px;
+}
+
 .radioButton {
     display: flex;
     flex-direction: row-reverse;
@@ -11,7 +16,7 @@
     align-items: center;
     border-bottom: inset;
     /* width: 90%; */
-    height: 60.2px;
+    height: 58px;
     align-self: center;
     color: var(--grey2-color);
 }
@@ -30,8 +35,11 @@
 }
 
 .btn {
+    border-top: solid 1px #D7D7D9;
+    padding: 10px;
     position: fixed;
     bottom: 0;
     background-color: white;
     width: 100%;
+    max-width: 600px;
 }
