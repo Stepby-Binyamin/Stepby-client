@@ -3,7 +3,7 @@ const projects = [
       _id: "12",
       name: "אתר תדמית מורכב",
       creatorId: "1234",
-      creatorName:"דורון",
+      creatorName: "דורון",
       client: {
          _id: "4567",
          clientName: "ברנקו וייס",
@@ -19,7 +19,7 @@ const projects = [
             isCreatorApprove: false,
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            stepStatus:  'biz', //'client' 
+            stepStatus: 'biz', //'client' 
             stepDone: true,
             isNext: false,
             approvedDate: new Date(),
@@ -41,7 +41,7 @@ const projects = [
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
             stepStatus: 'biz', //'biz', 'client'
             stepDone: false,
-            isNext: true, 
+            isNext: true,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -260,7 +260,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -322,6 +322,6 @@ const projects = [
          },]
    },
 ]
-const categories = [{ name: "עיצוב אתרים", id: 1 }, { name: "עיצוב פנים", id: 2 }, { name: "שיווק דיגיטלי", id: 3 }, { name: "אימון כושר גופני", id: 4 }]
+const categories = [{ name: "עיצוב אתרים", id: 1, isActive: false }, { name: "עיצוב פנים", id: 2, isActive: false }, { name: "שיווק דיגיטלי", id: 3, isActive: false }, { name: "אימון כושר גופני", id: 4, isActive: false }]
 
 module.exports = { projects, categories }
