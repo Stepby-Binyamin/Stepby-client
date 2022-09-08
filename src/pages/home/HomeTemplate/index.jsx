@@ -13,10 +13,14 @@ import CreateClient from '../../../components/all/CreateClient'
 import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
+import userContext from '../../../context/userContext'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
+   // const { userData, setUserData } = useContext(userContext)
+   // console.log(userData);
 
-   const admin = false
+
+   const admin = true
 
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
    const { header, drawer } = useContext(mainContext)

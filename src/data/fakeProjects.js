@@ -325,4 +325,33 @@ const projects = [
 ]
 const categories = [{ name: "עיצוב אתרים", id: 1, isActive: false }, { name: "עיצוב פנים", id: 2, isActive: false }, { name: "שיווק דיגיטלי", id: 3, isActive: false }, { name: "אימון כושר גופני", id: 4, isActive: false }]
 
-module.exports = { projects, categories }
+const users = [{
+   id: '1234',
+   firstName: 'חיים',
+   lastName: 'כהן',
+   email: "chaim@gmail.com",
+   phoneNumber: '0523000111',
+   bizName: "חיים כהן דיגיטל",
+   interest: [{ name: "עיצוב אתרים", id: 1 }, { name: "שייוק דיגיטלי", id: 3 }],
+   permission: 'user', // 'admin'
+   clients: [{
+      _id: "4567",
+      clientName: "ברנקו וייס",
+   }, {
+      _id: "4599",
+      clientName: "מרכז הצדקה",
+   }],
+   lastActive: new Date()
+},
+{
+   id: '9876',
+   name: 'דורון',
+   lastName: 'מאיר',
+   email: "doron@gmail.com",
+   phonNumber: '0523000000',
+   interest: [{ name: "עיצוב אתרים", id: 1 }, { name: "שייוק דיגיטלי", id: 3 }],
+   permission: 'admin', // 'user'
+   lastActive: new Date()
+}
+]
+module.exports = { projects, categories, users }
