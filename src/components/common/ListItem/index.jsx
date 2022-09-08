@@ -60,13 +60,13 @@ const ListItem = ({
 
                         <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>{mainTitle}</div>
 
-                        {isFirstStep && secondaryTitle !== "done" &&
+                        {isFirstStep && secondaryTitle !== COMPLET &&
                            <div className={styles.firstStep}>{TO_THE_WAY}</div>
                         }
 
                      </div>
 
-                     {secondaryTitle === "done" ?
+                     {secondaryTitle === COMPLET ?
                         <div className={styles.done}>
                            <img src={'/images/icons/smallChecked.svg'} alt="checked" style={{ "marginLeft": "4px" }} />
                            {COMPLET}
