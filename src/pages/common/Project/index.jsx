@@ -9,7 +9,7 @@ import mainContext from "../../../context/mainContext"
 import fakeProjects from "../../../data/fakeProjects"
 import styles from "./style.module.css"
 
-export default function Project({ mode = "template" }) {
+export default function Project({ mode = "biz" }) {
     const { header } = useContext(mainContext)
 
   
@@ -22,9 +22,7 @@ export default function Project({ mode = "template" }) {
     return (<>
         {(mode === "client" || mode === "biz") && <StatusProject isLink={mode === "client" ? false : true} />}
         {mode === "template" && <StatusTemp />}
-        {/* connect to real databace and filter by email/ phone */}
-        {/* to change isFirstStep to notFirstStep and to connect to index */}
-        {fakeProjects.projects[0].steps.map(v => <ListItem status={v.status} secondaryTitle={v.stepDone === true ? "הושלם":`הפרוייקט מחכה ל${v.status}`} mainTitle={v.name} isFirstStep={v.index === 0 ? true : false} key={v._id} />)}
+        {fakeProjects.projects[0].steps.map(v => <ListItem status={v.stepStatus} secondaryTitle={v.stepDone === true ? "הושלם":  `הפרוייקט מחכה ל${v.clientName}`} mainTitle={v.name} isFirstStep={v.index === 0 ? true : false} key={v._id} />)}
         {(mode === "client" ) && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' }]}/>}
         {mode === "template" && <BtnHolder buttons={[{ color: "lite", icon: "triangle", func: ()=>{console.log("Hello") }, link: '' },{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' }]}  />}
         { mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: ()=>{console.log("Hello") }, link: '' },{ color: "gray", icon: "+", func: ()=>{console.log("Hello") }, link: '' }]} />}
