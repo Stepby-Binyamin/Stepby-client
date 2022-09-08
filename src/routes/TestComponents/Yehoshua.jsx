@@ -1,5 +1,5 @@
 import React from 'react'
-import StatusStep from '../../components/all/StatusStep'
+// import StatusStep from '../../components/all/StatusStep'
 import SignUpInfo from '../../components/all/SignUpInfo'
 import InputVerification from '../../components/all/InputVerification'
 import BusinessCategory from '../../pages/user/BusinessCategory'
@@ -13,9 +13,9 @@ export default function Yehoshua({ name, num, ...props }) {
    return (<>
       <div>Yehoshua</div>
       {/* <InputVerification />
-      <SignUpInfo/>
-     <StatusStep numOfStage={"3"} time={97}  user={"לשאול"}/> */}
-      <BusinessCategory />
+      <SignUpInfo/> */}
+     {/* <StatusStep numOfStage={"3"} time={97}  user={"לשאול"}/>  */}
+      {/* <BusinessCategory /> */}
    </>
    )
 }

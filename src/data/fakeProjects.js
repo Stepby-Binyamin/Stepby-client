@@ -3,25 +3,23 @@ const projects = [
       _id: "12",
       name: "אתר תדמית מורכב",
       creatorId: "1234",
-      creatorName:"דורון",
+      creatorName: "דורון",
       client: {
          _id: "4567",
          clientName: "ברנקו וייס",
       },
       isTemplate: false,
-      projectStatus: 'done', //'biz', 'client' , 'new' 
+      status: 'done', //'biz', 'client' , 'new' 
       lastApprove: new Date("08/25/2022"),
       isActive: true,
       steps: [
          {
             _id: Math.random(),
             index: 0,
-            isCreatorApprove: false,
+            isCreatorApprove: false, //creator(biz) / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            stepStatus:  'biz', //'client' 
-            stepDone: true,
-            isNext: false,
+            isApprove: true,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -34,14 +32,12 @@ const projects = [
          }, {
             _id: Math.random(),
             index: 1,
-            isCreatorApprove: false,
+            isCreatorApprove: true,
             name: "איסוף הרשאות ומתחרים",
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            stepStatus: 'biz', //'biz', 'client'
-            stepDone: false,
-            isNext: true, 
+            isApprove: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -60,9 +56,7 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            stepStatus: 'client', //'biz', 'client' 
-            stepDone: false,
-            isNext: false,
+            isApprove: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -260,7 +254,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         },         {
+         }, {
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -322,6 +316,6 @@ const projects = [
          },]
    },
 ]
-const categories = [{ name: "עיצוב אתרים", id: 1 }, { name: "עיצוב פנים", id: 2 }, { name: "שיווק דיגיטלי", id: 3 }, { name: "אימון כושר גופני", id: 4 }]
+const categories = [{ name: "עיצוב אתרים", id: 1, isActive: false }, { name: "עיצוב פנים", id: 2, isActive: false }, { name: "שיווק דיגיטלי", id: 3, isActive: false }, { name: "אימון כושר גופני", id: 4, isActive: false }]
 
 module.exports = { projects, categories }
