@@ -62,7 +62,7 @@
 }
 
 .stageNow {
-    padding: 0px 15px;
+    padding: 0px 5px;
 
 }
 
@@ -73,13 +73,14 @@
     align-items: flex-start;
     padding: 0px 4px;
     font-size: 13px;
+    border-radius: 4px;
 
 
 }
 
 .waitingFor {
     font-weight: 700;
-    padding: 0px 15px;
+    padding: 0px 6px;
 
 }
 

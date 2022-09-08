@@ -36,7 +36,7 @@ export default function BusinessName({ newUser = true, BusinessName }) {
     return (
         <div className={styles.box}>
             <div className={styles.title}>
-                <UserTitle text={languages[0].dict.BUSINESS_NAME_HEADER} />
+                <UserTitle text1={languages[0].dict.BUSINESS_NAME_HEADER} />
             </div>
             <div className={styles.input}>
                 <Input type='text' onChange={handleChange} placeholder={newUser ? languages[0].dict.YOUR_BUSINESS_NAME : ''} defaultValue={!newUser ? BusinessName : ''} />
