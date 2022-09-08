@@ -69,6 +69,9 @@ const HomeProject = ({ style = {}, ...props }) => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
       
    }
+   const handleDirection= () => {
+      setSortDirection(!sortDirection)
+   }
 
    return (
       <div className={styles.HomeProject} style={style} {...props} >
@@ -118,14 +121,14 @@ const HomeProject = ({ style = {}, ...props }) => {
                )}
          </ul>
 
-         <div className={styles.sortDirection} onClick={() => setSortDirection(!sortDirection)} >
+         {/* <div className={styles.sortDirection} onClick={() => setSortDirection(!sortDirection)} >
             {sortDirection ?
                <img src='/images/icon-btns/1to2.svg' alt='sort by date' /> :
                <img src='/images/icon-btns/2to1.svg' alt='sort by date' />
             }
-         </div>
+         </div> */}
          {/* <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} /> */}
-         <BtnHolder buttons={[{color:"gray",icon:"+",func:openDrawer}]} />
+         <BtnHolder buttons={[{color:"lite", icon: sortDirection?"1to2":"2to1", func:handleDirection},{color:"gray",icon:"+",func:openDrawer}]} />
       </div>
    )
 }
