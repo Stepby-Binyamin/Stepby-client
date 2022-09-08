@@ -18,7 +18,7 @@ export default function BusinessCategory({ newUser = true }) {
     company = `'${data.businessNm}'?`,
     dataTest = [],
     categories1 = projects.categories.map((i) => {
-      dataTest.push({key:i.name+"A", title: i.name, isActive: false })
+      dataTest.push({ key: i.name + "A", title: i.name, isActive: false })
     })
 
   useEffect(() => {
@@ -35,11 +35,11 @@ export default function BusinessCategory({ newUser = true }) {
 
     if (newUser) {
       // fake link
-      navigate('/home/projects',{ state: data })
+      navigate('/projects', { state: data })
 
     } else {
       // fake link
-      navigate('/setting',{ state: data })
+      navigate('/setting', { state: data })
     }
   }
   const handleClick = (name) => {
@@ -59,8 +59,8 @@ export default function BusinessCategory({ newUser = true }) {
 
   return (<>
     <div className={styles.title}><UserTitle text1={name + ', ' + areasOfPractice + ' ' + company} /></div>
-    {info?.map(elem => <div className={styles.buttons} key={elem.title+"abc"}><BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} /></div>)}
-   {/* במידה וזה משתמש חדש צריך למשוך לו את הקטגוריות הדיפולטיביות מהדאטא בייס. אם זה משתמש קיים אז למשוך לו מהפרטי יוזר */}
+    {info?.map(elem => <div className={styles.buttons} key={elem.title + "abc"}><BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} /></div>)}
+    {/* במידה וזה משתמש חדש צריך למשוך לו את הקטגוריות הדיפולטיביות מהדאטא בייס. אם זה משתמש קיים אז למשוך לו מהפרטי יוזר */}
     {/* //  {newUser? console.log("dd"):
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
 
