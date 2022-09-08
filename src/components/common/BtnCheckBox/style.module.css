@@ -3,7 +3,7 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    margin: 20px 0;
+    margin: 12px 0;
 
     width: 100%;
     height: 53px;
@@ -51,7 +51,7 @@ label.active {
     color: var(--orange100-color);
 }
 
-img.active{
+img.active {
     fill: blue;
 
 }
