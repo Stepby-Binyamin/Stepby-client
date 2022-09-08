@@ -1,4 +1,3 @@
-import { keyboard } from '@testing-library/user-event/dist/keyboard'
 import React from 'react'
 import { useRef } from 'react'
 import { useEffect } from 'react'
@@ -6,17 +5,20 @@ import { useState } from 'react'
 import styles from './style.module.css'
 
 
-export default function InputVerification() {
+export default function InputVerification({setData,data}) {
     const [inputData, setInputData] = useState({ inputOne: "", inputTwo: "", inputThree: "", inputFour: "" })
-
     const inputOne = useRef(null)
     const inputTwo = useRef(null)
     const inputThree = useRef(null)
     const inputFour = useRef(null)
+  
 
     useEffect(() => {
         inputOne.current.focus();
     }, [])
+    useEffect(()=>{
+        setData({...data,code:Object.values(inputData).join("")})
+    },[inputData])
 
     const handlePress = (e) => {
 
@@ -34,16 +36,16 @@ export default function InputVerification() {
         }
         if (e.target.name === 'inputFour' && e.target.value !== 0) {
             setInputData({ ...inputData, inputFour: e.target.value[e.target.value.length - 1] })
-            // console.log("in theory here i go to button");
+            
         }
 
-        if (e.target.name === 'inputOne' && e.key === "Backspace") {
-            // console.log("123 mashu");
-            // setInputData({ ...inputData, inputOne:"" })
-            // console.log(inputOne);
-            // inputOne.current.focus()
-        }
-
+        // if (e.target.name === 'inputOne' && e.key === "Backspace") {
+        //     // console.log("123 mashu");
+        //     // setInputData({ ...inputData, inputOne:"" })
+        //     // console.log(inputOne);
+        //     // inputOne.current.focus()
+        // }
+     
     }
 
     return (

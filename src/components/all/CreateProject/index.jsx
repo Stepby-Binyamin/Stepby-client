@@ -1,22 +1,25 @@
-import React from 'react'
+import React, { useContext} from 'react'
 import styles from "./style.module.css"
 import BtnSubmitText from '../../common/BtnSubmitText'
+import { languages } from '../../../functions/languages'
+import mainContext from '../../../context/mainContext'
 
-const subtitle = 'כדי להתחיל פרויקט עבור לקוח שיצרת במערכת, עליך לבחור תבנית מרשימת התבניות וללחוץ על האייקון המשולש (Play) בפינה השמאלית התחתונה של מסך התבנית שבחרת.'
-const buttonText = 'הבנתי, יאללה לבחירת תבנית...'
 
 const CreateProject = ({ style = {}, ...props }) => {
 
-//TODO: insert template button
+   const dict = languages[0].dict;
+   const { drawer } = useContext(mainContext)
 
    return (
       <div className={styles.container}>
-      <div className={styles.innerContainer}>
-        <div className= {styles.title}>מתחילים?</div>
-        <div className={styles.subtitle}>{subtitle}</div>
-        <img src= '\images\createProject.svg' alt="" />
-        <BtnSubmitText color={'gray'} icon={'v to text.svg'} text={buttonText}/>
-        </div>
+         <div className={styles.innerContainer}>
+            <div className={styles.title}>{dict.START}</div>
+            <div className={styles.subtitle}>{dict.START_P}</div>
+            <img src='\images\createProject.svg' alt="" />
+            <div className={styles.btnContainer}>
+               <BtnSubmitText color={'gray'} icon={'v to text.svg'} text={dict.UNDERSTOOD} func={()=>drawer.setDrawer(false)} />
+            </div>
+         </div>
       </div>
    )
 }

@@ -12,20 +12,39 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 export default function Login() {
 
-  const { header } = useContext(mainContext)
-  const navigate = useNavigate(),
-  [phoneNumber, setPhoneNumber] = useState()
+  const { header } = useContext(mainContext),
+    navigate = useNavigate(),
+    [limitDigits, setLimitDigits] = useState(''),
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '' ,theCategories:''});
 
   useEffect(() => {
     header.setIsTitle(false)
   }, [])
 
-  const handleChange = (e)=>[
-    setPhoneNumber(e.target.value)
-  ]
+  // const handlePress = (e)=>{
+  //  if ( e.keyCode ===69 ){
+  //   console.log(e.target.value);
+  //   //  setLimitDigits(e.target.value)
+  //   }//console.log(e.target.value);
+  // }
 
-  const handleClick = ()=>{
-    navigate('/verification', {state:phoneNumber})
+  const handleChange = (e) => {
+    if (e.keyCode === '53') {
+      console.log(e.target.value.length - 1);
+      // setLimitDigits(e.target.value.toString().length-1)
+    }
+    console.log(e);
+    console.log(typeof e.target.value);
+    if (e.target.value.length > 10) {
+      return
+    }
+    setLimitDigits(e.target.value)
+    setData({ ...data, phoneNum: e.target.value })
+  }
+
+  const handleClick = () => {
+    if (data.phoneNum.length < 10) return
+    navigate('/verification', { state: data })
   }
 
   return (
@@ -34,7 +53,7 @@ export default function Login() {
         <UserTitle text={languages[0].dict.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
+        <Input value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>

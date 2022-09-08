@@ -1,0 +1,42 @@
+.HomeProject{
+height: 100%;
+}
+.list{
+    margin-top: 32px;
+}
+.noProjects{
+    height: 100%;
+    display: flex;
+} 
+.noProjectsContainer{
+    margin: auto;
+}
+.letStart{
+    font-weight: 300;
+font-size: 44px;
+line-height: 65px;
+color: var(--grey2-color);
+}
+.iconCall{
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--grey2-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.iconCallIcon{
+    border-radius: 12px;
+}
+.sortDirection{
+    position: fixed;
+    left: 15px;
+    bottom: 93px;
+}
+.drw{
+    position: fixed;
+    left: 14.82px;
+    bottom: 29px;
+
+}
