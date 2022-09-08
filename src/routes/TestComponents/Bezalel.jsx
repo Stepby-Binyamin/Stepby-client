@@ -31,6 +31,7 @@ export default function Bezalel() {
 
          {/* <div><Input name={"name"} placeholder={"שם החברה"} onChange={"onChange()"}type={"text"}/></div> */}
          {/* <Splash/> */}
+         {/* <Input/> */}
 
       </>
    )
