@@ -16,11 +16,10 @@ const projects = [
          {
             _id: Math.random(),
             index: 0,
-            isCreatorApprove: false, //creator / client
+            isCreatorApprove: false, //creator(biz) / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
             isApprove: true,
-            isNext: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -33,15 +32,12 @@ const projects = [
          }, {
             _id: Math.random(),
             index: 1,
-            isCreatorApprove: false,
+            isCreatorApprove: true,
             name: "איסוף הרשאות ומתחרים",
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            stepStatus: 'biz', //'biz', 'client'
             isApprove: false,
-            stepDone: false,
-            isNext: true, 
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -60,10 +56,7 @@ const projects = [
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
             השלב הזה צפוי לקחת בין 6-8 ימי עבודה, אלא אם דיברנו בפירוש על לוחות זמנים אחרים.
             בקובץ המצורף תוכלו לראות דוגמא לאפיון והסבר על 3 הנקודות שחשוב שתתמקדו בהן כשאשלח את לכם את קבצי האפיון.`,
-            stepStatus: 'client', //'biz', 'client' 
             isApprove: false,
-            stepDone: false,
-            isNext: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
