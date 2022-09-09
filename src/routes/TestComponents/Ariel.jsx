@@ -1,7 +1,7 @@
 import React from 'react'
 import AllAction from '../../components/all/AllAction'
 import CreateProject from '../../components/all/CreateProject'
-import TemplateEdit from '../../pages/template/TemplateEdit'
+import StepEdit from '../../pages/template/StepEdit'
 import ListItem from '../../components/common/ListItem'
 import HomeProject from '../../pages/home/HomeProject'
 
@@ -23,7 +23,7 @@ export default function Ariel() {
          /> */}
          {/* <HomeProject /> */}
          {/* <CreateTemplate /> */}
-         <TemplateEdit />
+         <StepEdit />
       </>
    )
 }
