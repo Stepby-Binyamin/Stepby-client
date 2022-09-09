@@ -1,27 +1,36 @@
 import styles from "./style.module.css"
-import React from 'react'
+import React , { useState } from 'react'
 
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
+import BtnSubmitText from "../BtnSubmitText"
 
-const handleChange = (e) => {
-    console.log(e.target.value);
-}
+const TempFile = () => {
+    const [radio, setRadio] = useState()
+    const [answer, setAnswer] = useState()
 
-const handleRadio = (e) => {
-    console.log(e.target.value);
-}
+    const handleChange = (e) => {
+        setAnswer(e.target.value);
+    }
 
-const UploadFile = () => {
-    return (<>
+    const handleRadio = (e) => {
+        setRadio(e.target.value)
+    }
+
+    const handleSubmitAnswer = (e) => {
+        console.log(radio);
+        console.log(answer);
+    }
+
+    return (
         <div className={styles.drawerPage}>
             <BtnIcon
                 text={"העלאת קובץ / צילום"}
                 icon={"/images/icon-btns/Upload.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }} />
             <Input
-                name={"UploadFile"}
+                name={"TempFile"}
                 placeholder="תיאור לקובץ"
                 onChange={(e) => handleChange(e)}
                 type="text"
@@ -33,9 +42,13 @@ const UploadFile = () => {
                     changeFunc={(e) => handleRadio(e)}
                 />
             </div>
+            <div className={styles.submitButton}>
+                <div className={styles.sub}>
+                    <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
+                </div>
+            </div>
         </div>
-    </>
     )
 }
 
-export default UploadFile
+export default TempFile
