@@ -15,7 +15,7 @@
     width: 23%;
     height: 76px;
     border: 1px solid var(--grey4-color);
-    border-radius: 12px;
+    border-radius: var(--border-radius);
     font-size: 70px;
     text-align: center;
 }

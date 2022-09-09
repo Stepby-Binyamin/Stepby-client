@@ -13,16 +13,17 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import { users } from "../../../data/fakeProjects";
 
-export default function Verification({ newUser = false }) {
+export default function Verification({ newUser = true }) {
   // need to add navigation to existing user that will show his projects page
-  const { header } = useContext(mainContext)
-  const navigate = useNavigate()
-  const [counter, setCounter] = useState(0)
-  const [code, setCode] = useState("")
-  const location = useLocation()
-  const [data, setData] = useState(location.state)
+  const { header } = useContext(mainContext);
+  const navigate = useNavigate();
+  const [counter, setCounter] = useState(0);
+  const [code, setCode] = useState("");
+  const location = useLocation();
+  const [data, setData] = useState(location.state);
+  const password = 1234;
+  const [wrongPassword,setWrongPassword] = useState(false);
 
-  const { userData, setUserData } = useContext(userContext)
 
 
   useEffect(() => {
@@ -33,18 +34,24 @@ export default function Verification({ newUser = false }) {
   }, [])
 
   function goToNextPage() {
-    // console.log(code);
-    //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to 31
+
+  
+    //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to '/home'projects'
     setData({ ...data, code: code })
-    const user = { user: users[0], token: "1234567890" }
-    setUserData(user)
-    localStorage.setItem("user", JSON.stringify(user))
-    console.log(user);
-    navigate('/user-name', { state: data })
-    if (!newUser) {
-      navigate('/home/projects', { state: data })
+    if (password == data.code) {
+      console.log("שווה");
+      navigate('/user-name', { state: data })
+      if (!newUser) {
+        navigate('/home/projects', { state: data })
+      }
+    } else{
+console.log("not equal");
+      setWrongPassword(true)
     }
   }
+  useEffect(() => {
+    // console.log("password", password, "code", data.code,data);
+  }, [goToNextPage])
 
 
   return (
@@ -55,6 +62,9 @@ export default function Verification({ newUser = false }) {
       <div className={styles.input}>
         <InputVerification setData={setData} data={data} />
       </div>
+      {wrongPassword ? <div className={styles.someThingWrong}>
+        <b><u>הקוד שהוזן אינו נכון!</u></b>
+      </div> : <></>}
       <div className={styles.phoneNum}>
         <UserNumberVerification counter={counter} phoneNum={data.phoneNum} />
       </div>
