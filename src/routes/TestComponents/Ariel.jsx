@@ -1,14 +1,14 @@
 import React from 'react'
 import AllAction from '../../components/all/AllAction'
 import CreateProject from '../../components/all/CreateProject'
-
+import StepEdit from '../../pages/template/StepEdit'
 import ListItem from '../../components/common/ListItem'
 import HomeProject from '../../pages/home/HomeProject'
 
 export default function Ariel() {
    return (
       <>
-         <ListItem
+         {/* <ListItem
 
             status={"biz"}  // "biz" / client" / "done"
             mainTitle={"געגככענ"}
@@ -20,9 +20,10 @@ export default function Ariel() {
             link={""}  //path
             up={""}   //change index function
             down={""} //change inpath
-         />
+         /> */}
          {/* <HomeProject /> */}
          {/* <CreateTemplate /> */}
+         <StepEdit />
       </>
    )
 }

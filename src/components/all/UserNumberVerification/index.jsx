@@ -11,7 +11,7 @@ export default function UserNumberVerification({ counter, phoneNum }) {
          end = phoneNum.slice(3)
     }
     const ilPhoneNum = `${start}-${end}`
-    const resendCode1 = languages[0].dict.SEND_CODE_AGAIN, resendCode2 = languages[0].dict.SEND_CODE_AGAIN_END;
+    const resendCode1 = languages[0].dict.RESEND_CODE, resendCode2 = languages[0].dict.RESEND_CODE_END;
 
 
     return (

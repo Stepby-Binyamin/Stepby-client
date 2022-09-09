@@ -1,4 +1,5 @@
 import Home from '../routes/Home'
+import MainRouter from '../routes/MainRouter'
 import Project from '../routes/Project'
 import Template from '../routes/Template'
 import { Test } from '../routes/Test'
@@ -8,11 +9,12 @@ function Main() {
 
    return (
       <>
+         <MainRouter />
          <Test />
-         <User />
+         {/*<User />
          <Home />
          <Project />
-         <Template />
+         <Template /> */}
       </>
    )
 }

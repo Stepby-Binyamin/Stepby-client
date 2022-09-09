@@ -19,6 +19,8 @@ export default function Login() {
 
   useEffect(() => {
     header.setIsTitle(false)
+    header.setIsHeaderSet(false)
+    header.setIsArrow(false)  
   }, [])
 
   // const handlePress = (e)=>{
@@ -50,7 +52,7 @@ export default function Login() {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text={languages[0].dict.ENTER_PHONE} />
+        <UserTitle text1={languages[0].dict.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
         <Input value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />

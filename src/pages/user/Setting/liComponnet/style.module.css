@@ -1,0 +1,28 @@
+.Name {
+
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+ul>li {
+    list-style-type: none;
+}
+
+.hederSize {
+    font-size: 17px;
+    color: var(--grey1-color)
+}
+
+.subTitle {
+    font-size: 13px;
+    color: var(--grey2-color);
+    margin-left: 4px;
+}
+
+.border {
+
+    padding-top: 16px;
+    border-bottom: 2px solid #E3E3E4;
+}

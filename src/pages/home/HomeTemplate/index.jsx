@@ -13,14 +13,22 @@ import CreateClient from '../../../components/all/CreateClient'
 import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
+import userContext from '../../../context/userContext'
+import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
+
 
 const HomeTemplate = ({ style = {}, ...props }) => {
+   // const { userData, setUserData } = useContext(userContext)
+   // console.log(userData);
+
+
+   const admin = true
 
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
    const { header, drawer } = useContext(mainContext)
    const { data } = useContext(dataContext)
-   const [dataState, setDataState] = useState(data.projects)
-   const [recomend, setRecomend] = useState(data.projects)
+   const [dataState, setDataState] = useState(data.projects)  //temp created && used by doron
+   const [recomend, setRecomend] = useState(data.projects)     //temp created by admin under Doron’s business vertical
    const [sortListBy, setSortListBy] = useState(MY_TEMP)
    const navigate = useNavigate()
 
@@ -36,20 +44,23 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
 
    const createClient = () => {
-      drawer.setDrawerContentHeader(<CreateClient />)
+      drawer.setDrawer(<CreateClient />)
    }
    const createProject = () => {
-      navigate('/home/templates')
-      drawer.setDrawerContentHeader(<CreateProject />)
+      // navigate('/home/templates')
+      drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
-      navigate('/template')
-      drawer.setDrawerContentHeader(<CreateTemplate />)
-      // drawer.setDrawerContentHeader(<CreateTemplateGeneral />)  // if admin
+      // navigate('/template')
+      admin ? drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
+         drawer.setDrawer(<CreateTemplate printData={printData} />)
    }
    const openDrawer = () => {
-      drawer.setDrawerContentHeader(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-      drawer.setDrawer(true)
+      drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+   }
+
+   const printData = (d) => {
+      console.log("printData:", d);
    }
 
    return (
@@ -68,7 +79,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                      mainTitle={item.name}  // get corect name
                      secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}   // get user name
                      secondaryTitleWeight={sortListBy === MY_TEMP ?
-                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct date}  
+                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct duplication date}  
                         item.creatorId}
                      link={`/template/${item._id}`}  //path
                   />)
@@ -77,7 +88,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          </ul>
 
          {sortListBy === MY_TEMP &&
-            <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} />
+            <BtnHolder buttons={[{ color: "gray", icon: "+", func: openDrawer }]} />
          }
       </div>
    )
