@@ -410,7 +410,7 @@ const categories = [{ name: "עיצוב אתרים", id: 1, isActive: false }, {
 
 const users = [{
    id: '1234',
-   name: 'חיים',
+   firstName: 'חיים',
    lastName: 'כהן',
    email: "chaim@gmail.com",
    phoneNumber: '0523000111',
@@ -437,5 +437,5 @@ const users = [{
    lastActive: new Date()
 }
 ]
-
 module.exports = { projects, categories, users }
+
