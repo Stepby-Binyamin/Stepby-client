@@ -27,7 +27,7 @@ export default function SomethingWentWrong(props) {
 
   function openDrawer() {
     drawer.setDrawer(<VerifyProblem wrongPhonFunc={wrongPhonFunc} newCodeFunc={newCodeFunc} />)
-    // drawer.setDrawerContent(<VerifyProblem func1={fixPhoneNum} func2={sendCodeAgain} />)
+    // drawer.setDrawerContent(<VerifyProblem wrongPhonFunc={wrongPhonFunc} newCodeFunc={newCodeFunc} />)
   }
 
   const somethingWrong = languages[0].dict.SOMETHINGS_WRONG

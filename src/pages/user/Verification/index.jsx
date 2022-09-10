@@ -21,8 +21,14 @@ export default function Verification({ newUser = true }) {
   const [data, setData] = useState(location.state);
   const password = 1234;
   const [wrongPassword,setWrongPassword] = useState(false);
+  let start = "054", end="7668489"
 
-
+  if(data.phoneNum){
+      start = data.phoneNum.slice(0, 3)
+     end = data.phoneNum.slice(3)
+    
+  }
+  const ilPhoneNum = `${start}-${end}`
 
   useEffect(() => {
     header.setIsTitle(false)
@@ -32,8 +38,6 @@ export default function Verification({ newUser = true }) {
   }, [])
 
   function goToNextPage() {
-
-  
     //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to '/home'projects'
     setData({ ...data, code: code })
     if (password == data.code) {
@@ -60,12 +64,13 @@ console.log("not equal");
       <div className={styles.input}>
         <InputVerification setData={setData} data={data} />
       </div>
-      {wrongPassword ? <div className={styles.someThingWrong}>
-        <b><u>הקוד שהוזן אינו נכון!</u></b>
-      </div> : <></>}
-      <div className={styles.phoneNum}>
+      {wrongPassword ? <div className={styles.thatpasswordiswrong}>
+        <div><b>{languages[0].dict.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
+      </div> : <div className={styles.phoneNum}>
         <UserNumberVerification counter={counter} phoneNum={data.phoneNum} />
-      </div>
+      </div>}
+      {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב */}
+      
       <div className={styles.someThingWrong}>
         <SomethingWentWrong setCounter={setCounter} />
       </div>
