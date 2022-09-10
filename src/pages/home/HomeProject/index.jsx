@@ -52,6 +52,7 @@ const HomeProject = ({ style = {}, ...props }) => {
    useEffect(() => {
       header.setIsTitle(false)
       header.setIsArrow(false)
+      header.setIsHeaderSet(true)
    }, [])
 
    const createClient = () => {
@@ -83,35 +84,35 @@ const HomeProject = ({ style = {}, ...props }) => {
             {
                // !dataState ? <div>loading...</div> : 
                // (
-                  dataState.length === 0 ?
+               dataState.length === 0 ?
 
                   <UiDirectionText mainTitle={LETS_GO} text1={ICON} text2={CALL_YOU} />
-                      :
-                     <>{
-                        dataToPrint.activeStatus.map(item =>
+                  :
+                  <>{
+                     dataToPrint.activeStatus.map(item =>
+                        <ListItem
+                           key={item._id}
+                           status={item.status}  // item.steps[0].status
+                           mainTitle={item.name}
+                           secondaryTitle={item.name}
+                           sconderyBoldTitle={item.steps[0].name}  //get current temp
+                           time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
+                           link={`/project/biz/${item._id}`}  //path
+                        />)
+                  }{
+                        dataToPrint.doneStatus && dataToPrint.doneStatus.map(item =>
                            <ListItem
                               key={item._id}
                               status={item.status}  // item.steps[0].status
-                              mainTitle={item.client.clientName}
+                              mainTitle={item.name}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={item.steps[0].name}  //get current temp
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
-                              link={`/project/${item._id}`}  //path
+                              link={`/project/biz/${item._id}`}  //path
                            />)
-                     }{
-                           dataToPrint.doneStatus && dataToPrint.doneStatus.map(item =>
-                              <ListItem
-                                 key={item._id}
-                                 status={item.status}  // item.steps[0].status
-                                 mainTitle={item.client.clientName}
-                                 secondaryTitle={item.name}
-                                 sconderyBoldTitle={item.steps[0].name}  //get current temp
-                                 time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
-                                 link={`/project/${item._id}`}  //path
-                              />)
-                        }</>
+                     }</>
                // )
-               }
+            }
          </ul>
          <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, { color: "gray", icon: "+", func: openDrawer }]} />
       </div>

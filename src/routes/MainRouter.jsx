@@ -10,6 +10,7 @@ import HomeProject from '../pages/home/HomeProject'
 import HomeTemplate from '../pages/home/HomeTemplate'
 import Project from './../pages/common/Project'
 import Step from './../pages/project/BExample2'
+import StepEdit from '../pages/template/StepEdit'
 
 function MainRouter() {
 
@@ -28,15 +29,15 @@ function MainRouter() {
             <Route path='/template/:id'  >
                 <Route index element={<Project mode="template" />} />
                 <Route path='step/:stepId' element={<Step />} />
-                <Route path='edit-step/:stepId' element={<Project mode="template" />} />
-
+                <Route path='edit-step/:stepId' element={<StepEdit />} />
             </Route>
+
             <Route path='project'>
                 <Route path='biz'>
                     <Route path=':id'  >
                         <Route index element={<Project mode="biz" />} />
                         <Route path='step/:stepId' element={<Step />} />
-
+                        <Route path='edit-step/:stepId' element={<StepEdit />} />
                     </Route>
                 </Route>
             </Route>

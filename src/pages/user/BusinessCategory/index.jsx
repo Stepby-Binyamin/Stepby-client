@@ -37,7 +37,7 @@ export default function BusinessCategory({ newUser = true }) {
 
     if (newUser) {
       // fake link
-      navigate('/home/projects', { state: data })
+      navigate('/projects', { state: data })
 
     } else {
       // fake link

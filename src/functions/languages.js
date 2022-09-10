@@ -126,5 +126,6 @@ export const languages = [
             RECOMENDED: "המומלצים שלנו",
             LAST_DUPLICATED:"שוכפל לאחרונה לפני ",
             CREATED_BY:'נוצר ע"י ',
+            DISPLAY_ALL:"הצג הכל"
         }
     }]

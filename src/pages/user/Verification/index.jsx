@@ -10,6 +10,8 @@ import InputVerification from '../../../components/all/InputVerification'
 import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
 import { useLocation, useNavigate } from 'react-router-dom'
+import userContext from '../../../context/userContext'
+import { users } from "../../../data/fakeProjects";
 
 export default function Verification({ newUser = true }) {
   // need to add navigation to existing user that will show his projects page
@@ -50,11 +52,11 @@ export default function Verification({ newUser = true }) {
 console.log("not equal");
       setWrongPassword(true)
     }
-
   }
   useEffect(() => {
     // console.log("password", password, "code", data.code,data);
   }, [goToNextPage])
+
 
   return (
     <div className={styles.box}>
