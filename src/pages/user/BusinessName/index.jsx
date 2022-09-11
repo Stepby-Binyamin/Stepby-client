@@ -17,6 +17,8 @@ export default function BusinessName({ newUser = true, BusinessName }) {
 
     useEffect(() => {
         header.setIsTitle(false)
+        header.setIsHeaderSet(false)
+        header.setIsArrow(false)
         console.log(data);
     }, [])
 

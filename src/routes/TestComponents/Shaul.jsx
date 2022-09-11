@@ -8,8 +8,17 @@ import BtnIcon from '../../components/common/BtnIcon'
 import HeaderLogo from '../../components/common/HeaderLogo'
 import HeaderTitle from '../../components/common/HeaderTitle'
 import Input from '../../components/common/Input/Input'
-import UploadIMG from '../../components/common/UploadIMG'
 import mainContext from '../../context/mainContext'
+
+// import TempPDF from '../../components/common/TempPDF'
+// import TempSimpleAnswer from '../../components/common/TempSimpleAnswer'
+// import TempFile from '../../components/common/TempFile'
+// import TempIMG from '../../components/common/TempIMG'
+
+import UploadCShortAnswer from '../../components/common/UploadCShortAnswer'
+import UploadedIMGView from '../../components/common/UploadedIMGView'
+import UploadPicture from '../../components/common/UploadPicture'
+// import UploadClientAnswer from '../../components/common/UploadClientAnswer'
 
 import BExample1 from '../../pages/project/BExample1'
 import BExample2 from '../../pages/project/BExample2'
@@ -61,7 +70,16 @@ export default function Shaul() {
          {/* {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />)} */}
          {/* <BExample1 /> */}
          <BExample2 />
-         {/* <UploadIMG /> */}
+
+         {/* <TempSimpleAnswer /> */}
+         {/* <TempFile /> */}
+         {/* <TempPDF /> */}
+
+         {/* <UploadCShortAnswer /> */}
+         {/* <UploadedIMGView /> */}
+         {/* <TempIMG /> */}
+         {/* <UploadPicture /> */}
+         {/* <UploadClientAnswer /> */}
       </>
    )
 }
