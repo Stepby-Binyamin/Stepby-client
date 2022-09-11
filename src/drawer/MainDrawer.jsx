@@ -17,14 +17,15 @@ export default function MainDrawer({ children }) {
     if (touchStart - e.targetTouches[0].clientY < -80 && swipe) {
       setSwipe(false);
       drawer.setDrawer(false);
+      drawer.setDrawerContentHeader()
     }
   };
 
   return (
     <>
-      <div className={styles[drawer.drawer ? "containerOn" : "containerOff"]} 
-      onClick={()=> drawer.setDrawer('') }>
-        <div className={styles[drawer.drawer ? "popUp" : "popDown"]} onClick={(e) => {e.stopPropagation();}}>
+      <div className={styles[drawer.Drawer || drawer.DrawerContentHeader ? "containerOn" : "containerOff"]} 
+      onClick={()=> {drawer.setDrawer(false); drawer.setDrawerContentHeader()} }>
+        <div className={styles[drawer.Drawer || drawer.DrawerContentHeader ? "popUp" : "popDown"]} onClick={(e) => {e.stopPropagation();}}>
           <div id="lower"
             className={styles.drewerTop}
             onTouchStart={handleTouchStart}
@@ -33,7 +34,7 @@ export default function MainDrawer({ children }) {
             <div className={styles.lower} />
           </div>
           <div id="drawerContent">
-            {drawer.DrawerContentHeader ?? drawer.drawer}
+            {drawer.DrawerContentHeader ?? drawer.Drawer}
           </div>
         </div>
       </div>

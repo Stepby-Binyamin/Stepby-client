@@ -26,23 +26,26 @@ export default function Eldad() {
 
   const { drawer } = useContext(mainContext);
 
-  useEffect(() => {
-    drawer.setDrawerContentHeader(<AllAction
-      newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
-      newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
-      projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />);
-    drawer.setDrawer(true);
-  }, []);
-  // function allActionsClick() {
+  // useEffect(() => {
   //   drawer.setDrawerContentHeader(<AllAction
   //     newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
   //     newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
   //     projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />);
-  //   drawer.setDrawer(true)
-  // }
+  //   drawer.setDrawer(true);
+  // }, []);
+  function allActionsClick() {
+    drawer.setDrawerContentHeader(<AllAction
+      newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
+      newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
+      projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />)
+      // drawer.setDrawer(false);
+  }
+
   return (
     <>
-      <button onClick={() => drawer.setDrawer(true)}>sakjdhkjsadhkjs</button>
+      <button onClick={allActionsClick}>good</button>
+      <br></br>
+      <button onClick={()=> drawer.setDrawer(<CreateProject />)}>deleted</button>
     </>
   );
 }
