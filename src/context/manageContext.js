@@ -17,14 +17,14 @@ export const ContextProvider = ({ children }) => {
     const [isHeaderSet, setIsHeaderSet] = useState(true)
 
     const [userData, setUserData] = useState()//only one user
-    const [drawer, setDrawer] = useState(); // content of drawer
+    const [Drawer, setDrawer] = useState(); // content of drawer
     const [DrawerContentHeader, setDrawerContentHeader] = useState();
 
     return (
 
         <mainContext.Provider value={{
             drawer: {
-                drawer,
+                Drawer,
                 setDrawer,
                 DrawerContentHeader,
                 setDrawerContentHeader,
