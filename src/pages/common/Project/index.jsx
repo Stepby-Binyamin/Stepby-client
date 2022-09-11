@@ -10,10 +10,11 @@ import fakeProjects from "../../../data/fakeProjects"
 import { languages } from "../../../functions/languages"
 import { convertDate } from "../../../functions/convertDate"
 import styles from "./style.module.css"
+import UiDirectionText from "../../../components/all/UiDirectionText"
 
-export default function Project({ mode = "template" }) {
+export default function Project({ mode = "client" }) {
     const { header } = useContext(mainContext)
-    const { COMPLET } = languages[0].dict
+    const { COMPLET ,STEP_BY_STEP } = languages[0].dict
     const [curr, setCurr] = useState(fakeProjects.projects[0])
 
     const indexFirst = findTheNext(curr)
@@ -80,7 +81,7 @@ export default function Project({ mode = "template" }) {
                         id={step._id}
                         link={nav({ mode, curr, step })}
                     />)}
-            {curr.steps.length < 1 && <div>nehorai</div>}
+            {curr.steps.length < 1 && <UiDirectionText mainTitle= {STEP_BY_STEP}/>}
             {(mode === "client") && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
             {mode === "template" && <BtnHolder buttons={[{ color: "lite", icon: "triangle", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
             {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
