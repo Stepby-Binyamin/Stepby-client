@@ -71,7 +71,8 @@ console.log("not equal");
       </div> : <div className={styles.phoneNum}>
         <UserNumberVerification counter={counter} phoneNum={data.phoneNum} />
       </div>}
-      {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב */}
+      {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
+       */}
       
       <div className={styles.someThingWrong}>
         <SomethingWentWrong setCounter={setCounter} />
