@@ -17,6 +17,7 @@ const ListItem = ({
    linkState='', //state fo navigate
    up,   //send function to change index up
    down, //send function to change index down
+   step,
    ...props
 }) => {
 
@@ -25,8 +26,9 @@ const ListItem = ({
    const navigate = useNavigate()
    const [showMoveArrow, setShowMoveArrow] = useState(false);
 
+
    const moveItem = () => {
-      up && down &&
+      if(up && down) 
          setShowMoveArrow(true);
    }
    const handleOnClick = () => {
@@ -40,8 +42,8 @@ const ListItem = ({
 
                {
                   showMoveArrow && <>
-                     <img src={`/images/icons/listArrowDown.svg`} onClick={() => down()} alt="move down" style={{ "marginLeft": "4px" }} />
-                     <img src={`/images/icons/listArrowUp.svg`} onClick={() => up()} alt="move up" style={{ "marginLeft": "7.5px" }} /> </>
+                     <img src={`/images/icons/listArrowDown.svg`} onClick={() => down(step)} alt="move down" style={{ "marginLeft": "4px" }} />
+                     <img src={`/images/icons/listArrowUp.svg`} onClick={() => up(step)} alt="move up" style={{ "marginLeft": "7.5px" }} /> </>
                }
 
                {status === "biz" &&

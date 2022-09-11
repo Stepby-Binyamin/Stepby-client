@@ -93,7 +93,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                         <ListItem
                            key={item._id}
                            status={item.status}  // item.steps[0].status
-                           mainTitle={item.client.clientName}
+                           mainTitle={item.name}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={item.steps[0].name}  //get current temp
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
@@ -104,7 +104,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            <ListItem
                               key={item._id}
                               status={item.status}  // item.steps[0].status
-                              mainTitle={item.client.clientName}
+                              mainTitle={item.name}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={item.steps[0].name}  //get current temp
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}

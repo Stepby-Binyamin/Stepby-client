@@ -19,7 +19,7 @@ const projects = [
             isCreatorApprove: false, //creator(biz) / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            isApprove: true,
+            isApprove: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -51,7 +51,7 @@ const projects = [
          }, {
             _id: Math.random(),
             index: 2,
-            isCreatorApprove: false,
+            isCreatorApprove: true,
             name: "אפיון ומרכיבי ניווט",
             des: `בשלב זה אני מתמקד ביסודות של כל האתר - הניווט והדף הראשי. 
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.
@@ -67,8 +67,10 @@ const projects = [
                content: 'files/blabla.pdf',
                index: 1,
                isRequired: false
-            }]
-         },]
+            }
+      ]
+         },
+      ]
    }, {
       _id: "13",
       name: "אתר תדמית פשוט",
@@ -167,7 +169,7 @@ const projects = [
                index: 1,
                isRequired: true
             }]
-         }, {
+         }, {////////////////////////////////////////////////////////////
             _id: Math.random(),
             index: 1,
             isCreatorApprove: false,
@@ -175,7 +177,8 @@ const projects = [
             des: `לפני שמדליקים מבערים, הזדמנות חשובה להסתכל על אתרים דומים או מתחרים חשובים - ולשתף איתנו את הטוב הזה, ככה שנוכל להעמיק ולייצר את האתר הנכון והטוב ביותר.
             אפשר להעלות קבצים (צילומי מסך), או להוסיף קישורים לאתרים הרלוונטים.
             ברגע שסיימתם, ליחצו למטה על כפתור האישור.`,
-            isApprove: true, //'biz', 'client' 
+            status: 'client', //'biz', 'client' 
+            isApprove: true,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -184,7 +187,7 @@ const projects = [
                content: '/images/pic.png',
                index: 1,
                isRequired: true
-            },
+            },//////////////////////////////////////////////////////////
             {
                owner: 'biz',// 'client',
                type: 'pdf', // 'img' , 'file' , 'answer'

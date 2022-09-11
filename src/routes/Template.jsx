@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import TemplateEdit from '../pages/template/TemplateEdit'
+import StepEdit from '../pages/template/StepEdit'
 
 function Template() {
 
    return (
       <Routes>
          <Route path='/template/step/:id' element={<>start</>} />
-         <Route path='/template/step-edit/:id' element={<TemplateEdit/>} />
+         <Route path='/template/step-edit/:id' element={<StepEdit/>} />
          <Route path='*' element={<></>} />
       </Routes>
    )
