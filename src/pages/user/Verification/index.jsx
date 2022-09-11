@@ -12,40 +12,51 @@ import UserNumberVerification from '../../../components/all/UserNumberVerificati
 import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import { users } from "../../../data/fakeProjects";
+import axios from 'axios'
 
 export default function Verification({ newUser = true }) {
   // need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext);
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
-  const [code, setCode] = useState("");
   const location = useLocation();
   const [data, setData] = useState(location.state);
-  const password = 1234;
-  const [wrongPassword,setWrongPassword] = useState(false);
+  const [code, setCode] = useState()
+  const [wrongPassword, setWrongPassword] = useState(false);
 
-
+  let sendCode =async ()=> {
+    await axios.post('http://localhost:3001/code', { phone: data.phoneNum })
+      .then(Response => {
+        setCode(Response.data.code)
+        setData({ ...data,status: Response.data.status })
+      })
+      .catch(error => console.log('error: ', error))
+  }
 
   useEffect(() => {
+    sendCode()
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     header.setIsArrow(false)
-
+    // console.log(data);
   }, [])
+
+  useEffect(()=>{
+   console.log(code);
+  },[code])
 
   function goToNextPage() {
 
-  
+    console.log(data);
     //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to '/home'projects'
-    setData({ ...data, code: code })
-    if (password == data.code) {
+    if (data.code === code) {
       console.log("שווה");
       navigate('/user-name', { state: data })
       if (!newUser) {
         navigate('/home/projects', { state: data })
       }
-    } else{
-console.log("not equal");
+    } else {
+      console.log("not equal");
       setWrongPassword(true)
     }
   }
