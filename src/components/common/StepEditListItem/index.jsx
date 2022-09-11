@@ -5,6 +5,7 @@ const StepEditListItem = ({ title, text, icon, style = {}, ...props }) => {
    
  // exsisting icon svg images in arr belowe
    const iconsArr = ["answer", "file", "list", "gradin", "payment", "img", "pdf", "video"]
+   icon = icon === "file" ? "Upload" : icon === "img" ? "image" : icon === "pdf" ? "filePDF" :icon
 
    return (
       <li className={styles.StepEditListItem} style={style} {...props} >

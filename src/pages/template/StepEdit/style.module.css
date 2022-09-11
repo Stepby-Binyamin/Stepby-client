@@ -1,6 +1,7 @@
 .StepEdit{
     height: 100%;
-    padding: 0 15px;
+    padding: 15px;
+    padding-bottom: 0;
 }
 .preView{
     background: var(--orange5-color);
