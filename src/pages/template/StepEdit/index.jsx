@@ -8,17 +8,20 @@ import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
 import StepBasics from '../../../components/all/StepBasics'
 import { AddWidget } from '../../../components/all/AddWidget'
+import StepEditListItem from '../../../components/common/StepEditListItem'
 
 const StepEdit = ({ style = {}, ...props }) => {
 
+
    const { header, drawer } = useContext(mainContext)
    const { data } = useContext(dataContext)
-   const [stepData, setStepData] = useState(data.projects[3].steps[2])
+   const [stepData, setStepData] = useState(data.projects[3].steps[1])
    const [template, setTemplate] = useState(data.projects[3])
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = languages[0].dict
    const navigate = useNavigate()
-   // console.log(stepData);
+
    useEffect(() => {
+      console.log(stepData);
       header.setTitle(stepData.name)
       header.setSubTitle(template.name)
    }, [])
@@ -60,7 +63,12 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          </div>
 
-         <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
+         {stepData && (stepData.data.length > 0 ?
+            stepData.data.map(item =>
+               <StepEditListItem key={item.index} title={item.title} text={item.content} icon={item.type} />
+            ) :
+            <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
+         )}
 
          <BtnHolder buttons={[{ color: "lite", icon: "V", func: viewStep }, { color: "gray", icon: "+", func: openDrawer }]} />
 

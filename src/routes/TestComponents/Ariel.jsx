@@ -4,6 +4,7 @@ import CreateProject from '../../components/all/CreateProject'
 import StepEdit from '../../pages/template/StepEdit'
 import ListItem from '../../components/common/ListItem'
 import HomeProject from '../../pages/home/HomeProject'
+import StepEditListItem from '../../components/common/StepEditListItem'
 
 export default function Ariel() {
    return (
@@ -23,6 +24,7 @@ export default function Ariel() {
          /> */}
          {/* <HomeProject /> */}
          {/* <CreateTemplate /> */}
+         {/* <StepEditListItem /> */}
          <StepEdit />
       </>
    )
