@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
 import mainContext from '../../../context/mainContext'
@@ -19,16 +19,16 @@ const StepEdit = ({ style = {}, ...props }) => {
    const [template, setTemplate] = useState(data.projects[3])
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = languages[0].dict
    const navigate = useNavigate()
+   const {state} = useLocation() 
 
    useEffect(() => {
-      console.log(stepData);
       header.setTitle(stepData.name)
       header.setSubTitle(template.name)
    }, [])
 
    const openDrawer = (e) => {
       e.target.id === "display" ?
-         drawer.setDrawer(<StepBasics />) :  //give this step as props and fill
+         drawer.setDrawer(<StepBasics stepName={stepData.name} status={stepData.status} des={stepData.des} />) :  //give this step as props and fill
          drawer.setDrawer(<AddWidget />)     //give this step as props
    }
 
