@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import { users } from "../../../data/fakeProjects";
 
-export default function Verification({ newUser = false }) {
+export default function Verification({ newUser = true }) {
   // need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext)
   const navigate = useNavigate()
