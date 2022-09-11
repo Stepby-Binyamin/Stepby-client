@@ -9,21 +9,22 @@
 
 
 .title{
-    padding: 44px 48px;
+    padding: 44px 24px 0 24px;
 }
 
 .input{
     width: 100%;
-    padding: 20px 0 15px;
+    padding: 0px 0  0 15px;
 }
 
 .phoneNum{
-    padding: 15px 0;
+    padding: 0 0 15px 0;
 
 }
 
 .someThingWrong{
 padding: 0 0 20px 0;
+color: var(--orange100-color)
 }
 
 .btn{

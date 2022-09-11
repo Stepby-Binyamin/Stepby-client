@@ -1,0 +1,30 @@
+.UiDirectionText{
+    height: 85px;
+    display: flex;
+} 
+.innerContainer{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.mainTitle{
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 65px;
+    color: var(--grey2-color);
+}
+.secondRaw{
+    font-weight: 300;
+    font-size: 16px;
+    /* line-height: 24px; */
+    /* text-align: center; */
+    color: var(--grey2-color);
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+.iconCallIcon{
+   margin: 0 7px;
+}

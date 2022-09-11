@@ -13,8 +13,16 @@ import CreateClient from '../../../components/all/CreateClient'
 import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
+import userContext from '../../../context/userContext'
+import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
+
 
 const HomeTemplate = ({ style = {}, ...props }) => {
+   // const { userData, setUserData } = useContext(userContext)
+   // console.log(userData);
+
+
+   const admin = true
 
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
    const { header, drawer } = useContext(mainContext)
@@ -44,11 +52,15 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    }
    const createTemp = () => {
       // navigate('/template')
-      drawer.setDrawer(<CreateTemplate />)
-      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
+      admin ? drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
+         drawer.setDrawer(<CreateTemplate printData={printData} />)
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+   }
+
+   const printData = (d) => {
+      console.log("printData:", d);
    }
 
    return (
@@ -76,7 +88,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          </ul>
 
          {sortListBy === MY_TEMP &&
-            <img src='/images/icon-btns/drawerIcon.svg' alt='drawer' className={styles.drw} onClick={openDrawer} />
+            <BtnHolder buttons={[{ color: "gray", icon: "+", func: openDrawer }]} />
          }
       </div>
    )

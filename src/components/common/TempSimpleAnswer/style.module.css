@@ -1,0 +1,43 @@
+.drawerPage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    width: 100%;
+
+    padding: 0px;
+}
+
+.fileUpload {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.radio {
+    display: flex;
+    width: 100%;
+    height: 58px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.submitButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 76px;
+
+    border-top: 0.5px solid var(--grey4-color);
+}
+
+.sub {
+    padding: 12px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 92%;
+}

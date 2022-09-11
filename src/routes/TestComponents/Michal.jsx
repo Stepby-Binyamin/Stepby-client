@@ -23,13 +23,15 @@ import MoreTemp from '../../components/all/MoreTemp'
 import MoreStep from '../../components/all/MoreStep';
 import StepBasics from '../../components/all/StepBasics';
 
-export default function Michal() {
+export default function Michal({ submitTemp }) {
    const { header, drawer } = useContext(mainContext)
    useEffect(() => {
-      drawer.setDrawer(true)
-      drawer.setDrawerContentHeader(<StepBasics />)
+      drawer.setDrawer(<StepBasics />)
+      // drawer.setDrawerContentHeader(<StepBasics />)
 
    }, [])
+
+
    return (
       <>
          {/* <div><CreateTemplateGeneral /></div> */}

@@ -6,6 +6,8 @@ import Verification from '../pages/user/Verification'
 import BusinessCategory from '../pages/user/BusinessCategory'
 import BusinessName from '../pages/user/BusinessName'
 import Setting from '../pages/user/Setting'
+import Splash from '../pages/Splash/splash'
+
 
 function User() {
 

@@ -16,12 +16,12 @@ const HeaderLogo = () => {
                 {header.isArrow && <img src="/images/icons/arrow.svg" alt="Arrow" onClick={() => navigate(-1)} />}
             </div>
 
-            <div>
+            <div onClick={()=>navigate("/projects")}>
                 <Logo logo="/images/stepbyOrange" />
             </div>
 
             <div className={styles.svgDiv}>
-                {header.isHeaderSet && <img src="/images/icons/header-set.svg" alt="iconPeopleSet" onClick={() => navigate("/home/settings")} />}
+                {header.isHeaderSet && <img src="/images/icons/header-set.svg" alt="iconPeopleSet" onClick={() => navigate("/setting")} />}
             </div>
         </div>
     );

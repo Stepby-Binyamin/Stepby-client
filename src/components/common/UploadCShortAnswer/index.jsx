@@ -1,15 +1,23 @@
 import styles from "./style.module.css"
-import React from 'react'
+import React, { useContext, useState } from 'react'
 
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
+import mainContext from "../../../context/mainContext"
 
-const handleChange = (e) => {
-    console.log(e.target.value);
-}
+const UploadCShortAnswer = ({ setIsAnswer }) => {
+    const { drawer } = useContext(mainContext)
 
-const UploadCShortAnswer = () => {
+    const [answer, setAnswer] = useState()
+
+    const handleSubmitAnswer = () => {
+        // console.log(answer);
+        // console.log("handleSubmitAnswer");
+        answer && setIsAnswer(true)
+        drawer.setDrawer('')
+    }
+
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon
@@ -20,13 +28,16 @@ const UploadCShortAnswer = () => {
             <Input
                 name={"UploadCShortAnswer"}
                 placeholder="התשובה שלך..."
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => setAnswer(e.target.value)}
                 type="text"
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
         </div>
-        <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" />
-    </>
+        <div className={styles.submitButton}>
+            <div className={styles.sub}>
+                <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
+            </div>
+        </div>    </>
     )
 }
 

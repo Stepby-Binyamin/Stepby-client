@@ -5,23 +5,39 @@ import FakeData from "../../../data/fakeProjects"
 import LiComp from './liComponnet'
 import BtnIcon from "../../../components/common/BtnIcon"
 import { useNavigate } from 'react-router-dom'
+import userContext from '../../../context/userContext'
+import { useContext } from 'react'
+import { users } from "../../../data/fakeProjects";
+
+
 
 const Setting = ({ style = {}, ...props }) => {
+
+
+
     const lan = languages[0].dict
     console.log(FakeData.projects[0])
     const navigate = useNavigate()
     //  TODO: add real data from context
-    const user = {
-        firstName: "דורון",
-        lastName: "מאיר",
-        businessName: "דורון מאיר דיגיטל",
-        interests: ["בניית אתרים ", "שיווק דיגיטלי"]
-    }
-    let interest = user.interests.join()
+    const { userData, setUserData } = useContext(userContext)
+    const user = { user: users[0], token: "1234567890" } //ימחק בהמשך 
+    // const user = userData //יהיה במקום השורה שמעל 
+
+    let interests = user.user.interest?.map(e => e.name).join()
+
+    // const user = {
+    //     firstName: "דורון",
+    //     lastName: "מאיר",
+    //     bizName: "דורון מאיר דיגיטל",
+    //     interest: ["בניית אתרים ", "שיווק דיגיטלי"]
+    // }
+    // let interests = user.interest.join()
 
     const logof = () => {
         navigate("/login")
-        console.log("need fuction exit")
+        setUserData({})
+        localStorage.clear()
+        console.log("logout")
     }
 
     return (
@@ -29,14 +45,14 @@ const Setting = ({ style = {}, ...props }) => {
             <div>
                 <ul>
                     <li >
-                        <LiComp header={lan.FIRST_AND_LAST_NAME} subTitle={user.firstName + " " + user.lastName}
+                        <LiComp header={lan.FIRST_AND_LAST_NAME} subTitle={user.user.firstName + " " + user.user.lastName}
                             link="/user-name" />
                     </li>
                     <li>
-                        <LiComp header={lan.BUSINESS_NAME} subTitle={user.businessName} link="/business-name" />
+                        <LiComp header={lan.BUSINESS_NAME} subTitle={user.user.bizName} link="/business-name" />
                     </li>
                     <li>
-                        <LiComp header={lan.AREAS_PRACTICE} subTitle={interest} link="/business-category" />
+                        <LiComp header={lan.AREAS_PRACTICE} subTitle={interests} link="/business-category" />
                     </li>
                 </ul>
             </div>
