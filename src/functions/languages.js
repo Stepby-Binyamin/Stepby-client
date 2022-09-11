@@ -45,7 +45,7 @@ export const languages = [
             NEW_TEMPLATE_HEADER:"אפיון ועיצוב אתר תדמית מורכב",
             CREATION_MODE:"מצב יצירה ועריכת תדמית",
             STEP_BY_STEP:"שלב אחר שלב",
-            PRESS_ON:"לחיצה על ה",
+            PRESS_ON:"לוחצים על ה",
             ADD_STEP:"כדי להוסיף רשימת שלבים",
             GATHERING_INSPIRATION:"איסוף השראות ומתחרים",
             TREATMENT:"בטיפול",
