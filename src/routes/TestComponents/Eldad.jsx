@@ -33,13 +33,13 @@ export default function Eldad() {
       projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />);
     drawer.setDrawer(true);
   }, []);
-  function allActionsClick() {
-    drawer.setDrawerContentHeader(<AllAction
-      newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
-      newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
-      projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />);
-    drawer.setDrawer(true)
-  }
+  // function allActionsClick() {
+  //   drawer.setDrawerContentHeader(<AllAction
+  //     newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
+  //     newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
+  //     projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />);
+  //   drawer.setDrawer(true)
+  // }
   return (
     <>
       <button onClick={() => drawer.setDrawer(true)}>sakjdhkjsadhkjs</button>

@@ -33,7 +33,7 @@ export default function MainDrawer({ children }) {
             <div className={styles.lower} />
           </div>
           <div id="drawerContent">
-            {drawer.drawerContent ?? drawer.drawer}
+            {drawer.DrawerContentHeader ?? drawer.drawer}
           </div>
         </div>
       </div>
