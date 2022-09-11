@@ -1,17 +1,21 @@
 import styles from "./style.module.css"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
+import mainContext from "../../../context/mainContext"
 
-const UploadCShortAnswer = () => {
+const UploadCShortAnswer = ({ setIsAnswer }) => {
+    const { drawer } = useContext(mainContext)
+
     const [answer, setAnswer] = useState()
 
-
     const handleSubmitAnswer = () => {
-        console.log(answer);
-        console.log("handleSubmitAnswer");
+        // console.log(answer);
+        // console.log("handleSubmitAnswer");
+        answer && setIsAnswer(true)
+        drawer.setDrawer('')
     }
 
     return (<>
