@@ -16,7 +16,7 @@ const HeaderLogo = () => {
                 {header.isArrow && <img src="/images/icons/arrow.svg" alt="Arrow" onClick={() => navigate(-1)} />}
             </div>
 
-            <div>
+            <div onClick={()=>navigate("/projects")}>
                 <Logo logo="/images/stepbyOrange" />
             </div>
 
