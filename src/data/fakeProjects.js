@@ -67,8 +67,10 @@ const projects = [
                content: 'files/blabla.pdf',
                index: 1,
                isRequired: false
-            }]
-         },]
+            }
+      ]
+         },
+      ]
    }, {
       _id: "13",
       name: "אתר תדמית פשוט",
