@@ -14,7 +14,7 @@ import userContext from '../../../context/userContext'
 import { users } from "../../../data/fakeProjects";
 import axios from 'axios'
 
-export default function Verification({ newUser = true }) {
+export default function Verification() {
   // need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext);
   const navigate = useNavigate();
@@ -22,21 +22,22 @@ export default function Verification({ newUser = true }) {
   const location = useLocation();
   const [data, setData] = useState(location.state);
   const [code, setCode] = useState()
+  const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
-  let start = "054", end="7668489"
+  const [correctCode, setCorrectCode] = useState(false)
+  let start = "054", end = "7668489"
 
-  if(data.phoneNum){
-      start = data.phoneNum.slice(0, 3)
-     end = data.phoneNum.slice(3)
-    
+  if (data.phoneNum) {
+    start = data.phoneNum.slice(0, 3)
+    end = data.phoneNum.slice(3)
+
   }
   const ilPhoneNum = `${start}-${end}`
 
-  let sendCode =async ()=> {
-    await axios.post('http://localhost:3001/code', { phone: data.phoneNum })
+  const sendCode = async () => {
+    await axios.post('http://localhost:5000/auth/send-code', { phone: data.phoneNum })
       .then(Response => {
-        setCode(Response.data.code)
-        setData({ ...data,status: Response.data.status })
+        setData({ ...data, status: Response.data.status })
       })
       .catch(error => console.log('error: ', error))
   }
@@ -49,28 +50,38 @@ export default function Verification({ newUser = true }) {
     // console.log(data);
   }, [])
 
-  useEffect(()=>{
-   console.log(code);
-  },[code])
+  useEffect(() => {
+    console.log(code);
+  }, [code])
 
-  function goToNextPage() {
+  async function goToNextPage() {
 
-    console.log(data);
-    //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to '/home'projects'
-    if (data.code === code) {
-      console.log("שווה");
-      navigate('/user-name', { state: data })
-      if (!newUser) {
-        navigate('/home/projects', { state: data })
-      }
-    } else {
-      console.log("not equal");
-      setWrongPassword(true)
-    }
+    const body = { phoneNumber: data.phoneNum, code: data.code }
+    await axios.post('http://localhost:5000/auth/check-code', body)
+      .then(Response => {
+        setNewUser(Response.data.newUser)
+        setCode(data.code)
+        setCorrectCode(!correctCode)
+        setData({ ...data, token: Response.data.token })
+      })
+      .catch(error => {
+        setWrongPassword(true)
+        console.log('error: ', error)
+      })
+
+    console.log({ data });
+    console.log({ correctCode });
+
+
+    console.log("not equal");
+
   }
 
   useEffect(() => {
-    // console.log("password", password, "code", data.code,data);
+    if (correctCode) {
+      if (newUser) navigate('/user-name', { state: data })
+      if (!newUser) navigate('/home/projects', { state: data })
+    }
   }, [goToNextPage])
 
 
@@ -89,9 +100,9 @@ export default function Verification({ newUser = true }) {
       </div>}
       {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
        */}
-      
+
       <div className={styles.someThingWrong}>
-        <SomethingWentWrong setCounter={setCounter} setWrongPassword={setWrongPassword} />
+        <SomethingWentWrong sendCode={sendCode} phoneNumer={data.phoneNum} setCounter={setCounter} setWrongPassword={setWrongPassword} />
       </div>
       <div className={styles.btn}>
         <BtnSubmitIcon color='orange' icon='Arrow.svg' func={goToNextPage} />
