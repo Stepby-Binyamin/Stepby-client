@@ -15,8 +15,11 @@ import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
 
 import Pdf from "../../../test.pdf"
 import UploadPicture from "../../../components/common/UploadPicture"
+import { useState } from "react"
 
 const BExample2 = () => {
+    const [isUploaded, setIsUploaded] = useState(false)
+    const [isAnswer, setIsAnswer] = useState(false)
     const index = 1
     const _id = '14'
 
@@ -44,11 +47,11 @@ const BExample2 = () => {
     }
 
     function handleFile() {
-        drawer.setDrawer(<UploadPDF />);
+        drawer.setDrawer(<UploadPDF setIsUploaded={setIsUploaded} />);
     }
 
     function handleAnswer() {
-        drawer.setDrawer(<UploadCShortAnswer />);
+        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} />);
     }
 
     return (
@@ -62,7 +65,7 @@ const BExample2 = () => {
 
 
             <div className={styles.pdf} >
-                {findStep.data.map(data => {
+                {findStep.data.map((data,index) => {
                     switch (data.type) {
                         case "img":
                             return <ImageView
@@ -82,15 +85,6 @@ const BExample2 = () => {
                                     isAdmin={false}
                                 /></a>
                         case "file":
-                            return <Answer src="/images/icon-btns/answer.svg"
-                                key={data.title}
-                                onClick={handleAnswer}
-                                title={data.title}
-                                p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
-                                isTitleFirst={true}
-                                isAdmin={true}
-                            />
-                        case "answer":
                             return <Answer src="\images\icon-btns\Upload.svg"
                                 key={data.title}
                                 onClick={handleFile}
@@ -98,7 +92,20 @@ const BExample2 = () => {
                                 p={data.content}
                                 isTitleFirst={true}
                                 isAdmin={true}
+                                isDone={isUploaded}
+
                             />
+                        case "answer":
+                            return <Answer src="/images/icon-btns/answer.svg"
+                                key={data.title}
+                                onClick={handleAnswer}
+                                title={data.title}
+                                p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
+                                isTitleFirst={true}
+                                isAdmin={true}
+                                isDone={isAnswer}
+                            />
+
                         default:
                         // code block
                     }

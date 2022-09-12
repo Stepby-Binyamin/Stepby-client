@@ -1,11 +1,14 @@
 import styles from "./style.module.css"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
+import mainContext from "../../../context/mainContext"
 
 
-const TempPDF = () => {
+const TempPDF = ({setIsUploaded}) => {
+    const { drawer } = useContext(mainContext)
+
     
     const [fileName, setFileName] = useState()
     const [currentFile, setCurrentFile] = useState()
@@ -23,9 +26,11 @@ const TempPDF = () => {
     // const [isButton, setIsButton] = useState(false)
 
     const handleSubmitAnswer = () => {
-        console.log(currentFile);
-        console.log(fileName);
-        console.log("handleSubmitAnswer");
+        // console.log(currentFile);
+        // console.log(fileName);
+        // console.log("handleSubmitAnswer");
+        currentFile && setIsUploaded(true)
+        drawer.setDrawer('')
     }
 
     return (
