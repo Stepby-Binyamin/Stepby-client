@@ -6,15 +6,33 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
-const UploadCShortAnswer = ({ setIsAnswer }) => {
+import axios from "axios"
+
+const UploadCShortAnswer = ({ setIsAnswer, step, project }) => {
     const { drawer } = useContext(mainContext)
 
-    const [answer, setAnswer] = useState()
+    const [description, setDescription] = useState()
+    const [readedFiles, setReadedFiles] = useState()
+
 
     const handleSubmitAnswer = () => {
-        // console.log(answer);
-        // console.log("handleSubmitAnswer");
-        answer && setIsAnswer(true)
+
+        const formData = new FormData();
+        formData.append("description", description);
+        formData.append("project", project);
+        formData.append("step", step);
+
+        axios({
+            method: "post",
+            url: `http://localhost:5000/shaul/files/upload/`,
+            data: formData
+
+        })
+            .then((result) => setReadedFiles(result))
+            .catch((error) => console.log(error || "error"));
+
+
+        description && setIsAnswer(true)
         drawer.setDrawer('')
     }
 
@@ -28,7 +46,7 @@ const UploadCShortAnswer = ({ setIsAnswer }) => {
             <Input
                 name={"UploadCShortAnswer"}
                 placeholder="התשובה שלך..."
-                onChange={(e) => setAnswer(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 type="text"
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />

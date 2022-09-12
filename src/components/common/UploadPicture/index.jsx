@@ -1,36 +1,63 @@
 import styles from "./style.module.css"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import BtnIcon from "../../../components/common/BtnIcon"
 import Input from "../../../components/common/Input/Input.jsx"
 import BtnSubmitText from "../BtnSubmitText"
 
+import axios from "axios"
+import mainContext from "../../../context/mainContext"
 
-const UploadPicture = () => {
 
+const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
+    const { drawer } = useContext(mainContext)
+
+    const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
-    const [answer, setAnswer] = useState()
+    const [fileName, setFileName] = useState()
 
     const handleChange = (e) => {
-        setAnswer(e.target.value);
+        setDescription(e.target.value);
     }
 
     const showInfo = (file) => {
-        console.log(file.size);
+
+        const typeArr = file.name.split(".");
+
+        if (typeArr[1] !== "pdf" && typeArr[1] !== "jpeg" && typeArr[1] !== "jpg" && typeArr[1] !== "png") {
+            return console.log("file is not supported");
+        }
+
+        if (file.size / 1024 / 1024 > 4) return alert("This file is too big!!!");
+
+        setFileName(file.name)
         setCurrentFile(file);
-        // if (file.size / 1024 > 4) {
-        //     alert("file is too big")
-        //     return
-        // }
-        // setIsButton(true)
     }
-    // const [isButton, setIsButton] = useState(false)
 
     const handleSubmitAnswer = () => {
-        console.log(currentFile);
-        console.log(answer);
-        console.log("handleSubmitAnswer");
+
+        const formData = new FormData();
+        formData.append("new_file", currentFile);
+        formData.append("description", description);
+        formData.append("project", project);
+        formData.append("step", step);
+
+        axios({
+            method: "post",
+            url: `http://localhost:5000/shaul/files/upload/`,
+            data: formData
+
+        })
+            .then((result) => {
+                console.log(result.data.uploadLocation);
+                setUploadLocation(result.data)
+            })
+            .catch((error) => console.log(error || "error"));
+
+        currentFile && setIsUploaded(true)
+        drawer.setDrawer('')
     }
+
 
     return (
         <div className={styles.drawerPage}>
@@ -49,7 +76,8 @@ const UploadPicture = () => {
             />
             <div className={styles.upload}>
                 <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>טעינת קובץ</span></label>
-                <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])}/>
+                <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])} />
+                {fileName ? <span>{fileName}</span> : <span>No file found.</span>}
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>

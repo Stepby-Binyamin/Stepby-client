@@ -5,30 +5,23 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
+import axios from "axios"
 
-const TempPDF = ({setIsUploaded}) => {
+
+const TempPDF = ({ setIsUploaded }) => {
     const { drawer } = useContext(mainContext)
 
-    
-    const [fileName, setFileName] = useState()
+    const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
 
 
     const showInfo = (file) => {
-        console.log(file.size);
+
         setCurrentFile(file);
-        // if (file.size / 1024 > 4) {
-        //     alert("file is too big")
-        //     return
-        // }
-        // setIsButton(true)
+
     }
-    // const [isButton, setIsButton] = useState(false)
 
     const handleSubmitAnswer = () => {
-        // console.log(currentFile);
-        // console.log(fileName);
-        // console.log("handleSubmitAnswer");
         currentFile && setIsUploaded(true)
         drawer.setDrawer('')
     }
@@ -43,7 +36,7 @@ const TempPDF = ({setIsUploaded}) => {
             <Input
                 name={"TempPDF"}
                 placeholder="תיאור למסמך"
-                onChange={(e) => setFileName(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 type="text"
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
                 htmlFor="fileUpload"
