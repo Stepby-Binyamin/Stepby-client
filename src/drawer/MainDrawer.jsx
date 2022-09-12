@@ -22,9 +22,9 @@ export default function MainDrawer({ children }) {
 
   return (
     <>
-      <div className={styles[drawer.drawer ? "containerOn" : "containerOff"]} 
-      onClick={()=> drawer.setDrawer('') }>
-        <div className={styles[drawer.drawer ? "popUp" : "popDown"]} onClick={(e) => {e.stopPropagation();}}>
+      <div className={styles[drawer.drawer ? "containerOn" : "containerOff"]}
+        onClick={() => drawer.setDrawer('')}>
+        <div className={styles[drawer.drawer ? "popUp" : "popDown"]} onClick={(e) => { e.stopPropagation(); }}>
           <div id="lower"
             className={styles.drewerTop}
             onTouchStart={handleTouchStart}
