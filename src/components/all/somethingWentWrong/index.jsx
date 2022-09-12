@@ -7,7 +7,7 @@ import VerifyProblem from '../VerifyProblem'
 import { useNavigate } from 'react-router-dom'
 
 
-export default function SomethingWentWrong(props) {
+export default function SomethingWentWrong({setCounter,setWrongPassword}) {
   let navigate = useNavigate()
   const { drawer } = useContext(mainContext)
 
@@ -16,13 +16,16 @@ export default function SomethingWentWrong(props) {
     console.log("wrongNumber");
     navigate('/login')
     drawer.setDrawer( )
+    setWrongPassword(false)
   }
   
   function newCodeFunc() {
     // close the drawer and make the counter=1
     console.log("counter  1");
     drawer.setDrawer( )
-    props.setCounter(1)
+    setCounter(1)
+    setWrongPassword(false)
+
   }
 
   function openDrawer() {

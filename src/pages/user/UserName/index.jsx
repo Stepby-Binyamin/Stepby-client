@@ -22,7 +22,8 @@ export default function UserName({ newUser = true, firstName, lastName }) {
 
   useEffect(() => {
     header.setIsTitle(false)
-    console.log(data);
+    header.setIsHeaderSet(false)
+    header.setIsArrow(false)
   }, [])
 
   const saveData = (e) => {
