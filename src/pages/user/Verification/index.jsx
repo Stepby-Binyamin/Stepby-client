@@ -23,6 +23,14 @@ export default function Verification({ newUser = true }) {
   const [data, setData] = useState(location.state);
   const [code, setCode] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
+  let start = "054", end="7668489"
+
+  if(data.phoneNum){
+      start = data.phoneNum.slice(0, 3)
+     end = data.phoneNum.slice(3)
+    
+  }
+  const ilPhoneNum = `${start}-${end}`
 
   let sendCode =async ()=> {
     await axios.post('http://localhost:3001/code', { phone: data.phoneNum })
@@ -60,6 +68,7 @@ export default function Verification({ newUser = true }) {
       setWrongPassword(true)
     }
   }
+
   useEffect(() => {
     // console.log("password", password, "code", data.code,data);
   }, [goToNextPage])
@@ -73,14 +82,16 @@ export default function Verification({ newUser = true }) {
       <div className={styles.input}>
         <InputVerification setData={setData} data={data} />
       </div>
-      {wrongPassword ? <div className={styles.someThingWrong}>
-        <b><u>הקוד שהוזן אינו נכון!</u></b>
-      </div> : <></>}
-      <div className={styles.phoneNum}>
-        <UserNumberVerification counter={counter} phoneNum={data.phoneNum} />
-      </div>
+      {wrongPassword ? <div className={styles.thatpasswordiswrong}>
+        <div><b>{languages[0].dict.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
+      </div> : <div className={styles.phoneNum}>
+        <UserNumberVerification counter={counter} phoneNum={data.phoneNum} ilPhoneNum1={ilPhoneNum} />
+      </div>}
+      {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
+       */}
+      
       <div className={styles.someThingWrong}>
-        <SomethingWentWrong setCounter={setCounter} />
+        <SomethingWentWrong setCounter={setCounter} setWrongPassword={setWrongPassword} />
       </div>
       <div className={styles.btn}>
         <BtnSubmitIcon color='orange' icon='Arrow.svg' func={goToNextPage} />
