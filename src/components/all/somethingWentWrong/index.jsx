@@ -5,9 +5,10 @@ import mainContext from '../../../context/mainContext'
 import { useContext } from 'react'
 import VerifyProblem from '../VerifyProblem'
 import { useNavigate } from 'react-router-dom'
+import { sendCode } from '../../../pages/user/Verification'
 
 
-export default function SomethingWentWrong({setCounter,setWrongPassword}) {
+export default function SomethingWentWrong({sendCode, phoneNumber, setCounter,setWrongPassword}) {
   let navigate = useNavigate()
   const { drawer } = useContext(mainContext)
 
@@ -20,6 +21,9 @@ export default function SomethingWentWrong({setCounter,setWrongPassword}) {
   }
   
   function newCodeFunc() {
+
+    sendCode()
+
     // close the drawer and make the counter=1
     console.log("counter  1");
     drawer.setDrawer( )
