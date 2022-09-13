@@ -53,7 +53,7 @@ export default function Login() {
         <UserTitle text1={languages[0].dict.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
+        <Input autoFocus value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>
