@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import mainContext from './mainContext'
 import dataContext from './dataContext'
 import userContext from "./userContext";
-import languageContext from './languageContext'
 import { projects, categories } from "../data/fakeProjects";
 import { user } from "../data/fakeUser";
 import axios from "axios"

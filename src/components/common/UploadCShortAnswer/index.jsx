@@ -7,7 +7,7 @@ import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
 const UploadCShortAnswer = ({ setIsAnswer }) => {
-    const { drawer } = useContext(mainContext)
+    const { drawer, language } = useContext(mainContext)
 
     const [answer, setAnswer] = useState()
 

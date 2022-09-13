@@ -26,7 +26,7 @@ const BExample2 = () => {
     const findProject = projects.projects.find(project => project._id === _id)
     const findStep = findProject.steps.find(step => step.index === index)
 
-    const { header, drawer } = useContext(mainContext)
+    const { header, drawer, language} = useContext(mainContext)
 
     // Calculate the Days
     const d = new Date()

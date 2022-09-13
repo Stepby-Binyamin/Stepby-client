@@ -1,12 +1,15 @@
 import styles from "./style.module.css"
-import React , { useState } from 'react'
-
+import React , { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
+import mainContext from "../../../context/mainContext"
 
 const TempFile = () => {
+
+    const {language}= useContext(mainContext)
     const [radio, setRadio] = useState()
     const [answer, setAnswer] = useState()
 

@@ -1,5 +1,6 @@
+import React, { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
-import React, { useState } from 'react'
 
 import BtnIcon from "../../../components/common/BtnIcon"
 import Input from "../../../components/common/Input/Input.jsx"
@@ -8,6 +9,7 @@ import BtnSubmitText from "../BtnSubmitText"
 
 const UploadPicture = () => {
 
+const {language}= useContext(mainContext)
     const [currentFile, setCurrentFile] = useState()
     const [answer, setAnswer] = useState()
 

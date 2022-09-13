@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import mainContext from '../../../context/mainContext'
 import dataContext from '../../../context/dataContext'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
@@ -18,11 +17,11 @@ import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
 const StepEdit = ({ style = {}, ...props }) => {
 
 
-   const { header, drawer } = useContext(mainContext)
+   const { header, drawer, language} = useContext(mainContext)
    const { data } = useContext(dataContext)
    const [stepData, setStepData] = useState(data.projects[3].steps[1])
    const [template, setTemplate] = useState(data.projects[3])
-   const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = languages[0].dict
+   const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
    const {state} = useLocation() 
 

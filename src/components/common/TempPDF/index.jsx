@@ -7,7 +7,7 @@ import mainContext from "../../../context/mainContext"
 
 
 const TempPDF = ({setIsUploaded}) => {
-    const { drawer } = useContext(mainContext)
+    const { drawer, language } = useContext(mainContext)
 
     
     const [fileName, setFileName] = useState()
