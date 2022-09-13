@@ -12,7 +12,8 @@ import UserNumberVerification from '../../../components/all/UserNumberVerificati
 import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import { users } from "../../../data/fakeProjects";
-import axios from 'axios'
+import { setToken } from '../../../functions/apiRequest'
+import apiCalls from '../../../functions/apiRequest'
 
 export default function Verification() {
   // need to add navigation to existing user that will show his projects page
@@ -27,19 +28,15 @@ export default function Verification() {
   const [correctCode, setCorrectCode] = useState(false)
   let start = "054", end = "7668489"
 
-  if (data.phoneNum) {
-    start = data.phoneNum.slice(0, 3)
-    end = data.phoneNum.slice(3)
-
+  if (data.phoneNumber) {
+    start = data.phoneNumber.slice(0, 3)
+    end = data.phoneNumber.slice(3)
   }
   const ilPhoneNum = `${start}-${end}`
 
   const sendCode = async () => {
-    await axios.post('http://localhost:5000/user/send-code', { phoneNumber: data.phoneNum })
-      .then(Response => {
-        setData({ ...data, status: Response.data.status })
-      })
-      .catch(error => console.log('error: ', error))
+    await apiCalls("/user/send-code", "post", { phoneNumber: data.phoneNumber })
+
   }
 
   useEffect(() => {
@@ -50,25 +47,15 @@ export default function Verification() {
   }, [])
 
   async function goToNextPage() {
+    const body = { phoneNumber: data.phoneNumber, code: code }
 
-    const body = { phoneNumber: data.phoneNum, code: data.code }
-    await axios.post('http://localhost:5000/user/check-code', body)
-      .then(Response => {
-        setNewUser(Response.data.newUser)
-        setCode(data.code)
-        setCorrectCode(!correctCode)
-        setData({ ...data, token: Response.data.token })
-      })
-      .catch(error => {
-        setWrongPassword(true)
-        console.log('error: ', error)
-      })
-
-    console.log({ data });
-    console.log({ correctCode });
-
-
-    console.log("not equal");
+    const result = await apiCalls('/user/check-code', 'post', body)
+    if (typeof result === 'string') setWrongPassword(true)
+    if (typeof result === 'object') {
+      setNewUser(result.newUser)
+      setCorrectCode(!correctCode)
+      setToken(result.token)
+    }
 
   }
 
@@ -86,12 +73,12 @@ export default function Verification() {
         <UserTitle text1={languages[0].dict.SUBMIT_CODE} text2={languages[0].dict.SUBMIT_CODE_END} />
       </div>
       <div className={styles.input}>
-        <InputVerification setData={setData} data={data} />
+        <InputVerification setCode={setCode} />
       </div>
       {wrongPassword ? <div className={styles.thatpasswordiswrong}>
         <div><b>{languages[0].dict.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
       </div> : <div className={styles.phoneNum}>
-        <UserNumberVerification counter={counter} phoneNum={data.phoneNum} ilPhoneNum1={ilPhoneNum} />
+        <UserNumberVerification counter={counter} phoneNum={data.phoneNumber} ilPhoneNum1={ilPhoneNum} />
       </div>}
       {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
        */}

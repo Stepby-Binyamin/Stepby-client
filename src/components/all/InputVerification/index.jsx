@@ -5,20 +5,20 @@ import { useState } from 'react'
 import styles from './style.module.css'
 
 
-export default function InputVerification({setData,data}) {
+export default function InputVerification({ setCode }) {
     const [inputData, setInputData] = useState({ inputOne: "", inputTwo: "", inputThree: "", inputFour: "" })
     const inputOne = useRef(null)
     const inputTwo = useRef(null)
     const inputThree = useRef(null)
     const inputFour = useRef(null)
-  
+
 
     useEffect(() => {
         inputOne.current.focus();
     }, [])
-    useEffect(()=>{
-        setData({...data,code:Object.values(inputData).join("")})
-    },[inputData])
+    useEffect(() => {
+        setCode(Object.values(inputData).join(""))
+    }, [inputData])
 
     const handlePress = (e) => {
 
@@ -36,7 +36,7 @@ export default function InputVerification({setData,data}) {
         }
         if (e.target.name === 'inputFour' && e.target.value !== 0) {
             setInputData({ ...inputData, inputFour: e.target.value[e.target.value.length - 1] })
-            
+
         }
 
         // if (e.target.name === 'inputOne' && e.key === "Backspace") {
@@ -45,7 +45,7 @@ export default function InputVerification({setData,data}) {
         //     // console.log(inputOne);
         //     // inputOne.current.focus()
         // }
-     
+
     }
 
     return (
