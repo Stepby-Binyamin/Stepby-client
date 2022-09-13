@@ -9,7 +9,7 @@ import Logo from '../../components/all/Logo'
 const Splash = () => {
     // const { language } = useContext(mainContext)
 
-    const language =JSON.parse(localStorage.language)
+    // const language =JSON.parse(localStorage.language)
     // useEffect(() => {
     //     header.setIsTitle(false)
     //     header.setIsHeaderSet(false)
@@ -22,7 +22,7 @@ const Splash = () => {
 
         <div className={styles.container}>
             <div className={styles.logo}><Logo logo={"./images/stepby"} /></div>
-            <div className={styles.text1}>{language.SPLASH_UNDER}</div>
+            {/* <div className={styles.text1}>{language.SPLASH_UNDER}</div> */}
         </div>
 
     );
