@@ -197,14 +197,14 @@ const projects = [
                isRequired: true
             }, {
                owner: 'biz',// 'client',
-               type: 'file', // 'img' , 'file' , 'answer'
+               type: 'answer', // 'img' , 'file' , 'answer'
                title: 'מי המתחרה העיקרי שלך באינטרנט?',
                content: '',
                index: 3,
                isRequired: true
             }, {
                owner: 'biz',// 'client',
-               type: 'answer', // 'img' , 'file' , 'answer'
+               type: 'file', // 'img' , 'file' , 'answer'
                title: 'העלאת צילומי מסך של מתחרים טובים',
                content: 'מגבלת נפח: 4Mb',
                index: 4,
