@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from "./style.module.css"
 
-const StepEditListItem = ({ title, text, icon, style = {}, ...props }) => {
+const StepEditListItem = ({ title, text, type, style = {}, ...props }) => {
    
  // exsisting icon svg images in arr belowe
    const iconsArr = ["answer", "file", "list", "gradin", "payment", "img", "pdf", "video"]
-   icon = icon === "file" ? "Upload" : icon === "img" ? "image" : icon === "pdf" ? "filePDF" :icon
+   const icon = type === "file" ? "Upload" : type === "img" ? "image" : type === "pdf" ? "filePDF" :type
 
    return (
       <li className={styles.StepEditListItem} style={style} {...props} >

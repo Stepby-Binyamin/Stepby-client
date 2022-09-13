@@ -9,6 +9,7 @@ import UiDirectionText from '../../../components/all/UiDirectionText'
 import StepBasics from '../../../components/all/StepBasics'
 import { AddWidget } from '../../../components/all/AddWidget'
 import StepEditListItem from '../../../components/common/StepEditListItem'
+import MoreStep from '../../../components/all/MoreStep'
 
 const StepEdit = ({ style = {}, ...props }) => {
 
@@ -24,6 +25,7 @@ const StepEdit = ({ style = {}, ...props }) => {
    useEffect(() => {
       header.setTitle(stepData.name)
       header.setSubTitle(template.name)
+      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
    }, [])
 
    const openDrawer = (e) => {
@@ -65,7 +67,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          {stepData && (stepData.data.length > 0 ?
             stepData.data.map(item =>
-               <StepEditListItem key={item.index} title={item.title} text={item.content} icon={item.type} />
+               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} />
             ) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
          )}
