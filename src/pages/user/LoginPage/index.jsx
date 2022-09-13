@@ -14,15 +14,15 @@ export default function Login() {
   const { header } = useContext(mainContext),
     navigate = useNavigate(),
     [limitDigits, setLimitDigits] = useState(''),
-    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '', theCategories: '' }),
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessName: '', phoneNumber: '', theCategories: '' }),
     [language, setLanguage] = useState();
-    
-    useEffect(() => {
-      header.setIsTitle(false)
-      header.setIsHeaderSet(false)
-      header.setIsArrow(false)
-      setLanguage(JSON.parse(localStorage.language))
+
+  useEffect(() => {
+    header.setIsTitle(false)
+    header.setIsHeaderSet(false)
+    header.setIsArrow(false)  setLanguage(JSON.parse(localStorage.language))
   }, [])
+
 
   // const handlePress = (e)=>{
   //  if ( e.keyCode ===69 ){
@@ -41,11 +41,11 @@ export default function Login() {
       return
     }
     setLimitDigits(e.target.value)
-    setData({ ...data, phoneNum: e.target.value })
+    setData({ ...data, phoneNumber: e.target.value })
   }
 
   const handleClick = async () => {
-    if (data.phoneNum.length < 10) return
+    if (data.phoneNumber.length < 10) return
     navigate('/verification', { state: data })
   }
 
