@@ -16,6 +16,7 @@ export const languages = [
             SEND_CODE: "שלחנו למספר",
             RESEND_CODE: "שלחנו שוב",
             RESEND_CODE_END: "למספר",
+            WRONG_CODE_MESSAGE:"אופס, זה לא באמת הקוד ששלחנו למספר ",
             SOMETHINGS_WRONG: "משהו לא סבבה?",
             PERSONAL_INFORMATION: "מספר טלפון זה סבבה, אבל בכל זאת, בני אדם...",
             FIRST_NAME: "שם פרטי",

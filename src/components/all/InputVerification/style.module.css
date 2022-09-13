@@ -16,8 +16,10 @@
     height: 76px;
     border: 1px solid var(--grey4-color);
     border-radius: var(--border-radius);
-    font-size: 70px;
+    font-size: 52px;
     text-align: center;
+    font-weight: 700;
+    font-family: heebo;
 }
 
 .input:focus {
