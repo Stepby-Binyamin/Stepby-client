@@ -25,7 +25,7 @@ export default function Verification() {
   const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
   const [correctCode, setCorrectCode] = useState(false)
-  const [language, setLanguage] = useState()
+  const [language, setLanguage] = useState(JSON.parse(localStorage.language))
   let start = "054", end = "7668489"
 
 

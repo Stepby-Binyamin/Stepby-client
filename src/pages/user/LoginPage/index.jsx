@@ -15,7 +15,7 @@ export default function Login() {
     navigate = useNavigate(),
     [limitDigits, setLimitDigits] = useState(''),
     [data, setData] = useState({ fName: '', lName: '', email: '', businessName: '', phoneNumber: '', theCategories: '' }),
-    [language, setLanguage] = useState();
+    [language, setLanguage] = useState(JSON.parse(localStorage.language));
 
   useEffect(() => {
     header.setIsTitle(false)

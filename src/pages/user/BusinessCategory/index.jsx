@@ -9,7 +9,7 @@ import styles from './style.module.css'
 
 export default function BusinessCategory({ newUser = true }) {
 
-  const [language, setLanguage] = useState();
+  const [language, setLanguage] = useState(JSON.parse(localStorage.language));
   const { header } = useContext(mainContext),
   [info, setInfo] = useState(),
   navigate = useNavigate(),

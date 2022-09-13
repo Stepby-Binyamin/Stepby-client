@@ -18,7 +18,7 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   const navigate = useNavigate(),
     location = useLocation(),
     [data, setData] = useState(location.state),
-    [language, setLanguage] = useState();
+    [language, setLanguage] = useState(JSON.parse(localStorage.language));
 
     useEffect(() => {
       header.setIsTitle(false)

@@ -13,7 +13,7 @@ export default function BusinessName({ newUser = true, BusinessName }) {
         navigate = useNavigate(),
         location = useLocation(),
         [data, setData] = useState(location.state),
-        [language, setLanguage] = useState();
+        [language, setLanguage] = useState(JSON.parse(localStorage.language));
         useEffect(() => {
             header.setIsTitle(false)
             header.setIsHeaderSet(false)
