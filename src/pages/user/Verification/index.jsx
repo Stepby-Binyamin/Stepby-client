@@ -51,6 +51,7 @@ export default function Verification() {
     const body = { phoneNumber: data.phoneNumber, code: code }
 
     const result = await apiCalls('/user/check-code', 'post', body)
+    console.log(typeof result);
     if (typeof result === 'string') setWrongPassword(true)
     if (typeof result === 'object') {
       setNewUser(result.newUser)

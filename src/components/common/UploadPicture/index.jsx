@@ -10,6 +10,7 @@ import axios from "axios"
 
 
 
+
 const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
     const { drawer, language} = useContext(mainContext)
 

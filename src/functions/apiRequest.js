@@ -4,9 +4,10 @@ import axios from "axios"
 //   baseURL: "http://localhost:5000"
 // });
 
+axios.defaults.baseURL = "http://localhost:5000" 
+
 export const setToken = (token)=>{
     // when you do logout pass the parameter as an empty string
-
     axios.defaults.headers.common['Authorization'] =  token //AUTH_TOKEN
 }
 const apiCalls = async (url, method, data) => {
@@ -14,15 +15,14 @@ const apiCalls = async (url, method, data) => {
     await axios({
         method,
         url,
-        data, 
-        baseURL:"http://localhost:5000" 
+        data
     })
         .then( async (response) => {
             res = response.data
         })
         .catch( (error) => {
             res = error.message
-            throw error.message
+            // throw error.message
         })
         return res
 }
