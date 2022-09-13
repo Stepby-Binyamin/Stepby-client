@@ -4,7 +4,7 @@ import Layout from './layout';
 // import Login from './login';
 
 
-const App = () => {
+  const App = () => {
 
   return (
     <div className={styles.main}>

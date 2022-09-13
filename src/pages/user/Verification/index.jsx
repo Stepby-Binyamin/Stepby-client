@@ -35,7 +35,7 @@ export default function Verification() {
   const ilPhoneNum = `${start}-${end}`
 
   const sendCode = async () => {
-    await axios.post('http://localhost:5000/auth/send-code', { phone: data.phoneNum })
+    await axios.post('http://localhost:5000/user/send-code', { phoneNumber: data.phoneNum })
       .then(Response => {
         setData({ ...data, status: Response.data.status })
       })
@@ -47,17 +47,12 @@ export default function Verification() {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     header.setIsArrow(false)
-    // console.log(data);
   }, [])
-
-  useEffect(() => {
-    console.log(code);
-  }, [code])
 
   async function goToNextPage() {
 
     const body = { phoneNumber: data.phoneNum, code: data.code }
-    await axios.post('http://localhost:5000/auth/check-code', body)
+    await axios.post('http://localhost:5000/user/check-code', body)
       .then(Response => {
         setNewUser(Response.data.newUser)
         setCode(data.code)
@@ -80,7 +75,7 @@ export default function Verification() {
   useEffect(() => {
     if (correctCode) {
       if (newUser) navigate('/user-name', { state: data })
-      if (!newUser) navigate('/home/projects', { state: data })
+      if (!newUser) navigate('/projects', { state: data })
     }
   }, [goToNextPage])
 

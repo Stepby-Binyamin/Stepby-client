@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import axios from "axios"
 // import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
 import { languages } from '../../../functions/languages'
@@ -27,6 +28,7 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    // const navigate = useNavigate()
+   const lang = 0;
 
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
    const clientCounter = data.projects && data.projects.filter(item => item.status === 'client').length
@@ -53,6 +55,17 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsTitle(false)
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
+
+      if(!localStorage.language)
+      axios.get('http://localhost:5000/language/'+lang)
+      .then(response =>{
+        console.log(response.data.dict);
+        localStorage.language= JSON.stringify(response.data.dict)
+      })
+      .catch(error =>{
+        console.log(error)
+      });
+
    }, [])
 
    const createClient = () => {
