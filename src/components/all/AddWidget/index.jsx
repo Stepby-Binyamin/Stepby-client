@@ -4,7 +4,7 @@ import styles from "./style.module.css"
 import mainContext from "../../../context/mainContext" 
 export const AddWidget = () => {
 
-    const { drawer } = useContext(mainContext)
+    const { drawer, language} = useContext(mainContext)
     const onClick= (index)=>{
         switch (index) {
             case 0: drawer.setDrawer();

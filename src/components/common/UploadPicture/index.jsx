@@ -1,20 +1,18 @@
+import React, { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
-import React, { useContext, useState } from 'react'
 
 import BtnIcon from "../../../components/common/BtnIcon"
 import Input from "../../../components/common/Input/Input.jsx"
 import BtnSubmitText from "../BtnSubmitText"
 
 import axios from "axios"
-import mainContext from "../../../context/mainContext"
-
-import { languages } from "../../../functions/languages"
 
 
 
 
 const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
-    const { drawer } = useContext(mainContext)
+    const { drawer, language} = useContext(mainContext)
 
     const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
@@ -42,7 +40,7 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
 
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("objShortQuestion", JSON.stringify({question: languages[0].dict.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
+        formData.append("objShortQuestion", JSON.stringify({question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
 
         // formData.append("description", description);
         // formData.append("project", project);
@@ -68,27 +66,27 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
     return (
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={languages[0].dict.IMG}
+                text={language.IMG}
                 icon={"/images/icon-btns/image.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />
             <Input
                 name={"UploadPicture"}
                 htmlFor="fileUpload"
-                placeholder={languages[0].dict.DESCRIPTION_IMG}
+                placeholder={language.DESCRIPTION_IMG}
                 onChange={(e) => handleChange(e)}
                 type="text"
                 autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.upload}>
-                <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>{languages[0].dict.FILE_LOAD}</span></label>
+                <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>{language.FILE_LOAD}</span></label>
                 <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])} />
                 {fileName ? <span>{fileName}</span> : <span>No file found.</span>}
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={languages[0].dict.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
                 </div>
             </div>
         </div>

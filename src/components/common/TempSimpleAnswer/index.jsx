@@ -1,11 +1,11 @@
+import React, { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
-import React, { useContext, useState } from 'react'
 
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
-import mainContext from "../../../context/mainContext"
 
 import axios from "axios"
 

@@ -4,14 +4,13 @@ import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import { useNavigate } from "react-router-dom";
-import { languages } from '../../../functions/languages'
 import mainContext from '../../../context/mainContext'
 
 
 
 const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
-    const dict = languages[0].dict;
-    const { header, drawer } = useContext(mainContext)
+
+    const { header, drawer, language } = useContext(mainContext)
     let navigate = useNavigate();
 
 
@@ -33,10 +32,10 @@ const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
     return (
         <div className={styles.container}>
             <form on onSubmit={(e) => collect(e)}>
-                <Keyboard placeholder={dict.TEMPLATES_NAME} name="newTamplate" />
-                <div className={styles.text}>{dict.TEMPLATES_TEXT}</div>
+                <Keyboard placeholder={language.TEMPLATES_NAME} name="newTamplate" />
+                <div className={styles.text}>{language.TEMPLATES_TEXT}</div>
 
-                <div className={styles.btn}> <BtnSubmitText color={"gray"} text={dict.SAVE} icon={"v to text.svg"} /> </div>
+                <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.SAVE} icon={"v to text.svg"} /> </div>
             </form>
 
         </div>

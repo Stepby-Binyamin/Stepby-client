@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
+// import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import Input from '../../../components/common/Input/Input'
 import SignUpInfo from '../../../components/all/SignUpInfo'
@@ -14,13 +14,16 @@ export default function Login() {
   const { header } = useContext(mainContext),
     navigate = useNavigate(),
     [limitDigits, setLimitDigits] = useState(''),
-    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '', theCategories: '' });
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessName: '', phoneNumber: '', theCategories: '' }),
+    [language, setLanguage] = useState(JSON.parse(localStorage.language));
 
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
-    header.setIsArrow(false)
+    header.setIsArrow(false)  
+    setLanguage(JSON.parse(localStorage.language))
   }, [])
+
 
   // const handlePress = (e)=>{
   //  if ( e.keyCode ===69 ){
@@ -39,21 +42,21 @@ export default function Login() {
       return
     }
     setLimitDigits(e.target.value)
-    setData({ ...data, phoneNum: e.target.value })
+    setData({ ...data, phoneNumber: e.target.value })
   }
 
   const handleClick = async () => {
-    if (data.phoneNum.length < 10) return
+    if (data.phoneNumber.length < 10) return
     navigate('/verification', { state: data })
   }
 
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text1={languages[0].dict.ENTER_PHONE} />
+        <UserTitle text1={language.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input autoFocus value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
+        <Input autoFocus value={limitDigits} onChange={handleChange} type='number' placeholder={language.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>

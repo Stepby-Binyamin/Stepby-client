@@ -1,5 +1,7 @@
+import React, { useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
-import React from 'react'
+
 
 import BtnIcon from "../BtnIcon"
 import BtnHolder from "../BtnHolder/BtnHolder"
@@ -10,6 +12,9 @@ const handleChange = (e) => {
 }
 
 const UploadedIMGView = () => {
+
+const {language}= useContext(mainContext)
+
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon

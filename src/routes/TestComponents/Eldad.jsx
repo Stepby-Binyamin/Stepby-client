@@ -1,38 +1,17 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-// import RadioBtn from "../../components/all/radioBtn/withoutIcon";
-// import RadioBtnWithIcon from "../../components/all/radioBtn/WithIcon";
-// import BtnSubmitText from "../../components/common/BtnSubmitText";
+import React from "react";
 import { useContext } from "react";
 import mainContext from "../../context/mainContext";
 import CreateTemplateGeneral from "../../components/all/CreateTemplateGeneral";
 import CreateProject from "../../components/all/CreateProject";
 import CreateClient from "../../components/all/CreateClient"
 import AllAction from "../../components/all/AllAction"
+import Login from "../../pages/user/LoginPage"
+import RadioBtn from "../../components/all/radioBtn/withoutIcon";
 
 export default function Eldad() {
-  const [data, setdata] = useState({});
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setdata((values) => ({ ...values, [name]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(data);
-  };
 
   const { drawer } = useContext(mainContext);
 
-  // useEffect(() => {
-  //   drawer.setDrawerContentHeader(<AllAction
-  //     newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
-  //     newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
-  //     projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />);
-  //   drawer.setDrawer(true);
-  // }, []);
   function allActionsClick() {
     drawer.setDrawerContentHeader(<AllAction
       newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
@@ -43,9 +22,8 @@ export default function Eldad() {
 
   return (
     <>
-      <button onClick={allActionsClick}>good</button>
-      <br></br>
-      <button onClick={()=> drawer.setDrawer(<CreateProject />)}>deleted</button>
+      {/* <Login/> */}
+      <RadioBtn arr={['חופשי', 'לא חופשי' ]} changeFunc={(e)=> console.log(e.target.value)}/>
     </>
   );
 }

@@ -1,12 +1,15 @@
 import styles from "./style.module.css"
-import React , { useState } from 'react'
-
+import React , { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
+import axios from "axios"
+
 const TempFile = ({data}) => {
+const {drawer} = useContext(mainContext)
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()

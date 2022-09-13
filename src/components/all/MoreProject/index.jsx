@@ -1,16 +1,17 @@
-import React, { version } from 'react'
+import React, {  useContext} from 'react'
 import BtnIcon from '../../common/BtnIcon'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
+import mainContext from "../../../context/mainContext"
 
 
 const MoreProject = ({ style = {}, completeProjectFunc, deleteProjectFunc, ...props }) => {
-   const dict = languages[0].dict;
+   
+   const {language}= useContext(mainContext)
 
    return (
       <div className={styles.MoreProject}>
-         <div className={styles.btn}><BtnIcon icon='/images/icons/completed.svg' text={dict.COMPLET_PROJECT} onClick={completeProjectFunc} />      </div>
-         <div className={styles.btn}><BtnIcon icon='/images/icons/delete.svg' text={dict.DEL_PROJECT} textColor="#EF0E0E" onClick={deleteProjectFunc} />      </div>
+         <div className={styles.btn}><BtnIcon icon='/images/icons/completed.svg' text={language.COMPLET_PROJECT} onClick={completeProjectFunc} />      </div>
+         <div className={styles.btn}><BtnIcon icon='/images/icons/delete.svg' text={language.DEL_PROJECT} textColor="#EF0E0E" onClick={deleteProjectFunc} />      </div>
       </div>
    )
 }

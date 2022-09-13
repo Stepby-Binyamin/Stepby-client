@@ -1,14 +1,16 @@
-import React from 'react'
+import React, {  useContext} from 'react'
 import Keyboard from '../Keyboard';
 import SubKeyboard from '../SubKeyboard';
 import styles from "./style.module.css"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from '../../common/BtnSubmitText';
+import mainContext from "../../../context/mainContext"
 
-const keyboardPlaceholder = 'שם התבנית החדשה...'
-const subKeyboardPlaceholder = 'אימייל או ID'
-
+//TODO: language
 const UserOnly = ({ style = {}, ...props }) => {
+   const {language}= useContext(mainContext)
+   const keyboardPlaceholder = 'שם התבנית החדשה...'
+   const subKeyboardPlaceholder = 'אימייל או ID'
    return (
       <div className={styles.UserOnlyContainer}>
       <div className={styles.inputContainer}>
