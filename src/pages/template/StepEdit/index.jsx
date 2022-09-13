@@ -82,10 +82,9 @@ const StepEdit = ({ style = {}, ...props }) => {
          </div>
 
          {stepData && (stepData.data.length > 0 ?
-            stepData.data.map(item => {
-               let data = { ...item, stepId: stepData._id, tempId: template._id };
-               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={data} />
-            }) :
+            stepData.data.map(item =>
+               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: template._id }} />
+            ) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
          )}
 
