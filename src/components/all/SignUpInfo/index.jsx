@@ -4,7 +4,7 @@ import styles from './style.module.css'
 
 export default function SignUpInfo() {
     
-    const [language, setLanguage] = useState()
+    const [language, setLanguage] = useState(JSON.parse(localStorage.language))
 
     useEffect(() => {
         setLanguage(JSON.parse(localStorage.language))
