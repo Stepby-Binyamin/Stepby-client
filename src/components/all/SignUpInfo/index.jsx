@@ -1,10 +1,15 @@
-import React, {  useContext} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './style.module.css'
-import mainContext from "../../../context/mainContext"
+
 
 export default function SignUpInfo() {
     
-    const {language}= useContext(mainContext)
+    const [language, setLanguage] = useState()
+
+    useEffect(() => {
+        setLanguage(JSON.parse(localStorage.language))
+    },[])
+ 
     const  stepby = language.STEPBY, dataStart = language.TASK_MESSAGE_START, restOfData = language.TASK_MESSAGE_END
     // console.log(dataStart, stepby, restOfData);
 
