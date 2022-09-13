@@ -38,6 +38,7 @@ const TempPDF = ({ setIsUploaded }) => {
                 placeholder="תיאור למסמך"
                 onChange={(e) => setDescription(e.target.value)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
                 htmlFor="fileUpload"
             />

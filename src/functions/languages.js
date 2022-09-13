@@ -125,6 +125,8 @@ export const languages = [
             RECOMENDED: "המומלצים שלנו",
             LAST_DUPLICATED:"שוכפל לאחרונה לפני ",
             CREATED_BY:'נוצר ע"י ',
-            DISPLAY_ALL:"הצג הכל"
+            DISPLAY_ALL:"הצג הכל",
+            YOUR_ANSWER:"התשובה שלך...",
+            SHORT_QUESTION01:"מי המתחרה העיקרי שלך באינטרנט?",
         }
     }]

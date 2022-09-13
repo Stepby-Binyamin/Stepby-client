@@ -8,6 +8,9 @@ import BtnSubmitText from "../BtnSubmitText"
 import axios from "axios"
 import mainContext from "../../../context/mainContext"
 
+import { languages } from "../../../functions/languages"
+
+
 
 const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
     const { drawer } = useContext(mainContext)
@@ -38,9 +41,11 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
 
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("description", description);
-        formData.append("project", project);
-        formData.append("step", step);
+        formData.append("objShortQuestion", JSON.stringify({question: languages[0].dict.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
+
+        // formData.append("description", description);
+        // formData.append("project", project);
+        // formData.append("step", step);
 
         axios({
             method: "post",
@@ -62,26 +67,27 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
     return (
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={"תמונה"}
+                text={languages[0].dict.IMG}
                 icon={"/images/icon-btns/image.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />
             <Input
                 name={"UploadPicture"}
                 htmlFor="fileUpload"
-                placeholder="תיאור לתמונה"
+                placeholder={languages[0].dict.DESCRIPTION_IMG}
                 onChange={(e) => handleChange(e)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.upload}>
-                <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>טעינת קובץ</span></label>
+                <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>{languages[0].dict.FILE_LOAD}</span></label>
                 <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])} />
                 {fileName ? <span>{fileName}</span> : <span>No file found.</span>}
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
+                    <BtnSubmitText icon="v to text.svg" color="gray" text={languages[0].dict.SAVE} func={handleSubmitAnswer} />
                 </div>
             </div>
         </div>
