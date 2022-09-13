@@ -1,12 +1,14 @@
 import styles from "../style.module.css";
 
-export default function RadioBtn({ arr, changeFunc }) {
+export default function RadioBtn({ arr = [], changeFunc }) {
   return (
     <div className={styles.wraper}>
       {arr.map((data) => {
         return (
           <label className={styles.container} key={`${data}lbl`}>
-            <input type="radio" name="radio" value={data} onChange={changeFunc} />
+            {arr[0] === data ? 
+            <input type="radio" checked={true} name="radio" value={data.name} onChange={changeFunc} />
+            :<input type="radio" name="radio" value={data.name} onChange={changeFunc} />}
             <span className={styles.checkmark} key={data}>
               <p>{data}</p>
             </span>

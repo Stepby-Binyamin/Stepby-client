@@ -19,7 +19,7 @@ const projects = [
             isCreatorApprove: false, //creator(biz) / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            isApprove: true,
+            isApprove: false,
             approvedDate: new Date(),
             data: [{
                owner: 'biz',// 'client',
@@ -51,7 +51,7 @@ const projects = [
          }, {
             _id: Math.random(),
             index: 2,
-            isCreatorApprove: false,
+            isCreatorApprove: true,
             name: "אפיון ומרכיבי ניווט",
             des: `בשלב זה אני מתמקד ביסודות של כל האתר - הניווט והדף הראשי. 
             בהתאם לנקודות שעלו בפגישת ההתנעה שקיימנו, אני מוודא שמרכיבי הניווט יניעו את הגולשים למקום הנכון ויאפשרו גישה נוחה לניווט החופשי.

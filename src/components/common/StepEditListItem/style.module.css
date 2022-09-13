@@ -1,0 +1,34 @@
+.StepEditListItem{
+    height: 75px;  /* height: ???; */
+    list-style: none;
+    display: flex;
+    align-items: center;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.iconContainer{
+    width: 21px;
+    min-width: 21px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* .widgetIcon{} */
+.columContainer{
+    border-bottom: solid 1px #D7D7D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 75px; /* height: ???; */
+}
+.title{
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--grey1-color);
+}
+.content{
+    font-size: 13px;
+    color: var(--grey2-color);
+}

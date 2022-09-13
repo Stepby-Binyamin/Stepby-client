@@ -7,9 +7,11 @@ import mainContext from '../../../context/mainContext'
 import projects from '../../../data/fakeProjects'
 import { languages } from '../../../functions/languages'
 import styles from './style.module.css'
+
 export default function BusinessCategory({ newUser = true }) {
-  const { header } = useContext(mainContext)
-  const [info, setInfo] = useState(),
+
+  const { header } = useContext(mainContext),
+    [info, setInfo] = useState(),
     navigate = useNavigate(),
     location = useLocation(),
     [data, setData] = useState(location.state),
