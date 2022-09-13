@@ -48,7 +48,7 @@ export default function UserName({ newUser = true, firstName, lastName }) {
         <UserTitle text1={languages[0].dict.PERSONAL_INFORMATION} />
       </div>
       <div className={styles.input}>
-        <Input onChange={saveData} type='text' name='firstName' placeholder={newUser ? languages[0].dict.FIRST_NAME : ''} defaultValue={!newUser ? firstName : ''} />
+        <Input autoFocus onChange={saveData} type='text' name='firstName' placeholder={newUser ? languages[0].dict.FIRST_NAME : ''} defaultValue={!newUser ? firstName : ''} />
         <Input onChange={saveData} type='text' name='lastName' placeholder={newUser ? languages[0].dict.LAST_NAME : ''} defaultValue={!newUser ? lastName : ''} />
         {newUser && <Input onChange={saveData} type='email' name='email' placeholder={languages[0].dict.EMAIL} />}
       </div>
