@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import { useContext } from 'react'
 import mainContext from '../../../context/mainContext'
@@ -26,7 +25,9 @@ export default function Verification() {
   const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
   const [correctCode, setCorrectCode] = useState(false)
+  const [language, setLanguage] = useState()
   let start = "054", end = "7668489"
+
 
   if (data.phoneNumber) {
     start = data.phoneNumber.slice(0, 3)
@@ -36,7 +37,6 @@ export default function Verification() {
 
   const sendCode = async () => {
     await apiCalls("/user/send-code", "post", { phoneNumber: data.phoneNumber })
-
   }
 
   useEffect(() => {
@@ -44,8 +44,9 @@ export default function Verification() {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     header.setIsArrow(false)
+    setLanguage(JSON.parse(localStorage.language))
   }, [])
-
+      
   async function goToNextPage() {
     const body = { phoneNumber: data.phoneNumber, code: code }
 
@@ -70,13 +71,13 @@ export default function Verification() {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text1={languages[0].dict.SUBMIT_CODE} text2={languages[0].dict.SUBMIT_CODE_END} />
+        <UserTitle text1={language.SUBMIT_CODE} text2={language.SUBMIT_CODE_END} />
       </div>
       <div className={styles.input}>
         <InputVerification setCode={setCode} />
       </div>
       {wrongPassword ? <div className={styles.thatpasswordiswrong}>
-        <div><b>{languages[0].dict.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
+        <div><b>{language.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
       </div> : <div className={styles.phoneNum}>
         <UserNumberVerification counter={counter} phoneNum={data.phoneNumber} ilPhoneNum1={ilPhoneNum} />
       </div>}

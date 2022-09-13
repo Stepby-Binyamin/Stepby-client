@@ -1,12 +1,13 @@
-import React, { version, useRef, useEffect } from 'react'
+import React, {  useContext} from 'react'
 import Keyboard from '../Keyboard'
 import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
-import { languages } from '../../../functions/languages'
+import mainContext from "../../../context/mainContext"
 
 const CreateClient = () => {
-    const dict = languages[0].dict;
+  
+    const {language}= useContext(mainContext)
 
     function collect(e) {
         e.preventDefault();
@@ -25,10 +26,10 @@ const CreateClient = () => {
 
     return (
         <form className={styles.container} onSubmit={(e) => collect(e)} >
-            <Keyboard placeholder={dict.FULL_NAME_CUSTOMER} name="name" />
-            <SubKeyboard placeholder={dict.PHONE} iconSrc={"/images/icons/tell.svg"} name="phoneNumber" />
-            <SubKeyboard placeholder={dict.EMAIL} iconSrc={"/images/icons/email.svg"} name="email" />
-            <div className={styles.btn}> <BtnSubmitText color={"gray"} text={dict.SAVE_CUSTOMER} icon={"v to text.svg"} /> </div>
+            <Keyboard placeholder={language.FULL_NAME_CUSTOMER} name="name" />
+            <SubKeyboard placeholder={language.PHONE} iconSrc={"/images/icons/tell.svg"} name="phoneNumber" />
+            <SubKeyboard placeholder={language.EMAIL} iconSrc={"/images/icons/email.svg"} name="email" />
+            <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} /> </div>
         </form>
     )
 }

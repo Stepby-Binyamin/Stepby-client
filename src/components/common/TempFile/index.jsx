@@ -1,12 +1,14 @@
 import styles from "./style.module.css"
-import React , { useState } from 'react'
-
+import React , { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
 const TempFile = () => {
+
+    const {language}= useContext(mainContext)
     const [radio, setRadio] = useState()
     const [answer, setAnswer] = useState()
 
@@ -34,6 +36,7 @@ const TempFile = () => {
                 placeholder="תיאור לקובץ"
                 onChange={(e) => handleChange(e)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.radio}>

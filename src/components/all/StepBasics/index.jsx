@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useContext} from 'react'
 import styles from "./style.module.css";
 import Keyboard from '../Keyboard';
 import SubKeyboard from '../SubKeyboard';
 import RadioBtnWithIcon from '../radioBtn/WithIcon';
 import BtnSubmitText from '../../common/BtnSubmitText';
-import { languages } from '../../../functions/languages'
-import { useState } from 'react';
+import mainContext from "../../../context/mainContext"
+
 
 const StepBasics = ({ stepName, status, des, style = {}, ...props }) => {
-   const dict = languages[0].dict;
+   
+   const {language}= useContext(mainContext)
 
 
    const [data, setData] = useState({});
@@ -33,24 +34,24 @@ const StepBasics = ({ stepName, status, des, style = {}, ...props }) => {
          <div className={styles.StepBasicsInnerContainer} >
 
 
-            <Keyboard name={"stepName"} placeholder={dict.STEP_NAME} onChange={onChangeHandler} defaultValue={stepName} />
+            <Keyboard name={"stepName"} placeholder={language.STEP_NAME} onChange={onChangeHandler} defaultValue={stepName} />
             <div className={styles.radioButton}>
                <div className={styles.rightContainer}>
                   <img src='/images/icons/menWithV.svg' alt="" />
-                  <div className={styles.radioText}>{dict.CARE}</div>
+                  <div className={styles.radioText}>{language.CARE}</div>
                </div>
 
-               <RadioBtnWithIcon changeFunc={onChangeHandler} obj={[{ name: dict.MY, icon: "triangle" }, { name: dict.CUSTOMER, icon: "circle" }]} />
+               <RadioBtnWithIcon changeFunc={onChangeHandler} obj={[{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }]} />
             </div>
-            <SubKeyboard name={"description"} onChange={onChangeHandler} iconSrc={'/images/icons/description.svg'} placeholder={dict.DESCRIPTION} defaultValue={des} />
-            <div className={styles.text}>{dict.TEXT_STEP}</div>
+            <SubKeyboard name={"description"} onChange={onChangeHandler} iconSrc={'/images/icons/description.svg'} placeholder={language.DESCRIPTION} defaultValue={des} />
+            <div className={styles.text}>{language.TEXT_STEP}</div>
 
             <div className={styles.buttonsContainer}>
                <div className={styles.saveButton}>
-                  <BtnSubmitText icon={'v to text.svg'} color={"gray"} text={dict.SAVE} func={btnSubmitHandler} />
+                  <BtnSubmitText icon={'v to text.svg'} color={"gray"} text={language.SAVE} func={btnSubmitHandler} />
                </div>
                <div className={styles.saveAndCreateButton}>
-                  <BtnSubmitText text={dict.SAVE_AND_CREATE} func={btnSubmitAndCreateHandler} />
+                  <BtnSubmitText text={language.SAVE_AND_CREATE} func={btnSubmitAndCreateHandler} />
                </div>
             </div>
          </div>

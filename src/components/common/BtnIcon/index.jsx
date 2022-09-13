@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css";
 
 const BtnIcon = ({ onClick, index, icon = "", style = {}, text, textColor = "#7C818D", isSoon = false, ...props }) => {
+  
+const {language}= useContext(mainContext)
   return (
     <button
       onClick={()=>onClick(index)}
