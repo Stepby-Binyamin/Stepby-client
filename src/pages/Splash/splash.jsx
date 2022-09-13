@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import styles from './style.module.css'
 import Logo from '../../components/all/Logo'
-import { languages } from '../../functions/languages';
-// import mainContext from '../../context/mainContext';
+
+import mainContext from '../../context/mainContext';
 // import { useContext, useEffect } from 'react';
 
 const Splash = () => {

@@ -5,7 +5,6 @@ import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
-import mainContext from "../../../context/mainContext"
 
 const TempFile = () => {
 
