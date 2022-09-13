@@ -34,6 +34,7 @@ const TempFile = () => {
                 placeholder="תיאור לקובץ"
                 onChange={(e) => handleChange(e)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.radio}>

@@ -6,30 +6,52 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
-const UploadCShortAnswer = ({ setIsAnswer }) => {
-    const { drawer } = useContext(mainContext)
+import axios from "axios"
 
-    const [answer, setAnswer] = useState()
+import { languages } from "../../../functions/languages"
+
+const UploadCShortAnswer = ({ setIsAnswer, step, project }) => {
+    const { drawer } = useContext(mainContext)    
+
+    const [description, setDescription] = useState()
+    const [readedFiles, setReadedFiles] = useState()
 
     const handleSubmitAnswer = () => {
-        // console.log(answer);
-        // console.log("handleSubmitAnswer");
-        answer && setIsAnswer(true)
+
+        const formData = new FormData();
+        formData.append("objShortQuestion", JSON.stringify({question: languages[0].dict.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
+        // formData.append("question",languages[0].dict.SHORT_QUESTION01)
+        // formData.append("description", description);
+        // formData.append("project", project);
+        // formData.append("step", step);
+
+        axios({
+            method: "post",
+            url: `http://localhost:5000/shaul/files/upload/`,
+            data: formData
+
+        })
+            .then((result) => setReadedFiles(result))
+            .catch((error) => console.log(error || "error"));
+
+
+        description && setIsAnswer(true)
         drawer.setDrawer('')
     }
 
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={"מי המתחרה העיקרי שלך באינטרנט?"}
+                text={languages[0].dict.SHORT_QUESTION01}
                 icon={"/images/icon-btns/answer.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />
             <Input
                 name={"UploadCShortAnswer"}
-                placeholder="התשובה שלך..."
-                onChange={(e) => setAnswer(e.target.value)}
+                placeholder={languages[0].dict.YOUR_ANSWER}
+                onChange={(e) => setDescription(e.target.value)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
         </div>
@@ -37,7 +59,8 @@ const UploadCShortAnswer = ({ setIsAnswer }) => {
             <div className={styles.sub}>
                 <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
             </div>
-        </div>    </>
+        </div>
+    </>
     )
 }
 

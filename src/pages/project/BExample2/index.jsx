@@ -10,7 +10,7 @@ import mainContext from "../../../context/mainContext"
 import ImageView from "../../../components/all/ImageView"
 
 import projects from "../../../data/fakeProjects.js"
-import UploadPDF from "../../../components/common/TempPDF"
+import TempPDF from "../../../components/common/TempPDF"
 import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
 
 import Pdf from "../../../test.pdf"
@@ -20,8 +20,12 @@ import { useState } from "react"
 const BExample2 = () => {
     const [isUploaded, setIsUploaded] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
+    const [uploadLocation, setUploadLocation] = useState()
+
     const index = 1
     const _id = '14'
+    const step = 1
+    const project = 'projectName'
 
     const findProject = projects.projects.find(project => project._id === _id)
     const findStep = findProject.steps.find(step => step.index === index)
@@ -46,13 +50,13 @@ const BExample2 = () => {
     }
 
     function handleFile() {
-        drawer.setDrawer(<UploadPDF setIsUploaded={setIsUploaded} />);
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project}/>);
     }
 
     function handleAnswer() {
-        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} />);
+        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} step={step} project={project}/>);
     }
-
+console.log(uploadLocation);
     return (
         <div className={styles.page}>
             {findStep.data[0].owner === "biz"  // can be client or biz
@@ -83,6 +87,8 @@ const BExample2 = () => {
                                     isTitleFirst={true}
                                     isAdmin={false}
                                 /></a>
+
+
                         case "file":
                             return <Answer src="\images\icon-btns\Upload.svg"
                                 key={data.title}
@@ -92,8 +98,8 @@ const BExample2 = () => {
                                 isTitleFirst={true}
                                 isAdmin={true}
                                 isDone={isUploaded}
-
                             />
+
                         case "answer":
                             return <Answer src="/images/icon-btns/answer.svg"
                                 key={data.title}
