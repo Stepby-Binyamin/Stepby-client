@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {  useContext} from 'react'
 import styles from './style.module.css'
-import { languages } from '../../../functions/languages'
+import mainContext from "../../../context/mainContext"
 
 export default function SignUpInfo() {
-
-    const  stepby = languages[0].dict.STEPBY, dataStart = languages[0].dict.TASK_MESSAGE_START, restOfData = languages[0].dict.TASK_MESSAGE_END
+    
+    const {language}= useContext(mainContext)
+    const  stepby = language.STEPBY, dataStart = language.TASK_MESSAGE_START, restOfData = language.TASK_MESSAGE_END
     // console.log(dataStart, stepby, restOfData);
 
     return (

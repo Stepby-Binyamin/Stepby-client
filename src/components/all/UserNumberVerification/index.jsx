@@ -1,17 +1,14 @@
-import React from 'react'
-import { languages } from '../../../functions/languages'
+import React, { useContext} from 'react'
+import mainContext from '../../../context/mainContext';
 
 
 
-export default function UserNumberVerification({ counter, phoneNum }) {
-    const sendCode = languages[0].dict.SEND_CODE;
-    let start="054",end="7668489";
-    if(phoneNum){
-         start = phoneNum.slice(0, 3)
-         end = phoneNum.slice(3)
-    }
-    const ilPhoneNum = `${start}-${end}`
-    const resendCode1 = languages[0].dict.RESEND_CODE, resendCode2 = languages[0].dict.RESEND_CODE_END;
+export default function UserNumberVerification({ counter,  ilPhoneNum1 }) {
+
+    const {language} = useContext(mainContext)
+    const sendCode = language.SEND_CODE;
+       let ilPhoneNum = ilPhoneNum1
+    const resendCode1 = language.RESEND_CODE, resendCode2 = language.RESEND_CODE_END;
 
 
     return (

@@ -1,8 +1,10 @@
-import React from 'react'
-import styles from './style.module.css';
 
+import styles from './style.module.css';
+import React, {  useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 
 export default function StatusStep({ user, numOfStage, time, ...props }) {
+    const {language}= useContext(mainContext)
     const theCurrentStage = ' השלב הנוכחי ';
     const nowWaiting = 'כרגע ממתינים ';
 

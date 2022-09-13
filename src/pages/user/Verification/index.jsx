@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import { useContext } from 'react'
 import mainContext from '../../../context/mainContext'
@@ -12,9 +11,10 @@ import UserNumberVerification from '../../../components/all/UserNumberVerificati
 import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import { users } from "../../../data/fakeProjects";
-import axios from 'axios'
+import { setToken } from '../../../functions/apiRequest'
+import apiCalls from '../../../functions/apiRequest'
 
-export default function Verification({ newUser = true }) {
+export default function Verification() {
   // need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext);
   const navigate = useNavigate();
@@ -22,15 +22,21 @@ export default function Verification({ newUser = true }) {
   const location = useLocation();
   const [data, setData] = useState(location.state);
   const [code, setCode] = useState()
+  const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
+  const [correctCode, setCorrectCode] = useState(false)
+  const [language, setLanguage] = useState()
+  let start = "054", end = "7668489"
 
-  let sendCode =async ()=> {
-    await axios.post('http://localhost:3001/code', { phone: data.phoneNum })
-      .then(Response => {
-        setCode(Response.data.code)
-        setData({ ...data,status: Response.data.status })
-      })
-      .catch(error => console.log('error: ', error))
+
+  if (data.phoneNumber) {
+    start = data.phoneNumber.slice(0, 3)
+    end = data.phoneNumber.slice(3)
+  }
+  const ilPhoneNum = `${start}-${end}`
+
+  const sendCode = async () => {
+    await apiCalls("/user/send-code", "post", { phoneNumber: data.phoneNumber })
   }
 
   useEffect(() => {
@@ -38,49 +44,48 @@ export default function Verification({ newUser = true }) {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     header.setIsArrow(false)
-    // console.log(data);
+    setLanguage(JSON.parse(localStorage.language))
   }, [])
+      
+  async function goToNextPage() {
+    const body = { phoneNumber: data.phoneNumber, code: code }
 
-  useEffect(()=>{
-   console.log(code);
-  },[code])
-
-  function goToNextPage() {
-
-    console.log(data);
-    //make an if clause if a user is new he will go to '/user-name' , else- if he is an existing user then go to '/home'projects'
-    if (data.code === code) {
-      console.log("שווה");
-      navigate('/user-name', { state: data })
-      if (!newUser) {
-        navigate('/home/projects', { state: data })
-      }
-    } else {
-      console.log("not equal");
-      setWrongPassword(true)
+    const result = await apiCalls('/user/check-code', 'post', body)
+    if (typeof result === 'string') setWrongPassword(true)
+    if (typeof result === 'object') {
+      setNewUser(result.newUser)
+      setCorrectCode(!correctCode)
+      setToken(result.token)
     }
+
   }
+
   useEffect(() => {
-    // console.log("password", password, "code", data.code,data);
+    if (correctCode) {
+      if (newUser) navigate('/user-name', { state: data })
+      if (!newUser) navigate('/projects', { state: data })
+    }
   }, [goToNextPage])
 
 
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text1={languages[0].dict.SUBMIT_CODE} text2={languages[0].dict.SUBMIT_CODE_END} />
+        <UserTitle text1={language.SUBMIT_CODE} text2={language.SUBMIT_CODE_END} />
       </div>
       <div className={styles.input}>
-        <InputVerification setData={setData} data={data} />
+        <InputVerification setCode={setCode} />
       </div>
-      {wrongPassword ? <div className={styles.someThingWrong}>
-        <b><u>הקוד שהוזן אינו נכון!</u></b>
-      </div> : <></>}
-      <div className={styles.phoneNum}>
-        <UserNumberVerification counter={counter} phoneNum={data.phoneNum} />
-      </div>
+      {wrongPassword ? <div className={styles.thatpasswordiswrong}>
+        <div><b>{language.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
+      </div> : <div className={styles.phoneNum}>
+        <UserNumberVerification counter={counter} phoneNum={data.phoneNumber} ilPhoneNum1={ilPhoneNum} />
+      </div>}
+      {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
+       */}
+
       <div className={styles.someThingWrong}>
-        <SomethingWentWrong setCounter={setCounter} />
+        <SomethingWentWrong sendCode={sendCode} phoneNumer={data.phoneNum} setCounter={setCounter} setWrongPassword={setWrongPassword} />
       </div>
       <div className={styles.btn}>
         <BtnSubmitIcon color='orange' icon='Arrow.svg' func={goToNextPage} />

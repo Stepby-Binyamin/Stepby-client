@@ -9,10 +9,10 @@ import Confirm from "../../../components/all/Confirm"
 
 import mainContext from "../../../context/mainContext"
 
-import dataBEx1 from "./dataBEx1.js"
+import dataBEx1 from "./dataBEx1.js"  //insted get from language in mainContext
 
 const BExample1 = () => {
-    const { header, drawer } = useContext(mainContext)
+    const { header, drawer, language } = useContext(mainContext)
 
     useEffect(() => {
         header.setIsTitle(false)
