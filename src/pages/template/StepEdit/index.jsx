@@ -41,15 +41,15 @@ const StepEdit = ({ style = {}, ...props }) => {
       navigate(`/template/${template._id}/step/${stepData._id}`, { state: stepData })
    }
 
-   const onClickItem = (index, type) => {
+   const onClickItem = (data, type) => {
       switch (type) {
-         case 'file' : drawer.setDrawer(<TempFile />);
+         case 'file' : drawer.setDrawer(<TempFile data={data} />);
          break;
-         case 'img' : drawer.setDrawer(<TempIMG />);
+         case 'img' : drawer.setDrawer(<TempIMG data={data} />);
          break;
-         case 'pdf' : drawer.setDrawer(<TempPDF />);
+         case 'pdf' : drawer.setDrawer(<TempPDF data={data} />);
          break;
-         case 'answer' : drawer.setDrawer(<TempSimpleAnswer />);
+         case 'answer' : drawer.setDrawer(<TempSimpleAnswer data={data} />);
          break;
       }
    }
@@ -83,7 +83,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          {stepData && (stepData.data.length > 0 ?
             stepData.data.map(item =>
-               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} />
+               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={item} />
             ) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
          )}

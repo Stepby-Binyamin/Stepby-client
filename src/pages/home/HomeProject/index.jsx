@@ -27,7 +27,6 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    // const navigate = useNavigate()
-   const lang = 0;
 
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
    const clientCounter = data.projects && data.projects.filter(item => item.status === 'client').length
@@ -55,11 +54,10 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      if(!localStorage.language)
-      axios.get('http://localhost:5000/language/'+lang)
+      axios.get('http://localhost:5000/')
       .then(response =>{
-        console.log(response.data.dict);
-        localStorage.language= JSON.stringify(response.data.dict)
+        console.log(response.data);
+        setDataState(response.data);
       })
       .catch(error =>{
         console.log(error)
