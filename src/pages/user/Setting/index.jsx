@@ -37,7 +37,8 @@ const Setting = ({ style = {}, ...props }) => {
     const logof = () => {
         navigate("/login")
         setUserData({})
-        localStorage.clear()
+        localStorage.loginDate=""
+        localStorage.userToken=""
         console.log("logout")
     }
 
