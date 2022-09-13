@@ -1,5 +1,6 @@
+import React, { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
-import React, { useState } from 'react'
 
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
@@ -8,7 +9,8 @@ import BtnSubmitText from "../BtnSubmitText"
 
 
 const TempSimpleAnswer = () => {
-
+    
+    const {language}= useContext(mainContext)
     const [radio, setRadio] = useState()
     const [answer, setAnswer] = useState()
 

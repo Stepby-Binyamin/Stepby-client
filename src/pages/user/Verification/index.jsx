@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./style.module.css"
-// import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import { useContext } from 'react'
 import mainContext from '../../../context/mainContext'

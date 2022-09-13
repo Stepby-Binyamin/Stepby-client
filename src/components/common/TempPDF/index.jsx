@@ -7,9 +7,8 @@ import mainContext from "../../../context/mainContext"
 
 import axios from "axios"
 
-
-const TempPDF = ({ setIsUploaded }) => {
-    const { drawer } = useContext(mainContext)
+const TempPDF = ({setIsUploaded}) => {
+    const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()

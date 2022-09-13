@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import Input from '../../../components/common/Input/Input'
 import { useContext, useEffect, useState } from 'react'
@@ -13,12 +12,13 @@ export default function BusinessName({ newUser = true, BusinessName }) {
     const { header } = useContext(mainContext),
         navigate = useNavigate(),
         location = useLocation(),
-        [data, setData] = useState(location.state)
-
-    useEffect(() => {
-        header.setIsTitle(false)
-        header.setIsHeaderSet(false)
-        header.setIsArrow(false)
+        [data, setData] = useState(location.state),
+        [language, setLanguage] = useState();
+        useEffect(() => {
+            header.setIsTitle(false)
+            header.setIsHeaderSet(false)
+            header.setIsArrow(false)
+            setLanguage(JSON.parse(localStorage.language))
         console.log(data);
     }, [])
 
@@ -38,10 +38,10 @@ export default function BusinessName({ newUser = true, BusinessName }) {
     return (
         <div className={styles.box}>
             <div className={styles.title}>
-                <UserTitle text1={languages[0].dict.BUSINESS_NAME_HEADER} />
+                <UserTitle text1={language.BUSINESS_NAME_HEADER} />
             </div>
             <div className={styles.input}>
-                <Input autoFocus type='text' onChange={handleChange} placeholder={newUser ? languages[0].dict.YOUR_BUSINESS_NAME : ''} defaultValue={!newUser ? BusinessName : ''} />
+                <Input autoFocus type='text' onChange={handleChange} placeholder={newUser ? language.YOUR_BUSINESS_NAME : ''} defaultValue={!newUser ? BusinessName : ''} />
             </div>
             <div className={styles.btn}>
                 <BtnSubmitIcon color='orange' icon={newUser ? 'Arrow.svg' : 'v to text.svg'} func={newUser ? handleClickNew : handleClickExist} />

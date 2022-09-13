@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './style.module.css'
-import { languages } from '../../../functions/languages'
 import mainContext from '../../../context/mainContext'
 import { useContext } from 'react'
 import VerifyProblem from '../VerifyProblem'
@@ -9,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function SomethingWentWrong({sendCode, setCounter,setWrongPassword}) {
   let navigate = useNavigate()
-  const { drawer } = useContext(mainContext)
+  const { drawer, language} = useContext(mainContext)
 
   function wrongPhonFunc() {
     //go to login get new phoneNum
@@ -36,7 +35,7 @@ export default function SomethingWentWrong({sendCode, setCounter,setWrongPasswor
     // drawer.setDrawerContent(<VerifyProblem wrongPhonFunc={wrongPhonFunc} newCodeFunc={newCodeFunc} />)
   }
 
-  const somethingWrong = languages[0].dict.SOMETHINGS_WRONG
+  const somethingWrong = language.SOMETHINGS_WRONG
 
   return (<div className={styles.box}>
 
