@@ -17,13 +17,13 @@ import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
 const StepEdit = ({ style = {}, ...props }) => {
 
 
-   const { header, drawer, language} = useContext(mainContext)
+   const { header, drawer, language } = useContext(mainContext)
    const { data } = useContext(dataContext)
    const [stepData, setStepData] = useState(data.projects[3].steps[1])
    const [template, setTemplate] = useState(data.projects[3])
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
-   const {state} = useLocation() 
+   const { state } = useLocation()
 
    useEffect(() => {
       header.setTitle(stepData.name)
@@ -43,14 +43,14 @@ const StepEdit = ({ style = {}, ...props }) => {
 
    const onClickItem = (data, type) => {
       switch (type) {
-         case 'file' : drawer.setDrawer(<TempFile data={data} />);
-         break;
-         case 'img' : drawer.setDrawer(<TempIMG data={data} />);
-         break;
-         case 'pdf' : drawer.setDrawer(<TempPDF data={data} />);
-         break;
-         case 'answer' : drawer.setDrawer(<TempSimpleAnswer data={data} />);
-         break;
+         case 'file': drawer.setDrawer(<TempFile data={data} />);
+            break;
+         case 'img': drawer.setDrawer(<TempIMG data={data} />);
+            break;
+         case 'pdf': drawer.setDrawer(<TempPDF data={data} />);
+            break;
+         case 'answer': drawer.setDrawer(<TempSimpleAnswer data={data} />);
+            break;
       }
    }
 
@@ -82,9 +82,10 @@ const StepEdit = ({ style = {}, ...props }) => {
          </div>
 
          {stepData && (stepData.data.length > 0 ?
-            stepData.data.map(item =>
-               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={item} />
-            ) :
+            stepData.data.map(item => {
+               let data = { ...item, stepId: stepData._id, tempId: template._id };
+               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={data} />
+            }) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
          )}
 
