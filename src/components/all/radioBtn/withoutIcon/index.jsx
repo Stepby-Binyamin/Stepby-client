@@ -7,8 +7,8 @@ export default function RadioBtn({ arr = [], changeFunc }) {
         return (
           <label className={styles.container} key={`${data}lbl`}>
             {arr[0] === data ? 
-            <input type="radio" checked={true} name="radio" value={data.name} onChange={changeFunc} />
-            :<input type="radio" name="radio" value={data.name} onChange={changeFunc} />}
+            <input type="radio" checked={true} name="radio" value={data} onChange={changeFunc} />
+            :<input type="radio" name="radio" value={data} onChange={changeFunc} />}
             <span className={styles.checkmark} key={data}>
               <p>{data}</p>
             </span>

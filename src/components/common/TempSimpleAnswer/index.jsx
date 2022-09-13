@@ -1,30 +1,53 @@
 import styles from "./style.module.css"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
+import mainContext from "../../../context/mainContext"
 
+import axios from "axios"
 
-const TempSimpleAnswer = () => {
+const TempSimpleAnswer = ({ data }) => {
+    const { drawer } = useContext(mainContext)
 
-    const [radio, setRadio] = useState()
-    const [answer, setAnswer] = useState()
+    const [question, setQuestion] = useState()
+    const [isRequired, setIsRequired] = useState()
 
     const handleChange = (e) => {
-        setAnswer(e.target.value);
+        setQuestion(e.target.value);
     }
 
     const handleRadio = (e) => {
-        setRadio(e.target.value)
+        console.dir(e.target.value);
+        e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
     const handleSubmitAnswer = (e) => {
-        console.log(radio);
-        console.log(answer);
+        data = {
+            ...data,
+            type: "answer",
+            owner: "client",
+            title: question,
+            isRequired: isRequired,
+            content: ""
+        }
+
+        axios({
+            method: "post",
+            // url: `http://localhost:5000/shaul/files/upload/`, //
+            data: data
+        })
+            .then((result) => {
+                console.log(result.data);
+                // setUploadLocation(result.data)
+            })
+            .catch((error) => console.log(error || "error"));
+
+        drawer.setDrawer('')
     }
-    
+
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon

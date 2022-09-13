@@ -17,6 +17,9 @@ import Pdf from "../../../test.pdf"
 import UploadPicture from "../../../components/common/UploadPicture"
 import { useState } from "react"
 
+import TempSimpleAnswer from "../../../components/common/TempSimpleAnswer"
+import TempIMG from "../../../components/common/TempIMG"
+
 const BExample2 = () => {
     const [isUploaded, setIsUploaded] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
@@ -26,6 +29,15 @@ const BExample2 = () => {
     const _id = '14'
     const step = 1
     const project = 'projectName'
+
+    const  data = {
+            _id: "1234test",
+            type: "file",
+            owner: "client",
+            title: "pergunta teste",
+            isRequired: true,
+            content: ""
+        }
 
     const findProject = projects.projects.find(project => project._id === _id)
     const findStep = findProject.steps.find(step => step.index === index)
@@ -38,7 +50,6 @@ const BExample2 = () => {
     var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
-        drawer.setDrawerContentHeader(<div>kkjnkjsadkjnksadkjnasdkjn</div>)
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         // header.setIsDots(false)                 // HeaderTitle
@@ -51,13 +62,14 @@ const BExample2 = () => {
     }
 
     function handleFile() {
-        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project}/>);
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />);
+        // drawer.setDrawer(<TempPDF data={data}/>)
     }
 
     function handleAnswer() {
-        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} step={step} project={project}/>);
+        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} step={step} project={project} />);
     }
-console.log(uploadLocation);
+    console.log(uploadLocation);
     return (
         <div className={styles.page}>
             {findStep.data[0].owner === "biz"  // can be client or biz

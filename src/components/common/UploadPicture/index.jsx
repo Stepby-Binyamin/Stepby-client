@@ -12,6 +12,7 @@ import { languages } from "../../../functions/languages"
 
 
 
+
 const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
     const { drawer } = useContext(mainContext)
 
