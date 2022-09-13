@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
+// import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import { useContext } from 'react'
 import mainContext from '../../../context/mainContext'
@@ -25,8 +25,9 @@ export default function Verification() {
   const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
   const [correctCode, setCorrectCode] = useState(false)
+  const [language, setLanguage] = useState()
   let start = "054", end = "7668489"
-
+  
   if (data.phoneNum) {
     start = data.phoneNum.slice(0, 3)
     end = data.phoneNum.slice(3)
@@ -36,17 +37,18 @@ export default function Verification() {
 
   const sendCode = async () => {
     await axios.post('http://localhost:5000/user/send-code', { phoneNumber: data.phoneNum })
-      .then(Response => {
+    .then(Response => {
         setData({ ...data, status: Response.data.status })
       })
       .catch(error => console.log('error: ', error))
-  }
-
-  useEffect(() => {
-    sendCode()
-    header.setIsTitle(false)
-    header.setIsHeaderSet(false)
-    header.setIsArrow(false)
+    }
+    
+    useEffect(() => {
+      sendCode()
+      header.setIsTitle(false)
+      header.setIsHeaderSet(false)
+      header.setIsArrow(false)
+      setLanguage(JSON.parse(localStorage.language))
   }, [])
 
   async function goToNextPage() {
@@ -83,13 +85,13 @@ export default function Verification() {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text1={languages[0].dict.SUBMIT_CODE} text2={languages[0].dict.SUBMIT_CODE_END} />
+        <UserTitle text1={language.SUBMIT_CODE} text2={language.SUBMIT_CODE_END} />
       </div>
       <div className={styles.input}>
         <InputVerification setData={setData} data={data} />
       </div>
       {wrongPassword ? <div className={styles.thatpasswordiswrong}>
-        <div><b>{languages[0].dict.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
+        <div><b>{language.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
       </div> : <div className={styles.phoneNum}>
         <UserNumberVerification counter={counter} phoneNum={data.phoneNum} ilPhoneNum1={ilPhoneNum} />
       </div>}

@@ -10,6 +10,10 @@ import StepBasics from '../../../components/all/StepBasics'
 import { AddWidget } from '../../../components/all/AddWidget'
 import StepEditListItem from '../../../components/common/StepEditListItem'
 import MoreStep from '../../../components/all/MoreStep'
+import TempPDF from '../../../components/common/TempPDF'
+import TempFile from '../../../components/common/TempFile'
+import TempIMG from '../../../components/common/TempIMG'
+import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
 
 const StepEdit = ({ style = {}, ...props }) => {
 
@@ -36,6 +40,19 @@ const StepEdit = ({ style = {}, ...props }) => {
 
    const viewStep = () => {
       navigate(`/template/${template._id}/step/${stepData._id}`, { state: stepData })
+   }
+
+   const onClickItem = (index, type) => {
+      switch (type) {
+         case 'file' : drawer.setDrawer(<TempFile />);
+         break;
+         case 'img' : drawer.setDrawer(<TempIMG />);
+         break;
+         case 'pdf' : drawer.setDrawer(<TempPDF />);
+         break;
+         case 'answer' : drawer.setDrawer(<TempSimpleAnswer />);
+         break;
+      }
    }
 
    return (
@@ -67,7 +84,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          {stepData && (stepData.data.length > 0 ?
             stepData.data.map(item =>
-               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} />
+               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} />
             ) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
          )}

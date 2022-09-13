@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
+// import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import Input from '../../../components/common/Input/Input'
 import SignUpInfo from '../../../components/all/SignUpInfo'
@@ -14,12 +14,14 @@ export default function Login() {
   const { header } = useContext(mainContext),
     navigate = useNavigate(),
     [limitDigits, setLimitDigits] = useState(''),
-    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '', theCategories: '' });
-
-  useEffect(() => {
-    header.setIsTitle(false)
-    header.setIsHeaderSet(false)
-    header.setIsArrow(false)
+    [data, setData] = useState({ fName: '', lName: '', email: '', businessNm: '', phoneNum: '', code: '', theCategories: '' }),
+    [language, setLanguage] = useState();
+    
+    useEffect(() => {
+      header.setIsTitle(false)
+      header.setIsHeaderSet(false)
+      header.setIsArrow(false)
+      setLanguage(JSON.parse(localStorage.language))
   }, [])
 
   // const handlePress = (e)=>{
@@ -50,10 +52,10 @@ export default function Login() {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text1={languages[0].dict.ENTER_PHONE} />
+        <UserTitle text1={language.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input autoFocus value={limitDigits} onChange={handleChange} type='number' placeholder={languages[0].dict.YOUR_PHONE} />
+        <Input autoFocus value={limitDigits} onChange={handleChange} type='number' placeholder={language.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>
