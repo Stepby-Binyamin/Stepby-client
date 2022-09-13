@@ -23,8 +23,7 @@ export default function BusinessName({ newUser = true, BusinessName }) {
     }, [])
 
     const handleChange = (e) => {
-          setData({...data, businessNm:e.target.value})
-        console.log(0);
+          setData({...data, businessName:e.target.value})
     }
 
     const handleClickNew = () => {
