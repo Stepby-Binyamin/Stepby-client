@@ -12,7 +12,7 @@ import mainContext from "../../../context/mainContext"
 import dataBEx1 from "./dataBEx1.js"
 
 const BExample1 = () => {
-    const { header, drawer } = useContext(mainContext)
+    const { header, drawer, language } = useContext(mainContext)
 
     useEffect(() => {
         header.setIsTitle(false)
