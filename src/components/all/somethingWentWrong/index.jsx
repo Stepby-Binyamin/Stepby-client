@@ -5,10 +5,9 @@ import mainContext from '../../../context/mainContext'
 import { useContext } from 'react'
 import VerifyProblem from '../VerifyProblem'
 import { useNavigate } from 'react-router-dom'
-import { sendCode } from '../../../pages/user/Verification'
 
 
-export default function SomethingWentWrong({sendCode, phoneNumber, setCounter,setWrongPassword}) {
+export default function SomethingWentWrong({sendCode, setCounter,setWrongPassword}) {
   let navigate = useNavigate()
   const { drawer } = useContext(mainContext)
 
