@@ -41,7 +41,7 @@ export default function BusinessName({ newUser = true, BusinessName }) {
                 <UserTitle text1={languages[0].dict.BUSINESS_NAME_HEADER} />
             </div>
             <div className={styles.input}>
-                <Input type='text' onChange={handleChange} placeholder={newUser ? languages[0].dict.YOUR_BUSINESS_NAME : ''} defaultValue={!newUser ? BusinessName : ''} />
+                <Input autoFocus type='text' onChange={handleChange} placeholder={newUser ? languages[0].dict.YOUR_BUSINESS_NAME : ''} defaultValue={!newUser ? BusinessName : ''} />
             </div>
             <div className={styles.btn}>
                 <BtnSubmitIcon color='orange' icon={newUser ? 'Arrow.svg' : 'v to text.svg'} func={newUser ? handleClickNew : handleClickExist} />

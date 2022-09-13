@@ -55,7 +55,7 @@ export default function Login() {
         <UserTitle text1={language.ENTER_PHONE} />
       </div>
       <div className={styles.input}>
-        <Input value={limitDigits} onChange={handleChange} type='number' placeholder={language.YOUR_PHONE} />
+        <Input autoFocus value={limitDigits} onChange={handleChange} type='number' placeholder={language.YOUR_PHONE} />
       </div>
       <SignUpInfo />
       <div className={styles.btn}>
