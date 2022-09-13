@@ -20,7 +20,8 @@ export default function Login() {
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
-    header.setIsArrow(false)  setLanguage(JSON.parse(localStorage.language))
+    header.setIsArrow(false)  
+    setLanguage(JSON.parse(localStorage.language))
   }, [])
 
 
