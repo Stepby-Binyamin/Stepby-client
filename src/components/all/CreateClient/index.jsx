@@ -4,7 +4,7 @@ import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import mainContext from "../../../context/mainContext"
-import apiRequest from '../../../functions/apiRequest'
+import apiCalls from '../../../functions/apiRequest'
 
 const CreateClient = () => {
   
@@ -19,7 +19,7 @@ const CreateClient = () => {
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
-        apiRequest('post','/user/new-client',data)
+        apiCalls('post','/user/new-client',data)
         drawer.setDrawer('')
     }
 
