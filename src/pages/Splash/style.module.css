@@ -4,27 +4,24 @@
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     background: orangered;
     opacity: 0;
-    animation: fadeIn 1.5s;
+    animation: fadeIn 2.4s;
 }
 
 @keyframes fadeIn {
     0% { opacity: 0; }
-    25% {opacity: 1;}
-    75% {opacity: 1;}
+    20% {opacity: 1;}
+    70% {opacity: 1;}
     100% { opacity: 0; }
   }
 
 .logo {
-    padding-top: 75%;
-    
-
+    padding-top: 50%;
 }
 
 .text1 {
     color: #FFF;
-    padding-top: 65%;
 }
