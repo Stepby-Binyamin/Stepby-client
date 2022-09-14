@@ -6,8 +6,8 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
-const UploadCShortAnswer = ({ setIsAnswer }) => {
-    const { drawer, language } = useContext(mainContext) 
+const UploadCShortAnswer = ({ setIsAnswer, project, step }) => {
+    const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
     const [readedFiles, setReadedFiles] = useState()
@@ -15,7 +15,7 @@ const UploadCShortAnswer = ({ setIsAnswer }) => {
     const handleSubmitAnswer = () => {
 
         const formData = new FormData();
-        formData.append("objShortQuestion", JSON.stringify({question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
+        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() }))
         // formData.append("question",language.SHORT_QUESTION01)
         // formData.append("description", description);
         // formData.append("project", project);

@@ -68,7 +68,7 @@ const projects = [
                index: 1,
                isRequired: false
             }
-      ]
+            ]
          },
       ]
    }, {
