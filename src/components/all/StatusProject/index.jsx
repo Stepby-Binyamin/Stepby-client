@@ -1,7 +1,9 @@
-import React from 'react'
-import styles from "./style.module.css"
 
+import styles from "./style.module.css"
+import React, {  useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 const StatusProject = ({ isLink = true, name = "דורון", style = {}, completed = 10, totalTask = 12, link = "hii", ...props }) => {
+    const {language}= useContext(mainContext)
     return (
         <div className={styles.large} {...props}>
             <div className={styles.completed}>

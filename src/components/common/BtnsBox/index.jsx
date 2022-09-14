@@ -1,7 +1,12 @@
+import React, { useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import BtnSubmitText from "../BtnSubmitText";
 import styles from "./style.module.css"
 
 export default function BtnsBox(...props){
+
+const {language}= useContext(mainContext)
+
 return(<>
 <div className={styles.conteiner}>
     <div className={styles.r}>

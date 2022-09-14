@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {  useContext} from 'react'
 import styles from './style.module.css';
-
+import mainContext from "../../../context/mainContext"
 
 export default function StatusCompleted() {
+    const {language}= useContext(mainContext)
     const info = "הפרוייקט הזה מאחורינו"
     
     return (<>

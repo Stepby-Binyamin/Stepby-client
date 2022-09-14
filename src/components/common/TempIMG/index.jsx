@@ -1,12 +1,14 @@
+import React, { useState, useContext} from 'react'
 import styles from "./style.module.css"
-import React, { useState } from 'react'
-
+import mainContext from "../../../context/mainContext"
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
+import userContext from "../../../context/userContext"
 
 const TempIMG = () => {
-
+    
+    const {language}= userContext(mainContext)
     const [currentFile, setCurrentFile] = useState()
     const [answer, setAnswer] = useState()
 
@@ -44,6 +46,7 @@ const TempIMG = () => {
                 placeholder="תיאור לתמונה"
                 onChange={(e) => handleChange(e)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.upload}>

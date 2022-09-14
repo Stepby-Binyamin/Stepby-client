@@ -25,7 +25,7 @@ export default function Ariel() {
          {/* <HomeProject /> */}
          {/* <CreateTemplate /> */}
          {/* <StepEditListItem /> */}
-         <StepEdit />
+         {/* <StepEdit /> */}
       </>
    )
 }
