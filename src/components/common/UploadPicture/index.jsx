@@ -1,14 +1,16 @@
-import React, { useState, useContext} from 'react'
-import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
+import React, { useState, useContext} from 'react'
 
 import BtnIcon from "../../../components/common/BtnIcon"
 import Input from "../../../components/common/Input/Input.jsx"
+
 import BtnSubmitText from "../BtnSubmitText"
+
+import mainContext from "../../../context/mainContext"
 
 import axios from "axios"
 
-
+import apiCalls from '../../../functions/apiRequest'
 
 
 const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
@@ -17,6 +19,8 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
     const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
     const [fileName, setFileName] = useState()
+    const [alert, setAlert] = useState("No file found.")
+
 
     const handleChange = (e) => {
         setDescription(e.target.value);
@@ -27,36 +31,47 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
         const typeArr = file.name.split(".");
 
         if (typeArr[1] !== "pdf" && typeArr[1] !== "jpeg" && typeArr[1] !== "jpg" && typeArr[1] !== "png") {
-            return console.log("file is not supported");
+            setAlert("file is not supported");
+            return 
         }
 
-        if (file.size / 1024 / 1024 > 4) return alert("This file is too big!!!");
-
+        if (file.size / 1024 / 1024 > 4) {
+            setAlert("This file is too big!!!");
+            return 
+        }
         setFileName(file.name)
         setCurrentFile(file);
     }
 
-    const handleSubmitAnswer = () => {
+    const handleSubmitAnswer = async () => {
 
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("objShortQuestion", JSON.stringify({question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
+        // formData.append("objShortQuestion", JSON.stringify({question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
 
-        // formData.append("description", description);
-        // formData.append("project", project);
-        // formData.append("step", step);
+        const sendData = {
+            question: language.SHORT_QUESTION01,
+            answer: description,
+            project: project,
+            step: step,
+            date: new Date()
+        }
 
-        axios({
-            method: "post",
-            url: `http://localhost:5000/shaul/files/upload/`,
-            data: formData
+        const body = { data: sendData , formData: formData }
+        const result = await apiCalls('/shaul/files/upload/', 'post', body)
+        console.log("apiCalls result", result);
 
-        })
-            .then((result) => {
-                console.log(result.data.uploadLocation);
-                setUploadLocation(result.data)
-            })
-            .catch((error) => console.log(error || "error"));
+        // axios({
+        //     method: "post",
+        //     url: `http://localhost:5000/shaul/files/upload/`,
+        //     data: formData
+
+        // })
+        //     .then((result) => {
+        //         console.log(result.data.uploadLocation);
+        //         setUploadLocation(result.data)
+        //     })
+        //     .catch((error) => console.log(error || "error"));
 
         currentFile && setIsUploaded(true)
         drawer.setDrawer('')
@@ -82,7 +97,7 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
             <div className={styles.upload}>
                 <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>{language.FILE_LOAD}</span></label>
                 <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])} />
-                {fileName ? <span>{fileName}</span> : <span>No file found.</span>}
+                {fileName ? <span>{fileName}</span> : <span>{alert}</span>}
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
