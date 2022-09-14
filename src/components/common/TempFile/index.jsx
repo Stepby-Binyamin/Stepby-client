@@ -6,23 +6,46 @@ import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
-const TempFile = () => {
+import axios from "axios"
 
-    const {language}= useContext(mainContext)
-    const [radio, setRadio] = useState()
-    const [answer, setAnswer] = useState()
+const TempFile = ({data}) => {
+const {drawer} = useContext(mainContext)
+// console.log("dat00", data);
+
+    const [question, setQuestion] = useState()
+    const [isRequired, setIsRequired] = useState()
 
     const handleChange = (e) => {
-        setAnswer(e.target.value);
+        setQuestion(e.target.value);
     }
 
     const handleRadio = (e) => {
-        setRadio(e.target.value)
+        // console.dir(e.target.value);
+        e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
     const handleSubmitAnswer = (e) => {
-        console.log(radio);
-        console.log(answer);
+         data = {...data,
+            type: "file",
+            owner: "client",
+            title: question,
+            isRequired: isRequired,
+            content: ""
+        }
+        // console.log(data);
+
+        axios({
+            method: "post",
+            // url: `http://localhost:5000/shaul/files/upload/`, //
+            data: data
+        })
+            .then((result) => {
+                console.log(result.data);
+                // setUploadLocation(result.data)
+            })
+            .catch((error) => console.log(error || "error"));
+
+        drawer.setDrawer('')
     }
 
     return (
@@ -41,7 +64,7 @@ const TempFile = () => {
             />
             <div className={styles.radio}>
                 <RadioBtn
-                    arr={['רשות', 'חובה']}
+                    arr={['שאלת חובה', 'שאלת רשות']}
                     changeFunc={(e) => handleRadio(e)}
                 />
             </div>

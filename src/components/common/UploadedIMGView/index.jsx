@@ -1,5 +1,4 @@
 import React, { useContext} from 'react'
-import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
 
 
@@ -12,8 +11,6 @@ const handleChange = (e) => {
 }
 
 const UploadedIMGView = () => {
-
-const {language}= useContext(mainContext)
 
     return (<>
         <div className={styles.drawerPage}>

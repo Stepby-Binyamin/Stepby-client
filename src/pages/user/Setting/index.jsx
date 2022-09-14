@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./style.module.css"
 import FakeData from "../../../data/fakeProjects"
 import LiComp from './liComponnet'
@@ -13,7 +13,7 @@ import { users } from "../../../data/fakeProjects";
 const Setting = ({ style = {}, ...props }) => {
 
 
-    const [language, setLanguage] = useState();
+    const [language, setLanguage] = useState(JSON.parse(localStorage.language));
     useEffect(() => {
         setLanguage(JSON.parse(localStorage.language))
     },[])
@@ -37,7 +37,8 @@ const Setting = ({ style = {}, ...props }) => {
     const logof = () => {
         navigate("/login")
         setUserData({})
-        localStorage.clear()
+        localStorage.loginDate=""
+        localStorage.userToken=""
         console.log("logout")
     }
 

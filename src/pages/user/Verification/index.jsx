@@ -15,7 +15,6 @@ import { setToken } from '../../../functions/apiRequest'
 import apiCalls from '../../../functions/apiRequest'
 
 export default function Verification() {
-  // need to add navigation to existing user that will show his projects page
   const { header } = useContext(mainContext);
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
@@ -25,7 +24,7 @@ export default function Verification() {
   const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
   const [correctCode, setCorrectCode] = useState(false)
-  const [language, setLanguage] = useState()
+  const [language, setLanguage] = useState(JSON.parse(localStorage.language))
   let start = "054", end = "7668489"
 
 
@@ -36,7 +35,7 @@ export default function Verification() {
   const ilPhoneNum = `${start}-${end}`
 
   const sendCode = async () => {
-    await apiCalls("/user/send-code", "post", { phoneNumber: data.phoneNumber })
+    await apiCalls("post", "/user/send-code", { phoneNumber: data.phoneNumber })
   }
 
   useEffect(() => {
@@ -46,18 +45,17 @@ export default function Verification() {
     header.setIsArrow(false)
     setLanguage(JSON.parse(localStorage.language))
   }, [])
-      
+
   async function goToNextPage() {
     const body = { phoneNumber: data.phoneNumber, code: code }
 
-    const result = await apiCalls('/user/check-code', 'post', body)
-    if (typeof result === 'string') setWrongPassword(true)
-    if (typeof result === 'object') {
-      setNewUser(result.newUser)
-      setCorrectCode(!correctCode)
-      setToken(result.token)
-    }
-
+    await apiCalls('post', '/user/check-code', body)
+      .then(result => {
+        setNewUser(result.newUser)
+        setCorrectCode(!correctCode)
+        setToken(result.token)
+      })
+      .catch(() => setWrongPassword(true))
   }
 
   useEffect(() => {

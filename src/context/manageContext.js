@@ -26,8 +26,9 @@ export const ContextProvider = ({ children }) => {
     const lang = 0
     useEffect(() => {
         
-      localStorage.language ?
-      setLanguage(JSON.parse(localStorage.language)) :
+    //   localStorage.language ?
+    //   setLanguage(JSON.parse(localStorage.language)) 
+    //   :
 
          axios.get('http://localhost:5000/language/' + lang)
             .then(response => {
