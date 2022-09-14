@@ -110,7 +110,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                         <ListItem
                            key={item._id}
                            status={item.status}
-                           mainTitle={item.client.bizName}
+                           // mainTitle={item.client.bizName}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
@@ -122,7 +122,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            <ListItem
                               key={item._id}
                               status={item.status}
-                              mainTitle={item.client.bizName}
+                              // mainTitle={item.client.bizName}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
