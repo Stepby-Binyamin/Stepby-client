@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./style.module.css"
-import { languages } from "../../../functions/languages.js"
 import FakeData from "../../../data/fakeProjects"
 import LiComp from './liComponnet'
 import BtnIcon from "../../../components/common/BtnIcon"
@@ -14,8 +13,10 @@ import { users } from "../../../data/fakeProjects";
 const Setting = ({ style = {}, ...props }) => {
 
 
-
-    const lan = languages[0].dict
+    const [language, setLanguage] = useState(JSON.parse(localStorage.language));
+    useEffect(() => {
+        setLanguage(JSON.parse(localStorage.language))
+    },[])
     console.log(FakeData.projects[0])
     const navigate = useNavigate()
     //  TODO: add real data from context
@@ -36,7 +37,8 @@ const Setting = ({ style = {}, ...props }) => {
     const logof = () => {
         navigate("/login")
         setUserData({})
-        localStorage.clear()
+        localStorage.loginDate=""
+        localStorage.userToken=""
         console.log("logout")
     }
 
@@ -45,20 +47,20 @@ const Setting = ({ style = {}, ...props }) => {
             <div>
                 <ul>
                     <li >
-                        <LiComp header={lan.FIRST_AND_LAST_NAME} subTitle={user.user.firstName + " " + user.user.lastName}
+                        <LiComp header={language.FIRST_AND_LAST_NAME} subTitle={user.user.firstName + " " + user.user.lastName}
                             link="/user-name" />
                     </li>
                     <li>
-                        <LiComp header={lan.BUSINESS_NAME} subTitle={user.user.bizName} link="/business-name" />
+                        <LiComp header={language.BUSINESS_NAME} subTitle={user.user.bizName} link="/business-name" />
                     </li>
                     <li>
-                        <LiComp header={lan.AREAS_PRACTICE} subTitle={interests} link="/business-category" />
+                        <LiComp header={language.AREAS_PRACTICE} subTitle={interests} link="/business-category" />
                     </li>
                 </ul>
             </div>
             <div className={styles.btnff}>
 
-                <BtnIcon icon="/images/icon-btns/exit.svg" text={lan.LOGGING_OFF} onClick={logof} />
+                <BtnIcon icon="/images/icon-btns/exit.svg" text={language.LOGGING_OFF} onClick={logof} />
             </div>
         </div >
     )

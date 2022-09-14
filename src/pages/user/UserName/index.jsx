@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import UserTitle from '../../../components/common/UserTitle'
 import Input from '../../../components/common/Input/Input'
 import { useContext } from 'react'
@@ -18,12 +17,14 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
     location = useLocation(),
-    [data, setData] = useState(location.state)
+    [data, setData] = useState(location.state),
+    [language, setLanguage] = useState(JSON.parse(localStorage.language));
 
-  useEffect(() => {
-    header.setIsTitle(false)
-    header.setIsHeaderSet(false)
-    header.setIsArrow(false)
+    useEffect(() => {
+      header.setIsTitle(false)
+      header.setIsHeaderSet(false)
+      header.setIsArrow(false)
+      setLanguage(JSON.parse(localStorage.language))
   }, [])
 
   const saveData = (e) => {
@@ -45,12 +46,12 @@ export default function UserName({ newUser = true, firstName, lastName }) {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
-        <UserTitle text1={languages[0].dict.PERSONAL_INFORMATION} />
+        <UserTitle text1={language.PERSONAL_INFORMATION} />
       </div>
       <div className={styles.input}>
-        <Input autoFocus onChange={saveData} type='text' name='firstName' placeholder={newUser ? languages[0].dict.FIRST_NAME : ''} defaultValue={!newUser ? firstName : ''} />
-        <Input onChange={saveData} type='text' name='lastName' placeholder={newUser ? languages[0].dict.LAST_NAME : ''} defaultValue={!newUser ? lastName : ''} />
-        {newUser && <Input onChange={saveData} type='email' name='email' placeholder={languages[0].dict.EMAIL} />}
+        <Input autoFocus onChange={saveData} type='text' name='firstName' placeholder={newUser ? language.FIRST_NAME : ''} defaultValue={!newUser ? firstName : ''} />
+        <Input onChange={saveData} type='text' name='lastName' placeholder={newUser ? language.LAST_NAME : ''} defaultValue={!newUser ? lastName : ''} />
+        {newUser && <Input onChange={saveData} type='email' name='email' placeholder={language.EMAIL} />}
       </div>
       <div className={styles.btn}>
         {newUser ? <BtnSubmitIcon color='orange' icon='Arrow.svg' func={handleClick} /> : <BtnSubmitIcon color='orange' icon='v to text.svg' />}

@@ -1,23 +1,23 @@
-import React from 'react'
+import React, {  useContext} from 'react'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
-
+import mainContext from "../../../context/mainContext"
 
 const Confirm = ({ clientName, stepName, btnYes, btnNo, ...props }) => {
-   const dict = languages[0].dict;
+
+   const {language}= useContext(mainContext)
 
    return (
       <div className={styles.Confirm}>
 
-         <div className={styles.areYouSure}>{dict.WE_SAFE}</div>
-         <div className={styles.user}> {dict.EMAIL_UPDATE} {clientName}</div>
-         <div className={styles.step}> {dict.NEXT_STEP}'{stepName}' </div>
+         <div className={styles.areYouSure}>{language.WE_SAFE}</div>
+         <div className={styles.user}> {language.EMAIL_UPDATE} {clientName}</div>
+         <div className={styles.step}> {language.NEXT_STEP}'{stepName}' </div>
          <div className={styles.buttons}>
             <button className={styles.button} onClick={btnYes}>
                <img className={styles.img} src="./images/icon-btns/Vector.svg" alt="✔" />
-               {dict.DONE}
+               {language.DONE}
             </button>
-            <button className={styles.buttonNo} onClick={btnNo}>{dict.NO}</button>
+            <button className={styles.buttonNo} onClick={btnNo}>{language.NO}</button>
          </div>
       </div>
    )

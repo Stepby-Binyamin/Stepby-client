@@ -5,36 +5,37 @@ import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import UserTitle from '../../../components/common/UserTitle'
 import mainContext from '../../../context/mainContext'
 import projects from '../../../data/fakeProjects'
-import { languages } from '../../../functions/languages'
 import styles from './style.module.css'
 
 export default function BusinessCategory({ newUser = true }) {
 
+  const [language, setLanguage] = useState(JSON.parse(localStorage.language));
   const { header } = useContext(mainContext),
-    [info, setInfo] = useState(),
-    navigate = useNavigate(),
+  [info, setInfo] = useState(),
+  navigate = useNavigate(),
     location = useLocation(),
     [data, setData] = useState(location.state),
     name = data.fName,
-    areasOfPractice = languages[0].dict.AREAS_PRACTICE,
+    areasOfPractice = language.AREAS_PRACTICE,
     company = `'${data.businessNm}'?`,
     dataTest = [],
     categories1 = projects.categories.map((i) => {
       dataTest.push({ key: i.name + "A", title: i.name, isActive: false })
     })
 
-  useEffect(() => {
+    useEffect(() => {
     header.setIsTitle(false)
     setInfo(dataTest)
     header.setIsHeaderSet(false)
+    setLanguage(JSON.parse(localStorage.language))
     if (!newUser) {
       header.setIsArrow(false)
     }
   }, [])
-
+  
   function goToNextPage() {
     console.log(data);
-
+    
     if (newUser) {
       // fake link
       navigate('/projects', { state: data })

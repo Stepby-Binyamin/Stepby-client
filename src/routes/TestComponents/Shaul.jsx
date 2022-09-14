@@ -22,6 +22,7 @@ import UploadPicture from '../../components/common/UploadPicture'
 
 import BExample1 from '../../pages/project/BExample1'
 import BExample2 from '../../pages/project/BExample2'
+import CreateTemplateGeneral from '../../components/all/CreateTemplateGeneral'
 
 export default function Shaul() {
 
@@ -80,6 +81,7 @@ export default function Shaul() {
          {/* <TempIMG /> */}
          {/* <UploadPicture /> */}
          {/* <UploadClientAnswer /> */}
+         {/* <CreateTemplateGeneral/> */}
       </>
    )
 }

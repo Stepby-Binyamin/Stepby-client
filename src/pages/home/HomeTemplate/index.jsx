@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import { convertDate } from '../../../functions/convertDate'
 import mainContext from '../../../context/mainContext'
 import dataContext from '../../../context/dataContext'
@@ -24,8 +23,8 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
    const admin = true
 
-   const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = languages[0].dict
-   const { header, drawer } = useContext(mainContext)
+   const { header, drawer, language} = useContext(mainContext)
+   const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = language
    const { data } = useContext(dataContext)
    const [dataState, setDataState] = useState(data.projects)  //temp created && used by doron
    const [recomend, setRecomend] = useState(data.projects)     //temp created by admin under Doron’s business vertical
@@ -82,6 +81,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                         `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct duplication date}  
                         item.creatorId}
                      link={`/template/${item._id}`}  //path
+                     linkState
                   />)
 
             }

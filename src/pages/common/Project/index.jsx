@@ -7,15 +7,13 @@ import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
 import ListItem from "../../../components/common/ListItem"
 import mainContext from "../../../context/mainContext"
 import fakeProjects from "../../../data/fakeProjects"
-import { languages } from "../../../functions/languages"
 import { convertDate } from "../../../functions/convertDate"
 import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 
 export default function Project({ mode = "template" }) {
-
-    const { header } = useContext(mainContext)
-    const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = languages[0].dict
+    const { header, language } = useContext(mainContext)
+    const { COMPLET ,STEP_BY_STEP,PRESS_ON,ADD_STEP } = language
     const [curr, setCurr] = useState(fakeProjects.projects[0])
 
     const indexFirst = findTheNext(curr)

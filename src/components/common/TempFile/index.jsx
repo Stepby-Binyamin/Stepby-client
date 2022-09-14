@@ -1,26 +1,49 @@
 import styles from "./style.module.css"
-import React , { useState } from 'react'
-
+import React , { useState, useContext} from 'react'
+import mainContext from "../../../context/mainContext"
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
-const TempFile = () => {
-    const [radio, setRadio] = useState()
-    const [answer, setAnswer] = useState()
+import axios from "axios"
+
+const TempFile = ({data}) => {
+const {drawer} = useContext(mainContext)
+
+    const [question, setQuestion] = useState()
+    const [isRequired, setIsRequired] = useState()
 
     const handleChange = (e) => {
-        setAnswer(e.target.value);
+        setQuestion(e.target.value);
     }
 
     const handleRadio = (e) => {
-        setRadio(e.target.value)
+        console.dir(e.target.value);
+        e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
     const handleSubmitAnswer = (e) => {
-        console.log(radio);
-        console.log(answer);
+         data = {...data,
+            type: "file",
+            owner: "client",
+            title: question,
+            isRequired: isRequired,
+            content: ""
+        }
+
+        axios({
+            method: "post",
+            // url: `http://localhost:5000/shaul/files/upload/`, //
+            data: data
+        })
+            .then((result) => {
+                console.log(result.data);
+                // setUploadLocation(result.data)
+            })
+            .catch((error) => console.log(error || "error"));
+
+        drawer.setDrawer('')
     }
 
     return (
@@ -34,11 +57,12 @@ const TempFile = () => {
                 placeholder="תיאור לקובץ"
                 onChange={(e) => handleChange(e)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.radio}>
                 <RadioBtn
-                    arr={['רשות', 'חובה']}
+                    arr={['שאלת חובה', 'שאלת רשות']}
                     changeFunc={(e) => handleRadio(e)}
                 />
             </div>
