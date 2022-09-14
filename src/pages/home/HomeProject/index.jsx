@@ -54,14 +54,9 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      axios.get('http://localhost:5000/')
-      .then(response =>{
-        console.log(response.data);
-        setDataState(response.data);
-      })
-      .catch(error =>{
-        console.log(error)
-      });
+      
+      //   setDataState(response.data);
+      
 
    }, [])
 
