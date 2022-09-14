@@ -6,15 +6,14 @@ import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
-import { languages } from '../../../functions/languages'
 import mainContext from '../../../context/mainContext'
 import { categories } from '../../../data/fakeProjects'
 
 
 
 const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
-    const dict = languages[0].dict;
-    const { header, drawer } = useContext(mainContext)
+
+    const { header, drawer, language} = useContext(mainContext)
     let navigate = useNavigate();
 
 
@@ -47,10 +46,10 @@ const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
 
     useEffect(() => {
 
-        if (data.radio == dict.GENERAL) {
+        if (data.radio == language.GENERAL) {
             setSelect(true);
         }
-        if (data.radio == dict.SOME_CUSTOMER) {
+        if (data.radio == language.SOME_CUSTOMER) {
 
             setSelect(false);
 
@@ -63,14 +62,14 @@ const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={dict.TEMPLATES_NAME} name={"NewTemplate"} />
+            <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"NewTemplate"} />
 
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
-                    <RadioBtn arr={[dict.GENERAL, dict.SOME_CUSTOMER]} changeFunc={(e) => { handleChange(e) }} />
+                    <RadioBtn arr={[language.GENERAL, language.SOME_CUSTOMER]} changeFunc={(e) => { handleChange(e) }} />
                     <div className={styles.rightContainer}>
                         <img src='/images/icons/target.svg' alt="" />
-                        <div className={styles.text}>{dict.DISPERSTION}</div>
+                        <div className={styles.text}>{language.DISPERSTION}</div>
                     </div>
                 </div>
                 {select &&
@@ -82,10 +81,10 @@ const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
                 {!select &&
 
 
-                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={dict.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={language.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
 
             </div>
-            <div className={select ? styles.btn : styles.btnFix}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={dict.SAVE} icon={"v to text.svg"} /> </div>
+            <div className={select ? styles.btn : styles.btnFix}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={language.SAVE} icon={"v to text.svg"} /> </div>
         </div>
 
     )

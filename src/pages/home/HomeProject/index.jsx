@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios"
 // import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import { convertDate } from '../../../functions/convertDate'
 import mainContext from '../../../context/mainContext'
 import dataContext from '../../../context/dataContext'
@@ -20,15 +19,14 @@ import UiDirectionText from '../../../components/all/UiDirectionText'
 
 const HomeProject = ({ style = {}, ...props }) => {
 
-   const { PROJECTS, TEMPLATES, ALL, MY_CARE, WAITING_CUSTOMER, LETS_GO, ICON, CALL_YOU } = languages[0].dict
-   const { header, drawer } = useContext(mainContext)
+   const { header, drawer, language } = useContext(mainContext)
+   const { PROJECTS, TEMPLATES, ALL, MY_CARE, WAITING_CUSTOMER, LETS_GO, ICON, CALL_YOU } = language
    const { data } = useContext(dataContext)
    // data.projects=[]
    const [dataState, setDataState] = useState(data.projects)
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    // const navigate = useNavigate()
-   const lang = 0;
 
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
    const clientCounter = data.projects && data.projects.filter(item => item.status === 'client').length
@@ -56,11 +54,10 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      if(!localStorage.language)
-      axios.get('http://localhost:5000/language/'+lang)
+      axios.get('http://localhost:5000/')
       .then(response =>{
-        console.log(response.data.dict);
-        localStorage.language= JSON.stringify(response.data.dict)
+        console.log(response.data);
+        setDataState(response.data);
       })
       .catch(error =>{
         console.log(error)
@@ -122,6 +119,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                               sconderyBoldTitle={item.steps[0].name}  //get current temp
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                               link={`/project/biz/${item._id}`}  //path
+                              linkState
                            />)
                      }</>
                // )

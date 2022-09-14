@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
-import { languages } from '../../../functions/languages'
 import SwipeLeft from "../../all/SwipeLeft"
+import mainContext from '../../../context/mainContext'
 
 const ListItem = ({
    style = {},
@@ -21,7 +21,8 @@ const ListItem = ({
    ...props
 }) => {
 
-   const { TO_THE_WAY, COMPLET } = languages[0].dict
+   const {language}= useContext(mainContext)
+   const { TO_THE_WAY, COMPLET } = language
    const seperatorIcon = ">";
    const navigate = useNavigate()
    const [showMoveArrow, setShowMoveArrow] = useState(false);

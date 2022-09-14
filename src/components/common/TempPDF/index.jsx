@@ -5,31 +5,57 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
+import axios from "axios"
 
-const TempPDF = ({setIsUploaded}) => {
+
+const TempPDF = ({ data }) => {
     const { drawer } = useContext(mainContext)
 
-    
-    const [fileName, setFileName] = useState()
     const [currentFile, setCurrentFile] = useState()
-
+    const [question, setQuestion] = useState()
 
     const showInfo = (file) => {
-        console.log(file.size);
+
+        const typeArr = file?.name.slice(file?.name.lastIndexOf(".") + 1);
+
+        if (typeArr !== "pdf") {
+            console.log("The file needs to be .pdf");
+            return 
+        }
+
+        if (file.size / 1024 / 1024 > 4) {
+            alert("file is too big")
+            return
+        }
         setCurrentFile(file);
-        // if (file.size / 1024 > 4) {
-        //     alert("file is too big")
-        //     return
-        // }
-        // setIsButton(true)
     }
-    // const [isButton, setIsButton] = useState(false)
 
     const handleSubmitAnswer = () => {
-        // console.log(currentFile);
-        // console.log(fileName);
-        // console.log("handleSubmitAnswer");
-        currentFile && setIsUploaded(true)
+        const formData = new FormData();
+        formData.append("new_file", currentFile);
+        formData.append("data", JSON.stringify(
+            {
+                ...data,
+                type: "pdf",
+                owner: "biz",
+                title: question,
+                isRequired: "",
+                content: ""
+            }
+        ))
+
+        axios({
+            method: "post",
+            url: `http://localhost:5000/shaul/files/upload/`,
+            data: formData
+
+        })
+            .then((result) => {
+                console.log(result.data.uploadLocation);
+                // setUploadLocation(result.data)
+            })
+            .catch((error) => console.log(error || "error"));
+
         drawer.setDrawer('')
     }
 
@@ -37,14 +63,15 @@ const TempPDF = ({setIsUploaded}) => {
         <div className={styles.drawerPage}>
             <BtnIcon
                 text={"העלאת קובץ"}
-                icon={"/images/icon-btns/Upload.svg"}
+                icon={"/images/icon-btns/filePDF.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />
             <Input
                 name={"TempPDF"}
                 placeholder="תיאור למסמך"
-                onChange={(e) => setFileName(e.target.value)}
+                onChange={(e) => setQuestion(e.target.value)}
                 type="text"
+                autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
                 htmlFor="fileUpload"
             />
