@@ -12,14 +12,14 @@
 .upload {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    
     padding: 9px 16px;
 
     width: 100%;
     height: 58px;
 }
+
 
 .fileUpload {
     opacity: 0;
@@ -31,7 +31,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
     justify-content: flex-start;
 }
 

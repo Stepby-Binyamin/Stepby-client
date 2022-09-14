@@ -10,6 +10,7 @@ import axios from "axios"
 
 const TempFile = ({data}) => {
 const {drawer} = useContext(mainContext)
+// console.log("dat00", data);
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
@@ -19,7 +20,7 @@ const {drawer} = useContext(mainContext)
     }
 
     const handleRadio = (e) => {
-        console.dir(e.target.value);
+        // console.dir(e.target.value);
         e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
@@ -31,6 +32,7 @@ const {drawer} = useContext(mainContext)
             isRequired: isRequired,
             content: ""
         }
+        // console.log(data);
 
         axios({
             method: "post",

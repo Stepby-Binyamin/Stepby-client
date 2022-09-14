@@ -13,36 +13,41 @@ const TempPDF = ({ data }) => {
 
     const [currentFile, setCurrentFile] = useState()
     const [question, setQuestion] = useState()
+    const [fileName, setFileName] = useState()
+    const [alert, setAlert] = useState("No file found.")
+
 
     const showInfo = (file) => {
 
         const typeArr = file?.name.slice(file?.name.lastIndexOf(".") + 1);
 
         if (typeArr !== "pdf") {
-            console.log("The file needs to be .pdf");
+            setAlert("The file needs to be .pdf");
             return 
         }
 
         if (file.size / 1024 / 1024 > 4) {
-            alert("file is too big")
+            setAlert("file is too big")
             return
         }
+        setFileName(file.name)
         setCurrentFile(file);
     }
 
     const handleSubmitAnswer = () => {
+        data =  {
+            ...data,
+            type: "img",
+            owner: "biz",
+            title: question,
+            isRequired: "",
+            content: ""
+        }
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("data", JSON.stringify(
-            {
-                ...data,
-                type: "pdf",
-                owner: "biz",
-                title: question,
-                isRequired: "",
-                content: ""
-            }
-        ))
+        formData.append("data", JSON.stringify(data))
+// console.log("new_file", currentFile);
+// console.log("data", data);
 
         axios({
             method: "post",
@@ -78,6 +83,7 @@ const TempPDF = ({ data }) => {
             <div className={styles.upload}>
                 <label htmlFor="fileUpload"><img src={"/images/icon-btns/Upload.svg"} /><span>טעינת קובץ</span></label>
                 <input type="file" className={styles.fileUpload} id="fileUpload" onChange={(e) => showInfo(e.target.files[0])} />
+                {fileName ? <span>{fileName}</span> : <span>{alert}</span>}
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>

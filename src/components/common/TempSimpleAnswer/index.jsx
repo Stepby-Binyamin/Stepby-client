@@ -10,6 +10,8 @@ import BtnSubmitText from "../BtnSubmitText"
 import axios from "axios"
 
 const TempSimpleAnswer = ({ data }) => {
+    // console.log("dat00", data);
+
     const { drawer } = useContext(mainContext)
 
     const [question, setQuestion] = useState()
@@ -20,7 +22,7 @@ const TempSimpleAnswer = ({ data }) => {
     }
 
     const handleRadio = (e) => {
-        console.dir(e.target.value);
+        // console.dir(e.target.value);
         e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
@@ -33,6 +35,8 @@ const TempSimpleAnswer = ({ data }) => {
             isRequired: isRequired,
             content: ""
         }
+
+        // console.log(data);
 
         axios({
             method: "post",
