@@ -9,7 +9,7 @@ const Logo = ({ logo, style = {}, ...props }) => {
 
    return (
       <div style={style} {...props} >
-         <img src={logo + ".svg"} />
+         <img src={`${logo}.svg`} />
          {/* "./images/stepbyOrange.svg" */}
       </div>
    )
