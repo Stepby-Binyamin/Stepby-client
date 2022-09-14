@@ -30,11 +30,11 @@ export const ContextProvider = ({ children }) => {
     //   setLanguage(JSON.parse(localStorage.language)) 
     //   :
 
-    apiCalls("get","/language"+lang)
+    apiCalls("get","/language/"+lang)
         //  axios.get('http://localhost:5000/language/' + lang)
             .then(response => {
-               setLanguage(response.data.dict)
-               localStorage.language = JSON.stringify(response.data.dict)
+               setLanguage(response.dict)
+               localStorage.language = JSON.stringify(response.dict)
             })
             .catch(error => {
                console.log(error)
