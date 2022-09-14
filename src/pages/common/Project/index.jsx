@@ -53,8 +53,9 @@ export default function Project({ mode = "template" }) {
         console.log("hay i'm up", " step index:" + step.index--, "project id:" + curr._id);
         return
     }
-
+    
     function downMove(step) {
+        fetchData(step.index,curr._id )
         console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
         return
     }

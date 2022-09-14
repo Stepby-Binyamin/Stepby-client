@@ -1,8 +1,8 @@
 const projects = [
    {
-      _id: "12",
-      name: "אתר תדמית מורכב",
-      creatorId: "1234",
+      _id: "12", //נוצר אוטומטית ממונגו
+      name: "אתר תדמית מורכב",//שם הפרוייקט/ תבנית
+      creatorId: "1234", //נוצר אוטומטית ממונגו
       creatorName: "דורון",
       client: {
          _id: "4567",
@@ -19,10 +19,10 @@ const projects = [
             isCreatorApprove: false, //creator(biz) / client
             name: "פגישת התנעה ואפיון",
             des: "a lkd ksd omc in,xzo bdhij lmasdo nlasdnk nlasdkn",
-            isApprove: false,
-            approvedDate: new Date(),
+            isApprove: false, // done or not
+            approvedDate: new Date("10/06/21"),
             data: [{
-               owner: 'biz',// 'client',
+               owner: 'biz',// 'client', the mission waitin to..
                type: 'pdf', // 'img' , 'file' , 'answer'
                title: 'description of pdf',
                content: 'files/blabla.pdf',
