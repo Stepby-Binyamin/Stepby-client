@@ -4,10 +4,11 @@ import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import mainContext from "../../../context/mainContext"
+import apiRequest from '../../../functions/apiRequest'
 
 const CreateClient = () => {
   
-    const {language}= useContext(mainContext)
+    const {language, drawer}= useContext(mainContext)
 
     function collect(e) {
         e.preventDefault();
@@ -18,9 +19,8 @@ const CreateClient = () => {
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
-
-        console.log(data)
-        // now all the data inside FormData (fd).
+        apiRequest('post','/user/new-client',data)
+        drawer.setDrawer('')
     }
 
 
