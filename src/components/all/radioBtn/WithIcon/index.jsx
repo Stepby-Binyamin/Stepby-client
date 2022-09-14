@@ -14,10 +14,12 @@ export default function RadioBtnWithIcon({ obj , changeFunc}) {
         return (
           <label className={styles.container} key={`${data.icon}lbl`}>
             {obj[0].name === data.name ? 
-            <input type="radio" id="first" name="radio" value={data.name} onClick={changeFunc} />
-            :<input type="radio" name="radio" value={data.name} onClick={changeFunc} />}
+            <input type="radio" id="first" name="radio" value={data.name} 
+            onClick={changeFunc} />
+            :<input type="radio" name="radio" value={data.name} 
+            onClick={changeFunc} />}
             <span className={styles.checkmark} key={data.name}>
-              <img src={`/images/icons/${data.icon}.svg`} alt='' />
+              <img src={`/images/icons/${data.icon}Orange.svg`} alt='' />
               <p>{data.name}</p>
             </span>
           </label>

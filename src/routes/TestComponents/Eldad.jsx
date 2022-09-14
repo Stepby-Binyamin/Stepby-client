@@ -6,7 +6,6 @@ import CreateProject from "../../components/all/CreateProject";
 import CreateClient from "../../components/all/CreateClient"
 import AllAction from "../../components/all/AllAction"
 import Login from "../../pages/user/LoginPage"
-import RadioBtn from "../../components/all/radioBtn/withoutIcon";
 
 export default function Eldad() {
 
@@ -17,13 +16,11 @@ export default function Eldad() {
       newTempFunc={e => { drawer.setDrawerContentHeader(<CreateTemplateGeneral />) }}
       newUserFunc={e => { drawer.setDrawerContentHeader(<CreateClient />) }}
       projectToUserFunc={e => { drawer.setDrawerContentHeader(<CreateProject />) }} />)
-      // drawer.setDrawer(false);
   }
 
   return (
     <>
-      {/* <Login/> */}
-      <RadioBtn arr={['חופשי', 'לא חופשי' ]} changeFunc={(e)=> console.log(e.target.value)}/>
+      <Login/>
     </>
   );
 }
