@@ -64,13 +64,13 @@ export default function Project({ mode = "template" }) {
 
     function nav({ mode, curr, step }) {
         if (mode === "client")
-            return `project/client/${curr._id}/step/${step._id}`
+            return `/project/client/${curr._id}/step/${step._id}`
 
         if (mode === "template")
             return `/template/${curr._id}/edit-step/${step._id}`
 
         if (mode === "biz")
-            return `project/biz/${curr._id}/edit-step/${step._id}`
+            return `/project/biz/${curr._id}/edit-step/${step._id}`
     }
 
     function findTheNext(curr) {
