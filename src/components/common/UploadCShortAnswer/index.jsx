@@ -9,6 +9,7 @@ import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
 const UploadCShortAnswer = ({ setIsAnswer, step, project }) => {
+
     const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
@@ -26,6 +27,7 @@ const UploadCShortAnswer = ({ setIsAnswer, step, project }) => {
         const body = { data: sendData }
         const result = await apiCalls('/shaul/files/upload/', 'post', body)
         console.log("apiCalls result", result);
+
 
         description && setIsAnswer(true)
         drawer.setDrawer('')
