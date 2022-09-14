@@ -1,14 +1,10 @@
 .submit {
-    display: flex;
     height: 52px;
     width: 52px;
     border-radius: 12px;
     box-shadow: -0.2px 4px 8px -3.5px #949494;
-    justify-content: center;
-    align-items: center;
+    padding: 13px;
 }
-
-
 
 .gray {
     background-color: var(--grey1-color);
@@ -26,7 +22,6 @@
 .green {
     background-color: #25D366;
 }
-
 
 .container {
     position: fixed;

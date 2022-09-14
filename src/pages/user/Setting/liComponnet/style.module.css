@@ -11,11 +11,13 @@ ul>li {
 }
 
 .hederSize {
+    font-weight: 500;
     font-size: 17px;
     color: var(--grey1-color)
 }
 
 .subTitle {
+    font-weight: 400;
     font-size: 13px;
     color: var(--grey2-color);
     margin-left: 4px;
