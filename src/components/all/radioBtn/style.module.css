@@ -39,8 +39,11 @@
   border: 2px solid var(--orange100-color);
   color: var(--orange100-color);
   }
+  .container input ~ .checkmark > img {
+    filter: invert(100%) sepia(100%) saturate(2476%) hue-rotate(0deg) brightness(0%) contrast(0%)
+  }
   .container input:checked ~ .checkmark > img {
-    filter: invert(100%) sepia(100%) saturate(2476%) hue-rotate(0deg) brightness(118%) contrast(125%)
+    filter: none;
   }
   
   .checkmark > img {
