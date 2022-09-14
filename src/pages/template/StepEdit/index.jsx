@@ -20,24 +20,32 @@ const StepEdit = ({ style = {}, ...props }) => {
 
    const { header, drawer, language } = useContext(mainContext)
    const { data } = useContext(dataContext)
-   const [stepData, setStepData] = useState(data.projects[3].steps[1])
-   const [template, setTemplate] = useState(data.projects[3])
+   const [stepData, setStepData] = useState()
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
    const { state } = useLocation()
-   const { stepId } = useParams()
+   const { stepId, templateId } = useParams()
 
 
    useEffect(() => {
-      header.setTitle(stepData.name)
-      header.setSubTitle(template.name)
+      // header.setTitle(stepData.name)
+      // header.setSubTitle(template.name)
          (state && state.step) ?
          setStepData(state.step) :
-         apiCalls() ///------------------------------------------
+         apiCalls("get", `/getStepById/${templateId}/${stepId}`)
+         .then(response => {
+            setStepData(response.data)
+            console.log(stepData);
+         })
+         .catch(error => {
+            console.log(error)
+         });
+         
+
       drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
    }, [])
 
-   const onClickItem = (type, data = { stepId: stepData._id, tempId: template._id }) => {
+   const onClickItem = (type, data = { stepId: stepData._id, tempId: templateId }) => {
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);
             break;
@@ -52,12 +60,12 @@ const StepEdit = ({ style = {}, ...props }) => {
 
    const openDrawer = (e) => {
       e.target.id === "display" ?
-         drawer.setDrawer(<StepBasics stepName={stepData.name} status={stepData.status} des={stepData.des} />) :
+         drawer.setDrawer(<StepBasics stepName={stepData.name} isCreatorApprove={stepData.isCreatorApprove} des={stepData.des} />) :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
 
    const viewStep = () => {
-      navigate(`/template/${template._id}/step/${stepData._id}`, { state: stepData })
+      navigate(`/template/${templateId}/step/${stepData._id}`, { state:{ stepData, stepId: stepData._id, tempId: templateId } })
    }
 
 
@@ -70,18 +78,18 @@ const StepEdit = ({ style = {}, ...props }) => {
                <img src='/images/icons/incareMan.svg' />
                <div className={styles.inTreatTitle}>{TREATMENT}</div>
                <div className={styles.inTreatBox} >
-                  {stepData.status === "biz" ?                    //get fake data status
+                  {stepData && stepData.isCreatorApprove ?      
                      <img src='/images/icons/triangleOrange.svg' /> :
                      <img src='/images/icons/circleOrange.svg' />
                   }
-                  <div className={styles.inTreatOf} >{stepData.status === "biz" ? MY : CUSTOMER}</div>
+                  <div className={styles.inTreatOf} >{stepData && stepData.isCreatorApprove ? MY : CUSTOMER}</div>
                </div>
             </div>
 
             <div className={styles.raw2} >
                <img src='/images/icons/textPrewIcon.svg' />
                <div className={styles.desContainer} >
-                  <div className={styles.desText}>{stepData.des}</div>
+                  <div className={styles.desText}>{stepData && stepData.des}</div>
                   <div className={styles.displayAll} onClick={(e) => openDrawer(e)} id="display">{DISPLAY_ALL}</div>
                </div>
             </div>
@@ -90,7 +98,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          {stepData && (stepData.data.length > 0 ?
             stepData.data.map(item =>
-               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: template._id }} />
+               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
          )}

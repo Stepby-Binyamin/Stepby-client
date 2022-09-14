@@ -4,7 +4,7 @@ import dataContext from './dataContext'
 import userContext from "./userContext";
 import { projects, categories } from "../data/fakeProjects";
 import { user } from "../data/fakeUser";
-import axios from "axios"
+import apiCalls from "../functions/apiRequest";
 
 export const ContextProvider = ({ children }) => {
 
@@ -20,8 +20,8 @@ export const ContextProvider = ({ children }) => {
     const [userData, setUserData] = useState()//only one user
     const [Drawer, setDrawer] = useState(); // content of drawer
     const [DrawerContentHeader, setDrawerContentHeader] = useState();
-
-    const [language, setLanguage] = useState()
+    const localStorageLang = JSON.parse(localStorage.language) || ""
+    const [language, setLanguage] = useState(localStorageLang)
     
     const lang = 0
     useEffect(() => {
@@ -30,7 +30,8 @@ export const ContextProvider = ({ children }) => {
     //   setLanguage(JSON.parse(localStorage.language)) 
     //   :
 
-         axios.get('http://localhost:5000/language/' + lang)
+    apiCalls("get","/language"+lang)
+        //  axios.get('http://localhost:5000/language/' + lang)
             .then(response => {
                setLanguage(response.data.dict)
                localStorage.language = JSON.stringify(response.data.dict)
