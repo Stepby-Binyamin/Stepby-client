@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import styles from "./style.module.css"
 import mainContext from '../../../context/mainContext'
 import dataContext from '../../../context/dataContext'
@@ -13,6 +13,7 @@ import TempPDF from '../../../components/common/TempPDF'
 import TempFile from '../../../components/common/TempFile'
 import TempIMG from '../../../components/common/TempIMG'
 import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
+import apiCalls from '../../../functions/apiRequest'
 
 const StepEdit = ({ style = {}, ...props }) => {
 
@@ -24,24 +25,19 @@ const StepEdit = ({ style = {}, ...props }) => {
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
    const { state } = useLocation()
+   const { stepId } = useParams()
+
 
    useEffect(() => {
       header.setTitle(stepData.name)
       header.setSubTitle(template.name)
+         (state && state.step) ?
+         setStepData(state.step) :
+         apiCalls() ///------------------------------------------
       drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
    }, [])
 
-   const openDrawer = (e) => {
-      e.target.id === "display" ?
-         drawer.setDrawer(<StepBasics stepName={stepData.name} status={stepData.status} des={stepData.des} />) :  //give this step as props and fill
-         drawer.setDrawer(<AddWidget />)     //give this step as props
-   }
-
-   const viewStep = () => {
-      navigate(`/template/${template._id}/step/${stepData._id}`, { state: stepData })
-   }
-
-   const onClickItem = (data, type) => {
+   const onClickItem = (type, data = { stepId: stepData._id, tempId: template._id }) => {
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);
             break;
@@ -53,6 +49,17 @@ const StepEdit = ({ style = {}, ...props }) => {
             break;
       }
    }
+
+   const openDrawer = (e) => {
+      e.target.id === "display" ?
+         drawer.setDrawer(<StepBasics stepName={stepData.name} status={stepData.status} des={stepData.des} />) :
+         drawer.setDrawer(<AddWidget func={onClickItem} />)
+   }
+
+   const viewStep = () => {
+      navigate(`/template/${template._id}/step/${stepData._id}`, { state: stepData })
+   }
+
 
    return (
       <div className={styles.StepEdit} style={style} {...props} >
