@@ -24,20 +24,8 @@ export default function Login() {
     setLanguage(JSON.parse(localStorage.language))
   }, [])
 
-
-  // const handlePress = (e)=>{
-  //  if ( e.keyCode ===69 ){
-  //   console.log(e.target.value);
-  //   //  setLimitDigits(e.target.value)
-  //   }//console.log(e.target.value);
-  // }
-
   const handleChange = (e) => {
-    if (e.keyCode === '53') {
-      console.log(e.target.value.length - 1);
-      // setLimitDigits(e.target.value.toString().length-1)
-    }
-    console.log(typeof e.target.value);
+
     if (e.target.value.length > 10) {
       return
     }
