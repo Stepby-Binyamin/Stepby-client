@@ -17,8 +17,6 @@ const Layout = ({ children }) => {
 
    const [showSplash, setShowSplash] = useState(true)
 
-
-
    useEffect(() => {
       setTimeout(() => {
          setShowSplash(false)
