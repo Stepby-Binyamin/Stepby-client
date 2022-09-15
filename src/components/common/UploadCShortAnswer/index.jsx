@@ -8,24 +8,18 @@ import mainContext from "../../../context/mainContext"
 
 import apiCalls from '../../../functions/apiRequest'
 
-const UploadCShortAnswer = ({ setIsAnswer, step, project }) => {
+const UploadCShortAnswer = ({ setIsAnswer, step, project, id, stepId }) => {
 
     const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
-    const [readedFiles, setReadedFiles] = useState()
 
     const handleSubmitAnswer = async () => {
-        const sendData = {
-            question: language.SHORT_QUESTION01,
-            answer: description,
-            project: project,
-            step: step,
-            date: new Date()
-        }
+        const formData = new FormData();
 
-        const body = { data: sendData }
-        const result = await apiCalls('/shaul/files/upload/', 'post', body)
+        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() }))//id={id} stepId={stepId}
+
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
         console.log("apiCalls result", result);
 
 
@@ -36,7 +30,7 @@ const UploadCShortAnswer = ({ setIsAnswer, step, project }) => {
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={language.SHORT_QUESTION01}
+                text={"text_from language"}
                 icon={"/images/icon-btns/answer.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />

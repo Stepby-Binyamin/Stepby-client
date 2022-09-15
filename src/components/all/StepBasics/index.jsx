@@ -7,10 +7,13 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
 
-const StepBasics = ({ stepName, status, des, style = {}, ...props }) => {
+const StepBasics = ({ stepName, isCreatorApprove, des, style = {}, ...props }) => {
    
    const {language}= useContext(mainContext)
 
+   const sort = isCreatorApprove ? 
+   [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }] :
+   [{ name: language.CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
 
    const [data, setData] = useState({});
 
@@ -41,7 +44,7 @@ const StepBasics = ({ stepName, status, des, style = {}, ...props }) => {
                   <div className={styles.radioText}>{language.CARE}</div>
                </div>
 
-               <RadioBtnWithIcon changeFunc={onChangeHandler} obj={[{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }]} />
+               <RadioBtnWithIcon changeFunc={onChangeHandler} obj={sort || [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }]} />
             </div>
             <SubKeyboard name={"description"} onChange={onChangeHandler} iconSrc={'/images/icons/description.svg'} placeholder={language.DESCRIPTION} defaultValue={des} />
             <div className={styles.text}>{language.TEXT_STEP}</div>
