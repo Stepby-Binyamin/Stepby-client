@@ -20,21 +20,17 @@ export const ContextProvider = ({ children }) => {
     const [userData, setUserData] = useState()//only one user
     const [Drawer, setDrawer] = useState(); // content of drawer
     const [DrawerContentHeader, setDrawerContentHeader] = useState();
-    const localStorageLang = JSON.parse(localStorage.language) || ""
+    const localStorageLang = localStorage.language? JSON.parse(localStorage.language) : ""
     const [language, setLanguage] = useState(localStorageLang)
     
-    const lang = 0
+    const lang = 0 //hebrew code = 0 
     useEffect(() => {
         
-    //   localStorage.language ?
-    //   setLanguage(JSON.parse(localStorage.language)) 
-    //   :
-
-    apiCalls("get","/language"+lang)
-        //  axios.get('http://localhost:5000/language/' + lang)
+    if(!localStorageLang)
+    apiCalls("get","/language/"+lang)
             .then(response => {
-               setLanguage(response.data.dict)
-               localStorage.language = JSON.stringify(response.data.dict)
+               setLanguage(response.dict)
+               localStorage.setItem("language", JSON.stringify(response.dict))
             })
             .catch(error => {
                console.log(error)

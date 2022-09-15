@@ -4,7 +4,6 @@ import axios from "axios"
 import styles from "./style.module.css"
 import { convertDate } from '../../../functions/convertDate'
 import mainContext from '../../../context/mainContext'
-import dataContext from '../../../context/dataContext'
 import NavLink from '../../../components/common/NavLink'
 import NavLinkTab from '../../../components/common/NavLinkTab'
 import ListItem from '../../../components/common/ListItem'
@@ -16,6 +15,7 @@ import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
 import userContext from "../../../context/userContext"
+import apiCalls from '../../../functions/apiRequest'
 
 
 
@@ -23,17 +23,15 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const { header, drawer, language } = useContext(mainContext)
    const { PROJECTS, TEMPLATES, ALL, MY_CARE, WAITING_CUSTOMER, LETS_GO, ICON, CALL_YOU } = language
-   const { data } = useContext(dataContext)
-   // data.projects=[]
-   const [dataState, setDataState] = useState(data.projects)
+   const [dataState, setDataState] = useState()
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    const { userData, setUserData } = useContext(userContext)
-
    // const navigate = useNavigate()
 
-   const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
-   const clientCounter = data.projects && data.projects.filter(item => item.status === 'client').length
+
+   const bizCounter = dataState && dataState.filter(item => item.status === 'biz').length
+   const clientCounter = dataState && dataState.filter(item => item.status === 'client').length
 
    function getData(dataArr, searchBy) {
       const filterByStatus =
@@ -51,21 +49,22 @@ const HomeProject = ({ style = {}, ...props }) => {
       return { activeStatus, doneStatus }
    }
 
-   const dataToPrint = data.projects && getData(data.projects, sortDirection)
+   const dataToPrint = dataState && getData(dataState, sortDirection)
 
    useEffect(() => {
       header.setIsTitle(false)
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      axios.get('http://localhost:5000/')
-      .then(response =>{
-        console.log(response.data);
-        setDataState(response.data);
-      })
-      .catch(error =>{
-        console.log(error)
-      });
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            console.log(response)
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
+
 
    }, [])
 
@@ -73,7 +72,6 @@ const HomeProject = ({ style = {}, ...props }) => {
       drawer.setDrawer(<CreateClient />)
    }
    const createProject = () => {
-      // navigate('/home/templates')
       drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
@@ -92,6 +90,15 @@ const HomeProject = ({ style = {}, ...props }) => {
       setSortDirection(!sortDirection)
    }
 
+   function findCurrentStep(steps) {
+      if (steps) {
+         let y = steps.sort((a, b) => a.index - b.index)  //TODO fix sort
+         let z = y.find(v => v.isApprove)
+         return z ? z.name : y[0].name
+      }
+      else { return "" }
+   }
+
    return (
       <div className={styles.HomeProject} style={style} {...props} >
 
@@ -102,32 +109,33 @@ const HomeProject = ({ style = {}, ...props }) => {
             {
                // !dataState ? <div>loading...</div> : 
                // (
-               dataState.length === 0 ?
+               dataState && dataState.length === 0 ?
 
                   <UiDirectionText mainTitle={LETS_GO} text1={ICON} text2={CALL_YOU} />
                   :
                   <>{
-                     dataToPrint.activeStatus.map(item =>
+                     dataToPrint && dataToPrint.activeStatus.map(item =>
                         <ListItem
                            key={item._id}
-                           status={item.status}  // item.steps[0].status
-                           mainTitle={item.name}
+                           status={item.status}
+                           // mainTitle={item.client.bizName}
                            secondaryTitle={item.name}
-                           sconderyBoldTitle={item.steps[0].name}  //get current temp
+                           sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
-                           link={`/project/biz/${item._id}`}  //path
+                           link={`/project/biz/${item._id}`}
+                           linkState={{ proj: item }}
                         />)
                   }{
-                        dataToPrint.doneStatus && dataToPrint.doneStatus.map(item =>
+                        dataToPrint && dataToPrint.doneStatus.map(item =>
                            <ListItem
                               key={item._id}
-                              status={item.status}  // item.steps[0].status
-                              mainTitle={item.name}
+                              status={item.status}
+                              // mainTitle={item.client.bizName}
                               secondaryTitle={item.name}
-                              sconderyBoldTitle={item.steps[0].name}  //get current temp
+                              sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
-                              link={`/project/biz/${item._id}`}  //path
-                              linkState
+                              link={`/project/biz/${item._id}`}
+                              linkState={{ proj: item }}
                            />)
                      }</>
                // )
