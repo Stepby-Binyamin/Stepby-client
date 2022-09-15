@@ -20,7 +20,7 @@ export const ContextProvider = ({ children }) => {
     const [userData, setUserData] = useState()//only one user
     const [Drawer, setDrawer] = useState(); // content of drawer
     const [DrawerContentHeader, setDrawerContentHeader] = useState();
-    const localStorageLang = JSON.parse(localStorage.language) || ""
+    const localStorageLang = localStorage.language? JSON.parse(localStorage.language) : ""
     const [language, setLanguage] = useState(localStorageLang)
 
     const lang = 0
