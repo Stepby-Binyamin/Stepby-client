@@ -17,7 +17,7 @@ export default function Project({mode}) {
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState(state && state.temp)
     const indexFirst = findTheNext(curr)
-    const mode = state && state.mode
+    // const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
