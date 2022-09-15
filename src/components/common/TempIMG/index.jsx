@@ -4,12 +4,11 @@ import styles from "./style.module.css"
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
-import userContext from "../../../context/userContext"
 
-import axios from "axios"
 import mainContext from "../../../context/mainContext"
+import apiCalls from '../../../functions/apiRequest'
 
-const TempIMG = ({ data }) => {
+const TempIMG = ({ data, step, project, id, stepId }) => {
     const { drawer } = useContext(mainContext)
     // console.log("data00",data);
     const [currentFile, setCurrentFile] = useState()
@@ -30,31 +29,25 @@ const TempIMG = ({ data }) => {
         setCurrentFile(file);
     }
 
-    const handleSubmitAnswer = () => {
+    const handleSubmitAnswer = async () => {
         data = {
             ...data,
             type: "img",
             owner: "biz",
             title: question,
             isRequired: "",
-            content: ""
+            content: "",
+            step,
+            project,
+            id,
+            stepId
         }
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("data", JSON.stringify(data))
-        // console.log("new_file", currentFile);
-        // console.log("data", data);
-        axios({
-            method: "post",
-            // url: `http://localhost:5000/shaul/files/upload/`,
-            data: formData
+        formData.append("objShortQuestion", JSON.stringify(data))
 
-        })
-            .then((result) => {
-                console.log(result.data.uploadLocation);
-                // setUploadLocation(result.data)
-            })
-            .catch((error) => console.log(error || "error"));
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        console.log("apiCalls result", result);
 
         drawer.setDrawer('')
     }

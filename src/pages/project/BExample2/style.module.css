@@ -55,8 +55,9 @@
     flex-wrap:nowrap;
     justify-content: flex-end;
     gap: 6px;
-    margin-bottom: 29px;
+    /* margin-bottom: 29px; */
     width: 100%;
+    padding: 14px;
 }
 
 .boxHolder {
