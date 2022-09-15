@@ -70,10 +70,14 @@ const HomeProject = ({ style = {}, ...props }) => {
    const createProject = () => {
       drawer.setDrawer(<CreateProject />)
    }
+   const admin = true
    const createTemp = () => {
       // navigate('/template')
-      drawer.setDrawer(<CreateTemplate />)
-      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
+      admin ? drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
+         drawer.setDrawer(<CreateTemplate printData={printData} />)
+   }
+   const printData = (d) => {
+      console.log("printData:", d);
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
@@ -86,7 +90,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       if (steps) {
          let y = steps.sort((a, b) => a.index - b.index)  //TODO fix sort
          let z = y.find(v => v.isApprove)
-         return z ? z.name : y[0].name
+         return z ? z.name : y.name
       }
       else { return "" }
    }
@@ -110,7 +114,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                         <ListItem
                            key={item._id}
                            status={item.status}
-                           mainTitle={item.client.bizName}
+                           // mainTitle={item.client.bizName}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
@@ -122,7 +126,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            <ListItem
                               key={item._id}
                               status={item.status}
-                              mainTitle={item.client.bizName}
+                              // mainTitle={item.client.bizName}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}

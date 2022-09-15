@@ -14,7 +14,7 @@ import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 import userContext from '../../../context/userContext'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
-
+import apiCalls from '../../../functions/apiRequest'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
    // const { userData, setUserData } = useContext(userContext)
@@ -39,6 +39,25 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    useEffect(() => {
       header.setIsTitle(false)
       header.setIsArrow(false)
+
+      apiCalls('get', '/template/templateByUser')
+         .then(response => {
+            console.log(response)
+            setRecomend(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
+         
+         apiCalls('get', '/template/categoriesByUser')
+            .then(response => {
+               console.log(response)
+               setDataState(response);
+            })
+            .catch(error => {
+               console.log(error)
+            });
+
    }, [])
 
 
@@ -72,16 +91,16 @@ const HomeTemplate = ({ style = {}, ...props }) => {
             {
                // !dataToPrint ? <div>loading...</div> :
 
-               dataToPrint.map(item =>
+               dataToPrint && dataToPrint.map(item =>
                   <ListItem
                      key={item._id}
-                     mainTitle={item.name}  // get corect name
+                     mainTitle={item.name}  
                      secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}   // get user name
                      secondaryTitleWeight={sortListBy === MY_TEMP ?
                         `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct duplication date}  
-                        item.creatorId}
+                        `${item.creatorId.firstName} ${item.creatorId.lastName}`}
                      link={`/template/${item._id}`}  //path
-                     linkState
+                     linkState={{temp: item}}
                   />)
 
             }
