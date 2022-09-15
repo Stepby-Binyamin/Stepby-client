@@ -15,6 +15,8 @@ import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
+import userContext from "../../../context/userContext"
+
 
 
 const HomeProject = ({ style = {}, ...props }) => {
@@ -26,6 +28,8 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [dataState, setDataState] = useState(data.projects)
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
+   const { userData, setUserData } = useContext(userContext)
+
    // const navigate = useNavigate()
 
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
@@ -74,8 +78,12 @@ const HomeProject = ({ style = {}, ...props }) => {
    }
    const createTemp = () => {
       // navigate('/template')
-      drawer.setDrawer(<CreateTemplate />)
-      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
+      if (userData?.permissions === "admin") {
+         drawer.setDrawer(<CreateTemplateGeneral />)
+      }
+      if (userData?.permissions === "biz") {
+         drawer.setDrawer(<CreateTemplate />)
+      }
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
