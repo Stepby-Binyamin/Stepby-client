@@ -1,8 +1,8 @@
 const projects = [
    {
-      _id: "12", //נוצר אוטומטית ממונגו
+      // _id: "12", 
       name: "אתר תדמית מורכב",//שם הפרוייקט/ תבנית
-      creatorId: "1234", //נוצר אוטומטית ממונגו
+      creatorId: "1234", 
       creatorName: "דורון",
       client: {
          _id: "4567",
@@ -14,7 +14,7 @@ const projects = [
       isActive: true,
       steps: [
          {
-            _id: Math.random(),
+            // _id: Math.random(),
             index: 0,
             isCreatorApprove: false, //creator(biz) / client
             name: "פגישת התנעה ואפיון",
