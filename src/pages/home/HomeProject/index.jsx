@@ -16,6 +16,7 @@ import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
 import userContext from "../../../context/userContext"
+import apiCalls from '../../../functions/apiRequest'
 
 
 
@@ -58,14 +59,14 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      axios.get('http://localhost:5000/')
-      .then(response =>{
-        console.log(response.data);
-        setDataState(response.data);
-      })
-      .catch(error =>{
-        console.log(error)
-      });
+      // axios.get('http://localhost:5000/')
+      //    .then(response => {
+      //       console.log(response.data);
+      //       setDataState(response.data);
+      //    })
+      //    .catch(error => {
+      //       console.log(error)
+      //    });
 
    }, [])
 
@@ -76,14 +77,42 @@ const HomeProject = ({ style = {}, ...props }) => {
       // navigate('/home/templates')
       drawer.setDrawer(<CreateProject />)
    }
+
+   const createNewTemplate = async (templateName) => {
+      console.log(templateName);
+      // apiCalls("post", "http://localhost:5000/template/createTemplate", { templateName })
+      // api calls not working  but fetch does
+
+      await fetch("http://localhost:5000/template/createTemplate", {
+         method: "POST",
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         }, body: JSON.stringify(templateName)
+      })
+   }
+
+   const createNewAdminTemplate = async (template) => {
+      console.log(template);
+      // apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", { templateName })
+
+      await fetch("http://localhost:5000/template/createTemplateAdmin", {
+         method: "POST",
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         }, body: JSON.stringify(template)
+      })
+   }
+
    const createTemp = () => {
       // navigate('/template')
-      if (userData?.permissions === "admin") {
-         drawer.setDrawer(<CreateTemplateGeneral />)
-      }
-      if (userData?.permissions === "biz") {
-         drawer.setDrawer(<CreateTemplate />)
-      }
+      console.log(userData);
+      userData?.permissions === "admin" ?
+         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />) :
+         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />)
+         // drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)

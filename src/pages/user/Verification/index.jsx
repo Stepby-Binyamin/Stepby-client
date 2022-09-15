@@ -52,6 +52,7 @@ export default function Verification() {
     await apiCalls('post', '/user/check-code', body)
       .then(result => {
         setNewUser(result.newUser)
+        //needs to be based off existing or not
         setCorrectCode(!correctCode)
         setToken(result.token)
       })
