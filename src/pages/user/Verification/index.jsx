@@ -53,7 +53,7 @@ export default function Verification() {
         console.log(result)
         localStorage.user = JSON.stringify(result.user)
         localStorage.token = result.token
-        result.user.firstName? navigate(-1) : navigate('/user-name')
+        result.user.firstName? navigate('/projects') : navigate('/user-name')
       })
       .catch(() => setWrongPassword(true))
       console.log(localStorage.user);
