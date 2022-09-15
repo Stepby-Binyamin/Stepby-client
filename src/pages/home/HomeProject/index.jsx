@@ -58,7 +58,6 @@ const HomeProject = ({ style = {}, ...props }) => {
 
       apiCalls('get', '/project/projectByUser')
          .then(response => {
-            console.log(response)
             setDataState(response);
          })
          .catch(error => {

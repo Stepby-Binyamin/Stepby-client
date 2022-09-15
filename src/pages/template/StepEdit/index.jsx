@@ -29,8 +29,7 @@ const StepEdit = ({ style = {}, ...props }) => {
       (state && state.step) ||
       apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
       .then(response => {
-         setStepData(response.data)
-            console.log(stepData);
+         setStepData(response)
          })
          .catch(error => {
             console.log(error)
@@ -95,7 +94,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          </div>
 
-         {stepData && (stepData.data.length > 0 ?
+         {stepData && stepData.data && (stepData.data.length > 0 ?
             stepData.data.map(item =>
                <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :
