@@ -15,6 +15,9 @@ import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
+import userContext from "../../../context/userContext"
+import apiCalls from '../../../functions/apiRequest'
+
 
 
 const HomeProject = ({ style = {}, ...props }) => {
@@ -26,6 +29,10 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [dataState, setDataState] = useState(data.projects)
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
+   const { userData, setUserData } = useContext(userContext)
+   const [newTemplate, setNewTemplate] = useState({})
+
+
    // const navigate = useNavigate()
 
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
@@ -53,33 +60,48 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsTitle(false)
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
-
-      axios.get('http://localhost:5000/')
-      .then(response =>{
-        console.log(response.data);
-        setDataState(response.data);
-      })
-      .catch(error =>{
-        console.log(error)
-      });
+      setUserData({ ...userData, permissions: "biz" })
 
    }, [])
 
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
    }
+
    const createProject = () => {
       // navigate('/home/templates')
       drawer.setDrawer(<CreateProject />)
    }
+
+   const sendTemplateToDb = () => {
+      console.log(newTemplate);
+      apiCalls('post', "http://localhost:5000/template/createTemplate", { data: newTemplate })
+      console.log(123, "cmon man");
+   }
+
+
+
+
+   useEffect(() => {
+      sendTemplateToDb()
+   }, [newTemplate])
+
    const createTemp = () => {
       // navigate('/template')
-      drawer.setDrawer(<CreateTemplate />)
-      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
+      if (userData?.permissions === "admin") {
+         drawer.setDrawer(<CreateTemplateGeneral />)
+      }
+      if (userData?.permissions === "biz") {
+         drawer.setDrawer(<CreateTemplate sendTemplateToDb={setNewTemplate} />)
+      }
    }
+
    const openDrawer = () => {
+      console.log(userData?.permissions);
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+
    }
+
    const handleDirection = () => {
       setSortDirection(!sortDirection)
    }
@@ -125,7 +147,8 @@ const HomeProject = ({ style = {}, ...props }) => {
                // )
             }
          </ul>
-         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, { color: "gray", icon: "+", func: openDrawer }]} />
+         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, {
+            color: "gray", icon: "+", func: openDrawer  }]} />
       </div>
    )
 }

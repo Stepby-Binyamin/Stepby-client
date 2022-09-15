@@ -8,7 +8,7 @@ import mainContext from '../../../context/mainContext'
 
 
 
-const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
+const CreateTemplate = ({ placeholder, iconSrc, setNewTemplate, ...props }) => {
 
     const { header, drawer, language } = useContext(mainContext)
     let navigate = useNavigate();
@@ -22,7 +22,7 @@ const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
             newTamplate: fd.get("newTamplate", e.target.newTamplate.value)
         }
         console.log(data);
-        printData(data)
+        setNewTemplate(data)
         drawer.setDrawer()
         navigate('/template/1234')
 
