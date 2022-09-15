@@ -40,7 +40,7 @@ const CreateTemplateGeneral = ({ placeholder, createNewAdminTemplate, ...props }
         console.log("createTamplateGeneral:", data);
         drawer.setDrawer()
         createNewAdminTemplate(data)
-        navigate('/template/1234')
+        navigate('/template/')
 
     }
 
