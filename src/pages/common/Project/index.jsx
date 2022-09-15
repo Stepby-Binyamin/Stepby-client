@@ -10,13 +10,14 @@ import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
 
-export default function Project({ mode = "template" }) {
+export default function Project() {
     const { templateId } = useParams()
     const { state } = useLocation()
     const { header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState(state&& state.temp)
     const indexFirst = findTheNext(curr)
+    const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
