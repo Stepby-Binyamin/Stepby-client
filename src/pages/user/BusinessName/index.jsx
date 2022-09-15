@@ -36,7 +36,7 @@ export default function BusinessName() {
           console.log(res);
           setUserData(res)
           newUser? navigate('/business-category')
-        : navigate(-1)
+        : navigate('/setting')
         }).catch(err=>console.log(err))
         
       }

@@ -32,7 +32,13 @@ export default function Verification() {
   const ilPhoneNum = `${start}-${end}`
 
   const sendCode = async () => {
+    if(localStorage.token) setToken(localStorage.token)
     await apiCalls("post", "/user/send-code", { phoneNumber: location.state })
+    .then(async(res)=>{
+      console.log(1234, res);
+      res.categories?
+      await navigate('/projects'):console.log(res)})
+    .catch((err)=>console.log(err))
   }
 
   useEffect(() => {
