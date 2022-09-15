@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import styles from "./style.module.css";
 import Keyboard from '../Keyboard';
 import SubKeyboard from '../SubKeyboard';
@@ -7,35 +7,39 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
 
-const StepBasics = ({ stepName, isCreatorApprove, des, style = {}, ...props }) => {
+const StepBasics = ({ fetchData, stepName, isCreatorApprove, des, style = {}, ...props }) => {
+
+   const { drawer, language } = useContext(mainContext)
+
+   const sort = isCreatorApprove ?
+      [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }] :
+      [{ name: language.CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
+
+   const [data, setData] = useState({ radio: "לקוח" });
    
-   const {language}= useContext(mainContext)
-
-   const sort = isCreatorApprove ? 
-   [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }] :
-   [{ name: language.CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
-
-   const [data, setData] = useState({});
 
    const onChangeHandler = (event) => {
       const name = event.target.name;
       const value = event.target.value;
       setData(values => ({ ...values, [name]: value }));
    }
-
    const btnSubmitAndCreateHandler = () => {
-      console.log(data);
+      document.querySelector("#keyboard").value = "";
+      document.querySelector("#subKeyboard").value = "";
+      fetchData(data);
+
       console.log("Submint And Create");
    }
    const btnSubmitHandler = () => {
+      fetchData(data);
       console.log("Submit");
+      drawer.setDrawer();
    }
 
 
    return (
       <div className={styles.StepBasicsContainer} >
          <div className={styles.StepBasicsInnerContainer} >
-
 
             <Keyboard name={"stepName"} placeholder={language.STEP_NAME} onChange={onChangeHandler} defaultValue={stepName} />
             <div className={styles.radioButton}>

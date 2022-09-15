@@ -1,6 +1,6 @@
 import styles from "./style.module.css"
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 
 import StatusStep from "../../../components/all/StatusStep"
 import Answer from "../../../components/all/Answer"
@@ -25,6 +25,9 @@ const BExample2 = () => {
     const [uploadLocation, setUploadLocation] = useState()
 
     const { templateId, stepId } = useParams()
+    const { state} = useLocation()
+    const projName = state && state.tempName
+    const stepp = state && state.step
 
     // console.log("templateId",templateId);
     // console.log("stepId",stepId);

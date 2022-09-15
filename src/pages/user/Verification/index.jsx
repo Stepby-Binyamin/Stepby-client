@@ -15,7 +15,7 @@ import apiCalls from '../../../functions/apiRequest'
 
 export default function Verification() {
   const { header } = useContext(mainContext);
-  const {userData, setUserData} = useContext(userContext)
+  const { userData, setUserData } = useContext(userContext)
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
   const location = useLocation();
@@ -32,7 +32,16 @@ export default function Verification() {
   const ilPhoneNum = `${start}-${end}`
 
   const sendCode = async () => {
+    if (localStorage.token) setToken(localStorage.token)
     await apiCalls("post", "/user/send-code", { phoneNumber: location.state })
+      .then((res) => {
+        console.log(1234, res)
+        if(res.categories){
+          setUserData(res) 
+           navigate('/projects')
+        } 
+      })
+      .catch((err) => console.log(err))
   }
 
   useEffect(() => {
@@ -53,11 +62,11 @@ export default function Verification() {
         console.log(result)
         localStorage.user = JSON.stringify(result.user)
         localStorage.token = result.token
-        result.user.firstName? navigate('/projects') : navigate('/user-name')
+        result.user.firstName ? navigate('/projects') : navigate('/user-name')
       })
       .catch(() => setWrongPassword(true))
-      console.log(localStorage.user);
-      
+    console.log(localStorage.user);
+
   }
 
   return (
