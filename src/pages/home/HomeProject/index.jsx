@@ -110,9 +110,9 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    function findCurrentStep(steps) {
       if (steps) {
-         let y = steps.sort((a, b) => a.index - b.index)  //TODO fix sort
+         let y = steps.sort((a, b) => a.index < b.index ? -1 : 1)  //TODO fix sort
          let z = y.find(v => v.isApprove)
-         return z ? z.name : y[0].name
+         return z ? z.name : y.name
       }
       else { return "" }
    }
@@ -141,7 +141,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                            link={`/project/biz/${item._id}`}
-                           linkState={{ proj: item }}
+                           linkState={{ temp: item }}
                         />)
                   }{
                         dataToPrint && dataToPrint.doneStatus.map(item =>
@@ -153,7 +153,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                               link={`/project/biz/${item._id}`}
-                              linkState={{ proj: item }}
+                              linkState={{ temp: item }}
                            />)
                      }</>
                // )

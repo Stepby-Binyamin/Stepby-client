@@ -4,7 +4,7 @@ axios.defaults.baseURL = "http://localhost:5000"
 
 export const setToken = (token)=>{
     // when you do logout pass the parameter as an empty string
-    axios.defaults.headers.common['Authorization'] =  token //AUTH_TOKEN
+    axios.defaults.headers.common['Authorization'] =  `Bearer ${token}` //AUTH_TOKEN
 }
 
 

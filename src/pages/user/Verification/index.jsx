@@ -10,32 +10,29 @@ import SomethingWentWrong from '../../../components/all/somethingWentWrong'
 import UserNumberVerification from '../../../components/all/UserNumberVerification'
 import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
-import { users } from "../../../data/fakeProjects";
 import { setToken } from '../../../functions/apiRequest'
 import apiCalls from '../../../functions/apiRequest'
 
 export default function Verification() {
   const { header } = useContext(mainContext);
+  const {userData, setUserData} = useContext(userContext)
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
   const location = useLocation();
-  const [data, setData] = useState(location.state);
   const [code, setCode] = useState()
-  const [newUser, setNewUser] = useState()
   const [wrongPassword, setWrongPassword] = useState(false);
-  const [correctCode, setCorrectCode] = useState(false)
   const [language, setLanguage] = useState(JSON.parse(localStorage.language))
   let start = "054", end = "7668489"
 
 
-  if (data.phoneNumber) {
-    start = data.phoneNumber.slice(0, 3)
-    end = data.phoneNumber.slice(3)
+  if (location.state) {
+    start = location.state.slice(0, 3)
+    end = location.state.slice(3)
   }
   const ilPhoneNum = `${start}-${end}`
 
   const sendCode = async () => {
-    await apiCalls("post", "/user/send-code", { phoneNumber: data.phoneNumber })
+    await apiCalls("post", "/user/send-code", { phoneNumber: location.state })
   }
 
   useEffect(() => {
@@ -46,25 +43,22 @@ export default function Verification() {
     setLanguage(JSON.parse(localStorage.language))
   }, [])
 
-  async function goToNextPage() {
-    const body = { phoneNumber: data.phoneNumber, code: code }
+  async function handleClick() {
+    const body = { phoneNumber: location.state, code: code }
 
     await apiCalls('post', '/user/check-code', body)
       .then(result => {
-        setNewUser(result.newUser)
-        setCorrectCode(!correctCode)
         setToken(result.token)
+        setUserData(result.user)
+        console.log(result)
+        localStorage.user = JSON.stringify(result.user)
+        localStorage.token = result.token
+        result.user.firstName? navigate('/projects') : navigate('/user-name')
       })
       .catch(() => setWrongPassword(true))
+      console.log(localStorage.user);
+      
   }
-
-  useEffect(() => {
-    if (correctCode) {
-      if (newUser) navigate('/user-name', { state: data })
-      if (!newUser) navigate('/projects', { state: data })
-    }
-  }, [goToNextPage])
-
 
   return (
     <div className={styles.box}>
@@ -77,16 +71,16 @@ export default function Verification() {
       {wrongPassword ? <div className={styles.thatpasswordiswrong}>
         <div><b>{language.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
       </div> : <div className={styles.phoneNum}>
-        <UserNumberVerification counter={counter} phoneNum={data.phoneNumber} ilPhoneNum1={ilPhoneNum} />
+        <UserNumberVerification counter={counter} phoneNum={location.state} ilPhoneNum1={ilPhoneNum} />
       </div>}
       {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
        */}
 
       <div className={styles.someThingWrong}>
-        <SomethingWentWrong sendCode={sendCode} phoneNumer={data.phoneNum} setCounter={setCounter} setWrongPassword={setWrongPassword} />
+        <SomethingWentWrong sendCode={sendCode} setCounter={setCounter} setWrongPassword={setWrongPassword} />
       </div>
       <div className={styles.btn}>
-        <BtnSubmitIcon color='orange' icon='Arrow.svg' func={goToNextPage} />
+        <BtnSubmitIcon color='orange' icon='Arrow.svg' func={handleClick} />
       </div>
     </div >
   )
