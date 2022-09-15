@@ -37,7 +37,7 @@ export default function BusinessCategory() {
       console.log(res);
       setUserData(res)
       newUser ? navigate('/projects')
-        : navigate(-1)
+        : navigate('/setting')
     }).catch(err => console.log(err))
 
   }
