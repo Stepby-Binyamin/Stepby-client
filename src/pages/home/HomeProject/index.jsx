@@ -87,6 +87,14 @@ const HomeProject = ({ style = {}, ...props }) => {
             'Content-Type': 'application/json'
          }, body: JSON.stringify(templateName)
       })
+
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
    }
 
    const createNewAdminTemplate = async (template) => {
@@ -100,6 +108,15 @@ const HomeProject = ({ style = {}, ...props }) => {
             'Content-Type': 'application/json'
          }, body: JSON.stringify(template)
       })
+
+      
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
    }
 
    const createTemp = () => {

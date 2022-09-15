@@ -24,7 +24,7 @@ export default function Project({ mode = "template" }) {
         apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
-    console.log(curr);
+    // console.log(curr);
     function findTheOwner(curr) {
         const result = curr.steps[indexFirst]?.isCreatorApprove
         if (result) {
@@ -69,6 +69,17 @@ export default function Project({ mode = "template" }) {
         return result?.index
     }
 
+    function createNewProject(){
+        
+        apiCalls('post', `/project/createProject/${templateId}`)
+           .then(response => {
+              console.log("banana");
+           })
+           .catch(error => {
+              console.log(error)
+           });
+      }
+
     useEffect(() => {
         header.setTitle(curr && curr.name)
         mode !== "template" && header.setSubTitle(curr&& curr.client.clientName)
@@ -100,7 +111,7 @@ export default function Project({ mode = "template" }) {
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }] : [{ color: "lite", icon: "triangle", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
                 {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
             </div>
         }
