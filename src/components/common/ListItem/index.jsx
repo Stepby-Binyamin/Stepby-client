@@ -33,7 +33,7 @@ const ListItem = ({
          setShowMoveArrow(true);
    }
    const handleOnClick = () => {
-      showMoveArrow ? setShowMoveArrow(false) : link && navigate(link, linkState)
+      showMoveArrow ? setShowMoveArrow(false) : link && navigate(link, {state: linkState})
    }
 
    return (
