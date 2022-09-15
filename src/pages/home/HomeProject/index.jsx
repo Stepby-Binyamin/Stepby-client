@@ -70,21 +70,53 @@ const HomeProject = ({ style = {}, ...props }) => {
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
    }
+
    const createProject = () => {
       drawer.setDrawer(<CreateProject />)
    }
+
+   const createNewTemplate = async (templateName) => {
+      console.log(templateName);
+      // apiCalls("post", "http://localhost:5000/template/createTemplate", { templateName })
+      // api calls not working  but fetch does
+
+      await fetch("http://localhost:5000/template/createTemplate", {
+         method: "POST",
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         }, body: JSON.stringify(templateName)
+      })
+   }
+
+   const createNewAdminTemplate = async (template) => {
+      console.log(template);
+      // apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", { templateName })
+
+      await fetch("http://localhost:5000/template/createTemplateAdmin", {
+         method: "POST",
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         }, body: JSON.stringify(template)
+      })
+   }
+
    const createTemp = () => {
       // navigate('/template')
-      if (userData?.permissions === "admin") {
-         drawer.setDrawer(<CreateTemplateGeneral />)
-      }
-      if (userData?.permissions === "biz") {
-         drawer.setDrawer(<CreateTemplate />)
-      }
+      console.log(userData);
+      userData?.permissions === "admin" ?
+         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />) :
+         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />)
+         // drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+
    }
    const openDrawer = () => {
+      console.log(userData?.permissions);
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+
    }
+
    const handleDirection = () => {
       setSortDirection(!sortDirection)
    }
@@ -140,7 +172,8 @@ const HomeProject = ({ style = {}, ...props }) => {
                // )
             }
          </ul>
-         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, { color: "gray", icon: "+", func: openDrawer }]} />
+         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, {
+            color: "gray", icon: "+", func: openDrawer  }]} />
       </div>
    )
 }
