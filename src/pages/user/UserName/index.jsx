@@ -46,8 +46,9 @@ export default function UserName() {
     apiCalls('put', '/user/edit-biz', data).then(res=>{
       console.log(res);
       setUserData(res)
+      localStorage.user = JSON.stringify(res)
       newUser? navigate('/business-name')
-    : navigate(-1)
+    : navigate('/setting')
     }).catch(err=>console.log(err))
     
   }

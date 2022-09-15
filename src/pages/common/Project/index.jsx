@@ -9,11 +9,13 @@ import { convertDate } from "../../../functions/convertDate"
 import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
+import StepBasics from "../../../components/all/StepBasics"
+
 
 export default function Project({mode}) {
     const { templateId } = useParams()
     const { state } = useLocation()
-    const { header, language = {} } = useContext(mainContext)
+    const { drawer ,header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState(state && state.temp)
     const indexFirst = findTheNext(curr)
@@ -79,6 +81,16 @@ export default function Project({mode}) {
     }, [])
 
     curr&& curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
+    
+    const onClickPlus = ()=>{
+        drawer.setDrawer(<StepBasics fetchData={fetchData} />);
+    }
+
+    function fetchData(data){
+        console.log(data);
+        console.log(templateId);
+        // apiCalls("put", "/template/newStep/" + templateId, data);
+    }
 
     return (<>
         {curr &&
@@ -103,8 +115,8 @@ export default function Project({mode}) {
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }] : [{ color: "lite", icon: "triangle", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+",  func: () => { console.log("Hello") }, link: '' }]} />}
             </div>
         }
     </>)

@@ -4,7 +4,7 @@
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     background: orangered;
     opacity: 0;
@@ -18,10 +18,12 @@
     100% { opacity: 0; }
   }
 
-.logo {
-    padding-top: 50%;
-}
+/* .logo {
+    padding-top: 7rem;
+} */
 
 .text1 {
+    position: relative;
     color: #FFF;
+    top: 33vh;
 }
