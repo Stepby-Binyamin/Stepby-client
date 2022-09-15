@@ -6,15 +6,11 @@ import mainContext from '../../../context/mainContext'
 
 import Confirm from '../../all/Confirm'
 
-const HeaderTitle = ({ DrawerContentHeader }) => {
+const HeaderTitle = () => {
     const navigate = useNavigate()
     const { header, drawer } = useContext(mainContext)
 
-    const DrawerContentHeaderToRender = drawer.DrawerContentHeader
-
-    const handleClick = () => {
-        drawer.setDrawer(DrawerContentHeaderToRender)
-    }
+    const handleClick = () => drawer.setDrawer(drawer.DrawerContentHeader)
 
     return (
         <div className={styles.container}>

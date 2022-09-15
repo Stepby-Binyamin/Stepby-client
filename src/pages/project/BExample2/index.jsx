@@ -1,48 +1,52 @@
 import styles from "./style.module.css"
-import React, { useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { useParams } from "react-router-dom"
 
 import StatusStep from "../../../components/all/StatusStep"
-
-import BtnSubmitIcon from "../../../components/common/BtnSubmitIcon"
 import Answer from "../../../components/all/Answer"
-import mainContext from "../../../context/mainContext"
-
 import ImageView from "../../../components/all/ImageView"
-
-import projects from "../../../data/fakeProjects.js"
-import TempPDF from "../../../components/common/TempPDF"
+import BtnSubmitIcon from "../../../components/common/BtnSubmitIcon"
 import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
-
-import Pdf from "../../../test.pdf"
 import UploadPicture from "../../../components/common/UploadPicture"
-import { useState } from "react"
+
+import mainContext from "../../../context/mainContext"
+import projects from "../../../data/fakeProjects.js"
+import Pdf from "../../../test.pdf"
+
 
 import TempSimpleAnswer from "../../../components/common/TempSimpleAnswer"
 import TempIMG from "../../../components/common/TempIMG"
+import TempPDF from "../../../components/common/TempPDF"
+import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 const BExample2 = () => {
     const [isUploaded, setIsUploaded] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
     const [uploadLocation, setUploadLocation] = useState()
 
+    const { id, stepId } = useParams()
+
+    // console.log("id",id);
+    // console.log("stepId",stepId);
+
     const index = 1
     const _id = '14'
     const step = 1
-    const project = 'projectName'
+    const project = 'projectNameShaulAttie1'
 
-    const  data = {
-            _id: "1234test",
-            type: "file",
-            owner: "client",
-            title: "pergunta teste",
-            isRequired: true,
-            content: ""
-        }
+    const data = {
+        _id: "1234test",
+        type: "file",
+        owner: "client",
+        title: "pergunta teste",
+        isRequired: true,
+        content: ""
+    }
 
     const findProject = projects.projects.find(project => project._id === _id)
     const findStep = findProject.steps.find(step => step.index === index)
 
-    const { header, drawer, language} = useContext(mainContext)
+    const { header, drawer } = useContext(mainContext)
 
     // Calculate the Days
     const d = new Date()
@@ -58,18 +62,22 @@ const BExample2 = () => {
     }, [])
 
     function handleIMG() {
-        drawer.setDrawer(<UploadPicture />)
+        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={id} stepId={stepId}
+        // drawer.setDrawer(<TempPDF step={step} project={project}/>)
+        drawer.setDrawer(<UploadedIMGView step={step} project={project}/>)
+
     }
 
     function handleFile() {
-        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />);
-        // drawer.setDrawer(<TempPDF data={data}/>)
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={id} stepId={stepId}
     }
 
     function handleAnswer() {
         drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} step={step} project={project} />);
     }
-    console.log(uploadLocation);
+
+    // console.log(uploadLocation);
+
     return (
         <div className={styles.page}>
             {findStep.data[0].owner === "biz"  // can be client or biz

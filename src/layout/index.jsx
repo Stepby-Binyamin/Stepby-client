@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
    useEffect(() => {
       setTimeout(() => {
          setShowSplash(false)
-      }, 500)
+      }, 2000)
    }, [])
 
 

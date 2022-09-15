@@ -1,13 +1,14 @@
 .main{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-gap: 9px;
-height: 38px;
-background: var(--orange15-color);
-border-radius: 8px;
-padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    height: 38px;
+    background: var(--orange15-color);
+    border-radius: 8px;
+    padding: 4px;
+    margin: 0 15px;
 }
 
 .main > a{

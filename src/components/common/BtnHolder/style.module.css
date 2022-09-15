@@ -3,9 +3,8 @@
     width: 52px;
     border-radius: 12px;
     box-shadow: -0.2px 4px 8px -3.5px #949494;
+    padding: 13px;
 }
-
-
 
 .gray {
     background-color: var(--grey1-color);
@@ -24,54 +23,11 @@
     background-color: #25D366;
 }
 
-
 .container {
     position: fixed;
     bottom: 4%;
-    left: 2%;
+    left: 15px;
     gap: 10px;
     display: grid;
     flex-direction: column-reverse;
 }
-
-/* .gray0{
-    color: var( --grey0-color);
-}
-
-.gray1{
-    color: var( --grey1-color);
-}
-.gray2{
-    color: var( --grey2-color);
-}
-.gray3{
-    color: var( --grey3-color);
-}
-.gray4{
-    color: var( --grey4-color);
-}
-.gray5{
-    color: var( --grey5-color);
-}
-
-.white{
-    color: var( --white-color);
-}
-
-.red{
-    color: var( --red-color);
-}
-
-.orange15{
-    color: var( --orange15-color);
-}
-.orange5{
-    color: var( --orange5-color);
-}
-.orange10{
-    color: var( --orange10-color);
-}
-
-.orange100{
-    color: var( --orange100-color);
-} */

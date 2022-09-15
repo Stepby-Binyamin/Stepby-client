@@ -1,34 +1,26 @@
 import styles from "./style.module.css"
 import React, { useContext, useState } from 'react'
-import axios from 'axios'
+
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
-const UploadCShortAnswer = ({ setIsAnswer, project, step }) => {
+import apiCalls from '../../../functions/apiRequest'
+
+const UploadCShortAnswer = ({ setIsAnswer, step, project, id, stepId }) => {
+
     const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
-    const [readedFiles, setReadedFiles] = useState()
 
-    const handleSubmitAnswer = () => {
-
+    const handleSubmitAnswer = async () => {
         const formData = new FormData();
-        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() }))
-        // formData.append("question",language.SHORT_QUESTION01)
-        // formData.append("description", description);
-        // formData.append("project", project);
-        // formData.append("step", step);
 
-        axios({
-            method: "post",
-            url: `http://localhost:5000/shaul/files/upload/`,
-            data: formData
+        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() }))//id={id} stepId={stepId}
 
-        })
-            .then((result) => setReadedFiles(result))
-            .catch((error) => console.log(error || "error"));
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        console.log("apiCalls result", result);
 
 
         description && setIsAnswer(true)
@@ -38,7 +30,7 @@ const UploadCShortAnswer = ({ setIsAnswer, project, step }) => {
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={language.SHORT_QUESTION01}
+                text={"text_from language"}
                 icon={"/images/icon-btns/answer.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />

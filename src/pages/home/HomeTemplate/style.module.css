@@ -1,9 +1,9 @@
 .HomeTemplate{
     height: 100%;
-    padding: 0 15px;
     }
     .list{
-        margin-top: 32px;
+        margin-top: 16px;
+        padding: 0 15px;
     }
     .drw{
         position: fixed;

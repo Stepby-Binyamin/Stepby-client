@@ -1,15 +1,18 @@
 import styles from "./style.module.css"
 import React , { useState, useContext} from 'react'
+
 import mainContext from "../../../context/mainContext"
+
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
-import axios from "axios"
+import apiCalls from "../../../functions/apiRequest"
 
-const TempFile = ({data}) => {
+const TempFile = ({ data, step, project, id, stepId }) => {
 const {drawer} = useContext(mainContext)
+// console.log("dat00", data);
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
@@ -19,29 +22,28 @@ const {drawer} = useContext(mainContext)
     }
 
     const handleRadio = (e) => {
-        console.dir(e.target.value);
+        // console.dir(e.target.value);
         e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
-    const handleSubmitAnswer = (e) => {
-         data = {...data,
+    const handleSubmitAnswer = async () => {
+        data = {
+            ...data,
             type: "file",
             owner: "client",
             title: question,
             isRequired: isRequired,
-            content: ""
+            content: "",
+            step,
+            project,
+            id,
+            stepId
         }
+        const formData = new FormData();
+        formData.append("objShortQuestion", JSON.stringify(data))
 
-        axios({
-            method: "post",
-            // url: `http://localhost:5000/shaul/files/upload/`, //
-            data: data
-        })
-            .then((result) => {
-                console.log(result.data);
-                // setUploadLocation(result.data)
-            })
-            .catch((error) => console.log(error || "error"));
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        console.log("apiCalls result", result);
 
         drawer.setDrawer('')
     }
