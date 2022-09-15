@@ -1,5 +1,5 @@
 import styles from "./style.module.css"
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 
 import BtnIcon from "../../../components/common/BtnIcon"
 import Input from "../../../components/common/Input/Input.jsx"
@@ -8,13 +8,11 @@ import BtnSubmitText from "../BtnSubmitText"
 
 import mainContext from "../../../context/mainContext"
 
-import axios from "axios"
-
 import apiCalls from '../../../functions/apiRequest'
 
 
-const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
-    const { drawer, language} = useContext(mainContext)
+const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project, id, stepId }) => {
+    const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
@@ -32,12 +30,12 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
 
         if (typeArr[1] !== "pdf" && typeArr[1] !== "jpeg" && typeArr[1] !== "jpg" && typeArr[1] !== "png") {
             setAlert("file is not supported");
-            return 
+            return
         }
 
         if (file.size / 1024 / 1024 > 4) {
             setAlert("This file is too big!!!");
-            return 
+            return
         }
         setFileName(file.name)
         setCurrentFile(file);
@@ -47,31 +45,10 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project }) => {
 
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        // formData.append("objShortQuestion", JSON.stringify({question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date()}))
+        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() })) //id={id} stepId={stepId}
 
-        const sendData = {
-            question: language.SHORT_QUESTION01,
-            answer: description,
-            project: project,
-            step: step,
-            date: new Date()
-        }
-
-        const body = { data: sendData , formData: formData }
-        const result = await apiCalls('/shaul/files/upload/', 'post', body)
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
         console.log("apiCalls result", result);
-
-        // axios({
-        //     method: "post",
-        //     url: `http://localhost:5000/shaul/files/upload/`,
-        //     data: formData
-
-        // })
-        //     .then((result) => {
-        //         console.log(result.data.uploadLocation);
-        //         setUploadLocation(result.data)
-        //     })
-        //     .catch((error) => console.log(error || "error"));
 
         currentFile && setIsUploaded(true)
         drawer.setDrawer('')

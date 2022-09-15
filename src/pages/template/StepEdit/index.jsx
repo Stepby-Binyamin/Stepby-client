@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import styles from "./style.module.css"
 import mainContext from '../../../context/mainContext'
-import dataContext from '../../../context/dataContext'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
 import StepBasics from '../../../components/all/StepBasics'
@@ -19,32 +18,32 @@ const StepEdit = ({ style = {}, ...props }) => {
 
 
    const { header, drawer, language } = useContext(mainContext)
-   const { data } = useContext(dataContext)
-   const [stepData, setStepData] = useState()
-   const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
-   const navigate = useNavigate()
    const { state } = useLocation()
    const { stepId, templateId } = useParams()
+   const [stepData, setStepData] = useState(state&&state.step)
+   const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
+   const navigate = useNavigate()
 
 
    useEffect(() => {
-      // header.setTitle(stepData.name)
-      // header.setSubTitle(template.name)
-         (state && state.step) ?
-         setStepData(state.step) :
-         apiCalls("get", `/getStepById/${templateId}/${stepId}`)
-         .then(response => {
-            setStepData(response.data)
+      (state && state.step) ||
+      apiCalls("get", `/getStepById/${templateId}/${stepId}`)
+      .then(response => {
+         setStepData(response.data)
             console.log(stepData);
          })
          .catch(error => {
             console.log(error)
          });
          
-
-      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
-   }, [])
-
+         header.setTitle(stepData && stepData.name)
+         if(state && state.tempName)
+         localStorage.setItem("tempName", JSON.stringify(state.tempName));
+         header.setSubTitle((state && state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
+         
+         drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
+      }, [])
+      
    const onClickItem = (type, data = { stepId: stepData._id, tempId: templateId }) => {
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);

@@ -6,33 +6,41 @@ import { useContext, useEffect, useState } from 'react'
 import mainContext from '../../../context/mainContext'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
+import userContext from '../../../context/userContext'
+import apiCalls from '../../../functions/apiRequest'
 
-export default function BusinessName({ newUser = true, BusinessName }) {
+export default function BusinessName() {
 
     const { header } = useContext(mainContext),
+        { userData, setUserData } = useContext(userContext),
         navigate = useNavigate(),
-        location = useLocation(),
-        [data, setData] = useState(location.state),
+        [bizName, setBizName] = useState(),
         [language, setLanguage] = useState(JSON.parse(localStorage.language));
-        useEffect(() => {
-            header.setIsTitle(false)
-            header.setIsHeaderSet(false)
-            header.setIsArrow(false)
-            setLanguage(JSON.parse(localStorage.language))
-        console.log(data);
+    useEffect(() => {
+        header.setIsTitle(false)
+        header.setIsHeaderSet(false)
+        header.setIsArrow(false)
+        setLanguage(JSON.parse(localStorage.language))
+        console.log('bizzzz: ', userData);
     }, [])
 
     const handleChange = (e) => {
-          setData({...data, businessName:e.target.value})
+        setBizName(e.target.value)
     }
 
-    const handleClickNew = () => {
-        navigate('/business-category', { state: data })
-    }
 
-    const handleClickExist = () => {
-        console.log('exist');
-    }
+
+    const handleClick = (newUser) => {
+        console.log(1234555,bizName);
+        apiCalls('put', '/user/edit-biz', {bizName:bizName}).then(res=>{
+          console.log(res);
+          setUserData(res)
+          newUser? navigate('/business-category')
+        : navigate(-1)
+        }).catch(err=>console.log(err))
+        
+      }
+
 
     return (
         <div className={styles.box}>
@@ -40,10 +48,10 @@ export default function BusinessName({ newUser = true, BusinessName }) {
                 <UserTitle text1={language.BUSINESS_NAME_HEADER} />
             </div>
             <div className={styles.input}>
-                <Input autoFocus type='text' onChange={handleChange} placeholder={newUser ? language.YOUR_BUSINESS_NAME : ''} defaultValue={!newUser ? BusinessName : ''} />
+                <Input autoFocus type='text' onChange={handleChange} placeholder={!userData?.bizName ? language.YOUR_BUSINESS_NAME : ''} defaultValue={userData?.bizName ? userData?.bizName : ''} />
             </div>
             <div className={styles.btn}>
-                <BtnSubmitIcon color='orange' icon={newUser ? 'Arrow.svg' : 'v to text.svg'} func={newUser ? handleClickNew : handleClickExist} />
+            <BtnSubmitIcon color='orange' icon={userData?.bizName? 'v to text.svg' : 'Arrow.svg'} func={()=>handleClick(userData?.bizName ? false : true)} />
             </div>
         </div>
     )

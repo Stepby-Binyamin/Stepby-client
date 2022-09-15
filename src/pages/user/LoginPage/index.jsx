@@ -14,7 +14,7 @@ export default function Login() {
   const { header } = useContext(mainContext),
     navigate = useNavigate(),
     [limitDigits, setLimitDigits] = useState(''),
-    [data, setData] = useState({ fName: '', lName: '', email: '', businessName: '', phoneNumber: '', theCategories: '' }),
+    [phoneNumber, setphonenumber] = useState(''),
     [language, setLanguage] = useState(JSON.parse(localStorage.language));
 
   useEffect(() => {
@@ -30,12 +30,12 @@ export default function Login() {
       return
     }
     setLimitDigits(e.target.value)
-    setData({ ...data, phoneNumber: e.target.value })
+    setphonenumber(e.target.value)
   }
 
   const handleClick = async () => {
-    if (data.phoneNumber.length < 10) return
-    navigate('/verification', { state: data })
+    if (phoneNumber.length < 10) return
+    navigate('/verification', { state: phoneNumber })
   }
 
   return (

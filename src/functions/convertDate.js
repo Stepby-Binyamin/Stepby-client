@@ -1,7 +1,9 @@
 export  function convertDate(date){
     //convert Date to number of days/weeks elpased
+    if (!date) return ''
+    date = new Date(date)
     const current = Date.now()
-    const diff =  current -  date.getTime()
+    const diff =  current - date.getTime()
     const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
     if(!(diffDays % 7)){
         const weeks= diffDays/7

@@ -4,7 +4,7 @@ import Logo from '../../components/all/Logo'
 
 const Splash = () => {
 
-    const SPLASHUNDER = JSON.parse(localStorage.language).SPLASH_UNDER
+    const SPLASHUNDER = localStorage.language && JSON.parse(localStorage.language).SPLASH_UNDER
 
     return (
         <div className={styles.container}>
