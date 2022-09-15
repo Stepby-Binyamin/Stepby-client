@@ -20,7 +20,7 @@ export default function Project({ mode = "template" }) {
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
-        if(!state.temp)
+        (state && state.temp) ||
         apiCalls("get", "/project/projectById/" + id)
             .then((result) => setCurr(result))
     }, [])
@@ -70,15 +70,15 @@ export default function Project({ mode = "template" }) {
     }
 
     useEffect(() => {
-        header.setTitle(curr.name)
-        mode !== "template" && header.setSubTitle(curr.client.clientName)
+        header.setTitle(curr && curr.name)
+        mode !== "template" && header.setSubTitle(curr&& curr.client.clientName)
         mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) : header.setIsDots(true) && header.setIsArrow(true)
     }, [])
 
-    curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
+    curr&& curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
 
     return (<>
-        {curr._id &&
+        {curr &&
             <div className={styles.container}>
                 {(mode === "client" || mode === "biz") && <StatusProject isLink={mode === "client" ? false : true} />}
                 {mode === "template" && <StatusTemp />}
