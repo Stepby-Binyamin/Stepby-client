@@ -1,11 +1,10 @@
 import { useContext, useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
 import StatusTemp from "../../../components/all/StatusTemp"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
 import ListItem from "../../../components/common/ListItem"
 import mainContext from "../../../context/mainContext"
-import fakeProjects from "../../../data/fakeProjects"
 import { convertDate } from "../../../functions/convertDate"
 import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
@@ -13,13 +12,15 @@ import apiCalls from "../../../functions/apiRequest"
 
 export default function Project({ mode = "template" }) {
     const { id } = useParams()
+    const { state } = useLocation()
     const { header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
-    const [curr, setCurr] = useState({})
+    const [curr, setCurr] = useState(state&& state.temp)
     const indexFirst = findTheNext(curr)
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
+        if(!state.temp)
         apiCalls("get", "/project/projectById/" + id)
             .then((result) => setCurr(result))
     }, [])
@@ -63,14 +64,14 @@ export default function Project({ mode = "template" }) {
     }
 
     function findTheNext(curr) {
-        curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
-        const result = curr.steps?.find(step => step.isApprove === false)
+        curr&&curr.steps.sort((a, b) => a.index < b.index ? -1 : 1)
+        const result = curr&&curr.steps.find(step => step.isApprove === false)
         return result?.index
     }
 
     useEffect(() => {
-        header.setTitle(fakeProjects.projects[0].name)
-        mode !== "template" && header.setSubTitle(fakeProjects.projects[0].client.clientName)
+        header.setTitle(curr.name)
+        mode !== "template" && header.setSubTitle(curr.client.clientName)
         mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) : header.setIsDots(true) && header.setIsArrow(true)
     }, [])
 
