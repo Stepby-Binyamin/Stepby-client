@@ -117,24 +117,24 @@ const HomeProject = ({ style = {}, ...props }) => {
                         <ListItem
                            key={item._id}
                            status={item.status}
-                           // mainTitle={item.client.bizName}
+                           mainTitle={item.client.bizName}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                            link={`/project/biz/${item._id}`}
-                           linkState={{ temp: item }}
+                           linkState={{ temp: item , mode: userData && userData.permissions}}
                         />)
                   }{
                         dataToPrint && dataToPrint.doneStatus.map(item =>
                            <ListItem
                               key={item._id}
                               status={item.status}
-                              // mainTitle={item.client.bizName}
+                              mainTitle={item.client.bizName}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                               link={`/project/biz/${item._id}`}
-                              linkState={{ temp: item }}
+                              linkState={{ temp: item, mode: userData && userData.permissions }}
                            />)
                      }</>
                // )
