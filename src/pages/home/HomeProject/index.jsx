@@ -108,8 +108,8 @@ const HomeProject = ({ style = {}, ...props }) => {
       console.log(userData);
       userData?.permissions === "admin" ?
          drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />) :
-         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />)
-         // drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+         // drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />)
 
    }
    const openDrawer = () => {
