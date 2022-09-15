@@ -73,7 +73,7 @@ export default function Project({mode}) {
 
     useEffect(() => {
         header.setTitle(curr?.name)
-        mode !== "template" && header.setSubTitle(curr?.client.name)
+        mode !== "template" && header.setSubTitle(curr?.client?.fullName||(curr?.client?.firstName ,curr?.client?.lastName))
         mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) : header.setIsDots(true) && header.setIsArrow(true)
     }, [])
 
