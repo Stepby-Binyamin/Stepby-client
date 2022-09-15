@@ -94,7 +94,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       if (steps) {
          let y = steps.sort((a, b) => a.index - b.index)  //TODO fix sort
          let z = y.find(v => v.isApprove)
-         return z ? z.name : y[0].name
+         return z ? z.name : y.name
       }
       else { return "" }
    }
