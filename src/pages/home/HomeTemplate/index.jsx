@@ -70,7 +70,6 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
    }
-
    const printData = (d) => {
       console.log("printData:", d);
    }
@@ -87,12 +86,12 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
                dataToPrint && dataToPrint.map(item =>
                   <ListItem
-                     key={item._id}
-                     mainTitle={item.name}  
-                     secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}  
-                     secondaryTitleWeight={sortListBy === MY_TEMP ?
-                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : 
-                        `${item.creatorId.firstName} ${item.creatorId.lastName}`}
+                  key={item._id}
+                  mainTitle={item.name}  
+                  secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}  
+                  secondaryTitleWeight={sortListBy === MY_TEMP ?
+                     `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : 
+                     `${item.creatorId.firstName} ${item.creatorId.lastName}`}
                      link={`/template/${item._id}`}  
                      linkState={{temp: item, mode: "template"}}
                   />)

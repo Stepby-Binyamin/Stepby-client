@@ -29,15 +29,17 @@ export default function BusinessCategory() {
     if (userData.categories) {
       header.setIsArrow(false)
     }
+  console.log(userData?.categories);
   }, [])
 
   const goToNextPage = (newUser) => {
-    console.log(1234555, info);
-    apiCalls('put', '/user/edit-biz', { info: info }).then(res => {
+    console.log(1234555, ...info);
+    apiCalls('put', '/user/edit-biz', { categories: info }).then(res => {
       console.log(res);
       setUserData(res)
+      localStorage.user = JSON.stringify(res)
       newUser ? navigate('/projects')
-        : navigate(-1)
+        : navigate('/setting')
     }).catch(err => console.log(err))
 
   }
@@ -54,6 +56,6 @@ export default function BusinessCategory() {
     {/* //  {newUser? console.log("dd"):
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
 
-    <BtnSubmitIcon color='orange' icon={userData?.categories ? 'v to text.svg' : 'Arrow.svg'} func={() => goToNextPage(userData?.categories ? false : true)} />
+    <BtnSubmitIcon color='orange' icon={userData?.categories === [] ? 'Arrow.svg' : 'v to text.svg'} func={() => goToNextPage(userData?.categories === [] ? true : false)} />
   </>)
 }
