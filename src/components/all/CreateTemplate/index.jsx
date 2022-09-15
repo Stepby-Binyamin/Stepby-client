@@ -24,7 +24,7 @@ const CreateTemplate = ({ placeholder, iconSrc, createNewTemplate, ...props }) =
         console.log(data);
         createNewTemplate(data)
         drawer.setDrawer()
-        navigate('/template/1234')
+        // navigate('/template/1234')
 
 
     }

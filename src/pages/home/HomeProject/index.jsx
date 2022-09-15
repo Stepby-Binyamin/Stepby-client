@@ -87,6 +87,14 @@ const HomeProject = ({ style = {}, ...props }) => {
             'Content-Type': 'application/json'
          }, body: JSON.stringify(templateName)
       })
+
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
    }
 
    const createNewAdminTemplate = async (template) => {
@@ -100,6 +108,15 @@ const HomeProject = ({ style = {}, ...props }) => {
             'Content-Type': 'application/json'
          }, body: JSON.stringify(template)
       })
+
+      
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
    }
 
    const createTemp = () => {
@@ -114,7 +131,6 @@ const HomeProject = ({ style = {}, ...props }) => {
    const openDrawer = () => {
       console.log(userData?.permissions);
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-
    }
 
    const handleDirection = () => {
@@ -149,7 +165,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                         <ListItem
                            key={item._id}
                            status={item.status}
-                           mainTitle={item.client.bizName}
+                           mainTitle={item.client?.bizName}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
@@ -161,7 +177,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            <ListItem
                               key={item._id}
                               status={item.status}
-                              mainTitle={item.client.bizName}
+                              mainTitle={item.client?.bizName}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
