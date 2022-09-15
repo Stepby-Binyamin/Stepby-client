@@ -7,9 +7,9 @@ import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
-import axios from "axios"
+import apiCalls from '../../../functions/apiRequest'
 
-const TempSimpleAnswer = ({ data }) => {
+const TempSimpleAnswer = ({ data, step, project, id, stepId }) => {
     // console.log("dat00", data);
 
     const { drawer } = useContext(mainContext)
@@ -26,28 +26,27 @@ const TempSimpleAnswer = ({ data }) => {
         e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
     }
 
-    const handleSubmitAnswer = (e) => {
+    const handleSubmitAnswer = async () => {
         data = {
             ...data,
             type: "answer",
             owner: "client",
             title: question,
             isRequired: isRequired,
-            content: ""
+            content: "",
+            step,
+            project,
+            id,
+            stepId
         }
 
         // console.log(data);
 
-        axios({
-            method: "post",
-            // url: `http://localhost:5000/shaul/files/upload/`, //
-            data: data
-        })
-            .then((result) => {
-                console.log(result.data);
-                // setUploadLocation(result.data)
-            })
-            .catch((error) => console.log(error || "error"));
+        const formData = new FormData();
+        formData.append("objShortQuestion", JSON.stringify(data))
+
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        console.log("apiCalls result", result);
 
         drawer.setDrawer('')
     }
