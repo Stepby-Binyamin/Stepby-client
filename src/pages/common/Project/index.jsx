@@ -27,7 +27,6 @@ export default function Project({mode}) {
         apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
-
     function findTheOwner(curr) {
         // if (mode !== "template") {
             const result = curr.steps[indexFirst]?.isCreatorApprove
@@ -73,6 +72,17 @@ export default function Project({mode}) {
         const result = curr && curr.steps.find(step => step.isApprove === false)
         return result?.index
     }
+
+    function createNewProject(){
+        
+        apiCalls('post', `/project/createProject/${templateId}`)
+           .then(response => {
+              console.log("banana");
+           })
+           .catch(error => {
+              console.log(error)
+           });
+      }
 
     useEffect(() => {
         header.setTitle(curr && curr.name)
