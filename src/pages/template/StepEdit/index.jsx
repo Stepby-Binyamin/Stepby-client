@@ -20,25 +20,27 @@ const StepEdit = ({ style = {}, ...props }) => {
    const { header, drawer, language } = useContext(mainContext)
    const { state } = useLocation()
    const { stepId, templateId } = useParams()
-   const [stepData, setStepData] = useState(state&&state.step)
+   const [stepData, setStepData] = useState()
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
-
+console.log(state);
 
    useEffect(() => {
-      (state && state.step) ||
+      (state && state.step) ?
+      setStepData(state.step) :
       apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
       .then(response => {
          setStepData(response)
+         console.log(response);
          })
          .catch(error => {
             console.log(error)
          });
 
-         header.setTitle(stepData && stepData.name)
+         stepData && header.setTitle(stepData.name)
          if(state && state.tempName)
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
-         header.setSubTitle((state && state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
+         header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
          
          drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
       }, [])

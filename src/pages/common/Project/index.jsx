@@ -10,18 +10,20 @@ import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
 
-export default function Project() {
+export default function Project({ mode }) {
     const { templateId } = useParams()
     const { state } = useLocation()
     const { header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
-    const [curr, setCurr] = useState(state&& state.temp)
+    const [curr, setCurr] = useState( state.temp)
     const indexFirst = findTheNext(curr)
-    const mode = state && state.mode
+    // const mode = state && state.mode
+    console.log(state);
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
-        (state && state.temp) ||
+        (state && state.temp) ?
+        setCurr(state.temp) :
         apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
