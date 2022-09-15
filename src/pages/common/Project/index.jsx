@@ -10,12 +10,12 @@ import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
 
-export default function Project() {
+export default function Project({mode}) {
     const { templateId } = useParams()
     const { state } = useLocation()
     const { header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
-    const [curr, setCurr] = useState(state&& state.temp)
+    const [curr, setCurr] = useState(state && state.temp)
     const indexFirst = findTheNext(curr)
     const mode = state && state.mode
     // const owner = findTheOwner(curr)
@@ -25,16 +25,18 @@ export default function Project() {
         apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
-    console.log(curr);
-    function findTheOwner(curr) {
-        const result = curr.steps[indexFirst]?.isCreatorApprove
-        if (result) {
-            return curr.icjid
-        } else {
-            return "שלך"
-        }
-    }
 
+    function findTheOwner(curr) {
+        // if (mode !== "template") {
+            const result = curr.steps[indexFirst]?.isCreatorApprove
+            if (result) {
+                return "שלך"
+            } else {
+                return (curr?.client?.firstName ,curr?.client?.lastName)||curr?.client?.fullName
+            }
+        // }
+    }
+    console.log(curr);
     function upMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
@@ -65,8 +67,8 @@ export default function Project() {
     }
 
     function findTheNext(curr) {
-        curr&&curr.steps.sort((a, b) => a.index < b.index ? -1 : 1)
-        const result = curr&&curr.steps.find(step => step.isApprove === false)
+        curr && curr.steps.sort((a, b) => a.index < b.index ? -1 : 1)
+        const result = curr && curr.steps.find(step => step.isApprove === false)
         return result?.index
     }
 
@@ -86,7 +88,7 @@ export default function Project() {
                 {curr.steps?.map(step =>
                     <ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
-                        secondaryTitle={secondaryTitle(curr, step)}
+                        secondaryTitle={mode !== "template" && secondaryTitle(curr, step)}
                         mainTitle={step.name}
                         isFirstStep={step.index === 0 ? true : false}
                         key={step._id}
@@ -96,7 +98,7 @@ export default function Project() {
                         down={downMove}
                         id={step._id}
                         link={nav({ mode, curr, step })}
-                        linkState={{tempName:curr.name, step, stepId:step._id}}
+                        linkState={{ tempName: curr.name, step, stepId: step._id }}
 
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
