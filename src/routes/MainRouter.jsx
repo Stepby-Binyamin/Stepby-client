@@ -26,7 +26,7 @@ function MainRouter() {
             <Route path='/projects' element={<HomeProject />} />
             <Route path='/templates' element={<HomeTemplate />} />
 
-            <Route path='/template/:id'  >
+            <Route path='/template/:templateId'  >
                 <Route index element={<Project mode="template" />} />
                 <Route path='step/:stepId' element={<Step />} />
                 <Route path='edit-step/:stepId' element={<StepEdit />} />
@@ -34,7 +34,7 @@ function MainRouter() {
 
             <Route path='project'>
                 <Route path='biz'>
-                    <Route path=':id'  >
+                    <Route path=':templateId'  >
                         <Route index element={<Project mode="biz" />} />
                         <Route path='step/:stepId' element={<Step />} />
                         <Route path='edit-step/:stepId' element={<StepEdit />} />
@@ -43,7 +43,7 @@ function MainRouter() {
             </Route>
 
             <Route path='project/client'>
-                <Route path=':id'  >
+                <Route path=':templateId'  >
                     <Route index element={<Project mode="client" />} />
                     <Route path='step/:stepId' element={<Step />} />
                 </Route>

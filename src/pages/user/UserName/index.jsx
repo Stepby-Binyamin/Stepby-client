@@ -47,7 +47,7 @@ export default function UserName() {
       console.log(res);
       setUserData(res)
       newUser? navigate('/business-name')
-    : navigate(-1)
+    : navigate('/setting')
     }).catch(err=>console.log(err))
     
   }

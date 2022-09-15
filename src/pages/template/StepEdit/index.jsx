@@ -26,19 +26,19 @@ const StepEdit = ({ style = {}, ...props }) => {
 
 
    useEffect(() => {
-      if(!state.step)
-      apiCalls("get", `/getStepById/${templateId}/${stepId}`)
+      (state && state.step) ||
+      apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
       .then(response => {
-         setStepData(response.data)
-            console.log(stepData);
+         setStepData(response)
          })
          .catch(error => {
             console.log(error)
          });
-         header.setTitle(stepData.name)
-         if(state.tempName)
+
+         header.setTitle(stepData && stepData.name)
+         if(state && state.tempName)
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
-         header.setSubTitle((state && state.tempName) || JSON.parse(localStorage.tempName))
+         header.setSubTitle((state && state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
          
          drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
       }, [])
@@ -94,7 +94,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          </div>
 
-         {stepData && (stepData.data.length > 0 ?
+         {stepData && stepData.data && (stepData.data.length > 0 ?
             stepData.data.map(item =>
                <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :

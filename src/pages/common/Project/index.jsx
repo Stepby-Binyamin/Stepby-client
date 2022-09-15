@@ -10,18 +10,19 @@ import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
 
-export default function Project({ mode = "template" }) {
-    const { id } = useParams()
+export default function Project() {
+    const { templateId } = useParams()
     const { state } = useLocation()
     const { header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState(state&& state.temp)
     const indexFirst = findTheNext(curr)
+    const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
         (state && state.temp) ||
-        apiCalls("get", "/project/projectById/" + id)
+        apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
     console.log(curr);
@@ -35,14 +36,14 @@ export default function Project({ mode = "template" }) {
     }
 
     function upMove(step) {
-        apiCalls("put", "/template/downSteps/" + id, { "stepIndex": step.index - 1 })
+        apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
         console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
         return
     }
 
     function downMove(step) {
-        apiCalls("put", "/template/downSteps/" + id, { "stepIndex": step.index })
+        apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index })
             .then((result) => setCurr(result))
         console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
         return

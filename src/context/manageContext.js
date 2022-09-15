@@ -22,21 +22,21 @@ export const ContextProvider = ({ children }) => {
     const [DrawerContentHeader, setDrawerContentHeader] = useState();
     const localStorageLang = localStorage.language? JSON.parse(localStorage.language) : ""
     const [language, setLanguage] = useState(localStorageLang)
+
+    const lang = 0
     
-    const lang = 0 //hebrew code = 0 
     useEffect(() => {
-        
-    if(!localStorageLang)
-    apiCalls("get","/language/"+lang)
+        apiCalls("get", "/language/" + lang)
             .then(response => {
-               setLanguage(response.dict)
-               localStorage.setItem("language", JSON.stringify(response.dict))
+                console.log(response);
+                setLanguage(response.dict)
+                localStorage.language = JSON.stringify(response.dict)
             })
             .catch(error => {
-               console.log(error)
+                console.log(error)
             });
 
-   }, [])
+    }, [])
 
     return (
 
