@@ -24,9 +24,9 @@ const BExample2 = () => {
     const [isAnswer, setIsAnswer] = useState(false)
     const [uploadLocation, setUploadLocation] = useState()
 
-    const { id, stepId } = useParams()
+    const { templateId, stepId } = useParams()
 
-    // console.log("id",id);
+    // console.log("templateId",templateId);
     // console.log("stepId",stepId);
 
     const index = 1
@@ -62,14 +62,14 @@ const BExample2 = () => {
     }, [])
 
     function handleIMG() {
-        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={id} stepId={stepId}
+        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={templateId} stepId={stepId}
         // drawer.setDrawer(<TempPDF step={step} project={project}/>)
         drawer.setDrawer(<UploadedIMGView step={step} project={project}/>)
 
     }
 
     function handleFile() {
-        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={id} stepId={stepId}
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={templateId} stepId={stepId}
     }
 
     function handleAnswer() {
