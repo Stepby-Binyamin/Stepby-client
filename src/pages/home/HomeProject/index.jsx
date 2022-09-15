@@ -23,11 +23,11 @@ const HomeProject = ({ style = {}, ...props }) => {
    const { PROJECTS, TEMPLATES, ALL, MY_CARE, WAITING_CUSTOMER, LETS_GO, ICON, CALL_YOU } = language
    const { data } = useContext(dataContext)
    // data.projects=[]
+   const [data1, setData] = useState()
    const [dataState, setDataState] = useState(data.projects)
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    // const navigate = useNavigate()
-
    const bizCounter = data.projects && data.projects.filter(item => item.status === 'biz').length
    const clientCounter = data.projects && data.projects.filter(item => item.status === 'client').length
 
