@@ -5,10 +5,10 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 
-import axios from "axios"
+import apiCalls from "../../../functions/apiRequest"
 
 
-const TempPDF = ({ data }) => {
+const TempPDF = ({ data, step, project, id, stepId }) => {
     const { drawer } = useContext(mainContext)
 
     const [currentFile, setCurrentFile] = useState()
@@ -23,7 +23,7 @@ const TempPDF = ({ data }) => {
 
         if (typeArr !== "pdf") {
             setAlert("The file needs to be .pdf");
-            return 
+            return
         }
 
         if (file.size / 1024 / 1024 > 4) {
@@ -34,32 +34,25 @@ const TempPDF = ({ data }) => {
         setCurrentFile(file);
     }
 
-    const handleSubmitAnswer = () => {
-        data =  {
+    const handleSubmitAnswer = async () => {
+        data = {
             ...data,
-            type: "img",
+            type: "pdf",
             owner: "biz",
             title: question,
             isRequired: "",
-            content: ""
+            content: "",
+            step,
+            project,
+            id,
+            stepId
         }
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("data", JSON.stringify(data))
-// console.log("new_file", currentFile);
-// console.log("data", data);
+        formData.append("objShortQuestion", JSON.stringify(data))
 
-        axios({
-            method: "post",
-            url: `http://localhost:5000/shaul/files/upload/`,
-            data: formData
-
-        })
-            .then((result) => {
-                console.log(result.data.uploadLocation);
-                // setUploadLocation(result.data)
-            })
-            .catch((error) => console.log(error || "error"));
+        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        console.log("apiCalls result", result);
 
         drawer.setDrawer('')
     }
