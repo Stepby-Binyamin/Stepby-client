@@ -26,7 +26,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
 
    useEffect(() => {
-      if(!state.step)
+      (state && state.step) ||
       apiCalls("get", `/getStepById/${templateId}/${stepId}`)
       .then(response => {
          setStepData(response.data)
@@ -35,10 +35,11 @@ const StepEdit = ({ style = {}, ...props }) => {
          .catch(error => {
             console.log(error)
          });
-         header.setTitle(stepData.name)
-         if(state.tempName)
+         
+         header.setTitle(stepData && stepData.name)
+         if(state && state.tempName)
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
-         header.setSubTitle((state && state.tempName) || JSON.parse(localStorage.tempName))
+         header.setSubTitle((state && state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
          
          drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
       }, [])
