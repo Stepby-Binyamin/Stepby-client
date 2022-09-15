@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import styles from "./style.module.css"
 import { convertDate } from '../../../functions/convertDate'
 import mainContext from '../../../context/mainContext'
-import dataContext from '../../../context/dataContext'
 import NavLink from '../../../components/common/NavLink'
 import NavLinkTab from '../../../components/common/NavLinkTab'
 import ListItem from '../../../components/common/ListItem'
@@ -12,7 +11,6 @@ import CreateClient from '../../../components/all/CreateClient'
 import CreateProject from '../../../components/all/CreateProject'
 import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
-import userContext from '../../../context/userContext'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import apiCalls from '../../../functions/apiRequest'
 
@@ -25,16 +23,15 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
    const { header, drawer, language} = useContext(mainContext)
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = language
-   const { data } = useContext(dataContext)
-   const [dataState, setDataState] = useState(data.projects)  //temp created && used by doron
-   const [recomend, setRecomend] = useState(data.projects)     //temp created by admin under Doron’s business vertical
+   const [dataState, setDataState] = useState()  
+   const [recomend, setRecomend] = useState()   
    const [sortListBy, setSortListBy] = useState(MY_TEMP)
-   const navigate = useNavigate()
+   // const navigate = useNavigate()
 
    const filterTemp = dataState && dataState.filter(item => item.isTemplate)
    const dataToPrint = sortListBy === MY_TEMP ? filterTemp : recomend
 
-   const tempCounter = filterTemp.length
+   const tempCounter = filterTemp&&filterTemp.length
 
    useEffect(() => {
       header.setIsTitle(false)
@@ -42,17 +39,15 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
       apiCalls('get', '/template/templateByUser')
          .then(response => {
-            console.log(response)
-            setRecomend(response);
+            setDataState(response);
          })
          .catch(error => {
             console.log(error)
          });
          
          apiCalls('get', '/template/categoriesByUser')
-            .then(response => {
-               console.log(response)
-               setDataState(response);
+         .then(response => {
+            setRecomend(response);
             })
             .catch(error => {
                console.log(error)
@@ -65,7 +60,6 @@ const HomeTemplate = ({ style = {}, ...props }) => {
       drawer.setDrawer(<CreateClient />)
    }
    const createProject = () => {
-      // navigate('/home/templates')
       drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
@@ -95,11 +89,11 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                   <ListItem
                      key={item._id}
                      mainTitle={item.name}  
-                     secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}   // get user name
+                     secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}  
                      secondaryTitleWeight={sortListBy === MY_TEMP ?
-                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : //get correct duplication date}  
+                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : 
                         `${item.creatorId.firstName} ${item.creatorId.lastName}`}
-                     link={`/template/${item._id}`}  //path
+                     link={`/template/${item._id}`}  
                      linkState={{temp: item}}
                   />)
 
