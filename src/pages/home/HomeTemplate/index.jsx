@@ -31,7 +31,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    const filterTemp = dataState && dataState.filter(item => item.isTemplate)
    const dataToPrint = sortListBy === MY_TEMP ? filterTemp : recomend
 
-   const tempCounter = filterTemp.length
+   const tempCounter = filterTemp&&filterTemp.length
 
    useEffect(() => {
       header.setIsTitle(false)
