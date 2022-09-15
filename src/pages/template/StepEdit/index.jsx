@@ -27,7 +27,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
    useEffect(() => {
       (state && state.step) ||
-      apiCalls("get", `/getStepById/${templateId}/${stepId}`)
+      apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
       .then(response => {
          setStepData(response.data)
             console.log(stepData);
@@ -35,7 +35,7 @@ const StepEdit = ({ style = {}, ...props }) => {
          .catch(error => {
             console.log(error)
          });
-         
+
          header.setTitle(stepData && stepData.name)
          if(state && state.tempName)
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
