@@ -1,6 +1,6 @@
 import styles from "./style.module.css"
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 
 import StatusStep from "../../../components/all/StatusStep"
 import Answer from "../../../components/all/Answer"
@@ -27,9 +27,12 @@ const BExample2 = () => {
     const [uploadLocation, setUploadLocation] = useState()
     const [image, setImage] = useState()
 
-    const { id, stepId } = useParams()
+    const { templateId, stepId } = useParams()
+    const { state} = useLocation()
+    const projName = state && state.tempName
+    const stepp = state && state.step
 
-    // console.log("id",id);
+    // console.log("templateId",templateId);
     // console.log("stepId",stepId);
 
     const index = 1
@@ -85,6 +88,7 @@ const BExample2 = () => {
 
     function handleIMG() {
         // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
+
         // drawer.setDrawer(<TempPDF step={step} project={project}/>)
         // drawer.setDrawer(<UploadedIMGView step={step} project={project} />)
 
@@ -109,6 +113,7 @@ const BExample2 = () => {
 
     function handleFile() {
         drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
+
     }
 
     function handleAnswer() {

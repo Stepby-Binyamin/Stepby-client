@@ -11,7 +11,7 @@ import { categories } from '../../../data/fakeProjects'
 
 
 
-const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
+const CreateTemplateGeneral = ({ placeholder, createNewAdminTemplate, ...props }) => {
 
     const { header, drawer, language} = useContext(mainContext)
     let navigate = useNavigate();
@@ -39,8 +39,8 @@ const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
     const btnSubmitTextHandler = () => {
         console.log("createTamplateGeneral:", data);
         drawer.setDrawer()
-        printData(data)
-        navigate('/template/1234')
+        createNewAdminTemplate(data)
+        // navigate('/template/1234')
 
     }
 
@@ -62,7 +62,7 @@ const CreateTemplateGeneral = ({ placeholder, printData, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"NewTemplate"} />
+            <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"templateName"} />
 
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>

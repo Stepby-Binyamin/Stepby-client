@@ -14,7 +14,9 @@ import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import UiDirectionText from '../../../components/all/UiDirectionText'
+import userContext from "../../../context/userContext"
 import apiCalls from '../../../functions/apiRequest'
+
 
 
 const HomeProject = ({ style = {}, ...props }) => {
@@ -24,6 +26,8 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [dataState, setDataState] = useState()
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
+   const { userData, setUserData } = useContext(userContext)
+   // const navigate = useNavigate()
 
 
    const bizCounter = dataState && dataState.filter(item => item.status === 'biz').length
@@ -54,7 +58,6 @@ const HomeProject = ({ style = {}, ...props }) => {
 
       apiCalls('get', '/project/projectByUser')
          .then(response => {
-            console.log(response)
             setDataState(response);
          })
          .catch(error => {
@@ -67,26 +70,78 @@ const HomeProject = ({ style = {}, ...props }) => {
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
    }
+
    const createProject = () => {
       drawer.setDrawer(<CreateProject />)
    }
+
+   const createNewTemplate = async (templateName) => {
+      console.log(templateName);
+      // apiCalls("post", "http://localhost:5000/template/createTemplate", { templateName })
+      // api calls not working  but fetch does
+
+      await fetch("http://localhost:5000/template/createTemplate", {
+         method: "POST",
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         }, body: JSON.stringify(templateName)
+      })
+
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
+   }
+
+   const createNewAdminTemplate = async (template) => {
+      console.log(template);
+      // apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", { templateName })
+
+      await fetch("http://localhost:5000/template/createTemplateAdmin", {
+         method: "POST",
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+         }, body: JSON.stringify(template)
+      })
+
+      
+      apiCalls('get', '/project/projectByUser')
+         .then(response => {
+            setDataState(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
+   }
+
    const createTemp = () => {
       // navigate('/template')
-      drawer.setDrawer(<CreateTemplate />)
-      // drawer.setDrawer(<CreateTemplateGeneral />)  // if admin
+      console.log(userData);
+      userData?.permissions === "admin" ?
+         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />) :
+         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+         // drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />)
+
    }
    const openDrawer = () => {
+      console.log(userData?.permissions);
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
    }
+
    const handleDirection = () => {
       setSortDirection(!sortDirection)
    }
 
    function findCurrentStep(steps) {
       if (steps) {
-         let y = steps.sort((a, b) => a.index - b.index)  //TODO fix sort
+         let y = steps.sort((a, b) => a.index < b.index ? -1 : 1)  //TODO fix sort
          let z = y.find(v => v.isApprove)
-         return z ? z.name : y[0].name
+         return z ? z.name : y.name
       }
       else { return "" }
    }
@@ -110,30 +165,31 @@ const HomeProject = ({ style = {}, ...props }) => {
                         <ListItem
                            key={item._id}
                            status={item.status}
-                           // mainTitle={item.client.bizName}
+                           mainTitle={item.client?.bizName}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                            link={`/project/biz/${item._id}`}
-                           linkState={{ proj: item }}
+                           linkState={{ temp: item , mode: 'biz'}}
                         />)
                   }{
                         dataToPrint && dataToPrint.doneStatus.map(item =>
                            <ListItem
                               key={item._id}
                               status={item.status}
-                              // mainTitle={item.client.bizName}
+                              mainTitle={item.client?.bizName}
                               secondaryTitle={item.name}
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                               link={`/project/biz/${item._id}`}
-                              linkState={{ proj: item }}
+                              linkState={{ temp: item, mode: 'biz' }}
                            />)
                      }</>
                // )
             }
          </ul>
-         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, { color: "gray", icon: "+", func: openDrawer }]} />
+         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, {
+            color: "gray", icon: "+", func: openDrawer  }]} />
       </div>
    )
 }

@@ -8,7 +8,7 @@ import mainContext from '../../../context/mainContext'
 
 
 
-const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
+const CreateTemplate = ({ placeholder, iconSrc, createNewTemplate, ...props }) => {
 
     const { header, drawer, language } = useContext(mainContext)
     let navigate = useNavigate();
@@ -19,12 +19,12 @@ const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
         const fd = new FormData(e.target)
 
         const data = {
-            newTamplate: fd.get("newTamplate", e.target.newTamplate.value)
+            templateName: fd.get("templateName", e.target.templateName.value)
         }
         console.log(data);
-        printData(data)
+        createNewTemplate(data)
         drawer.setDrawer()
-        navigate('/template/1234')
+        // navigate('/template/1234')
 
 
     }
@@ -32,7 +32,7 @@ const CreateTemplate = ({ placeholder, iconSrc, printData, ...props }) => {
     return (
         <div className={styles.container}>
             <form on onSubmit={(e) => collect(e)}>
-                <Keyboard placeholder={language.TEMPLATES_NAME} name="newTamplate" />
+                <Keyboard placeholder={language.TEMPLATES_NAME} name="templateName" />
                 <div className={styles.text}>{language.TEMPLATES_TEXT}</div>
 
                 <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.SAVE} icon={"v to text.svg"} /> </div>
