@@ -1,6 +1,6 @@
 import styles from "./style.module.css"
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 
 import StatusStep from "../../../components/all/StatusStep"
 import Answer from "../../../components/all/Answer"
@@ -19,29 +19,31 @@ import TempIMG from "../../../components/common/TempIMG"
 import TempPDF from "../../../components/common/TempPDF"
 import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
+import axios from "axios"
+
 const BExample2 = () => {
     const [isUploaded, setIsUploaded] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
     const [uploadLocation, setUploadLocation] = useState()
+    const [image, setImage] = useState()
 
     const { templateId, stepId } = useParams()
+    const { state} = useLocation()
+    const projName = state && state.tempName
+    const stepp = state && state.step
 
     // console.log("templateId",templateId);
     // console.log("stepId",stepId);
 
     const index = 1
     const _id = '14'
-    const step = 1
-    const project = 'projectNameShaulAttie1'
+    const client = "solyattie"
+    const project = 'fisrtProject'
+    const step = "1"
 
-    const data = {
-        _id: "1234test",
-        type: "file",
-        owner: "client",
-        title: "pergunta teste",
-        isRequired: true,
-        content: ""
-    }
+    // const fileName = "answerName.txt"
+    const fileName = "Tour_Eiffel.jpg"
+    // const fileName = "lesson.pdf"
 
     const findProject = projects.projects.find(project => project._id === _id)
     const findStep = findProject.steps.find(step => step.index === index)
@@ -61,22 +63,64 @@ const BExample2 = () => {
         findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
 
-    function handleIMG() {
-        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={templateId} stepId={stepId}
-        // drawer.setDrawer(<TempPDF step={step} project={project}/>)
-        drawer.setDrawer(<UploadedIMGView step={step} project={project}/>)
-
+    const handlePDF = () => {
+        axios({
+            url: "http://localhost:5000/files/download",
+            method: "POST",
+            responseType: "blob",  // important
+            data: {
+                // This is the body part
+                client: "solyattie",
+                projectName: "fisrtProject",
+                stepNum: "1",
+                fileName: fileName,
+            },
+        }).then((response) => {
+            console.log("response.data", response.headers["content-type"]);
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: response.headers["content-type"] }));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", fileName);
+            document.body.appendChild(link);
+            link.click();
+        });
     }
 
+    function handleIMG() {
+        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
+
+        // drawer.setDrawer(<TempPDF step={step} project={project}/>)
+        // drawer.setDrawer(<UploadedIMGView step={step} project={project} />)
+
+        axios({
+            url: "http://localhost:5000/files/showImg",
+            method: "POST",
+            data: {
+                // This is the body part
+                client: "solyattie",
+                projectName: "fisrtProject",
+                stepNum: "1",
+                fileName: fileName,
+            },
+        }).then((img) => {
+            // console.log(img);
+            setImage(`data:image/jpeg;base64,${img.data}`)
+        })
+    }
+
+
+
+
     function handleFile() {
-        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} step={step} project={project} />); //id={templateId} stepId={stepId}
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
+
     }
 
     function handleAnswer() {
-        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} step={step} project={project} />);
+        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step} />);
     }
 
-    // console.log(uploadLocation);
+    console.log(image);
 
     return (
         <div className={styles.page}>
@@ -87,6 +131,11 @@ const BExample2 = () => {
             <div className={styles.title}>{findStep.name}</div>
             <div className={styles.text}>{findStep.des}</div>
 
+            {image &&
+                <div className={styles.downImg}>
+                    <img src={image} alt="base64 test" />
+                </div>
+            }
 
             <div className={styles.pdf} >
                 {findStep.data.map((data, index) => {
@@ -99,15 +148,14 @@ const BExample2 = () => {
                                 onClick={handleIMG}
                             />
                         case "pdf":
-                            return <a href={Pdf} target="_blank">
-                                <Answer src="/images/icon-btns/filePDF.svg"
-                                    key={data.title}
-                                    // onClick={handlePDF}
-                                    title={data.title}
-                                    p={data.content}
-                                    isTitleFirst={true}
-                                    isAdmin={false}
-                                /></a>
+                            return <Answer src="/images/icon-btns/filePDF.svg"
+                                key={data.title}
+                                onClick={handlePDF}
+                                title={data.title}
+                                p={data.content}
+                                isTitleFirst={true}
+                                isAdmin={false}
+                            />
 
 
                         case "file":

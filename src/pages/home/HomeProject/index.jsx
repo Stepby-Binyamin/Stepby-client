@@ -131,7 +131,6 @@ const HomeProject = ({ style = {}, ...props }) => {
    const openDrawer = () => {
       console.log(userData?.permissions);
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-
    }
 
    const handleDirection = () => {

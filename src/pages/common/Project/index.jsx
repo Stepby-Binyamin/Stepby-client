@@ -17,13 +17,14 @@ export default function Project({mode}) {
     const { state } = useLocation()
     const { drawer ,header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
-    const [curr, setCurr] = useState(state && state.temp)
+    const [curr, setCurr] = useState()
     const indexFirst = findTheNext(curr)
     // const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
     useEffect(() => {
-        (state && state.temp) ||
+        (state && state.temp) ?
+        setCurr(state.temp) :
         apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
@@ -85,8 +86,9 @@ export default function Project({mode}) {
       }
 
     useEffect(() => {
-        header.setTitle(curr && curr.name)
-        mode !== "template" && header.setSubTitle(curr&& curr.client.clientName)
+        header.setTitle(curr?.name)
+        mode !== "template" && header.setSubTitle(curr?.client?.fullName||(curr?.client?.firstName ,curr?.client?.lastName))
+
         mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) : header.setIsDots(true) && header.setIsArrow(true)
     }, [])
 
@@ -125,7 +127,7 @@ export default function Project({mode}) {
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
                 {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+",  func: () => { console.log("Hello") }, link: '' }]} />}
             </div>
         }

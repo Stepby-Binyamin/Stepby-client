@@ -24,6 +24,8 @@ import BExample1 from '../../pages/project/BExample1'
 import BExample2 from '../../pages/project/BExample2'
 import CreateTemplateGeneral from '../../components/all/CreateTemplateGeneral'
 
+import axios from 'axios'
+
 export default function Shaul() {
 
    //BtnCheckBox - how to set <BtnCheckBox /> example - dont DELETE IT
@@ -44,9 +46,36 @@ export default function Shaul() {
    //    const result = data.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
    //    setData(result)
    // }
-
-
    const { header, drawer } = useContext(mainContext)
+
+   // const fileName = "answerName.txt"
+   const fileName = "Tour_Eiffel.jpg"
+   // const fileName = "lesson.pdf"
+
+   const onClickFile = async () => {
+      axios({
+         url: "http://localhost:5000/files/download",
+         method: "POST",
+         responseType: "blob",  // important
+         data: {
+            // This is the body part
+            client: "solyattie",
+            projectName: "fisrtProject",
+            stepNum: "1",
+            fileName: fileName,
+            //  name: v.name,
+            //  dir: v.dir,
+         },
+      }).then((response) => {
+         console.log("response.data", response.headers["content-type"]);
+         const url = window.URL.createObjectURL(new Blob([response.data], { type: response.headers["content-type"] }));
+         const link = document.createElement("a");
+         link.href = url;
+         link.setAttribute("download", fileName);
+         document.body.appendChild(link);
+         link.click();
+      });
+   };
 
 
    // useEffect(() => {
@@ -82,6 +111,8 @@ export default function Shaul() {
          {/* <UploadPicture /> */}
          {/* <UploadClientAnswer /> */}
          {/* <CreateTemplateGeneral/> */}
+         <button onClick={onClickFile}> click</button>
+
       </>
    )
 }
