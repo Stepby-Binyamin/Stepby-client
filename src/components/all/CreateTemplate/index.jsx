@@ -21,7 +21,6 @@ const CreateTemplate = ({ placeholder, iconSrc, createNewTemplate, ...props }) =
         const data = {
             templateName: fd.get("templateName", e.target.templateName.value)
         }
-        console.log(data);
         createNewTemplate(data)
         drawer.setDrawer()
         // navigate('/template/1234')

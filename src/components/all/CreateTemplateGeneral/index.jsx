@@ -11,7 +11,7 @@ import { categories } from '../../../data/fakeProjects'
 
 
 
-const CreateTemplateGeneral = ({ placeholder, createNewAdminTemplate, ...props }) => {
+const CreateTemplateGeneral = ({ placeholder, NewAdminTemplate, ...props }) => {
 
     const { header, drawer, language} = useContext(mainContext)
     let navigate = useNavigate();
@@ -39,7 +39,8 @@ const CreateTemplateGeneral = ({ placeholder, createNewAdminTemplate, ...props }
     const btnSubmitTextHandler = () => {
         console.log("createTamplateGeneral:", data);
         drawer.setDrawer()
-        createNewAdminTemplate(data)
+        // console.log(typeof NewAdminTemplate);
+        NewAdminTemplate(data)
         // navigate('/template/1234')
 
     }
