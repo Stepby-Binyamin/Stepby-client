@@ -31,11 +31,10 @@ export default function BusinessName() {
 
 
     const handleClick = (newUser) => {
-        console.log(1234555,bizName);
         apiCalls('put', '/user/edit-biz', {bizName:bizName}).then(res=>{
           console.log(res);
           setUserData(res)
-          localStorage.user = JSON.stringify(res)
+          if(typeof res === 'object') localStorage.user = JSON.stringify(res)
           newUser? navigate('/business-category')
         : navigate('/setting')
         }).catch(err=>console.log(err))

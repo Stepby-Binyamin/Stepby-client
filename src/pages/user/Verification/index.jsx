@@ -38,6 +38,7 @@ export default function Verification() {
         console.log(1234, res)
         if(res.categories){
           setUserData(res) 
+          localStorage.user = JSON.stringify(res)
            navigate('/projects')
         } 
       })
