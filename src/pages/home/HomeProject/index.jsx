@@ -124,10 +124,9 @@ const HomeProject = ({ style = {}, ...props }) => {
       // navigate('/template')
       console.log(userData);
       userData?.permissions === "admin" ?
-         // drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />) :
-         <></>:
-         drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />)
-         // drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+         drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />) :
+         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+         // drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />)
 
    }
    const openDrawer = () => {
