@@ -19,7 +19,7 @@ const StepBasics = ({ fetchData, stepName, isCreatorApprove, des, style = {}, ..
    
 
    const onChangeHandler = (event) => {
-      const name = event.target.name;
+      let name = event.target.name;
       const value = event.target.value;
       setData(values => ({ ...values, [name]: value }));
    }

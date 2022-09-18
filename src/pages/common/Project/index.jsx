@@ -95,13 +95,14 @@ export default function Project({mode}) {
     curr&& curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
     
     const onClickPlus = ()=>{
-        drawer.setDrawer(<StepBasics fetchData={fetchData} />);
+        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchData={fetchData} />);
     }
 
     function fetchData(data){
         console.log(data);
+        const dataToServer = {stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true: false }
         console.log(templateId);
-        // apiCalls("put", "/template/newStep/" + templateId, data);
+        apiCalls("put", "/template/newStep/" + templateId, dataToServer);
     }
 
     return (<>

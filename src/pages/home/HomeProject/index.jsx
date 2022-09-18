@@ -83,6 +83,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       await fetch("http://localhost:5000/template/createTemplate", {
          method: "POST",
          headers: {
+   
             'Accept': 'application/json',
             'Content-Type': 'application/json'
          }, body: JSON.stringify(templateName)
