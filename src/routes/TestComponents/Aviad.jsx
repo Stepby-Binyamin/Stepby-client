@@ -23,7 +23,7 @@ export default function Aviad() {
             setToken(res.token)
             setUserData(res.user)
             localStorage.user = JSON.stringify(res.user)
-            localStorage.token = JSON.stringify(res.token)
+            localStorage.token = res.token
             navigate('/projects')
          })
          .catch(error => {
