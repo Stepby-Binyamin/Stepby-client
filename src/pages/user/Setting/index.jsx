@@ -21,7 +21,10 @@ const Setting = ({ style = {}, ...props }) => {
     const { userData, setUserData } = useContext(userContext)
   
 
-    let interests = "".concat(userData.categories)//.replaceAll(',',' ')
+    let interests = []
+    userData?.categories.map(cat=>interests.push(cat.categoryName))
+    interests = interests.toString().replaceAll(',', ', ')
+    console.log(interests);
 
     const logof = () => {
         setUserData({})

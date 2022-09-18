@@ -36,7 +36,8 @@ export default function Verification() {
     await apiCalls("post", "/user/send-code", { phoneNumber: location.state })
       .then((res) => {
         console.log(1234, res)
-        if(res.categories){
+        // if(res.categories !== []){
+        if(res.firstName){
           setUserData(res) 
           localStorage.user = JSON.stringify(res)
            navigate('/projects')

@@ -17,7 +17,7 @@ export default function BusinessCategory() {
   const getCategories = async()=>{
     await apiCalls('get', '/user/get-all-categories')
     .then(res=>{
-      console.log(res);
+      console.log(1234, res);
       setCategories(res)
     }).catch(err=>console.log('my error: ', err))
   }
@@ -27,7 +27,7 @@ export default function BusinessCategory() {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     setLanguage(JSON.parse(localStorage.language))
-    if (userData.categories) {
+    if (!userData.categories) {
       header.setIsArrow(false)
     }
   console.log(userData?.categories);
@@ -35,7 +35,7 @@ export default function BusinessCategory() {
 
   const goToNextPage = (newUser) => {
     let body = []
-    categories.map(cat=> cat.isActive === true ? body.push(cat.title) : null)
+    categories.map(cat=> cat.isActive === true ? body.push(cat) : null)
     console.log(1997, body);
     apiCalls('put', '/user/edit-biz', { categories: body }).then(res => {
       console.log(res);
@@ -51,7 +51,7 @@ export default function BusinessCategory() {
     console.log(categories);
     const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
     setCategories(result)
-
+    console.log(1234, categories);
   }
 
   return (<>
