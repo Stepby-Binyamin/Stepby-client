@@ -98,9 +98,10 @@ const HomeProject = ({ style = {}, ...props }) => {
          });
    }
 
-   const createNewAdminTemplate = async (template) => {
+   async function NewAdminTemplate(template)  {
       console.log(template);
-      // apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", { templateName })
+      // apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", { template })
+      // api calls not working  but fetch does
 
       await fetch("http://localhost:5000/template/createTemplateAdmin", {
          method: "POST",
@@ -124,9 +125,9 @@ const HomeProject = ({ style = {}, ...props }) => {
       // navigate('/template')
       console.log(userData);
       userData?.permissions === "admin" ?
-         drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />) :
+         drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />) :
          drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
-         // drawer.setDrawer(<CreateTemplateGeneral createNewAdminTemplate={createNewAdminTemplate} />)
+         // drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />)
 
    }
    const openDrawer = () => {
