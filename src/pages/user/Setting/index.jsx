@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./style.module.css"
-import FakeData from "../../../data/fakeProjects"
 import LiComp from './liComponnet'
 import BtnIcon from "../../../components/common/BtnIcon"
 import { useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import { useContext } from 'react'
-import { users } from "../../../data/fakeProjects";
+import { setToken } from '../../../functions/apiRequest'
 
 
 
@@ -17,28 +16,19 @@ const Setting = ({ style = {}, ...props }) => {
     useEffect(() => {
         setLanguage(JSON.parse(localStorage.language))
     },[])
-    console.log(FakeData.projects[0])
     const navigate = useNavigate()
     //  TODO: add real data from context
     const { userData, setUserData } = useContext(userContext)
-    const user = { user: users[0], token: "1234567890" } //ימחק בהמשך 
-    // const user = userData //יהיה במקום השורה שמעל 
+  
 
-    let interests = user.user.interest?.map(e => e.name).join()
-
-    // const user = {
-    //     firstName: "דורון",
-    //     lastName: "מאיר",
-    //     bizName: "דורון מאיר דיגיטל",
-    //     interest: ["בניית אתרים ", "שיווק דיגיטלי"]
-    // }
-    // let interests = user.interest.join()
+    let interests = "".concat(userData.categories)//.replaceAll(',',' ')
 
     const logof = () => {
-        navigate("/login")
         setUserData({})
-        localStorage.loginDate=""
-        localStorage.userToken=""
+        localStorage.user=""
+        localStorage.token=""
+        setToken('')
+        navigate("/login")
         console.log("logout")
     }
 
@@ -46,15 +36,15 @@ const Setting = ({ style = {}, ...props }) => {
         <div className={styles.Name} style={style} {...props} >
             <div>
                 <ul>
-                    <li >
-                        <LiComp header={language.FIRST_AND_LAST_NAME} subTitle={user.user.firstName + " " + user.user.lastName}
+                    <li>
+                        <LiComp header={language.FIRST_AND_LAST_NAME} subTitle={userData.firstName + " " + userData.lastName}
                             link="/user-name" />
                     </li>
                     <li>
-                        <LiComp header={language.BUSINESS_NAME} subTitle={user.user.bizName} link="/business-name" />
+                        <LiComp header={language.BUSINESS_NAME} subTitle={userData.bizName} link="/business-name" />
                     </li>
                     <li>
-                        <LiComp header={language.AREAS_PRACTICE} subTitle={interests} link="/business-category" />
+                        <LiComp header={`${language.AREAS_PRACTICE} ${userData.bizName}`} subTitle={interests} link="/business-category" />
                     </li>
                 </ul>
             </div>
