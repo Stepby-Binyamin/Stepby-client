@@ -8,7 +8,7 @@ import mainContext from "../../../context/mainContext"
 
 import apiCalls from '../../../functions/apiRequest'
 
-const UploadCShortAnswer = ({ setIsAnswer, step, project, id, stepId }) => {
+const UploadCShortAnswer = ({ setIsAnswer, client, project, step, id, stepId }) => {
 
     const { drawer, language } = useContext(mainContext)
 
@@ -16,10 +16,9 @@ const UploadCShortAnswer = ({ setIsAnswer, step, project, id, stepId }) => {
 
     const handleSubmitAnswer = async () => {
         const formData = new FormData();
+        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, client: client, projectName: project, stepNum: step, date: new Date() })) //id={id} stepId={stepId}
 
-        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() }))//id={id} stepId={stepId}
-
-        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        const result = await apiCalls('post', '/files/uploadanswer/', formData)
         console.log("apiCalls result", result);
 
 

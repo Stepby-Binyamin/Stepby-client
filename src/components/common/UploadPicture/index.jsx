@@ -11,7 +11,7 @@ import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
 
-const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project, id, stepId }) => {
+const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step, id, stepId }) => {
     const { drawer, language } = useContext(mainContext)
 
     const [description, setDescription] = useState()
@@ -45,9 +45,9 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, step, project, id, st
 
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, project: project, step: step, date: new Date() })) //id={id} stepId={stepId}
+        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, client: client, projectName: project, stepNum: step, date: new Date() })) //id={id} stepId={stepId}
 
-        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        const result = await apiCalls('post', '/files/uploadfile/', formData)
         console.log("apiCalls result", result);
 
         currentFile && setIsUploaded(true)

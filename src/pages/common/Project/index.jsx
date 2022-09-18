@@ -28,7 +28,6 @@ export default function Project({mode}) {
         apiCalls("get", "/project/projectById/" + templateId)
             .then((result) => setCurr(result))
     }, [])
-
     function findTheOwner(curr) {
         // if (mode !== "template") {
             const result = curr.steps[indexFirst]?.isCreatorApprove
