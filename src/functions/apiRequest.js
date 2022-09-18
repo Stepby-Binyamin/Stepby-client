@@ -11,7 +11,9 @@ export const setToken = (token)=>{
 const apiCalls = async (method, url, data) => {
     try{
         const res = await axios({
-            headers:localStorage.token? `Bearer ${localStorage.token}`: '',
+            headers: {
+                'Authorization': localStorage.token? `Bearer ${localStorage.token}`: '' 
+              },
             method,
             url,
             data
