@@ -31,6 +31,8 @@ export default function BusinessCategory() {
       header.setIsArrow(false)
     }
   console.log(userData?.categories);
+  getTrueCategories()
+  console.log(categories);
   }, [])
 
   const goToNextPage = (newUser) => {
@@ -47,8 +49,15 @@ export default function BusinessCategory() {
 
   }
 
+  function getTrueCategories(){
+    const categoryName = userData?.categories.map(cat=>cat.categoryName)
+    console.log(categoryName);
+   const result = categoryName.map(nam=> categories.map(cat=>cat.categoryName === nam? ({...cat, isActive: true}): cat))
+  //  const result1 = categories.map(cat=> categoryName.map(nam=>cat.categoryName === nam? ({...cat, isActive: true}): cat))
+   console.log(result);
+  }
+
   const handleClick = (name) => {
-    console.log(categories);
     const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
     setCategories(result)
     console.log(1234, categories);
@@ -56,7 +65,7 @@ export default function BusinessCategory() {
 
   return (<>
     <div className={styles.title}><UserTitle text1={`${userData?.firstName}, ${language.AREAS_PRACTICE} ${userData?.bizName}?`} /></div>
-    {categories?.map(elem => <div className={styles.buttons} key={elem.title + "abc"}><BtnCheckBox name={elem.categoryName} id={elem.categoryName} key={elem.categoryName} handleClick={handleClick} isActive={elem.isActive} /></div>)}
+    {categories?.map(elem => <div className={styles.buttons} key={Math.random().toString()}><BtnCheckBox name={elem.categoryName} id={elem.categoryName} key={elem.categoryName} handleClick={handleClick} isActive={elem.isActive} /></div>)}
     {/* במידה וזה משתמש חדש צריך למשוך לו את הקטגוריות הדיפולטיביות מהדאטא בייס. אם זה משתמש קיים אז למשוך לו מהפרטי יוזר */}
     {/* //  {newUser? console.log("dd"):
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
