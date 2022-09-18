@@ -30,8 +30,6 @@ export default function BusinessCategory() {
     if (userData.categories) {
       header.setIsArrow(false)
     }
-    setCategories(categories.map(cat=>({ ...cat, isActive: false })))
-    // categories.map(cat=> cat.isActive = false)
   console.log(userData?.categories);
   }, [])
 
@@ -51,15 +49,14 @@ export default function BusinessCategory() {
 
   const handleClick = (name) => {
     console.log(categories);
-
-    const result = categories.map(elem => elem.title === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+    const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
     setCategories(result)
 
   }
 
   return (<>
     <div className={styles.title}><UserTitle text1={`${userData?.firstName}, ${language.AREAS_PRACTICE} ${userData?.bizName}?`} /></div>
-    {categories?.map(elem => <div className={styles.buttons} key={elem.title + "abc"}><BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} /></div>)}
+    {categories?.map(elem => <div className={styles.buttons} key={elem.title + "abc"}><BtnCheckBox name={elem.categoryName} id={elem.categoryName} key={elem.categoryName} handleClick={handleClick} isActive={elem.isActive} /></div>)}
     {/* במידה וזה משתמש חדש צריך למשוך לו את הקטגוריות הדיפולטיביות מהדאטא בייס. אם זה משתמש קיים אז למשוך לו מהפרטי יוזר */}
     {/* //  {newUser? console.log("dd"):
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
