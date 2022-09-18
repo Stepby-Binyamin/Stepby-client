@@ -77,17 +77,7 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const createNewTemplate = async (templateName) => {
       console.log(templateName);
-      // apiCalls("post", "http://localhost:5000/template/createTemplate", { templateName })
-      // api calls not working  but fetch does
-
-      await fetch("http://localhost:5000/template/createTemplate", {
-         method: "POST",
-         headers: {
-   
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-         }, body: JSON.stringify(templateName)
-      })
+      apiCalls("post", "http://localhost:5000/template/createTemplate",  templateName )
 
       apiCalls('get', '/project/projectByUser')
          .then(response => {
