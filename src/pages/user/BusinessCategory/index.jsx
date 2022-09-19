@@ -12,14 +12,16 @@ export default function BusinessCategory() {
 
   const [language, setLanguage] = useState(JSON.parse(localStorage.language)),
     { header } = useContext(mainContext),
+    [allCategories, setAllCategories] = useState([]),
     { userData, setUserData } = useContext(userContext),
-    [categories, setCategories] = useState([]),    navigate = useNavigate();
-  const getCategories = async()=>{
+    [categories, setCategories] = useState([]),
+    navigate = useNavigate();
+  const getCategories = async () => {
     await apiCalls('get', '/user/get-all-categories')
-    .then(res=>{
-      console.log(1234, res);
-      setCategories(res)
-    }).catch(err=>console.log('my error: ', err))
+      .then( res => {
+        console.log(1234, res);
+        setAllCategories(res)
+      }).catch(err => console.log('my error: ', err))
   }
 
   useEffect(() => {
@@ -30,34 +32,59 @@ export default function BusinessCategory() {
     if (!userData.categories) {
       header.setIsArrow(false)
     }
-  console.log(userData?.categories);
-  getTrueCategories()
-  console.log(categories);
+    console.log(userData?.categories);
+    console.log(categories);
   }, [])
+
+
+
+ 
+  useEffect( () => {
+    getTrueCategories()
+  }, [allCategories])
+
+
+  useEffect(() => {
+    console.log('abx ', categories);
+  }, [categories])
 
   const goToNextPage = (newUser) => {
     let body = []
-    categories.map(cat=> cat.isActive === true ? body.push(cat) : null)
+    categories.map(cat => cat.isActive === true ? body.push(cat) : null)
     console.log(1997, body);
     apiCalls('put', '/user/edit-biz', { categories: body }).then(res => {
       console.log(res);
       setUserData(res)
-      if(typeof res === 'object') localStorage.user = JSON.stringify(res)
+      if (typeof res === 'object') localStorage.user = JSON.stringify(res)
       newUser ? navigate('/projects')
         : navigate('/setting')
     }).catch(err => console.log(err))
 
   }
 
-  function getTrueCategories(){
-    const categoryName = userData?.categories.map(cat=>cat.categoryName)
-    console.log(categoryName);
-   const result = categoryName.map(nam=> categories.map(cat=>cat.categoryName === nam? ({...cat, isActive: true}): cat))
-  //  const result1 = categories.map(cat=> categoryName.map(nam=>cat.categoryName === nam? ({...cat, isActive: true}): cat))
-   console.log(result);
+  function getTrueCategories() {
+    if(userData?.categories === []) return
+    userData.categories = userData.categories.map(cat => ({...cat, isActive:true}))
+    console.log('categ', userData.categories);
+    // console.log(12345678, categoryName);
+    let tempCategories = allCategories
+    let result = []
+    for (let userCat of userData?.categories) {
+      result = tempCategories.map(cat =>{
+        console.log('cat ',cat);
+        console.log('user ', userCat)
+        console.log('all ', result)
+        return cat._id === userCat._id ?({ ...cat, isActive: true }) : cat
+      })
+      tempCategories = result
+      // console.log(12, catName, 34, userCategories);
+    }
+    setCategories(result)
+    console.log('res ',result);
   }
 
   const handleClick = (name) => {
+    console.log('abx ', categories);
     const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
     setCategories(result)
     console.log(1234, categories);
@@ -65,7 +92,7 @@ export default function BusinessCategory() {
 
   return (<>
     <div className={styles.title}><UserTitle text1={`${userData?.firstName}, ${language.AREAS_PRACTICE} ${userData?.bizName}?`} /></div>
-    {categories?.map(elem => <div className={styles.buttons} key={Math.random().toString()}><BtnCheckBox name={elem.categoryName} id={elem.categoryName} key={elem.categoryName} handleClick={handleClick} isActive={elem.isActive} /></div>)}
+      {categories?.map(elem => <div className={styles.buttons} key={Math.random().toString()}><BtnCheckBox name={elem.categoryName} id={elem.categoryName} key={elem.categoryName} handleClick={handleClick} isActive={elem.isActive} /></div>)}
     {/* במידה וזה משתמש חדש צריך למשוך לו את הקטגוריות הדיפולטיביות מהדאטא בייס. אם זה משתמש קיים אז למשוך לו מהפרטי יוזר */}
     {/* //  {newUser? console.log("dd"):
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
