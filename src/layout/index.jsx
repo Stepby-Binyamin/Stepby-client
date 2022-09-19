@@ -13,7 +13,7 @@ import Splash from "../pages/Splash/splash"
 import MainDrawer from '../drawer/MainDrawer';
 
 
-const Layout = ({ children }) => {
+const Layout = () => {
 
    const [showSplash, setShowSplash] = useState(true)
 
@@ -24,8 +24,7 @@ const Layout = ({ children }) => {
    }, [])
 
 
-   const { header, drawer } = useContext(mainContext);
-   // const { projectsData } = useContext(dataContext);
+   const { header } = useContext(mainContext);
 
    return (
       showSplash ? <Splash /> : (
@@ -34,10 +33,9 @@ const Layout = ({ children }) => {
                <HeaderTitle isArrow={header.isArrow} isHamburguer={header.isHamburguer} title={header.title} subTitle={header.subTitle} DrawerContentHeader={header.DrawerContentHeader} /> :
                <HeaderLogo />}
             <Main />
-            <MainDrawer>{drawer.drawer}</MainDrawer>
+            <MainDrawer />
          </>)
    )
-
 }
 
 export default Layout
