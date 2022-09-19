@@ -20,6 +20,7 @@ import TempPDF from "../../../components/common/TempPDF"
 import UploadedIMGView from "../../../components/common/UploadedIMGView"
 
 import axios from "axios"
+import apiCalls from "../../../functions/apiRequest"
 
 const BExample2 = () => {
     const [isUploaded, setIsUploaded] = useState(false)
@@ -91,21 +92,31 @@ const BExample2 = () => {
 
         // drawer.setDrawer(<TempPDF step={step} project={project}/>)
         // drawer.setDrawer(<UploadedIMGView step={step} project={project} />)
+        const data = {
+            // This is the body part
+            client: "solyattie",
+            projectName: "fisrtProject",
+            stepNum: "1",
+            fileName: fileName,
+        }
+        apiCalls('post','/files/showImg',data)
+        .then((img)=>setImage(`data:image/jpeg;base64,${img}`))
+        .catch((err)=>console.log(err))
 
-        axios({
-            url: "http://localhost:5000/files/showImg",
-            method: "POST",
-            data: {
-                // This is the body part
-                client: "solyattie",
-                projectName: "fisrtProject",
-                stepNum: "1",
-                fileName: fileName,
-            },
-        }).then((img) => {
-            // console.log(img);
-            setImage(`data:image/jpeg;base64,${img.data}`)
-        })
+        // axios({
+        //     url: "http://localhost:5000/files/showImg",
+        //     method: "POST",
+        //     data: {
+        //         // This is the body part
+        //         client: "solyattie",
+        //         projectName: "fisrtProject",
+        //         stepNum: "1",
+        //         fileName: fileName,
+        //     },
+        // }).then((img) => {
+        //     // console.log(img);
+        //     setImage(`data:image/jpeg;base64,${img.data}`)
+        // })
     }
 
 
