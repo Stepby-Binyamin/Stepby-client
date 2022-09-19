@@ -10,7 +10,7 @@ export const setToken = (token) => {
 
 const apiCalls = async (method, url, data) => {
 
-    console.log("api call", method, url, data);
+    console.log(" +++  \n api call - send ", method, url, data);
     try {
         const res = await axios({
             headers: {
@@ -21,13 +21,13 @@ const apiCalls = async (method, url, data) => {
             data
         })
 
-        console.log("api call res", res.data);
+        console.log(" +++  \n api call - res", res.data);
         return res.data
     }
 
     catch (error) {
 
-        console.log("api call error", error);
+        console.log(" +++  \n api call - error", error);
         throw error
     }
 }
