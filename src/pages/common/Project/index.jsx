@@ -12,10 +12,10 @@ import apiCalls from "../../../functions/apiRequest"
 import StepBasics from "../../../components/all/StepBasics"
 
 
-export default function Project({mode}) {
+export default function Project({ mode }) {
     const { templateId } = useParams()
     const { state } = useLocation()
-    const { drawer ,header, language = {} } = useContext(mainContext)
+    const { drawer, header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState()
     const indexFirst = findTheNext(curr)
@@ -24,18 +24,47 @@ export default function Project({mode}) {
 
     useEffect(() => {
         (state && state.temp) ?
-        setCurr(state.temp) :
-        apiCalls("get", "/project/projectById/" + templateId)
-            .then((result) => setCurr(result))
+            setCurr(state.temp) :
+            apiCalls("get", "/project/projectById/" + templateId)
+                .then((result) => setCurr(result))
     }, [])
+
+    useEffect(() => {
+        header.setIsTitle(true)
+        header.setTitle(curr?.name)
+
+        switch (mode) {
+            case "template":
+                // TODO setDrawerContentHeader
+                break;
+
+            case "client":
+                header.setIsArrow(false)
+                header.setIsDots(false)
+                header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
+                // TODO setDrawerContentHeader
+                break;
+
+            case "biz":
+                header.setIsDots(true)
+                header.setIsArrow(true)
+                header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
+                // TODO setDrawerContentHeader
+                break;
+
+            default:
+                break;
+        }
+    }, [curr])
+
     function findTheOwner(curr) {
         // if (mode !== "template") {
-            const result = curr.steps[indexFirst]?.isCreatorApprove
-            if (result) {
-                return "שלך"
-            } else {
-                return (curr?.client?.firstName ,curr?.client?.lastName)||curr?.client?.fullName
-            }
+        const result = curr.steps[indexFirst]?.isCreatorApprove
+        if (result) {
+            return "שלך"
+        } else {
+            return (curr?.client?.firstName, curr?.client?.lastName) || curr?.client?.fullName
+        }
         // }
     }
     console.log(curr);
@@ -74,33 +103,27 @@ export default function Project({mode}) {
         return result?.index
     }
 
-    function createNewProject(){
-        
+    function createNewProject() {
+
         apiCalls('post', `/project/createProject/${templateId}`)
-           .then(response => {
-              console.log("banana");
-           })
-           .catch(error => {
-              console.log(error)
-           });
-      }
+            .then(response => {
+                console.log("banana");
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
 
-    useEffect(() => {
-        header.setTitle(curr?.name)
-        mode !== "template" && header.setSubTitle(curr?.client?.fullName||(curr?.client?.firstName ,curr?.client?.lastName))
 
-        mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) : header.setIsDots(true) && header.setIsArrow(true)
-    }, [])
+    curr && curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
 
-    curr&& curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
-    
-    const onClickPlus = ()=>{
+    const onClickPlus = () => {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchData={fetchData} />);
     }
 
-    function fetchData(data){
+    function fetchData(data) {
         console.log(data);
-        const dataToServer = {stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true: false }
+        const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
         console.log(templateId);
         apiCalls("put", "/template/newStep/" + templateId, dataToServer);
     }
@@ -129,7 +152,7 @@ export default function Project({mode}) {
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
                 {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+",  func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
             </div>
         }
     </>)
