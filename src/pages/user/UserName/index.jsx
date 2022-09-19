@@ -19,8 +19,8 @@ export default function UserName() {
 
   const { header } = useContext(mainContext)
   const navigate = useNavigate(),
-  [language, setLanguage] = useState(JSON.parse(localStorage.language)),
-  [data, setData] = useState({})
+    [language, setLanguage] = useState(JSON.parse(localStorage.language)),
+    [data, setData] = useState({})
 
   useEffect(() => {
     header.setIsTitle(false)
@@ -42,15 +42,14 @@ export default function UserName() {
   }
 
   const handleClick = (newUser) => {
-    console.log(1234555,data);
-    apiCalls('put', '/user/edit-biz', data).then(res=>{
-      console.log(res);
+    console.log(1234555, data);
+    apiCalls('put', '/user/edit-biz', data).then(res => {
       setUserData(res)
-      if(typeof res === 'object') localStorage.user = JSON.stringify(res)
-      newUser? navigate('/business-name')
-    : navigate('/setting')
-    }).catch(err=>console.log(err))
-    
+      if (typeof res === 'object') localStorage.user = JSON.stringify(res)
+      newUser ? navigate('/business-name')
+        : navigate('/setting')
+    }).catch(err => console.log(err))
+
   }
 
   return (
@@ -64,7 +63,7 @@ export default function UserName() {
         {!userData?.email && <Input onChange={saveData} type='email' name='email' placeholder={language.EMAIL} />}
       </div>
       <div className={styles.btn}>
-      <BtnSubmitIcon color='orange' icon={userData?.email? 'v to text.svg' : 'Arrow.svg'} func={()=>handleClick(userData?.email ? false : true)} />
+        <BtnSubmitIcon color='orange' icon={userData?.email ? 'v to text.svg' : 'Arrow.svg'} func={() => handleClick(userData?.email ? false : true)} />
       </div>
     </div>
   )
