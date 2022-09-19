@@ -7,7 +7,7 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
 
-const StepBasics = ({ fetchData, stepName, isCreatorApprove, des, style = {}, ...props }) => {
+const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, des, style = {}, ...props }) => {
 
    const { drawer, language } = useContext(mainContext)
 
@@ -26,12 +26,12 @@ const StepBasics = ({ fetchData, stepName, isCreatorApprove, des, style = {}, ..
    const btnSubmitAndCreateHandler = () => {
       document.querySelector("#keyboard").value = "";
       document.querySelector("#subKeyboard").value = "";
-      fetchData(data);
+      fetchDataFunc(data);
 
       console.log("Submint And Create");
    }
    const btnSubmitHandler = () => {
-      fetchData(data);
+      fetchDataFunc(data);
       console.log("Submit");
       drawer.setDrawer();
    }
