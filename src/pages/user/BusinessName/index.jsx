@@ -31,15 +31,17 @@ export default function BusinessName() {
 
 
     const handleClick = (newUser) => {
-        apiCalls('put', '/user/edit-biz', {bizName:bizName}).then(res=>{
-          console.log(res);
-          setUserData(res)
-          if(typeof res === 'object') localStorage.user = JSON.stringify(res)
-          newUser? navigate('/business-category')
-        : navigate('/setting')
-        }).catch(err=>console.log(err))
-        
-      }
+        apiCalls('put', '/user/edit-biz', { bizName: bizName }).then(res => {
+            console.log('/user/edit-biz',res);
+            //adding apicall to create client's biz folder - shaul
+            apiCalls("post", "/files/createbiz", res)
+            setUserData(res)
+            if (typeof res === 'object') localStorage.user = JSON.stringify(res)
+            newUser ? navigate('/business-category')
+                : navigate('/setting')
+        }).catch(err => console.log(err))
+
+    }
 
 
     return (
@@ -51,7 +53,7 @@ export default function BusinessName() {
                 <Input autoFocus type='text' onChange={handleChange} placeholder={!userData?.bizName ? language.YOUR_BUSINESS_NAME : ''} defaultValue={userData?.bizName ? userData?.bizName : ''} />
             </div>
             <div className={styles.btn}>
-            <BtnSubmitIcon color='orange' icon={userData?.bizName? 'v to text.svg' : 'Arrow.svg'} func={()=>handleClick(userData?.bizName ? false : true)} />
+                <BtnSubmitIcon color='orange' icon={userData?.bizName ? 'v to text.svg' : 'Arrow.svg'} func={() => handleClick(userData?.bizName ? false : true)} />
             </div>
         </div>
     )
