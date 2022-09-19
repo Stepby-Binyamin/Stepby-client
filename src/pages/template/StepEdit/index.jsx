@@ -23,7 +23,8 @@ const StepEdit = ({ style = {}, ...props }) => {
    const [stepData, setStepData] = useState()
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
-console.log(state);
+// console.log(state);
+console.log('stepData:', stepData);
 
    useEffect(() => {
       (state && state.step) ?
@@ -62,7 +63,7 @@ console.log(state);
 
    const openDrawer = (e) => {
       e.target.id === "display" ?
-         drawer.setDrawer(<StepBasics fetchDataFunc={editStep} stepName={stepData.name} isCreatorApprove={stepData.isCreatorApprove} des={stepData.des} />) :
+         drawer.setDrawer(<StepBasics fetchDataFunc={editStep} stepName={stepData.name} isCreatorApprove={stepData.isCreatorApprove} description={stepData.description} />) :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
 
@@ -95,7 +96,7 @@ console.log(state);
             <div className={styles.raw2} >
                <img src='/images/icons/textPrewIcon.svg' alt="" />
                <div className={styles.desContainer} >
-                  <div className={styles.desText}>{stepData && stepData.des}</div>
+                  <div className={styles.desText}>{stepData && stepData.description}</div>
                   <div className={styles.displayAll} onClick={(e) => openDrawer(e)} id="display">{DISPLAY_ALL}</div>
                </div>
             </div>

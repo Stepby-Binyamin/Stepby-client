@@ -29,11 +29,11 @@ export default function BusinessCategory() {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     setLanguage(JSON.parse(localStorage.language))
-    if (!userData.categories) {
+    if (userData.categories.length <= 0) {
       header.setIsArrow(false)
+    }else{
+      header.setIsArrow(true)
     }
-    console.log(userData?.categories);
-    console.log(categories);
   }, [])
 
 
@@ -43,15 +43,9 @@ export default function BusinessCategory() {
     getTrueCategories()
   }, [allCategories])
 
-
-  useEffect(() => {
-    console.log('abx ', categories);
-  }, [categories])
-
   const goToNextPage = (newUser) => {
     let body = []
     categories.map(cat => cat.isActive === true ? body.push(cat) : null)
-    console.log(1997, body);
     apiCalls('put', '/user/edit-biz', { categories: body }).then(res => {
       console.log(res);
       setUserData(res)
@@ -63,31 +57,25 @@ export default function BusinessCategory() {
   }
 
   function getTrueCategories() {
-    if(userData?.categories === []) return
-    userData.categories = userData.categories.map(cat => ({...cat, isActive:true}))
-    console.log('categ', userData.categories);
-    // console.log(12345678, categoryName);
+    console.log('us ',userData?.categories);
+    if(userData?.categories.length <= 0){
+      setCategories(allCategories)
+    }else{
     let tempCategories = allCategories
     let result = []
     for (let userCat of userData?.categories) {
       result = tempCategories.map(cat =>{
-        console.log('cat ',cat);
-        console.log('user ', userCat)
-        console.log('all ', result)
         return cat._id === userCat._id ?({ ...cat, isActive: true }) : cat
       })
       tempCategories = result
-      // console.log(12, catName, 34, userCategories);
     }
     setCategories(result)
-    console.log('res ',result);
+  }
   }
 
   const handleClick = (name) => {
-    console.log('abx ', categories);
     const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
     setCategories(result)
-    console.log(1234, categories);
   }
 
   return (<>
@@ -97,6 +85,6 @@ export default function BusinessCategory() {
     {/* //  {newUser? console.log("dd"):
   {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
 
-    <BtnSubmitIcon color='orange' icon={userData?.categories === [] ? 'Arrow.svg' : 'v to text.svg'} func={() => goToNextPage(userData?.categories === [] ? true : false)} />
+    <BtnSubmitIcon color='orange' icon={userData?.categories.length <= 0 ? 'Arrow.svg' : 'v to text.svg'} func={() => goToNextPage(userData?.categories.length <= 0 ? true : false)} />
   </>)
 }
