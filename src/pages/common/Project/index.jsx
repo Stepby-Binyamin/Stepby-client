@@ -22,6 +22,8 @@ export default function Project({ mode }) {
     // const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
+    console.log("project / template page", curr);
+
     useEffect(() => {
         (state && state.temp) ?
             setCurr(state.temp) :
@@ -32,7 +34,7 @@ export default function Project({ mode }) {
     useEffect(() => {
         header.setIsTitle(true)
         header.setTitle(curr?.name)
-
+        // TODO יש צורך בלהגדיר את הdrawers לפי המצב
         switch (mode) {
             case "template":
                 // TODO setDrawerContentHeader
@@ -58,7 +60,7 @@ export default function Project({ mode }) {
     }, [curr])
 
     function findTheOwner(curr) {
-        // if (mode !== "template") {
+        // if (mode !== "template") { // TODO - התנאי נצרך או לא???
         const result = curr.steps[indexFirst]?.isCreatorApprove
         if (result) {
             return "שלך"
@@ -67,22 +69,24 @@ export default function Project({ mode }) {
         }
         // }
     }
-    console.log(curr);
+
+
     function upMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
         console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
-        return
+        return // למה צריך להחזיר ריק?
     }
 
     function downMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index })
             .then((result) => setCurr(result))
         console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
-        return
+        return // למה צריך להחזיר ריק?
     }
 
     function secondaryTitle(curr, step) {
+        //TODO אם ה ? : מתחיל להיות לא מובן לעבור לתנאי רגיל 
         return step.isApprove === true ? COMPLET : indexFirst === step.index && `בטיפול ${findTheOwner(curr)}`
     }
 
@@ -107,7 +111,7 @@ export default function Project({ mode }) {
 
         apiCalls('post', `/project/createProject/${templateId}`)
             .then(response => {
-                console.log("banana");
+                console.log("banana"); // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
             })
             .catch(error => {
                 console.log(error)
@@ -125,7 +129,7 @@ export default function Project({ mode }) {
         console.log(data);
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
         console.log(templateId);
-        apiCalls("put", "/template/newStep/" + templateId, dataToServer);
+        apiCalls("put", "/template/newStep/" + templateId, dataToServer); //TODO - then , אנחנו צריכים לעדכן את הדף לפי הנתונים שחוזרים ולתפוס שגיאות // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
     }
 
     return (<>
