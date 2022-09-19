@@ -1,29 +1,35 @@
 import axios from "axios"
 
-axios.defaults.baseURL = "http://localhost:5000" 
+axios.defaults.baseURL = "http://localhost:5000"
 
-export const setToken = (token)=>{
+export const setToken = (token) => {
     // when you do logout pass the parameter as an empty string
-    axios.defaults.headers.common['Authorization'] =  `Bearer ${token}` //AUTH_TOKEN
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}` //AUTH_TOKEN
 }
 
 
 const apiCalls = async (method, url, data) => {
-    try{
+
+    console.log(" +++  \n api call - send ", method, url, data);
+    try {
         const res = await axios({
             headers: {
-                'Authorization': localStorage.token? `Bearer ${localStorage.token}`: '' 
-              },
+                'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
+            },
             method,
             url,
             data
         })
+
+        console.log(" +++  \n api call - res", res.data);
         return res.data
-        }
-    
-        catch(error) {
-            throw error
-        }
+    }
+
+    catch (error) {
+
+        console.log(" +++  \n api call - error", error);
+        throw error
+    }
 }
 
 export default apiCalls

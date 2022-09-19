@@ -77,7 +77,7 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const createNewTemplate = async (templateName) => {
       console.log(templateName);
-      apiCalls("post", "http://localhost:5000/template/createTemplate", templateName)
+      apiCalls("post", "http://localhost:5000/template/createTemplate", templateName) // TODO - catch errors
 
       apiCalls('get', '/project/projectByUser')
          .then(response => {
@@ -90,82 +90,62 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const NewAdminTemplate = async (template) => {
       console.log(template);
-   // apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", { template })
-   // api calls not working  but fetch does
+      apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", template)
+         .then(() => {
+            apiCalls('get', '/project/projectByUser')
+               .then(response => {
+                  setDataState(response);
+               })
+               .catch(error => {
+                  console.log(error)
+               })
+         })
 
-   await fetch("http://localhost:5000/template/createTemplateAdmin", {
-      method: "POST",
-      headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json'
-      }, body: JSON.stringify(template)
-   })
-
-
-   apiCalls('get', '/project/projectByUser')
-      .then(response => {
-         setDataState(response);
-      })
-      .catch(error => {
-         console.log(error)
-      });
-}
-
-const createTemp = () => {
-   // navigate('/template')
-   console.log(userData);
-   userData?.permissions === "admin" ?
-      drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />) :
-      drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
-   // drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />)
-
-}
-const openDrawer = () => {
-   console.log(userData?.permissions);
-   drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
-}
-
-const handleDirection = () => {
-   setSortDirection(!sortDirection)
-}
-
-function findCurrentStep(steps) {
-   if (steps) {
-      let y = steps.sort((a, b) => a.index < b.index ? -1 : 1)  //TODO fix sort
-      let z = y.find(v => v.isApprove)
-      return z ? z.name : y.name
    }
-   else { return "" }
-}
 
-return (
-   <div className={styles.HomeProject} style={style} {...props} >
+   const createTemp = () => {
+      // navigate('/template')
+      console.log(userData);
+      userData?.permissions === "admin" ?
+         drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />) :
+         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} />)
+      // drawer.setDrawer(<CreateTemplateGeneral NewAdminTemplate={NewAdminTemplate} />)
 
-      <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
-      <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter2={bizCounter} counter3={clientCounter} />
+   }
+   const openDrawer = () => {
+      console.log(userData?.permissions);
+      drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
+   }
 
-      <ul className={styles.list}>
-         {
-            // !dataState ? <div>loading...</div> : 
-            // (
-            dataState && dataState.length === 0 ?
+   const handleDirection = () => {
+      setSortDirection(!sortDirection)
+   }
 
-               <UiDirectionText mainTitle={LETS_GO} text1={ICON} text2={CALL_YOU} />
-               :
-               <>{
-                  dataToPrint && dataToPrint.activeStatus.map(item =>
-                     <ListItem
-                        key={item._id}
-                        status={item.status}
-                        mainTitle={item.client?.bizName}
-                        secondaryTitle={item.name}
-                        sconderyBoldTitle={findCurrentStep(item.steps)}
-                        time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
-                        link={`/project/biz/${item._id}`}
-                        linkState={{ temp: item, mode: 'biz' }}
-                     />)
-               }{
-                     dataToPrint && dataToPrint.doneStatus.map(item =>
+   function findCurrentStep(steps) {
+      if (steps) {
+         let y = steps.sort((a, b) => a.index < b.index ? -1 : 1)  //TODO fix sort
+         let z = y.find(v => v.isApprove)
+         return z ? z.name : y.name
+      }
+      else { return "" }
+   }
+
+   return (
+      <div className={styles.HomeProject} style={style} {...props} >
+
+         <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
+         <NavLinkTab state={sortListBy} setState={setsortListBy} firstText={ALL} secondText={MY_CARE} thirdText={WAITING_CUSTOMER} counter2={bizCounter} counter3={clientCounter} />
+
+         <ul className={styles.list}>
+            {
+               // !dataState ? <div>loading...</div> : 
+               // (
+               dataState && dataState.length === 0 ?
+
+                  <UiDirectionText mainTitle={LETS_GO} text1={ICON} text2={CALL_YOU} />
+                  :
+                  <>{
+                     dataToPrint && dataToPrint.activeStatus.map(item =>
                         <ListItem
                            key={item._id}
                            status={item.status}
@@ -176,15 +156,27 @@ return (
                            link={`/project/biz/${item._id}`}
                            linkState={{ temp: item, mode: 'biz' }}
                         />)
-                  }</>
-            // )
-         }
-      </ul>
-      <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, {
-         color: "gray", icon: "+", func: openDrawer
-      }]} />
-   </div>
-)
+                  }{
+                        dataToPrint && dataToPrint.doneStatus.map(item =>
+                           <ListItem
+                              key={item._id}
+                              status={item.status}
+                              mainTitle={item.client?.bizName}
+                              secondaryTitle={item.name}
+                              sconderyBoldTitle={findCurrentStep(item.steps)}
+                              time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
+                              link={`/project/biz/${item._id}`}
+                              linkState={{ temp: item, mode: 'biz' }}
+                           />)
+                     }</>
+               // )
+            }
+         </ul>
+         <BtnHolder buttons={[{ color: "lite", icon: sortDirection ? "1to2" : "2to1", func: handleDirection }, {
+            color: "gray", icon: "+", func: openDrawer
+         }]} />
+      </div>
+   )
 }
 
 export default HomeProject

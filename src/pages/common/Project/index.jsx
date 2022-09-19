@@ -12,52 +12,87 @@ import apiCalls from "../../../functions/apiRequest"
 import StepBasics from "../../../components/all/StepBasics"
 
 
-export default function Project({mode}) {
+export default function Project({ mode }) {
     const { templateId } = useParams()
     const { state } = useLocation()
-    const { drawer ,header, language = {} } = useContext(mainContext)
+    const { drawer, header, language = {} } = useContext(mainContext)
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState()
     const indexFirst = findTheNext(curr)
+    const [stepAdded, setStepAdded] = useState();
     // const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
+    console.log("project / template page", curr);
+
     useEffect(() => {
+        console.log("useEffect was excecuted!");
         (state && state.temp) ?
-        setCurr(state.temp) :
-        apiCalls("get", "/project/projectById/" + templateId)
-            .then((result) => setCurr(result))
+            setCurr(state.temp) :
+            apiCalls("get", "/project/projectById/" + templateId)
+                .then((result) => setCurr(result))
     }, [])
+
+    useEffect(() => {
+        header.setIsTitle(true)
+        header.setTitle(curr?.name)
+        // TODO יש צורך בלהגדיר את הdrawers לפי המצב
+        switch (mode) {
+            case "template":
+                // TODO setDrawerContentHeader
+                break;
+
+            case "client":
+                header.setIsArrow(false)
+                header.setIsDots(false)
+                header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
+                // TODO setDrawerContentHeader
+                break;
+
+            case "biz":
+                header.setIsDots(true)
+                header.setIsArrow(true)
+                header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
+                // TODO setDrawerContentHeader
+                break;
+
+            default:
+                break;
+        }
+    }, [curr])
+
     function findTheOwner(curr) {
-        // if (mode !== "template") {
-            const result = curr.steps[indexFirst]?.isCreatorApprove
-            if (result) {
-                return "שלך"
-            } else {
-                return (curr?.client?.firstName ,curr?.client?.lastName)||curr?.client?.fullName
-            }
+        // if (mode !== "template") { // TODO - התנאי נצרך או לא???
+        const result = curr.steps[indexFirst]?.isCreatorApprove
+        if (result) {
+            return "שלך"
+        } else {
+            return (curr?.client?.firstName, curr?.client?.lastName) || curr?.client?.fullName
+        }
         // }
     }
-    console.log(curr);
+
     function upMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
         console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
-        return
+        return // למה צריך להחזיר ריק?
     }
 
     function downMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index })
             .then((result) => setCurr(result))
         console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
-        return
+        return // למה צריך להחזיר ריק?
     }
 
     function secondaryTitle(curr, step) {
+        //TODO אם ה ? : מתחיל להיות לא מובן לעבור לתנאי רגיל 
         return step.isApprove === true ? COMPLET : indexFirst === step.index && `בטיפול ${findTheOwner(curr)}`
     }
 
     function nav({ mode, curr, step }) {
+        // console.log('mode: ', mode, 'curr: ', curr, 'step: ', step);
         if (mode === "client")
             return `/project/client/${curr._id}/step/${step._id}`
 
@@ -74,35 +109,33 @@ export default function Project({mode}) {
         return result?.index
     }
 
-    function createNewProject(){
-        
+
+    function createNewProject() {
+            drawer.setDrawer(<b1>Michal</b1>)
         apiCalls('post', `/project/createProject/${templateId}`)
-           .then(response => {
-              console.log("banana");
-           })
-           .catch(error => {
-              console.log(error)
-           });
-      }
-
-    useEffect(() => {
-        header.setTitle(curr?.name)
-        mode !== "template" && header.setSubTitle(curr?.client?.fullName||(curr?.client?.firstName ,curr?.client?.lastName))
-
-        mode === "client" ? header.setIsArrow(false) && header.setIsDots(false) : header.setIsDots(true) && header.setIsArrow(true)
-    }, [])
-
-    curr&& curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
-    
-    const onClickPlus = ()=>{
-        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchData={fetchData} />);
+            .then(response => {
+                console.log("banana"); // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
 
-    function fetchData(data){
+
+    curr && curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
+
+    const onClickPlus = () => {
+        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
+    }
+
+    function newStep(data) {
         console.log(data);
-        const dataToServer = {stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true: false }
+        const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
         console.log(templateId);
-        apiCalls("put", "/template/newStep/" + templateId, dataToServer);
+       const response = apiCalls("put", "/template/newStep/" + templateId, dataToServer); //TODO - then , אנחנו צריכים לעדכן את הדף לפי הנתונים שחוזרים ולתפוס שגיאות // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
+       setStepAdded(response);
+       console.log(curr);
+
     }
 
     return (<>
@@ -128,8 +161,9 @@ export default function Project({mode}) {
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: onClickPlus , link: '' }]} />}
                 {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+",  func: () => { console.log("Hello") }, link: '' }]} />}
+
             </div>
         }
     </>)
