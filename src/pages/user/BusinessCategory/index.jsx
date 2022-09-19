@@ -19,7 +19,6 @@ export default function BusinessCategory() {
   const getCategories = async () => {
     await apiCalls('get', '/user/get-all-categories')
       .then( res => {
-        console.log(1234, res);
         setAllCategories(res)
       }).catch(err => console.log('my error: ', err))
   }
@@ -29,11 +28,8 @@ export default function BusinessCategory() {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     setLanguage(JSON.parse(localStorage.language))
-    if (userData.categories.length <= 0) {
-      header.setIsArrow(false)
-    }else{
-      header.setIsArrow(true)
-    }
+   userData.categories.length <= 0 ? header.setIsArrow(false) : header.setIsArrow(true)
+    
   }, [])
 
 
@@ -47,7 +43,6 @@ export default function BusinessCategory() {
     let body = []
     categories.map(cat => cat.isActive === true ? body.push(cat) : null)
     apiCalls('put', '/user/edit-biz', { categories: body }).then(res => {
-      console.log(res);
       setUserData(res)
       if (typeof res === 'object') localStorage.user = JSON.stringify(res)
       newUser ? navigate('/projects')
@@ -57,7 +52,6 @@ export default function BusinessCategory() {
   }
 
   function getTrueCategories() {
-    console.log('us ',userData?.categories);
     if(userData?.categories.length <= 0){
       setCategories(allCategories)
     }else{
@@ -75,6 +69,7 @@ export default function BusinessCategory() {
 
   const handleClick = (name) => {
     const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+    console.log(result)
     setCategories(result)
   }
 
