@@ -55,12 +55,14 @@ console.log(state);
             break;
          case 'answer': drawer.setDrawer(<TempSimpleAnswer data={data} />);
             break;
+            default: 
+            break;
       }
    }
 
    const openDrawer = (e) => {
       e.target.id === "display" ?
-         drawer.setDrawer(<StepBasics stepName={stepData.name} isCreatorApprove={stepData.isCreatorApprove} des={stepData.des} />) :
+         drawer.setDrawer(<StepBasics fetchDataFunc={editStep} stepName={stepData.name} isCreatorApprove={stepData.isCreatorApprove} des={stepData.des} />) :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
 
@@ -68,6 +70,10 @@ console.log(state);
       navigate(`/template/${templateId}/step/${stepData._id}`, { state:{ stepData, stepId: stepData._id, tempId: templateId } })
    }
 
+   const editStep = (data) => {
+      console.log('stepData: ', stepData);
+      console.log("data: ", data);
+   }
 
    return (
       <div className={styles.StepEdit} style={style} {...props} >
@@ -75,19 +81,19 @@ console.log(state);
          <div className={styles.preView} >
 
             <div className={styles.raw1} >
-               <img src='/images/icons/incareMan.svg' />
+               <img src='/images/icons/incareMan.svg' alt="" />
                <div className={styles.inTreatTitle}>{TREATMENT}</div>
                <div className={styles.inTreatBox} >
                   {stepData && stepData.isCreatorApprove ?      
-                     <img src='/images/icons/triangleOrange.svg' /> :
-                     <img src='/images/icons/circleOrange.svg' />
+                     <img src='/images/icons/triangleOrange.svg' alt="" /> :
+                     <img src='/images/icons/circleOrange.svg' alt = ""/>
                   }
                   <div className={styles.inTreatOf} >{stepData && stepData.isCreatorApprove ? MY : CUSTOMER}</div>
                </div>
             </div>
 
             <div className={styles.raw2} >
-               <img src='/images/icons/textPrewIcon.svg' />
+               <img src='/images/icons/textPrewIcon.svg' alt="" />
                <div className={styles.desContainer} >
                   <div className={styles.desText}>{stepData && stepData.des}</div>
                   <div className={styles.displayAll} onClick={(e) => openDrawer(e)} id="display">{DISPLAY_ALL}</div>
