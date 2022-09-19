@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import mainContext from "../context/mainContext";
 import styles from "./style.module.css";
 
-export default function MainDrawer({ children }) {
+export default function MainDrawer() {
   const { drawer } = useContext(mainContext);
   const [touchStart, setTouchStart] = useState(0);
   const [swipe, setSwipe] = useState(true);
