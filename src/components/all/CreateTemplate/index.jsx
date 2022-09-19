@@ -30,7 +30,7 @@ const CreateTemplate = ({ placeholder, iconSrc, createNewTemplate, ...props }) =
 
     return (
         <div className={styles.container}>
-            <form on onSubmit={(e) => collect(e)}>
+            <form onSubmit={(e) => collect(e)}>
                 <Keyboard placeholder={language.TEMPLATES_NAME} name="templateName" />
                 <div className={styles.text}>{language.TEMPLATES_TEXT}</div>
 

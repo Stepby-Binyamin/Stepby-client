@@ -13,25 +13,26 @@ import CreateTemplate from '../../../components/all/CreateTemplate'
 import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral'
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import apiCalls from '../../../functions/apiRequest'
+import userContext from '../../../context/userContext'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
-   // const { userData, setUserData } = useContext(userContext)
+   const { userData, setUserData } = useContext(userContext)
    // console.log(userData);
 
 
    const admin = true
 
-   const { header, drawer, language} = useContext(mainContext)
+   const { header, drawer, language } = useContext(mainContext)
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = language
-   const [dataState, setDataState] = useState()  
-   const [recomend, setRecomend] = useState()   
+   const [dataState, setDataState] = useState()
+   const [recomend, setRecomend] = useState()
    const [sortListBy, setSortListBy] = useState(MY_TEMP)
    // const navigate = useNavigate()
 
    const filterTemp = dataState && dataState.filter(item => item.isTemplate)
    const dataToPrint = sortListBy === MY_TEMP ? filterTemp : recomend
 
-   const tempCounter = filterTemp&&filterTemp.length
+   const tempCounter = filterTemp && filterTemp.length
 
    useEffect(() => {
       header.setIsTitle(false)
@@ -44,17 +45,35 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          .catch(error => {
             console.log(error)
          });
-         
-         apiCalls('get', '/template/categoriesByUser')
+
+      apiCalls('get', '/template/categoriesByUser')
          .then(response => {
             setRecomend(response);
+         })
+         .catch(error => {
+            console.log(error)
+         });
+
+   }, [])
+
+   const createNewTemplate = async (templateName) => {
+      console.log(templateName);
+      apiCalls("post", "http://localhost:5000/template/createTemplate", templateName)
+      .then(()=>{
+         apiCalls('get', '/project/projectByUser')
+            .then(response => {
+               setDataState(response);
             })
             .catch(error => {
                console.log(error)
             });
 
-   }, [])
+      })
+      .catch(error => {
+         console.log(error)
+      });
 
+   }
 
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
@@ -64,8 +83,10 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    }
    const createTemp = () => {
       // navigate('/template')
-      admin ? drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
-         drawer.setDrawer(<CreateTemplate printData={printData} />)
+      console.log(userData);
+      userData?.permissions === "admin" ?
+         drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
+         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} printData={printData} />)
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
@@ -86,14 +107,14 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
                dataToPrint && dataToPrint.map(item =>
                   <ListItem
-                  key={item._id}
-                  mainTitle={item.name}  
-                  secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}  
-                  secondaryTitleWeight={sortListBy === MY_TEMP ?
-                     `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` : 
-                     `${item.creatorId.firstName} ${item.creatorId.lastName}`}
-                     link={`/template/${item._id}`}  
-                     linkState={{temp: item, mode: "template"}}
+                     key={item._id}
+                     mainTitle={item.name}
+                     secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}
+                     secondaryTitleWeight={sortListBy === MY_TEMP ?
+                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :
+                        `${item.creatorId.firstName} ${item.creatorId.lastName}`}
+                     link={`/template/${item._id}`}
+                     linkState={{ temp: item, mode: "template" }}
                   />)
 
             }
