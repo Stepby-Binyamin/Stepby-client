@@ -25,16 +25,16 @@ import StepBasics from '../../components/all/StepBasics';
 
 export default function Michal({ submitTemp }) {
    const { header, drawer } = useContext(mainContext)
-   useEffect(() => {
-      drawer.setDrawer(<StepBasics />)
-      // drawer.setDrawerContentHeader(<StepBasics />)
+   // useEffect(() => {
+   //    drawer.setDrawer(<StepBasics />)
+   //    // drawer.setDrawerContentHeader(<StepBasics />)
 
-   }, [])
+   // }, [])
 
 
    return (
       <>
-         {/* <div><CreateTemplateGeneral /></div> */}
+         <div><CreateProjectNewUser /></div>
 
       </>
    )
