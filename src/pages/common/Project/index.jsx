@@ -128,7 +128,7 @@ export default function Project({ mode }) {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
     }
 
-    function fetchDataFunc(data) {
+    function newStep(data) {
         console.log(data);
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
         console.log(templateId);

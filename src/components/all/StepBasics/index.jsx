@@ -7,7 +7,7 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
 
-const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, des, style = {}, ...props }) => {
+const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
 
    const { drawer, language } = useContext(mainContext)
 
@@ -50,7 +50,7 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, des, style = {}
 
                <RadioBtnWithIcon changeFunc={onChangeHandler} obj={sort || [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }]} />
             </div>
-            <SubKeyboard name={"description"} onChange={onChangeHandler} iconSrc={'/images/icons/description.svg'} placeholder={language.DESCRIPTION} defaultValue={des} />
+            <SubKeyboard name={"description"} onChange={onChangeHandler} iconSrc={'/images/icons/description.svg'} placeholder={language.DESCRIPTION} defaultValue={description} />
             <div className={styles.text}>{language.TEXT_STEP}</div>
 
             <div className={styles.buttonsContainer}>
