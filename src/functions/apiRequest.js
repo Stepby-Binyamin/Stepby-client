@@ -1,6 +1,6 @@
 import axios from "axios"
 
-// axios.defaults.baseURL = "httpp://localhost:5000"
+// axios.defaults.baseURL = "http://localhost:5000"
 axios.defaults.baseURL = "https://stepby-server-stepby.vercel.app"
 
 export const setToken = (token) => {
