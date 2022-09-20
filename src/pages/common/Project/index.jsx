@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation, useNavigate } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
 import StatusTemp from "../../../components/all/StatusTemp"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
@@ -10,6 +10,7 @@ import styles from "./style.module.css"
 import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
 import StepBasics from "../../../components/all/StepBasics"
+import CreateProjectNewUser from "../../../components/all/CreateProjectNewUser"
 
 
 export default function Project({ mode }) {
@@ -19,6 +20,10 @@ export default function Project({ mode }) {
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState()
     const indexFirst = findTheNext(curr)
+
+    const [stepAdded, setStepAdded] = useState();
+    const navigate = useNavigate()
+
     // const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
@@ -113,10 +118,15 @@ export default function Project({ mode }) {
 
 
     function createNewProject() {
-            drawer.setDrawer(<b1>Michal</b1>)
-        apiCalls('post', `/project/createProject/${templateId}`)
-            .then(response => {
-                console.log("banana"); // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
+        drawer.setDrawer(<CreateProjectNewUser tamplateName={curr.name} newProject={newProject} templateId={templateId} />)
+
+    }
+    const newProject = (data) => {
+        console.log(data);
+        apiCalls('post', `/project/createProject/${templateId}`, data)
+            .then(projectId => {
+                console.log("res:", projectId)
+                navigate(`/project/biz/${projectId}`)
             })
             .catch(error => {
                 console.log(error)
@@ -133,6 +143,7 @@ export default function Project({ mode }) {
     function newStep(data) {    
         console.log('newStepData :', data);
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
+
         console.log('dataToServer: ', dataToServer);
        apiCalls("put", "/template/newStep/" + templateId, dataToServer)
        .then(response => {
@@ -144,6 +155,7 @@ export default function Project({ mode }) {
         console.log(error)
     });
        console.log(curr);
+
     }
 
     return (<>
@@ -169,8 +181,8 @@ export default function Project({ mode }) {
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
-                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: onClickPlus , link: '' }]} />}
-                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+",  func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}
+                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
 
             </div>
         }

@@ -58,20 +58,20 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
    const createNewTemplate = async (templateName) => {
       console.log(templateName);
-      apiCalls("post", "http://localhost:5000/template/createTemplate", templateName)
-      .then(()=>{
-         apiCalls('get', '/project/projectByUser')
-            .then(response => {
-               setDataState(response);
-            })
-            .catch(error => {
-               console.log(error)
-            });
+      apiCalls("post", "/template/createTemplate", templateName)
+         .then(() => {
+            apiCalls('get', '/project/projectByUser')
+               .then(response => {
+                  setDataState(response);
+               })
+               .catch(error => {
+                  console.log(error)
+               });
 
-      })
-      .catch(error => {
-         console.log(error)
-      });
+         })
+         .catch(error => {
+            console.log(error)
+         });
 
    }
 
