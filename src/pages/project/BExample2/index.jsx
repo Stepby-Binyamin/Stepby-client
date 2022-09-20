@@ -29,7 +29,7 @@ const BExample2 = () => {
     const [image, setImage] = useState()
 
     const { templateId, stepId } = useParams()
-    const { state} = useLocation()
+    const { state } = useLocation()
     const projName = state && state.tempName
     const stepp = state && state.step
 
@@ -66,7 +66,7 @@ const BExample2 = () => {
 
     const handlePDF = () => {
         axios({
-            url: "http://localhost:5000/files/download",
+            url: "https://stepby-server-stepby.vercel.app/files/download",
             method: "POST",
             responseType: "blob",  // important
             data: {
@@ -99,12 +99,12 @@ const BExample2 = () => {
             stepNum: "1",
             fileName: fileName,
         }
-        apiCalls('post','/files/showImg',data)
-        .then((img)=>setImage(`data:image/jpeg;base64,${img}`))
-        .catch((err)=>console.log(err))
+        apiCalls('post', '/files/showImg', data)
+            .then((img) => setImage(`data:image/jpeg;base64,${img}`))
+            .catch((err) => console.log(err))
 
         // axios({
-        //     url: "http://localhost:5000/files/showImg",
+        //     url: "https://stepby-server-stepby.vercel.app/files/showImg",
         //     method: "POST",
         //     data: {
         //         // This is the body part

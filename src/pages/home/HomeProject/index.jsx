@@ -77,7 +77,7 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const createNewTemplate = async (templateName) => {
       console.log(templateName);
-      apiCalls("post", "http://localhost:5000/template/createTemplate", templateName) // TODO - catch errors
+      apiCalls("post", "/template/createTemplate", templateName) // TODO - catch errors
 
       apiCalls('get', '/project/projectByUser')
          .then(response => {
@@ -90,7 +90,7 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const NewAdminTemplate = async (template) => {
       console.log(template);
-      apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", template)
+      apiCalls("post", "/template/createTemplateAdmin", template)
          .then(() => {
             apiCalls('get', '/project/projectByUser')
                .then(response => {
