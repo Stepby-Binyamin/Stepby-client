@@ -59,7 +59,8 @@ const BExample2 = () => {
     useEffect(() => {
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
-        // header.setIsDots(false)                 // HeaderTitle
+        // header.setIsDots(false)            
+        // HeaderTitle
         findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
         findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
     }, [])
