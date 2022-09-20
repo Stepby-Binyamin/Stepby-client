@@ -54,7 +54,7 @@ const StepEdit = ({ style = {}, ...props }) => {
             break;
          case 'pdf': drawer.setDrawer(<TempPDF data={data} />);
             break;
-         case 'answer': drawer.setDrawer(<TempSimpleAnswer data={data} />);
+         case 'answer': drawer.setDrawer(<TempSimpleAnswer fetchDataFunc={addAnswerToStep} data={data} />);
             break;
          default:
             break;
@@ -74,13 +74,18 @@ const StepEdit = ({ style = {}, ...props }) => {
    const editStep = (data) => {
       console.log('stepData: ', stepData);
       const { radio } = data;
-      const dataToServer = { ...data, stepId, isCreatorApprove: radio === 'לקוח' ? false : true }
+      console.log('radio: ', radio);
+      const dataToServer = { ...data, stepId, isCreatorApprove: radio === 'הלקוח' ? false : true }
       console.log('dataToServer: ', dataToServer);
       apiCalls("put", "/template/edit-step/" + templateId, dataToServer).then((result) => {
          const res = result.filter(v => v._id === stepId)[0];
          setStepData(res);
       }
       )
+   }
+
+   const addAnswerToStep = (data)=> {
+      console.log('data: ', data);
    }
 
    return (
@@ -109,7 +114,7 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          </div>
 
-         {stepData && stepData.data && (stepData.data.length > 0 ?
+         {!console.log('stepData: ', stepData) && stepData && stepData.data && (stepData.data.length > 0 ?
             stepData.data.map(item =>
                <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :
