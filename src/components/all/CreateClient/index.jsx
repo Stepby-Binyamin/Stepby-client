@@ -1,4 +1,4 @@
-import React, {  useContext} from 'react'
+import React, { useContext } from 'react'
 import Keyboard from '../Keyboard'
 import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
@@ -6,9 +6,9 @@ import BtnSubmitText from "../../common/BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
-const CreateClient = () => {
-  
-    const {language, drawer}= useContext(mainContext)
+const CreateClient = ({ createProject }) => {
+
+    const { language, drawer } = useContext(mainContext)
 
     function collect(e) {
         e.preventDefault();
@@ -19,17 +19,22 @@ const CreateClient = () => {
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
-        apiCalls('post','/user/new-client',data)
+        apiCalls('post', '/user/new-client', data)
         drawer.setDrawer('')
     }
 
 
     return (
         <form className={styles.container} onSubmit={(e) => collect(e)} >
+
+
             <Keyboard placeholder={language.FULL_NAME_CUSTOMER} name="fullName" />
-            <SubKeyboard placeholder={language.PHONE} iconSrc={"/images/icons/tell.svg"} name="phoneNumber" />
+            <SubKeyboard placeholder={language.USER_PHONE} iconSrc={"/images/icons/tell.svg"} name="phoneNumber" />
             <SubKeyboard placeholder={language.EMAIL} iconSrc={"/images/icons/email.svg"} name="email" />
             <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} /> </div>
+            {createProject &&
+                <div className={styles.btn}> <BtnSubmitText color={"gray"} text="יצירת פרויקט" icon={"v to text.svg"} /> </div>
+            }
         </form>
     )
 }
