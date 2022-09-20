@@ -15,7 +15,7 @@ const CreateClient = ({ createProject }) => {
         const fd = new FormData(e.target);
 
         const data = {
-            name: fd.get("name", e.target.name.value),
+            fullName: fd.get("fullName", e.target.name.value),
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
@@ -26,7 +26,9 @@ const CreateClient = ({ createProject }) => {
 
     return (
         <form className={styles.container} onSubmit={(e) => collect(e)} >
-            <Keyboard placeholder={language.FULL_NAME_CUSTOMER} name="name" />
+
+
+            <Keyboard placeholder={language.FULL_NAME_CUSTOMER} name="fullName" />
             <SubKeyboard placeholder={language.USER_PHONE} iconSrc={"/images/icons/tell.svg"} name="phoneNumber" />
             <SubKeyboard placeholder={language.EMAIL} iconSrc={"/images/icons/email.svg"} name="email" />
             <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} /> </div>

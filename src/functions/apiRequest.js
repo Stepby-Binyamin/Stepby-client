@@ -20,7 +20,7 @@ const apiCalls = async (method, url, data) => {
             url,
             data
         })
-
+        
         console.log(" +++  \n api call - res", res.data);
         return res.data
     }
