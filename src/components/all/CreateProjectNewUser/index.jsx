@@ -13,12 +13,15 @@ import CreateClient from '../CreateClient';
 
 
 
-const CreateProjectNewUser = ({ placeholder, newProject, tamplateName, ...props }) => {
+const CreateProjectNewUser = ({ placeholder, newProject, tamplateName, templateId, ...props }) => {
 
     const { header, drawer, language } = useContext(mainContext)
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const [data, setData] = useState({});
     const [select, setSelect] = useState(true);
+    const [change, setChange] = useState();
+
+
 
 
     useEffect(() => {
@@ -50,13 +53,14 @@ const CreateProjectNewUser = ({ placeholder, newProject, tamplateName, ...props 
     function btnSubmitTextHandler() {
         data.clients = data.clients?.filter(e => e.isActive == true)
         newProject({ projectName: data.projectName, clientId: data.clients[0]._id, isNewClient: false })
+        setChange(data.projectName)
         drawer.setDrawer()
         // console.log(typeof NewAdminTemplate);
-        navigate('/projects') //לאן לנווט?
+        // navigate('/projects') //לאן לנווט?
 
     }
     const btnNext = () => {
-        drawer.setDrawer(<CreateClient createProject={true} />)
+        drawer.setDrawer(<CreateClient createProject={true} data_={data} templateId={templateId} />)
 
     }
 
