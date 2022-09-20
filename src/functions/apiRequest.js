@@ -23,12 +23,13 @@ const apiCalls = async (method, url, data) => {
         })
 
         console.log(" +++  \n api call - res", res.data);
+
         return res.data
     }
 
     catch (error) {
 
-        console.log(" +++  \n api call - error", error);
+        // console.log(" +++  \n api call - error", error);
         throw error
     }
 }

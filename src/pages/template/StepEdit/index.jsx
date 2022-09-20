@@ -23,29 +23,29 @@ const StepEdit = ({ style = {}, ...props }) => {
    const [stepData, setStepData] = useState()
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
    const navigate = useNavigate()
-// console.log(state);
-console.log('stepData:', stepData);
+   // console.log(state);
+   // console.log('stepData:', stepData);
 
    useEffect(() => {
       (state && state.step) ?
-      setStepData(state.step) :
-      apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
-      .then(response => {
-         setStepData(response)
-         console.log(response);
-         })
-         .catch(error => {
-            console.log(error)
-         });
+         setStepData(state.step) :
+         apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
+            .then(response => {
+               setStepData(response)
+               console.log(response);
+            })
+            .catch(error => {
+               console.log(error)
+            });
 
-         stepData && header.setTitle(stepData.name)
-         if(state && state.tempName)
+      stepData && header.setTitle(stepData.name)
+      if (state && state.tempName)
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
-         header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
-         
-         drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
-      }, [])
-      
+      header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
+
+      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
+   }, [])
+
    const onClickItem = (type, data = { stepId: stepData._id, tempId: templateId }) => {
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);
@@ -54,9 +54,9 @@ console.log('stepData:', stepData);
             break;
          case 'pdf': drawer.setDrawer(<TempPDF data={data} />);
             break;
-         case 'answer': drawer.setDrawer(<TempSimpleAnswer data={data} />);
+         case 'answer': drawer.setDrawer(<TempSimpleAnswer fetchDataFunc={addAnswerToStep} data={data} />);
             break;
-            default: 
+         default:
             break;
       }
    }
@@ -68,26 +68,37 @@ console.log('stepData:', stepData);
    }
 
    const viewStep = () => {
-      navigate(`/template/${templateId}/step/${stepData._id}`, { state:{ stepData, stepId: stepData._id, tempId: templateId } })
+      navigate(`/template/${templateId}/step/${stepData._id}`, { state: { stepData, stepId: stepData._id, tempId: templateId } })
    }
 
    const editStep = (data) => {
-      console.log("data: ", data);
-      apiCalls("put", "/template/newStep/" + templateId, data);
+      console.log('stepData: ', stepData);
+      const { radio } = data;
+      console.log('radio: ', radio);
+      const dataToServer = { ...data, stepId, isCreatorApprove: radio === 'הלקוח' ? false : true }
+      console.log('dataToServer: ', dataToServer);
+      apiCalls("put", "/template/edit-step/" + templateId, dataToServer).then((result) => {
+         const res = result.filter(v => v._id === stepId)[0];
+         setStepData(res);
+      }
+      )
+   }
+
+   const addAnswerToStep = (data)=> {
+      console.log('data: ', data);
    }
 
    return (
       <div className={styles.StepEdit} style={style} {...props} >
-
          <div className={styles.preView} >
 
             <div className={styles.raw1} >
                <img src='/images/icons/incareMan.svg' alt="" />
                <div className={styles.inTreatTitle}>{TREATMENT}</div>
                <div className={styles.inTreatBox} >
-                  {stepData && stepData.isCreatorApprove ?      
+                  {stepData && stepData.isCreatorApprove ?
                      <img src='/images/icons/triangleOrange.svg' alt="" /> :
-                     <img src='/images/icons/circleOrange.svg' alt = ""/>
+                     <img src='/images/icons/circleOrange.svg' alt="" />
                   }
                   <div className={styles.inTreatOf} >{stepData && stepData.isCreatorApprove ? MY : CUSTOMER}</div>
                </div>
@@ -103,7 +114,7 @@ console.log('stepData:', stepData);
 
          </div>
 
-         {stepData && stepData.data && (stepData.data.length > 0 ?
+         {!console.log('stepData: ', stepData) && stepData && stepData.data && (stepData.data.length > 0 ?
             stepData.data.map(item =>
                <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :

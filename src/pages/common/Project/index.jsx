@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation, useNavigate } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
 import StatusTemp from "../../../components/all/StatusTemp"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
@@ -20,19 +20,25 @@ export default function Project({ mode }) {
     const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState()
     const indexFirst = findTheNext(curr)
+
     const [stepAdded, setStepAdded] = useState();
+    const navigate = useNavigate()
+
     // const mode = state && state.mode
     // const owner = findTheOwner(curr)
 
     console.log("project / template page", curr);
 
     useEffect(() => {
-        console.log("useEffect was excecuted!");
+        const fetchData = async () => {
         (state && state.temp) ?
-            setCurr(state.temp) :
-            apiCalls("get", "/project/projectById/" + templateId)
-                .then((result) => setCurr(result))
-    }, [stepAdded])
+        setCurr(state.temp) :
+        apiCalls("get", "/project/projectById/" + templateId)
+            .then((result) => setCurr(result));
+            console.log("api done");
+          }
+          fetchData();
+    }, [])
 
     useEffect(() => {
         header.setIsTitle(true)
@@ -112,14 +118,15 @@ export default function Project({ mode }) {
 
 
     function createNewProject() {
-        drawer.setDrawer(<CreateProjectNewUser tamplateName={curr.name} newProject={newProject} />)
+        drawer.setDrawer(<CreateProjectNewUser tamplateName={curr.name} newProject={newProject} templateId={templateId} />)
 
     }
     const newProject = (data) => {
         console.log(data);
         apiCalls('post', `/project/createProject/${templateId}`, data)
-            .then(response => {
-                console.log("banana"); // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
+            .then(projectId => {
+                console.log("res:", projectId)
+                navigate(`/project/biz/${projectId}`)
             })
             .catch(error => {
                 console.log(error)
@@ -133,19 +140,22 @@ export default function Project({ mode }) {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
     }
 
-    function newStep(data) {
-        console.log(data);
+    function newStep(data) {    
+        console.log('newStepData :', data);
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
-        console.log(templateId);
 
+        console.log('dataToServer: ', dataToServer);
        apiCalls("put", "/template/newStep/" + templateId, dataToServer)
        .then(response => {
-        setStepAdded(response);
+        console.log('response: ', response);
+        console.log('curr: ', curr);
+        setCurr((current) => ({...current, steps: response}));
     })
     .catch(error => {
         console.log(error)
     });
        console.log(curr);
+
     }
 
     return (<>
