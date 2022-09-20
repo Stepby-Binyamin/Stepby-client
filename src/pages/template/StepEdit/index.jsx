@@ -72,8 +72,8 @@ console.log('stepData:', stepData);
    }
 
    const editStep = (data) => {
-      console.log('stepData: ', stepData);
       console.log("data: ", data);
+      apiCalls("put", "/template/newStep/" + templateId, data);
    }
 
    return (

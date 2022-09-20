@@ -31,7 +31,7 @@ export default function Project({ mode }) {
             setCurr(state.temp) :
             apiCalls("get", "/project/projectById/" + templateId)
                 .then((result) => setCurr(result))
-    }, [])
+    }, [stepAdded])
 
     useEffect(() => {
         header.setIsTitle(true)
@@ -132,10 +132,14 @@ export default function Project({ mode }) {
         console.log(data);
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
         console.log(templateId);
-       const response = apiCalls("put", "/template/newStep/" + templateId, dataToServer); //TODO - then , אנחנו צריכים לעדכן את הדף לפי הנתונים שחוזרים ולתפוס שגיאות // TODO navigate - אני מאמין שיהיה צריך לנווט לדף הפרויקט שנוצר. למרות שגם בננה זה חשוב
-       setStepAdded(response);
+       apiCalls("put", "/template/newStep/" + templateId, dataToServer)
+       .then(response => {
+        setStepAdded(response);
+    })
+    .catch(error => {
+        console.log(error)
+    });
        console.log(curr);
-
     }
 
     return (<>
