@@ -55,8 +55,8 @@ export default function Shaul() {
 
    const onClickFile = async () => {
       axios({
-         // url: "https://stepby-server-stepby.vercel.app/files/download",
-         url: "http://localhost:5000/files/download",
+         url: "https://stepby-server-stepby.vercel.app/files/download",
+         // url: "http://localhost:5000/files/download",
          method: "POST",
          responseType: "blob",  // important
          data: {
