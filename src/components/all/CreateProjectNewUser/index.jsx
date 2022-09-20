@@ -8,21 +8,29 @@ import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import mainContext from '../../../context/mainContext'
 import { categories } from '../../../data/fakeProjects'
+import apiCalls from "../../../functions/apiRequest"
+import CreateClient from '../CreateClient';
 
 
 
-const CreateProjectNewUser = ({ placeholder, NewAdminTemplate, ...props }) => {
+const CreateProjectNewUser = ({ placeholder, newProject, tamplateName, ...props }) => {
 
     const { header, drawer, language } = useContext(mainContext)
     let navigate = useNavigate();
+    const [data, setData] = useState({});
+    const [select, setSelect] = useState(true);
 
 
     useEffect(() => {
-        setData((current) => ({ ...current, categories }))
-    }, [])
 
-    const [data, setData] = useState({});
-    const [select, setSelect] = useState(true);
+        const getData = async () => {
+            const response = await apiCalls("get", "/user/get-my-clients")
+            const clients = response.map(e => ({ ...e, isActive: false }))
+            console.log(clients)
+            setData((current) => ({ ...current, clients }))
+        }
+        getData();
+    }, [])
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -32,25 +40,32 @@ const CreateProjectNewUser = ({ placeholder, NewAdminTemplate, ...props }) => {
     }
 
     const btnCheckBoxHandler = (name) => {
-        const categories = data.categories.map(elem => elem.name === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
-        setData((current) => ({ ...current, categories }))
+        console.log("name", name);
+        const clients = data.clients?.map(elem => elem.fullName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+        console.log(clients);
+        setData((current) => ({ ...current, clients }))
+        console.log(data)
     }
 
-    const btnSubmitTextHandler = () => {
-        console.log("createTamplateGeneral:", data);
+    function btnSubmitTextHandler() {
+        data.clients = data.clients?.filter(e => e.isActive == true)
+        newProject({ projectName: data.projectName, clientId: data.clients[0]._id, isNewClient: false })
         drawer.setDrawer()
         // console.log(typeof NewAdminTemplate);
-        NewAdminTemplate(data)
-        // navigate('/template/1234')
+        navigate('/projects') //לאן לנווט?
+
+    }
+    const btnNext = () => {
+        drawer.setDrawer(<CreateClient createProject={true} />)
 
     }
 
     useEffect(() => {
 
-        if (data.radio == language.GENERAL) {
+        if (data.radio == "חדש") {
             setSelect(true);
         }
-        if (data.radio == language.SOME_CUSTOMER) {
+        if (data.radio == "קיים") {
 
             setSelect(false);
 
@@ -63,33 +78,40 @@ const CreateProjectNewUser = ({ placeholder, NewAdminTemplate, ...props }) => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"templateName"} />
+            <Keyboard onChange={handleChange} placeholder="שם הפרויקט החדש" name={"projectName"} />
 
-            <div className={styles.rightContainer}>
-                <img src='/images/icons/target.svg' alt="" />
-                <div className={styles.text}>תבנית: לקבל שם תבנית מלמעלה</div>
+
+            <div className={styles.subContainer}>
+                <div className={styles.sub}>
+                    <div className={styles.rightContainer}>
+                        <img src='/images/icons/template.svg' alt="" />
+                        <div className={styles.text}>תבנית: '{tamplateName}'</div>
+                    </div>
+                </div>
             </div>
 
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
-                    <RadioBtn arr={[language.GENERAL, language.SOME_CUSTOMER]} changeFunc={(e) => { handleChange(e) }} />
+                    <RadioBtn arr={["חדש", "קיים"]} changeFunc={(e) => { handleChange(e) }} />
                     <div className={styles.rightContainer}>
-                        <div className={styles.text}>{language.DISPERSTION}</div>
+                        <img src='/images/icons/menWithV.svg' alt="" />
+                        <div className={styles.text}>{"לקוח"}</div>
                     </div>
                 </div>
-                {select &&
+                {!select &&
                     <div className={styles.categoris}>
-                        {data.categories?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.name} id={elem.id} isActive={elem.isActive} key={elem.name} />)}
+                        {data.clients?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.fullName} isActive={elem.isActive} id={elem._id} key={elem.fullName} />)}
                     </div>
 
                 }
-                {!select &&
+                {/* {!select &&
 
-
-                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={language.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
-
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={language.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />} */}
             </div>
-            <div className={select ? styles.btn : styles.btnFix}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={language.SAVE} icon={"v to text.svg"} /> </div>
+            {!select &&
+                <div className={styles.btn}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text="יצירת פרויקט" icon={"v to text.svg"} /> </div>}
+            {select &&
+                <div className={styles.btnFix}> <BtnSubmitText func={btnNext} color={"gray"} text="המשך" /> </div>}
         </div>
 
     )

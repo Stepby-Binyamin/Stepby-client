@@ -1,5 +1,5 @@
 .container {
-    height: 500px;
+    height: 450px;
     /* padding: 12px; */
 }
 
@@ -23,13 +23,28 @@
     margin-left: 20px;
 }
 
+.sub {
+    display: flex;
+    /* flex-direction: row-reverse; */
+    /* justify-content: flex-end; */
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: inset;
+    /* width: 90%; */
+    height: 58px;
+    align-self: center;
+    color: var(--grey2-color);
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
 .radioButton>img {
     margin-left: 8px;
 }
 
-.text {
+/* .text {
     width: 50px;
-}
+} */
 
 .rightContainer {
     display: flex;
