@@ -38,11 +38,12 @@ const StepEdit = ({ style = {}, ...props }) => {
                console.log(error)
             });
 
-      stepData && header.setTitle(stepData.name)
       if (state && state.tempName)
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
-      header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
 
+      stepData && header.setTitle(stepData.name)
+      header.setIsArrow(true)
+      header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
       drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
    }, [])
 
@@ -84,7 +85,7 @@ const StepEdit = ({ style = {}, ...props }) => {
       )
    }
 
-   const addAnswerToStep = (data)=> {
+   const addAnswerToStep = (data) => {
       console.log('data: ', data);
    }
 

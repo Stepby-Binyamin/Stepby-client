@@ -30,13 +30,13 @@ export default function Project({ mode }) {
     console.log("project / template page", curr);
 
     useEffect(() => {
-        const fetchData = async () => {
-            (state && state.temp) ?
-                setCurr(state.temp) :
-                apiCalls("get", "/project/projectById/" + templateId)
-                    .then((result) => setCurr(result));
-            console.log("api done");
-        }
+        if (state && state.temp)
+            setCurr(state.temp)
+
+        const fetchData = () =>
+            apiCalls("get", "/project/projectById/" + templateId)
+                .then((result) => setCurr(result));
+
         fetchData();
     }, [])
 
@@ -82,14 +82,14 @@ export default function Project({ mode }) {
     function upMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
-        console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
+        // console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
         return // למה צריך להחזיר ריק?
     }
 
     function downMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index })
             .then((result) => setCurr(result))
-        console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
+        // console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
         return // למה צריך להחזיר ריק?
     }
 
@@ -119,13 +119,13 @@ export default function Project({ mode }) {
 
     function createNewProject() {
         drawer.setDrawer(<CreateProjectNewUser tamplateName={curr.name} newProject={newProject} templateId={templateId} />)
-
     }
+
     const newProject = (data) => {
-        console.log(data);
+        // console.log(data);
         apiCalls('post', `/project/createProject/${templateId}`, data)
             .then(projectId => {
-                console.log("res:", projectId)
+                // console.log("res:", projectId)
                 navigate(`/project/biz/${projectId}`)
             })
             .catch(error => {
@@ -141,11 +141,11 @@ export default function Project({ mode }) {
     }
 
     function newStep(data) {
-        console.log('newStepData :', data);
+        // console.log('newStepData :', data);
 
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
 
-        console.log('dataToServer: ', dataToServer);
+        // console.log('dataToServer: ', dataToServer);
 
         apiCalls("put", "/template/newStep/" + templateId, dataToServer)
             .then(response => {
@@ -157,7 +157,7 @@ export default function Project({ mode }) {
                 console.log(error)
             });
 
-        console.log(curr);
+        // console.log(curr);
     }
 
     return (<>
