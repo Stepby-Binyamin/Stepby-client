@@ -140,6 +140,8 @@ export default function Project({ mode }) {
 
        apiCalls("put", "/template/newStep/" + templateId, dataToServer)
        .then(response => {
+        //adding func to add step on AWS
+        console.log("step144",response);
         setStepAdded(response);
     })
     .catch(error => {
