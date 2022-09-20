@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Keyboard from '../Keyboard'
 import SubKeyboard from '../SubKeyboard'
 import styles from "./style.module.css"
@@ -6,9 +7,11 @@ import BtnSubmitText from "../../common/BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
-const CreateClient = ({ createProject }) => {
+const CreateClient = ({ createProject = false, data_, templateId }) => {
 
     const { language, drawer } = useContext(mainContext)
+    const navigate = useNavigate()
+
 
     function collect(e) {
         e.preventDefault();
@@ -19,7 +22,22 @@ const CreateClient = ({ createProject }) => {
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
-        apiCalls('post', '/user/new-client', data)
+        console.log(data);
+        const dataToServer = { projectName: data_.projectName, isNewClient: true, fullName: data.fullName, phoneNumber: data.phoneNumber, email: data.email }
+        console.log(dataToServer);
+        if (createProject) {
+            apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
+                .then(projectId => {
+                    console.log("res:", projectId)
+                    navigate(`/project/biz/${projectId}`)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        }
+        else {
+            apiCalls('post', '/user/new-client', data)
+        }
         drawer.setDrawer('')
     }
 
