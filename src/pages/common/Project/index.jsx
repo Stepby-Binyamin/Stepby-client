@@ -31,13 +31,13 @@ export default function Project({ mode }) {
 
     useEffect(() => {
         const fetchData = async () => {
-        (state && state.temp) ?
-        setCurr(state.temp) :
-        apiCalls("get", "/project/projectById/" + templateId)
-            .then((result) => setCurr(result));
+            (state && state.temp) ?
+                setCurr(state.temp) :
+                apiCalls("get", "/project/projectById/" + templateId)
+                    .then((result) => setCurr(result));
             console.log("api done");
-          }
-          fetchData();
+        }
+        fetchData();
     }, [])
 
     useEffect(() => {
@@ -107,7 +107,7 @@ export default function Project({ mode }) {
             return `/template/${curr._id}/edit-step/${step._id}`
 
         if (mode === "biz")
-            return `/project/biz/${curr._id}/edit-step/${step._id}`
+            return `/project/biz/${curr._id}/step/${step._id}`
     }
 
     function findTheNext(curr) {
@@ -140,22 +140,24 @@ export default function Project({ mode }) {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
     }
 
-    function newStep(data) {    
+    function newStep(data) {
         console.log('newStepData :', data);
+
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
 
         console.log('dataToServer: ', dataToServer);
-       apiCalls("put", "/template/newStep/" + templateId, dataToServer)
-       .then(response => {
-        console.log('response: ', response);
-        console.log('curr: ', curr);
-        setCurr((current) => ({...current, steps: response}));
-    })
-    .catch(error => {
-        console.log(error)
-    });
-       console.log(curr);
 
+        apiCalls("put", "/template/newStep/" + templateId, dataToServer)
+            .then(response => {
+                console.log('response: ', response);
+                console.log('curr: ', curr);
+                setCurr((current) => ({ ...current, steps: response }));
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
+        console.log(curr);
     }
 
     return (<>
@@ -182,7 +184,7 @@ export default function Project({ mode }) {
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
                 {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}
-                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}
 
             </div>
         }
