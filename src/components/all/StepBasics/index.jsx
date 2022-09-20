@@ -15,7 +15,7 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
       [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }] :
       [{ name: language.CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
 
-   const [data, setData] = useState({ radio: "לקוח" });
+   const [data, setData] = useState({ radio: "שלי" });
    
 
    const onChangeHandler = (event) => {
