@@ -13,7 +13,7 @@ import { categories } from '../../../data/fakeProjects'
 
 const CreateTemplateGeneral = ({ placeholder, NewAdminTemplate, ...props }) => {
 
-    const { header, drawer, language} = useContext(mainContext)
+    const { header, drawer, language } = useContext(mainContext)
     let navigate = useNavigate();
 
 

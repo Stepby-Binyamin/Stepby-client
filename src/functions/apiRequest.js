@@ -1,6 +1,7 @@
 import axios from "axios"
 
 axios.defaults.baseURL = "http://localhost:5000"
+// axios.defaults.baseURL = "https://stepby-server-stepby.vercel.app"
 
 export const setToken = (token) => {
     // when you do logout pass the parameter as an empty string
@@ -20,8 +21,9 @@ const apiCalls = async (method, url, data) => {
             url,
             data
         })
-        
-        // console.log(" +++  \n api call - res", res.data);
+
+        console.log(" +++  \n api call - res", res.data);
+
         return res.data
     }
 

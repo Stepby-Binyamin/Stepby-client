@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios"
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styles from "./style.module.css"
 import { convertDate } from '../../../functions/convertDate'
 import mainContext from '../../../context/mainContext'
@@ -27,6 +27,9 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    const { userData, setUserData } = useContext(userContext)
+   const location = useLocation();
+   const change = location.state
+
    // const navigate = useNavigate()
 
 
@@ -65,7 +68,7 @@ const HomeProject = ({ style = {}, ...props }) => {
          });
 
 
-   }, [])
+   }, [change])
 
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
@@ -77,7 +80,7 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const createNewTemplate = async (templateName) => {
       console.log(templateName);
-      apiCalls("post", "http://localhost:5000/template/createTemplate", templateName) // TODO - catch errors
+      apiCalls("post", "/template/createTemplate", templateName) // TODO - catch errors
 
       apiCalls('get', '/project/projectByUser')
          .then(response => {
@@ -90,7 +93,7 @@ const HomeProject = ({ style = {}, ...props }) => {
 
    const NewAdminTemplate = async (template) => {
       console.log(template);
-      apiCalls("post", "http://localhost:5000/template/createTemplateAdmin", template)
+      apiCalls("post", "/template/createTemplateAdmin", template)
          .then(() => {
             apiCalls('get', '/project/projectByUser')
                .then(response => {

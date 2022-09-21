@@ -22,19 +22,20 @@ import mainContext from '../../context/mainContext';
 import MoreTemp from '../../components/all/MoreTemp'
 import MoreStep from '../../components/all/MoreStep';
 import StepBasics from '../../components/all/StepBasics';
+import CreateProjectNewUser from '../../components/all/CreateProjectNewUser';
 
 export default function Michal({ submitTemp }) {
    const { header, drawer } = useContext(mainContext)
-   useEffect(() => {
-      drawer.setDrawer(<StepBasics />)
-      // drawer.setDrawerContentHeader(<StepBasics />)
+   // useEffect(() => {
+   //    drawer.setDrawer(<StepBasics />)
+   //    // drawer.setDrawerContentHeader(<StepBasics />)
 
-   }, [])
+   // }, [])
 
 
    return (
       <>
-         {/* <div><CreateTemplateGeneral /></div> */}
+         <div><CreateClient /></div>
 
       </>
    )
