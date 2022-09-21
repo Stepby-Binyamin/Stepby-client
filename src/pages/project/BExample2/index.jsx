@@ -113,6 +113,7 @@ const BExample2 = () => {
             stepNum: "1",
             fileName: fileName,
         }
+
         apiCalls('post', '/files/showImg', data)
             .then((img) => setImage(`data:image/jpeg;base64,${img}`))
             .catch((err) => console.log(err))

@@ -30,14 +30,14 @@ export default function Project({ mode }) {
     console.log("project / template page", curr);
 
     useEffect(() => {
-        const fetchData = async () => {
-        (state && state.temp) ?
-        setCurr(state.temp) :
-        apiCalls("get", "/project/projectById/" + templateId)
-            .then((result) => setCurr(result));
-            console.log("api done");
-          }
-          fetchData();
+        if (state && state.temp)
+            setCurr(state.temp)
+
+        const fetchData = () =>
+            apiCalls("get", "/project/projectById/" + templateId)
+                .then((result) => setCurr(result));
+
+        fetchData();
     }, [])
 
     useEffect(() => {
@@ -82,14 +82,14 @@ export default function Project({ mode }) {
     function upMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
-        console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
+        // console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
         return // למה צריך להחזיר ריק?
     }
 
     function downMove(step) {
         apiCalls("put", "/template/downSteps/" + templateId, { "stepIndex": step.index })
             .then((result) => setCurr(result))
-        console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
+        // console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
         return // למה צריך להחזיר ריק?
     }
 
@@ -107,7 +107,7 @@ export default function Project({ mode }) {
             return `/template/${curr._id}/edit-step/${step._id}`
 
         if (mode === "biz")
-            return `/project/biz/${curr._id}/edit-step/${step._id}`
+            return `/project/biz/${curr._id}/step/${step._id}`
     }
 
     function findTheNext(curr) {
@@ -119,13 +119,13 @@ export default function Project({ mode }) {
 
     function createNewProject() {
         drawer.setDrawer(<CreateProjectNewUser tamplateName={curr.name} newProject={newProject} templateId={templateId} />)
-
     }
+
     const newProject = (data) => {
-        console.log(data);
+        // console.log(data);
         apiCalls('post', `/project/createProject/${templateId}`, data)
             .then(projectId => {
-                console.log("res:", projectId)
+                // console.log("res:", projectId)
                 navigate(`/project/biz/${projectId}`)
             })
             .catch(error => {
@@ -140,22 +140,24 @@ export default function Project({ mode }) {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
     }
 
-    function newStep(data) {    
-        console.log('newStepData :', data);
+    function newStep(data) {
+        // console.log('newStepData :', data);
+
         const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio == 'שלי' ? true : false }
 
-        console.log('dataToServer: ', dataToServer);
-       apiCalls("put", "/template/newStep/" + templateId, dataToServer)
-       .then(response => {
-        console.log('response: ', response);
-        console.log('curr: ', curr);
-        setCurr((current) => ({...current, steps: response}));
-    })
-    .catch(error => {
-        console.log(error)
-    });
-       console.log(curr);
+        // console.log('dataToServer: ', dataToServer);
 
+        apiCalls("put", "/template/newStep/" + templateId, dataToServer)
+            .then(response => {
+                console.log('response: ', response);
+                console.log('curr: ', curr);
+                setCurr((current) => ({ ...current, steps: response }));
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
+        // console.log(curr);
     }
 
     return (<>
@@ -176,13 +178,13 @@ export default function Project({ mode }) {
                         down={downMove}
                         id={step._id}
                         link={nav({ mode, curr, step })}
-                        linkState={{ tempName: curr.name, step, stepId: step._id }}
+                        linkState={{ tempName: curr.name, step, stepId: step._id, curr }}
 
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
                 {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}
-                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: () => { console.log("Hello") }, link: '' }]} />}
+                {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}
 
             </div>
         }
