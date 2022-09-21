@@ -41,7 +41,7 @@ export default function Project({ mode }) {
     useEffect(() => {
         header.setIsTitle(true)
         header.setTitle(curr?.name)
-        curr?.status === "done" && header.setArrowNav("/projects")
+        // curr?.status === "done" && header.setArrowNav("/projects")
         // TODO יש צורך בלהגדיר את הdrawers לפי המצב
         switch (mode) {
             case "template":
