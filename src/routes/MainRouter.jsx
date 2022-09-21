@@ -11,11 +11,14 @@ import HomeTemplate from '../pages/home/HomeTemplate'
 import Project from './../pages/common/Project'
 import Step from './../pages/project/BExample2'
 import StepEdit from '../pages/template/StepEdit'
+import Aviad from './TestComponents/Aviad'
 
 function MainRouter() {
 
     return (
         <Routes>
+
+            <Route path='/' element={<><Login /> <Aviad /></>} />
             <Route path='/login' element={<Login />} />
             <Route path='/verification' element={<Verification />} />
             <Route path='/user-name' element={<UserName />} />

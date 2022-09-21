@@ -46,12 +46,16 @@ const TempPDF = ({ data, step, project, id, stepId }) => {
             project,
             id,
             stepId
+            // i have to send this info
+            // bizName,
+            // projectName,
+            // stepName,
         }
         const formData = new FormData();
         formData.append("new_file", currentFile);
         formData.append("objShortQuestion", JSON.stringify(data))
 
-        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        const result = await apiCalls('post', '/files/uploadfile/', formData)
         console.log("apiCalls result", result);
 
         drawer.setDrawer('')

@@ -72,12 +72,10 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                .then(res => {
                   setDisplayTemplates(res);
                   navigate(`/template/${res[res.length - 1]._id}`)
-
                })
                .catch(error => {
                   console.log(error)
                });
-
          })
          .catch(error => {
             console.log(error)

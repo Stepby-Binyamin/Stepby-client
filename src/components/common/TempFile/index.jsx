@@ -38,11 +38,15 @@ const {drawer} = useContext(mainContext)
             project,
             id,
             stepId
+            // i have to send this info
+            // bizName,
+            // projectName,
+            // stepName,
+            // description, // important ???
         }
         const formData = new FormData();
         formData.append("objShortQuestion", JSON.stringify(data))
-
-        const result = await apiCalls('post', '/shaul/files/upload/', formData)
+        const result = await apiCalls('post', '/files/uploadfile/', formData)
         console.log("apiCalls result", result);
 
         drawer.setDrawer('')

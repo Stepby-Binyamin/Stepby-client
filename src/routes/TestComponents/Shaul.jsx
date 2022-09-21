@@ -25,6 +25,10 @@ import BExample2 from '../../pages/project/BExample2'
 import CreateTemplateGeneral from '../../components/all/CreateTemplateGeneral'
 
 import axios from 'axios'
+import TempSimpleAnswer from '../../components/common/TempSimpleAnswer'
+import TempFile from '../../components/common/TempFile'
+import TempPDF from '../../components/common/TempPDF'
+import TempIMG from '../../components/common/TempIMG'
 
 export default function Shaul() {
 
@@ -52,8 +56,10 @@ export default function Shaul() {
    const fileName = "Tour_Eiffel.jpg"
    // const fileName = "lesson.pdf"
 
+
    const onClickFile = async () => {
       axios({
+         // url: "https://stepby-server-stepby.vercel.app/files/download",
          url: "http://localhost:5000/files/download",
          method: "POST",
          responseType: "blob",  // important
@@ -104,14 +110,14 @@ export default function Shaul() {
          {/* <TempSimpleAnswer /> */}
          {/* <TempFile /> */}
          {/* <TempPDF /> */}
+         {/* <TempIMG /> */}
 
          {/* <UploadCShortAnswer /> */}
          {/* <UploadedIMGView /> */}
-         {/* <TempIMG /> */}
          {/* <UploadPicture /> */}
          {/* <UploadClientAnswer /> */}
          {/* <CreateTemplateGeneral/> */}
-         <button onClick={onClickFile}> click</button>
+         {/* <button onClick={onClickFile}> click</button> */}
 
       </>
    )

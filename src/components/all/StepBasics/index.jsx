@@ -15,25 +15,28 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
       [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }] :
       [{ name: language.CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
 
-   const [data, setData] = useState({ radio: "לקוח" });
-   
+   const [data, setData] = useState({ radio: "שלי" });
+
+   console.log(data);
 
    const onChangeHandler = (event) => {
-      let name = event.target.name;
+      const name = event.target.name;
       const value = event.target.value;
+      console.log('name: ', name, 'value: ', value);
       setData(values => ({ ...values, [name]: value }));
    }
+
    const btnSubmitAndCreateHandler = () => {
       document.querySelector("#keyboard").value = "";
       document.querySelector("#subKeyboard").value = "";
-      fetchDataFunc(data);
-
       console.log("Submint And Create");
+      fetchDataFunc(data);
    }
+
    const btnSubmitHandler = () => {
       fetchDataFunc(data);
-      console.log("Submit");
       drawer.setDrawer();
+      console.log("Submit");
    }
 
 
@@ -48,7 +51,7 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
                   <div className={styles.radioText}>{language.CARE}</div>
                </div>
 
-               <RadioBtnWithIcon changeFunc={onChangeHandler} obj={sort || [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }]} />
+               <RadioBtnWithIcon changeFunc={onChangeHandler} obj={sort} data={data} />
             </div>
             <SubKeyboard name={"description"} onChange={onChangeHandler} iconSrc={'/images/icons/description.svg'} placeholder={language.DESCRIPTION} defaultValue={description} />
             <div className={styles.text}>{language.TEXT_STEP}</div>

@@ -9,7 +9,7 @@ import BtnSubmitText from "../BtnSubmitText"
 
 import apiCalls from '../../../functions/apiRequest'
 
-const TempSimpleAnswer = ({ data, step, project, id, stepId }) => {
+const TempSimpleAnswer = ({ fetchDataFunc,data, step, project, id, stepId }) => {
     // console.log("dat00", data);
 
     const { drawer } = useContext(mainContext)
@@ -31,23 +31,27 @@ const TempSimpleAnswer = ({ data, step, project, id, stepId }) => {
             ...data,
             type: "answer",
             owner: "client",
-            title: question,
+            title: question,  // important 
             isRequired: isRequired,
             content: "",
             step,
             project,
             id,
             stepId
+            // i have to send this info
+            // bizName,
+            // projectName,
+            // stepName,
         }
 
-        // console.log(data);
+        console.log("data: ", data);
 
         const formData = new FormData();
         formData.append("objShortQuestion", JSON.stringify(data))
-
-        const result = await apiCalls('post', '/shaul/files/upload/', formData)
-        console.log("apiCalls result", result);
-
+        // console.log('formData: ', formData);
+        const result = await apiCalls('post', '/files/uploadanswer/', formData)
+        // console.log("apiCalls result", result);
+        // fetchDataFunc(data);
         drawer.setDrawer('')
     }
 
