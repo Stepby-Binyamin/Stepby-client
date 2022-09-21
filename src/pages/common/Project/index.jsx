@@ -58,7 +58,7 @@ export default function Project({ mode }) {
             case "biz":
                 header.setIsDots(true)
                 header.setIsArrow(true)
-                header.setIsHamburguer(false) 
+                header.setIsHamburguer(false)
                 header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
                 // TODO setDrawerContentHeader
                 break;
