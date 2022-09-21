@@ -28,13 +28,22 @@ const BExample2 = () => {
     const [uploadLocation, setUploadLocation] = useState()
     const [image, setImage] = useState()
 
-    const { templateId, stepId } = useParams()
+    // const { templateId, stepId } = useParams()
     const { state } = useLocation()
     const projName = state && state.tempName
     const stepp = state && state.step
 
+    const [stepInfo, setStepInfo] = useState()
+
+    const stepId = "631f241f821ad1ae1e9c898a"// stepId 631f241f821ad1ae1e9c898a
+    const templateId = "63219465c09b53166316f472" //projectId 63219465c09b53166316f472
+
+    console.log("stepInfo", stepInfo);
+
     // console.log("templateId",templateId);
     // console.log("stepId",stepId);
+    //isCreatorApprove = true biz false client
+    //isApprove ???
 
     const index = 1
     const _id = '14'
@@ -60,9 +69,13 @@ const BExample2 = () => {
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         // header.setIsDots(false)                 // HeaderTitle
-        findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
-        findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
+
+        apiCalls('get', `/project/getStepById/${templateId}/${stepId}`)
+            .then((res) => setStepInfo(res))
+            .catch((err) => console.log(err))
     }, [])
+    stepInfo?.isCreatorApprove === true ? header.setIsArrow(true) : header.setIsArrow(false)
+    stepInfo?.isCreatorApprove === true ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
 
     const handlePDF = () => {
         axios({
@@ -136,32 +149,33 @@ const BExample2 = () => {
 
     return (
         <div className={styles.page}>
-            {findStep.data[0].owner === "biz"  // can be client or biz
-                ? <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} time={Difference_In_Days} />
-                : <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} />}
+            {stepInfo?.isCreatorApprove === true  // can be false => client or true => biz
+                ? <StatusStep numOfStage={stepInfo?.index} user={findProject.client.clientName} time={Difference_In_Days} />
+                : <StatusStep numOfStage={stepInfo?.index} user={findProject.client.clientName} />}
 
-            <div className={styles.title}>{findStep.name}</div>
-            <div className={styles.text}>{findStep.des}</div>
+            <div className={styles.title}>{stepInfo?.name}</div>
+            <div className={styles.text}>{stepInfo?.description}</div>
 
-            {image &&
+            {/* no relevant yet but dont delete  */}
+            {/* {image &&
                 <div className={styles.downImg}>
                     <img src={image} alt="base64 test" />
                 </div>
-            }
+            } */}
 
             <div className={styles.pdf} >
-                {findStep.data.map((data, index) => {
+                {stepInfo?.data.map((data, index) => {
                     switch (data.type) {
                         case "img":
                             return <ImageView
-                                key={data.title}
+                                key={Math.random().toString()}
                                 imgDescription={data.title}
                                 imgPath={data.content}
                                 onClick={handleIMG}
                             />
                         case "pdf":
                             return <Answer src="/images/icon-btns/filePDF.svg"
-                                key={data.title}
+                                key={Math.random().toString()}
                                 onClick={handlePDF}
                                 title={data.title}
                                 p={data.content}
@@ -172,7 +186,7 @@ const BExample2 = () => {
 
                         case "file":
                             return <Answer src="\images\icon-btns\Upload.svg"
-                                key={data.title}
+                                key={Math.random().toString()}
                                 onClick={handleFile}
                                 title={data.title}
                                 p={data.content}
@@ -183,7 +197,7 @@ const BExample2 = () => {
 
                         case "answer":
                             return <Answer src="/images/icon-btns/answer.svg"
-                                key={data.title}
+                                key={Math.random().toString()}
                                 onClick={handleAnswer}
                                 title={data.title}
                                 p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
