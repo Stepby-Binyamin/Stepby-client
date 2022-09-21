@@ -15,8 +15,8 @@ const HeaderTitle = () => {
     return (
         <div className={styles.container}>
             <div className={styles.svgDiv}>
-                {header.isArrow && <img src="/images/icons/arrow.svg" alt="iconArrow" onClick={() => navigate(-1)} />}
-                {header.isHamburguer && <img src="/images/icons/hamburguer.svg" alt="iconHamburguer" onClick={() => navigate(-1)} />}
+                {header.isArrow && <img src="/images/icons/arrow.svg" alt="iconArrow" onClick={() => navigate(header.arrowNav)} />}
+                {header.isHamburguer && <img src="/images/icons/hamburguer.svg" alt="iconHamburguer" onClick={() => navigate(header.arrowNav)} />}
 
             </div>
 

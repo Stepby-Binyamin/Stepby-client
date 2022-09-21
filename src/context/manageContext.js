@@ -16,6 +16,7 @@ export const ContextProvider = ({ children }) => {
     const [isHamburguer, setIsHamburguer] = useState(false);
     const [isDots, setIsDots] = useState(true)
     const [isHeaderSet, setIsHeaderSet] = useState(true)
+    const [arrowNav, setArrowNav] = useState(-1)
 
     const [userData, setUserData] = useState(localStorage.user? JSON.parse(localStorage.user) : {})//only one user
     const [Drawer, setDrawer] = useState(); // content of drawer
@@ -62,6 +63,8 @@ export const ContextProvider = ({ children }) => {
                 setIsDots,
                 isHeaderSet,
                 setIsHeaderSet,
+                arrowNav,
+                setArrowNav,
             },
             language
 

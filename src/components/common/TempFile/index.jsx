@@ -38,6 +38,11 @@ const {drawer} = useContext(mainContext)
             project,
             id,
             stepId
+            // i have to send this info
+            // bizName,
+            // projectName,
+            // stepName,
+            // description, // important ???
         }
         const formData = new FormData();
         formData.append("objShortQuestion", JSON.stringify(data))

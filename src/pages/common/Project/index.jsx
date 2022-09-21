@@ -33,16 +33,15 @@ export default function Project({ mode }) {
         if (state && state.temp)
             setCurr(state.temp)
 
-        const fetchData = () =>
-            apiCalls("get", "/project/projectById/" + templateId)
-                .then((result) => setCurr(result));
+        apiCalls("get", "/project/projectById/" + templateId)
+            .then((result) => setCurr(result));
 
-        fetchData();
     }, [])
 
     useEffect(() => {
         header.setIsTitle(true)
         header.setTitle(curr?.name)
+        curr?.status === "done" && header.setArrowNav("/projects")
         // TODO יש צורך בלהגדיר את הdrawers לפי המצב
         switch (mode) {
             case "template":
@@ -59,6 +58,7 @@ export default function Project({ mode }) {
             case "biz":
                 header.setIsDots(true)
                 header.setIsArrow(true)
+                header.setIsHamburguer(false) 
                 header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
                 // TODO setDrawerContentHeader
                 break;

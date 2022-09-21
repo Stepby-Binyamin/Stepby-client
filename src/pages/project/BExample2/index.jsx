@@ -1,6 +1,6 @@
 import styles from "./style.module.css"
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation, useNavigate, Navigate } from "react-router-dom"
 
 import StatusStep from "../../../components/all/StatusStep"
 import Answer from "../../../components/all/Answer"
@@ -28,15 +28,17 @@ const BExample2 = () => {
     const [uploadLocation, setUploadLocation] = useState()
     const [image, setImage] = useState()
 
-    // const { templateId, stepId } = useParams()
+    const { templateId, stepId } = useParams()
     const { state } = useLocation()
     const projName = state && state.tempName
     const stepp = state && state.step
-
+    console.log("state", state);
     const [stepInfo, setStepInfo] = useState()
+    const navigate = useNavigate()
 
-    const stepId = "631f241f821ad1ae1e9c898a"// stepId 631f241f821ad1ae1e9c898a
-    const templateId = "63219465c09b53166316f472" //projectId 63219465c09b53166316f472
+    // const stepId = "632a9e2c597f43a831bdb859"// stepId 631f241f821ad1ae1e9c898a
+    // const templateId = "632aa2a0597f43a831bdb90c" //projectId 63219465c09b53166316f472
+    // {name:"shaulproject"}
 
     console.log("stepInfo", stepInfo);
 
@@ -146,6 +148,13 @@ const BExample2 = () => {
         drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step} />);
     }
 
+    function handleFunc() {
+        const body = { stepId }
+
+        apiCalls('put', `/project/completeStep/${templateId}`, body)
+            .then((res) => { navigate(`/project/biz/${templateId}`) })
+            .catch((err) => console.log(err))
+    }
     console.log(image);
 
     return (
@@ -214,7 +223,10 @@ const BExample2 = () => {
             </div>
 
             <div className={styles.btns}>
-                {findStep.data[0].owner === "client" && findStep.status === "client" ?
+                <>
+                    <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
+                    <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" func={handleFunc} /></div></>
+                {/* {findStep.data[0].owner === "client" && findStep.status === "client" ?
                     <>
                         <div style={{ width: "14%" }}><BtnSubmitIcon icon="whatsapp.svg" color="lite" /></div>
                         <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
@@ -225,7 +237,7 @@ const BExample2 = () => {
                                 <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
                                 <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
                             : <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
-                }
+                } */}
 
 
             </div>
