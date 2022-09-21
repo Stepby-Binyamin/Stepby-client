@@ -27,8 +27,6 @@ const HomeProject = ({ style = {}, ...props }) => {
    const [sortListBy, setsortListBy] = useState(ALL)
    const [sortDirection, setSortDirection] = useState(false)
    const { userData, setUserData } = useContext(userContext)
-   const location = useLocation();
-   const change = location.state
 
    // const navigate = useNavigate()
 
@@ -68,7 +66,7 @@ const HomeProject = ({ style = {}, ...props }) => {
          });
 
 
-   }, [change])
+   }, [])
 
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
@@ -127,7 +125,7 @@ const HomeProject = ({ style = {}, ...props }) => {
    function findCurrentStep(steps) {
       if (steps) {
          let y = steps.sort((a, b) => a.index < b.index ? -1 : 1)  //TODO fix sort
-         let z = y.find(v => v.isApprove)
+         let z = y.find(v => !v.isApprove)
          return z ? z.name : y.name
       }
       else { return "" }
@@ -148,17 +146,19 @@ const HomeProject = ({ style = {}, ...props }) => {
                   <UiDirectionText mainTitle={LETS_GO} text1={ICON} text2={CALL_YOU} />
                   :
                   <>{
-                     dataToPrint && dataToPrint.activeStatus.map(item =>
-                        <ListItem
+                     dataToPrint && dataToPrint.activeStatus.map(item => {
+                        console.log(item);
+                        return <ListItem
                            key={item._id}
                            status={item.status}
-                           mainTitle={item.client?.bizName}
+                           mainTitle={item.client?.fullName}
                            secondaryTitle={item.name}
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                            link={`/project/biz/${item._id}`}
                            linkState={{ temp: item, mode: 'biz' }}
-                        />)
+                        />
+                     })
                   }{
                         dataToPrint && dataToPrint.doneStatus.map(item =>
                            <ListItem
