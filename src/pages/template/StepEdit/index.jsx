@@ -89,12 +89,14 @@ const StepEdit = ({ style = {}, ...props }) => {
       apiCalls("put", "/template/duplicateStep/" + templateId, {stepId}).then((result) => {
          console.log(result);
       });
+      navigate(-1);
       drawer.setDrawer();
    }
-   const deleteStep = () => { // same problem as mentioned in duplicateStep 
+   const deleteStep = () => {
       apiCalls("delete", "/template/deleteStep/" + templateId, {stepId}).then((result) => {
          console.log(result);
       });
+      navigate(-1);
       drawer.setDrawer();
    }
 
