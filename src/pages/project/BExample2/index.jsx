@@ -11,9 +11,8 @@ import UploadPicture from "../../../components/common/UploadPicture"
 
 import mainContext from "../../../context/mainContext"
 import projects from "../../../data/fakeProjects.js"
+
 import Pdf from "../../../test.pdf"
-
-
 import TempSimpleAnswer from "../../../components/common/TempSimpleAnswer"
 import TempIMG from "../../../components/common/TempIMG"
 import TempPDF from "../../../components/common/TempPDF"
@@ -90,10 +89,11 @@ const BExample2 = () => {
     }
 
     function handleIMG() {
-        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
 
+        // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
         // drawer.setDrawer(<TempPDF step={step} project={project}/>)
         // drawer.setDrawer(<UploadedIMGView step={step} project={project} />)
+
         const data = {
             // This is the body part
             client: "solyattie",
