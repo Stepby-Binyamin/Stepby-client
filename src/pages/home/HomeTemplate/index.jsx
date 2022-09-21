@@ -16,23 +16,20 @@ import apiCalls from '../../../functions/apiRequest'
 import userContext from '../../../context/userContext'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
-   const { userData, setUserData } = useContext(userContext)
-   // console.log(userData);
+   const { userData } = useContext(userContext)
+   const navigate = useNavigate()
+   const [isAdmin, setIsAdmin] = useState(false)
 
-
-   const admin = true
+   const [displayTemplates, setDisplayTemplates] = useState()
 
    const { header, drawer, language } = useContext(mainContext)
    const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = language
-   const [dataState, setDataState] = useState()
-   const [recomend, setRecomend] = useState()
-   const [sortListBy, setSortListBy] = useState(MY_TEMP)
-   // const navigate = useNavigate()
 
-   const filterTemp = dataState && dataState.filter(item => item.isTemplate)
-   const dataToPrint = sortListBy === MY_TEMP ? filterTemp : recomend
+   const [templatesByUser, setTemplatesByUser] = useState()
+   const [templatesByUserLength, setTemplatesByUserLength] = useState()
+   const [recommend, setRecommend] = useState()
 
-   const tempCounter = filterTemp && filterTemp.length
+   const [choose, setChoose] = useState(MY_TEMP)
 
    useEffect(() => {
       header.setIsTitle(false)
@@ -40,7 +37,9 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
       apiCalls('get', '/template/templateByUser')
          .then(response => {
-            setDataState(response);
+            setTemplatesByUser(response);
+            setDisplayTemplates(response)
+            setTemplatesByUserLength(response.length)
          })
          .catch(error => {
             console.log(error)
@@ -48,7 +47,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
       apiCalls('get', '/template/categoriesByUser')
          .then(response => {
-            setRecomend(response);
+            setRecommend(response);
          })
          .catch(error => {
             console.log(error)
@@ -56,25 +55,39 @@ const HomeTemplate = ({ style = {}, ...props }) => {
 
    }, [])
 
+   useEffect(() => {
+      console.log("userData: " + userData);
+      setIsAdmin(userData?.permissions === 'admin' ? true : false);
+   }, [userData])
+
+   useEffect(() => {
+      choose === MY_TEMP ? setDisplayTemplates(templatesByUser) : setDisplayTemplates(recommend)
+   }, [choose])
+
    const createNewTemplate = async (templateName) => {
       console.log(templateName);
       apiCalls("post", "/template/createTemplate", templateName)
          .then(() => {
-            apiCalls('get', '/project/projectByUser')
-               .then(response => {
-                  setDataState(response);
+            apiCalls('get', '/template/templateByUser')
+               .then(res => {
+                  setDisplayTemplates(res);
+                  navigate(`/template/${res[res.length - 1]._id}`)
                })
                .catch(error => {
                   console.log(error)
                });
-
          })
          .catch(error => {
             console.log(error)
          });
 
    }
-
+   const createNewTemplateAdmin = async (data) => {
+      apiCalls("post", "/template/createTemplateAdmin", { ...data, categories: data.res })
+         .then((res) => {
+            navigate(`/template/${res.message._id}`)
+         })
+   }
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
    }
@@ -82,10 +95,8 @@ const HomeTemplate = ({ style = {}, ...props }) => {
       drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
-      // navigate('/template')
-      console.log(userData);
-      userData?.permissions === "admin" ?
-         drawer.setDrawer(<CreateTemplateGeneral printData={printData} />) :
+      isAdmin ?
+         drawer.setDrawer(<CreateTemplateGeneral printData={printData} NewAdminTemplate={createNewTemplateAdmin} />) :
          drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} printData={printData} />)
    }
    const openDrawer = () => {
@@ -99,28 +110,24 @@ const HomeTemplate = ({ style = {}, ...props }) => {
       <div className={styles.HomeTemplate} style={style} {...props} >
 
          <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
-         <NavLinkTab state={sortListBy} setState={setSortListBy} firstText={MY_TEMP} secondText={RECOMENDED} counter={tempCounter} />
+         <NavLinkTab state={choose} setState={setChoose} firstText={MY_TEMP} secondText={RECOMENDED} counter={templatesByUserLength} />
 
          <ul className={styles.list}>
             {
-               // !dataToPrint ? <div>loading...</div> :
-
-               dataToPrint && dataToPrint.map(item =>
+               (displayTemplates?.map(item =>
                   <ListItem
                      key={item._id}
                      mainTitle={item.name}
-                     secondaryTitle={sortListBy === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}
-                     secondaryTitleWeight={sortListBy === MY_TEMP ?
+                     secondaryTitle={choose === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}
+                     secondaryTitleWeight={choose === MY_TEMP ?
                         `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :
                         `${item.creatorId.firstName} ${item.creatorId.lastName}`}
                      link={`/template/${item._id}`}
                      linkState={{ temp: item, mode: "template" }}
-                  />)
-
+                  />))
             }
          </ul>
-
-         {sortListBy === MY_TEMP &&
+         {choose === MY_TEMP &&
             <BtnHolder buttons={[{ color: "gray", icon: "+", func: openDrawer }]} />
          }
       </div>
