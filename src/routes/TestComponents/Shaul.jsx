@@ -25,6 +25,10 @@ import BExample2 from '../../pages/project/BExample2'
 import CreateTemplateGeneral from '../../components/all/CreateTemplateGeneral'
 
 import axios from 'axios'
+import TempSimpleAnswer from '../../components/common/TempSimpleAnswer'
+import TempFile from '../../components/common/TempFile'
+import TempPDF from '../../components/common/TempPDF'
+import TempIMG from '../../components/common/TempIMG'
 
 export default function Shaul() {
 
@@ -106,14 +110,14 @@ export default function Shaul() {
          {/* <TempSimpleAnswer /> */}
          {/* <TempFile /> */}
          {/* <TempPDF /> */}
+         {/* <TempIMG /> */}
 
          {/* <UploadCShortAnswer /> */}
          {/* <UploadedIMGView /> */}
-         {/* <TempIMG /> */}
          {/* <UploadPicture /> */}
          {/* <UploadClientAnswer /> */}
          {/* <CreateTemplateGeneral/> */}
-         <button onClick={onClickFile}> click</button>
+         {/* <button onClick={onClickFile}> click</button> */}
 
       </>
    )

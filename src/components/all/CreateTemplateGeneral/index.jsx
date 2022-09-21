@@ -7,7 +7,7 @@ import BtnSubmitText from "../../common/BtnSubmitText"
 import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import mainContext from '../../../context/mainContext'
-import { categories } from '../../../data/fakeProjects'
+import apiCalls from '../../../functions/apiRequest';
 
 
 
@@ -16,13 +16,17 @@ const CreateTemplateGeneral = ({ placeholder, NewAdminTemplate, ...props }) => {
     const { header, drawer, language } = useContext(mainContext)
     let navigate = useNavigate();
 
-
-    useEffect(() => {
-        setData((current) => ({ ...current, categories }))
-    }, [])
-
     const [data, setData] = useState({});
     const [select, setSelect] = useState(true);
+
+    useEffect(() => {
+        const getData = async () => {
+            const res = await apiCalls("get", "/category/")
+            setData((current) => ({ ...current, res }))
+        }
+        getData()
+
+    }, [])
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -32,15 +36,14 @@ const CreateTemplateGeneral = ({ placeholder, NewAdminTemplate, ...props }) => {
     }
 
     const btnCheckBoxHandler = (name) => {
-        const categories = data.categories.map(elem => elem.name === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
-        setData((current) => ({ ...current, categories }))
+        const categories = data?.res.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
+        setData((current) => ({ ...current, res: categories }))
     }
 
     const btnSubmitTextHandler = () => {
-        console.log("createTamplateGeneral:", data);
         drawer.setDrawer()
         // console.log(typeof NewAdminTemplate);
-        NewAdminTemplate(data)
+        NewAdminTemplate({ ...data, isGeneral: select })
         // navigate('/template/1234')
 
     }
@@ -75,13 +78,11 @@ const CreateTemplateGeneral = ({ placeholder, NewAdminTemplate, ...props }) => {
                 </div>
                 {select &&
                     <div className={styles.categoris}>
-                        {data.categories?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.name} id={elem.id} isActive={elem.isActive} key={elem.name} />)}
+                        {data.res?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.categoryName} id={elem._id} isActive={elem.isActive} key={elem._id} />)}
                     </div>
 
                 }
                 {!select &&
-
-
                     <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={language.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
 
             </div>
