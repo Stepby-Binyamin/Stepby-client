@@ -125,7 +125,7 @@ const HomeProject = ({ style = {}, ...props }) => {
    function findCurrentStep(steps) {
       if (steps) {
          let y = steps.sort((a, b) => a.index < b.index ? -1 : 1)  //TODO fix sort
-         let z = y.find(v => v.isApprove)
+         let z = y.find(v => !v.isApprove)
          return z ? z.name : y.name
       }
       else { return "" }
