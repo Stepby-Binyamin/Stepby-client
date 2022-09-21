@@ -43,7 +43,7 @@ const StepEdit = ({ style = {}, ...props }) => {
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
       header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
 
-      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={''} CurrentStepFunc={''} deleteFunc={''} />)
+      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={duplicateStep} CurrentStepFunc={''} deleteFunc={deleteStep} />)
    }, [])
 
    const onClickItem = (type, data = { stepId: stepData._id, tempId: templateId }) => {
@@ -72,9 +72,9 @@ const StepEdit = ({ style = {}, ...props }) => {
    }
 
    const editStep = (data) => {
-      console.log('stepData: ', stepData);
+      // console.log('stepData: ', stepData);
       const { radio } = data;
-      console.log('radio: ', radio);
+      // console.log('radio: ', radio);
       const dataToServer = { ...data, stepId, isCreatorApprove: radio === 'הלקוח' ? false : true }
       console.log('dataToServer: ', dataToServer);
       apiCalls("put", "/template/edit-step/" + templateId, dataToServer).then((result) => {
@@ -83,9 +83,26 @@ const StepEdit = ({ style = {}, ...props }) => {
       }
       )
    }
+   const duplicateStep = () => { // steps list won't re-render when user go back to the list! need to be fixed.
+      apiCalls("put", "/template/duplicateStep/" + templateId, {stepId}).then((result) => {
+         console.log(result);
+      });
+      drawer.setDrawer();
+   }
+   const deleteStep = () => { // same problem as mentioned in duplicateStep 
+      apiCalls("delete", "/template/deleteStep/" + templateId, {stepId}).then((result) => {
+         console.log(result);
+      });
+      drawer.setDrawer();
+   }
 
-   const addAnswerToStep = (data)=> {
-      console.log('data: ', data);
+   const addAnswerToStep = (data) => {
+      const dataToServer = {...data, stepId}
+      apiCalls("put", "/template/dataToStep/" + templateId, dataToServer).then((result) => {
+         setStepData((current)=> ({...current, data: result }));
+      });
+      console.log("stepData.data: ",  stepData.data);
+      
    }
 
    return (
@@ -114,8 +131,8 @@ const StepEdit = ({ style = {}, ...props }) => {
 
          </div>
 
-         {!console.log('stepData: ', stepData) && stepData && stepData.data && (stepData.data.length > 0 ?
-            stepData.data.map(item =>
+         {stepData && stepData.data && (stepData.data.length > 0 ?
+              stepData.data.map(item =>
                <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :
             <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />

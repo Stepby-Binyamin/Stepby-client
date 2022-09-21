@@ -164,8 +164,7 @@ export default function Project({ mode }) {
                         down={downMove}
                         id={step._id}
                         link={nav({ mode, curr, step })}
-                        linkState={{ tempName: curr.name, step, stepId: step._id }}
-
+                        linkState={{ tempName: curr.name, step, stepId: step._id}}
                     />)}
                 {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
