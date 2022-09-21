@@ -1,6 +1,6 @@
 import styles from "./style.module.css"
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation, useNavigate, Navigate } from "react-router-dom"
 
 import StatusStep from "../../../components/all/StatusStep"
 import Answer from "../../../components/all/Answer"
@@ -31,9 +31,20 @@ const BExample2 = () => {
     const { state } = useLocation()
     const projName = state && state.tempName
     const stepp = state && state.step
+    console.log("state", state);
+    const [stepInfo, setStepInfo] = useState()
+    const navigate = useNavigate()
+
+    // const stepId = "632a9e2c597f43a831bdb859"// stepId 631f241f821ad1ae1e9c898a
+    // const templateId = "632aa2a0597f43a831bdb90c" //projectId 63219465c09b53166316f472
+    // {name:"shaulproject"}
+
+    console.log("stepInfo", stepInfo);
 
     // console.log("templateId",templateId);
     // console.log("stepId",stepId);
+    //isCreatorApprove = true biz false client
+    //isApprove ???
 
     const index = 1
     const _id = '14'
@@ -58,11 +69,14 @@ const BExample2 = () => {
     useEffect(() => {
         header.setTitle("אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
-        // header.setIsDots(false)            
-        // HeaderTitle
-        findStep.data[0].owner === "biz" ? header.setIsArrow(true) : header.setIsArrow(false)
-        findStep.data[0].owner === "biz" ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
+        // header.setIsDots(false)                 // HeaderTitle
+
+        apiCalls('get', `/project/getStepById/${templateId}/${stepId}`)
+            .then((res) => setStepInfo(res))
+            .catch((err) => console.log(err))
     }, [])
+    stepInfo?.isCreatorApprove === true ? header.setIsArrow(true) : header.setIsArrow(false)
+    stepInfo?.isCreatorApprove === true ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
 
     const handlePDF = () => {
         axios({
@@ -134,36 +148,44 @@ const BExample2 = () => {
         drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step} />);
     }
 
+    function handleFunc() {
+        const body = { stepId }
+
+        apiCalls('put', `/project/completeStep/${templateId}`, body)
+            .then((res) => { navigate(`/project/biz/${templateId}`) })
+            .catch((err) => console.log(err))
+    }
     console.log(image);
 
     return (
         <div className={styles.page}>
-            {findStep.data[0].owner === "biz"  // can be client or biz
-                ? <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} time={Difference_In_Days} />
-                : <StatusStep numOfStage={findStep.index} user={findProject.client.clientName} />}
+            {stepInfo?.isCreatorApprove === true  // can be false => client or true => biz
+                ? <StatusStep numOfStage={stepInfo?.index} user={findProject.client.clientName} time={Difference_In_Days} />
+                : <StatusStep numOfStage={stepInfo?.index} user={findProject.client.clientName} />}
 
-            <div className={styles.title}>{findStep.name}</div>
-            <div className={styles.text}>{findStep.des}</div>
+            <div className={styles.title}>{stepInfo?.name}</div>
+            <div className={styles.text}>{stepInfo?.description}</div>
 
-            {image &&
+            {/* no relevant yet but dont delete  */}
+            {/* {image &&
                 <div className={styles.downImg}>
                     <img src={image} alt="base64 test" />
                 </div>
-            }
+            } */}
 
             <div className={styles.pdf} >
-                {findStep.data.map((data, index) => {
+                {stepInfo?.data.map((data, index) => {
                     switch (data.type) {
                         case "img":
                             return <ImageView
-                                key={data.title}
+                                key={Math.random().toString()}
                                 imgDescription={data.title}
                                 imgPath={data.content}
                                 onClick={handleIMG}
                             />
                         case "pdf":
                             return <Answer src="/images/icon-btns/filePDF.svg"
-                                key={data.title}
+                                key={Math.random().toString()}
                                 onClick={handlePDF}
                                 title={data.title}
                                 p={data.content}
@@ -174,7 +196,7 @@ const BExample2 = () => {
 
                         case "file":
                             return <Answer src="\images\icon-btns\Upload.svg"
-                                key={data.title}
+                                key={Math.random().toString()}
                                 onClick={handleFile}
                                 title={data.title}
                                 p={data.content}
@@ -185,7 +207,7 @@ const BExample2 = () => {
 
                         case "answer":
                             return <Answer src="/images/icon-btns/answer.svg"
-                                key={data.title}
+                                key={Math.random().toString()}
                                 onClick={handleAnswer}
                                 title={data.title}
                                 p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
@@ -201,7 +223,10 @@ const BExample2 = () => {
             </div>
 
             <div className={styles.btns}>
-                {findStep.data[0].owner === "client" && findStep.status === "client" ?
+                <>
+                    <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
+                    <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" func={handleFunc} /></div></>
+                {/* {findStep.data[0].owner === "client" && findStep.status === "client" ?
                     <>
                         <div style={{ width: "14%" }}><BtnSubmitIcon icon="whatsapp.svg" color="lite" /></div>
                         <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
@@ -212,7 +237,7 @@ const BExample2 = () => {
                                 <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
                                 <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
                             : <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
-                }
+                } */}
 
 
             </div>
