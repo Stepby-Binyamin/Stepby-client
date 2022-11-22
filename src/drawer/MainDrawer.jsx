@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
-
-import mainContext from "../context/mainContext";
 import styles from "./style.module.css";
+import { useState, useContext } from "react";
+import mainContext from "../context/mainContext";
 
-export default function MainDrawer() {
+const MainDrawer = () => {
   const { drawer } = useContext(mainContext);
   const [touchStart, setTouchStart] = useState(0);
   const [swipe, setSwipe] = useState(true);
@@ -41,3 +40,4 @@ export default function MainDrawer() {
     </>
   );
 }
+export default MainDrawer

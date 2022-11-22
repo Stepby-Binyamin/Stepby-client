@@ -17,7 +17,6 @@ export default function Project({ mode }) {
     const { templateId } = useParams()
     const { state } = useLocation()
     const { drawer, header, language = {} } = useContext(mainContext)
-    const { COMPLET, STEP_BY_STEP, PRESS_ON, ADD_STEP } = language
     const [curr, setCurr] = useState()
     const indexFirst = findTheNext(curr)
 
@@ -95,7 +94,7 @@ export default function Project({ mode }) {
 
     function secondaryTitle(curr, step) {
         //TODO אם ה ? : מתחיל להיות לא מובן לעבור לתנאי רגיל 
-        return step.isApprove === true ? COMPLET : indexFirst === step.index && `בטיפול ${findTheOwner(curr)}`
+        return step.isApprove === true ? language.COMPLET : indexFirst === step.index && `בטיפול ${findTheOwner(curr)}`
     }
 
     function nav({ mode, curr, step }) {
@@ -181,7 +180,7 @@ export default function Project({ mode }) {
                         linkState={{ tempName: curr.name, stepId: step._id, curr, step }}
 
                     />)}
-                {curr.steps?.length < 1 && <UiDirectionText mainTitle={STEP_BY_STEP} text1={PRESS_ON} text2={ADD_STEP} />}
+                {curr.steps?.length < 1 && <UiDirectionText mainTitle={language.STEP_BY_STEP} text1={language.PRESS_ON} text2={language.ADD_STEP} />}
                 {mode === "client" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }]} />}
                 {mode === "template" && <BtnHolder buttons={curr.steps?.length < 1 ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}
                 {mode === "biz" && <BtnHolder buttons={[{ color: "lite", icon: "whatsapp", func: () => { console.log("Hello") }, link: '' }, { color: "gray", icon: "+", func: onClickPlus, link: '' }]} />}

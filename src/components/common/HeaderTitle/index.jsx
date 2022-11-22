@@ -1,9 +1,7 @@
 import styles from "./style.module.css"
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import mainContext from '../../../context/mainContext'
-
 import Confirm from '../../all/Confirm'
 
 const HeaderTitle = () => {
@@ -17,7 +15,6 @@ const HeaderTitle = () => {
             <div className={styles.svgDiv}>
                 {header.isArrow && <img src="/images/icons/arrow.svg" alt="iconArrow" onClick={() => navigate(-1)} />}
                 {header.isHamburguer && <img src="/images/icons/hamburguer.svg" alt="iconHamburguer" onClick={() => navigate(-1)} />}
-
             </div>
 
             <div className={styles.headerCenter}>

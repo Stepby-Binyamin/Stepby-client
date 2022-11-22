@@ -6,14 +6,11 @@ import Layout from './layout';
 import Login from './pages/user/LoginPage';
 import languageFunc from './functions/languageFunc'
 
-
-
 const App = () => {
-  
+
   useEffect(() => {
     languageFunc()
   }, [])
-  
   
   return (
     <div className={styles.main}>

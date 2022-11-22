@@ -39,7 +39,6 @@ export const ContextProvider = ({ children }) => {
     }, [])
 
     return (
-
         <mainContext.Provider value={{
             drawer: {
                 Drawer,
@@ -64,7 +63,6 @@ export const ContextProvider = ({ children }) => {
                 setIsHeaderSet,
             },
             language
-
         }}>
             <userContext.Provider value={{ userData, setUserData }}>
                 <dataContext.Provider value={{ data: { projects, categories } }} >
@@ -74,5 +72,4 @@ export const ContextProvider = ({ children }) => {
         </mainContext.Provider >
     )
 }
-
 

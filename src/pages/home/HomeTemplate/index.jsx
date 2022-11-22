@@ -16,20 +16,16 @@ import apiCalls from '../../../functions/apiRequest'
 import userContext from '../../../context/userContext'
 
 const HomeTemplate = ({ style = {}, ...props }) => {
-   const { userData } = useContext(userContext)
    const navigate = useNavigate()
-   const [isAdmin, setIsAdmin] = useState(false)
-
-   const [displayTemplates, setDisplayTemplates] = useState()
-
+   const { userData } = useContext(userContext)
    const { header, drawer, language } = useContext(mainContext)
-   const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = language
 
+   const [isAdmin, setIsAdmin] = useState(false)
+   const [displayTemplates, setDisplayTemplates] = useState()
    const [templatesByUser, setTemplatesByUser] = useState()
    const [templatesByUserLength, setTemplatesByUserLength] = useState()
    const [recommend, setRecommend] = useState()
-
-   const [choose, setChoose] = useState(MY_TEMP)
+   const [choose, setChoose] = useState(language.MY_TEMP)
 
    useEffect(() => {
       header.setIsTitle(false)
@@ -61,7 +57,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    }, [userData])
 
    useEffect(() => {
-      choose === MY_TEMP ? setDisplayTemplates(templatesByUser) : setDisplayTemplates(recommend)
+      choose === language.MY_TEMP ? setDisplayTemplates(templatesByUser) : setDisplayTemplates(recommend)
    }, [choose])
 
    const createNewTemplate = async (templateName) => {
@@ -109,8 +105,8 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    return (
       <div className={styles.HomeTemplate} style={style} {...props} >
 
-         <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
-         <NavLinkTab state={choose} setState={setChoose} firstText={MY_TEMP} secondText={RECOMENDED} counter={templatesByUserLength} />
+         <NavLink firstText={language.PROJECTS} secondText={language.TEMPLATES} />
+         <NavLinkTab state={choose} setState={setChoose} firstText={language.MY_TEMP} secondText={language.RECOMENDED} counter={templatesByUserLength} />
 
          <ul className={styles.list}>
             {
@@ -118,8 +114,8 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                   <ListItem
                      key={item._id}
                      mainTitle={item.name}
-                     secondaryTitle={choose === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}
-                     secondaryTitleWeight={choose === MY_TEMP ?
+                     secondaryTitle={choose === language.MY_TEMP ? language.LAST_DUPLICATED : language.CREATED_BY}
+                     secondaryTitleWeight={choose === language.MY_TEMP ?
                         `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :
                         `${item.creatorId.firstName} ${item.creatorId.lastName}`}
                      link={`/template/${item._id}`}
@@ -127,7 +123,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                   />))
             }
          </ul>
-         {choose === MY_TEMP &&
+         {choose === language.MY_TEMP &&
             <BtnHolder buttons={[{ color: "gray", icon: "+", func: openDrawer }]} />
          }
       </div>
