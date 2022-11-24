@@ -8,37 +8,31 @@ import userContext from '../../../context/userContext'
 import apiCalls from '../../../functions/apiRequest'
 import styles from './style.module.css'
 
-export default function BusinessCategory() {
+const BusinessCategory = () => {
+  const navigate = useNavigate();
+  const { header, language } = useContext(mainContext)
+  const { userData, setUserData } = useContext(userContext)
 
-  const [language, setLanguage] = useState(JSON.parse(localStorage.language)),
-    { header } = useContext(mainContext),
-    [allCategories, setAllCategories] = useState([]),
-    { userData, setUserData } = useContext(userContext),
-    [categories, setCategories] = useState([]),
-    navigate = useNavigate();
-  const getCategories = async () => {
-    await apiCalls('get', '/user/get-all-categories')
-      .then( res => {
-        setAllCategories(res)
-      }).catch(err => console.log('my error: ', err))
-  }
+  const [allCategories, setAllCategories] = useState([])
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     getCategories()
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
-    setLanguage(JSON.parse(localStorage.language))
-   userData.categories.length <= 0 ? header.setIsArrow(false) : header.setIsArrow(true)
-    
+    userData.categories.length <= 0 ? header.setIsArrow(false) : header.setIsArrow(true)
   }, [])
 
-
-
- 
-  useEffect( () => {
+  useEffect(() => {
     getTrueCategories()
   }, [allCategories])
 
+  const getCategories = async () => {
+    await apiCalls('get', '/user/get-all-categories')
+      .then(res => {
+        setAllCategories(res)
+      }).catch(err => console.log('my error: ', err))
+  }
   const goToNextPage = (newUser) => {
     let body = []
     categories.map(cat => cat.isActive === true ? body.push(cat) : null)
@@ -50,23 +44,21 @@ export default function BusinessCategory() {
     }).catch(err => console.log(err))
 
   }
-
-  function getTrueCategories() {
-    if(userData?.categories.length <= 0){
+  const getTrueCategories = () => {
+    if (userData?.categories.length <= 0) {
       setCategories(allCategories)
-    }else{
-    let tempCategories = allCategories
-    let result = []
-    for (let userCat of userData?.categories) {
-      result = tempCategories.map(cat =>{
-        return cat._id === userCat._id ?({ ...cat, isActive: true }) : cat
-      })
-      tempCategories = result
+    } else {
+      let tempCategories = allCategories
+      let result = []
+      for (let userCat of userData?.categories) {
+        result = tempCategories.map(cat => {
+          return cat._id === userCat._id ? ({ ...cat, isActive: true }) : cat
+        })
+        tempCategories = result
+      }
+      setCategories(result)
     }
-    setCategories(result)
   }
-  }
-
   const handleClick = (name) => {
     const result = categories.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
     console.log(result)
@@ -74,12 +66,24 @@ export default function BusinessCategory() {
   }
 
   return (<>
-    <div className={styles.title}><UserTitle text1={`${userData?.firstName}, ${language.AREAS_PRACTICE} ${userData?.bizName}?`} /></div>
-      {categories?.map(elem => <div className={styles.buttons} key={Math.random().toString()}><BtnCheckBox name={elem.categoryName} id={elem.categoryName} key={elem.categoryName} handleClick={handleClick} isActive={elem.isActive} /></div>)}
+    <div className={styles.title}>
+      <UserTitle text1={`${userData?.firstName}, ${language.AREAS_PRACTICE} '${userData?.bizName}'?`} />
+    </div>
+    {categories?.map(elem =>
+      <div className={styles.buttons} key={Math.random().toString()}>
+        <BtnCheckBox
+          name={elem.categoryName}
+          id={elem.categoryName}
+          key={elem.categoryName}
+          handleClick={handleClick}
+          isActive={elem.isActive} />
+      </div>)}
     {/* במידה וזה משתמש חדש צריך למשוך לו את הקטגוריות הדיפולטיביות מהדאטא בייס. אם זה משתמש קיים אז למשוך לו מהפרטי יוזר */}
-    {/* //  {newUser? console.log("dd"):
-  {/* //   // {data?.map(elem => <BtnCheckBox name={elem.title} id={elem.title} key={elem.title} handleClick={handleClick} isActive={elem.isActive} />}} */}
-
-    <BtnSubmitIcon color='orange' icon={userData?.categories.length <= 0 ? 'Arrow.svg' : 'v to text.svg'} func={() => goToNextPage(userData?.categories.length <= 0 ? true : false)} />
+    <BtnSubmitIcon
+      color='orange'
+      icon={userData?.categories.length <= 0 ? 'Arrow.svg' : 'v to text.svg'}
+      func={() => goToNextPage(userData?.categories.length <= 0 ? true : false)}
+    />
   </>)
 }
+export default BusinessCategory

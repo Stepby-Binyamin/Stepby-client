@@ -21,26 +21,35 @@ const ListItem = ({
    ...props
 }) => {
 
-   const {language}= useContext(mainContext)
-   const { TO_THE_WAY, COMPLET } = language
+   const { language } = useContext(mainContext)
    const seperatorIcon = ">";
    const navigate = useNavigate()
    const [showMoveArrow, setShowMoveArrow] = useState(false);
-
 
    const moveItem = () => {
       if (up && down)
          setShowMoveArrow(true);
    }
    const handleOnClick = () => {
-      showMoveArrow ? setShowMoveArrow(false) : link && navigate(link, {state: linkState})
+      showMoveArrow ? setShowMoveArrow(false) : link && navigate(link, { state: linkState })
+   }
+
+   const imageDetails = () => {
+      switch (status) {
+         case "biz":
+            return { src: `/images/icons/trialgeOrenge.svg`, alt: "trialgeOrenge", className: [`${styles.triangle}`] }
+         case "client":
+            return { src: `/images/icons/circle.svg`, alt: "circle", className: [`${styles.circle}`] }
+         case "done":
+            return { src: '/images/icons/smallCheckedGrey.svg', alt: "checked", className: [`${styles.checked}`] }
+         default:
+            break;
+      }
    }
 
    return (
       <SwipeLeft onSwipe={moveItem}>
          <li className={styles.ListItem} onClick={handleOnClick} style={style} {...props} >
-
-
             {
                showMoveArrow && <>
                   <img src={`/images/icons/listArrowDown.svg`} onClick={() => down(step)} alt="move down" style={{ "marginLeft": "4px" }} />
@@ -63,16 +72,16 @@ const ListItem = ({
 
                      <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>{mainTitle}</div>
 
-                     {isFirstStep && secondaryTitle !== COMPLET &&
-                        <div className={styles.firstStep}>{TO_THE_WAY}</div>
+                     {isFirstStep && secondaryTitle !== language.COMPLET &&
+                        <div className={styles.firstStep}>{language.TO_THE_WAY}</div>
                      }
 
                   </div>
 
-                  {secondaryTitle === COMPLET ?
+                  {secondaryTitle === language.COMPLET ?
                      <div className={styles.done}>
                         <img src={'/images/icons/smallChecked.svg'} alt="checked" style={{ "marginLeft": "4px" }} />
-                        {COMPLET}
+                        {language.COMPLET}
                      </div> :
 
                      <div className={styles.row}>

@@ -9,17 +9,15 @@ import Setting from '../pages/user/Setting'
 import HomeProject from '../pages/home/HomeProject'
 import HomeTemplate from '../pages/home/HomeTemplate'
 import Project from './../pages/common/Project'
-import Step from './../pages/project/BExample2'
+import Step from '../pages/project/Step'
 import StepEdit from '../pages/template/StepEdit'
 import Aviad from './TestComponents/Aviad'
 
 function MainRouter() {
-
     return (
         <Routes>
-
             <Route path='/' element={<><Login /> <Aviad /></>} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<><Login /> <Aviad /></>} />
             <Route path='/verification' element={<Verification />} />
             <Route path='/user-name' element={<UserName />} />
             <Route path='/business-name' element={<BusinessName />} />
@@ -35,21 +33,21 @@ function MainRouter() {
                 <Route path='edit-step/:stepId' element={<StepEdit />} />
             </Route>
 
-            <Route path='project'>
-                <Route path='biz'>
-                    <Route path=':templateId'  >
-                        <Route index element={<Project mode="biz" />} />
-                        <Route path='step/:stepId' element={<Step />} />
-                        <Route path='edit-step/:stepId' element={<StepEdit />} />
-                    </Route>
-                </Route>
+            <Route path='project/biz/:templateId'>
+                {/* <Route path='biz'>
+                    <Route path=':templateId'  > */}
+                <Route index element={<Project mode="biz" />} />
+                <Route path='step/:stepId' element={<Step />} />
+                <Route path='edit-step/:stepId' element={<StepEdit />} />
+                {/* </Route>
+                </Route> */}
             </Route>
 
-            <Route path='project/client'>
-                <Route path=':templateId'  >
-                    <Route index element={<Project mode="client" />} />
-                    <Route path='step/:stepId' element={<Step />} />
-                </Route>
+            <Route path='project/client/:templateId'>
+                {/* <Route path=':templateId'  > */}
+                <Route index element={<Project mode="client" />} />
+                <Route path='step/:stepId' element={<Step />} />
+                {/* </Route> */}
             </Route>
 
             <Route path='*' element={<></>} />

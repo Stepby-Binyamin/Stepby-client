@@ -156,7 +156,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            sconderyBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                            link={`/project/biz/${item._id}`}
-                           linkState={{ temp: item, mode: 'biz' }}
+                           linkState={{ temp: item }}
                         />
                      })
                   }{
@@ -169,7 +169,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                               sconderyBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                               link={`/project/biz/${item._id}`}
-                              linkState={{ temp: item, mode: 'biz' }}
+                              linkState={{ temp: item }}
                            />)
                      }</>
                // )

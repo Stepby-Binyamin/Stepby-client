@@ -12,8 +12,8 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
    const { drawer, language } = useContext(mainContext)
 
    const sort = isCreatorApprove ?
-      [{ name: language.MY, icon: "triangle" }, { name: language.CUSTOMER, icon: "circle" }] :
-      [{ name: language.CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
+      [{ name: language.MY, icon: "triangle" }, { name: language.THE_CUSTOMER, icon: "circle" }] :
+      [{ name: language.THE_CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]
 
    const [data, setData] = useState({ radio: "שלי" });
 

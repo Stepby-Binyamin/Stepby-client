@@ -119,7 +119,7 @@ const HomeTemplate = ({ style = {}, ...props }) => {
                         `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :
                         `${item.creatorId.firstName} ${item.creatorId.lastName}`}
                      link={`/template/${item._id}`}
-                     linkState={{ temp: item, mode: "template" }}
+                     linkState={{ temp: item }}
                   />))
             }
          </ul>

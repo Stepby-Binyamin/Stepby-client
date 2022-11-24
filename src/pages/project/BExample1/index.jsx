@@ -17,7 +17,7 @@ const BExample1 = () => {
     useEffect(() => {
         header.setIsTitle(false)
         header.setDrawerContentHeader(<Confirm />)
-        header.setTitle("אתר מרכז הצדקה")
+        header.setTitle("2אתר מרכז הצדקה")
         header.setSubTitle("מורדי איזנשטיין")
         header.setIsArrow(true)
         header.setIsHamburguer(false)

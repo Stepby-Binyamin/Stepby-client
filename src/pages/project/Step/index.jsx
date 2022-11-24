@@ -10,7 +10,6 @@ import UploadCShortAnswer from "../../../components/common/UploadCShortAnswer"
 import UploadPicture from "../../../components/common/UploadPicture"
 
 import mainContext from "../../../context/mainContext"
-import projects from "../../../data/fakeProjects.js"
 
 import Pdf from "../../../test.pdf"
 import TempSimpleAnswer from "../../../components/common/TempSimpleAnswer"
@@ -21,28 +20,19 @@ import UploadedIMGView from "../../../components/common/UploadedIMGView"
 import axios from "axios"
 import apiCalls from "../../../functions/apiRequest"
 
-const BExample2 = () => {
+const Step = () => {
+    const { state } = useLocation()
+    console.log("🚀 ~ file: index.jsx ~ line 26 ~ Step ~ state", state)
+    const navigate = useNavigate()
+    const { templateId, stepId } = useParams()
+    const { header, drawer } = useContext(mainContext)
+
     const [isUploaded, setIsUploaded] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
     const [uploadLocation, setUploadLocation] = useState()
     const [image, setImage] = useState()
+    const [stepInformation, setStepInformation] = useState()
 
-    const { templateId, stepId } = useParams()
-    const { state } = useLocation()
-    const projName = state && state.tempName
-    const stepp = state && state.step
-    console.log("state", state);
-    const [stepInfo, setStepInfo] = useState()
-    const navigate = useNavigate()
-
-    // const stepId = "632a9e2c597f43a831bdb859"// stepId 631f241f821ad1ae1e9c898a
-    // const templateId = "632aa2a0597f43a831bdb90c" //projectId 63219465c09b53166316f472
-    // {name:"shaulproject"}
-
-    console.log("stepInfo", stepInfo);
-
-    // console.log("templateId",templateId);
-    // console.log("stepId",stepId);
     //isCreatorApprove = true biz false client
     //isApprove ???
 
@@ -50,21 +40,18 @@ const BExample2 = () => {
     const _id = '14'
     const client = "solyattie"
     const project = 'fisrtProject'
-    const step = "1"
+    const step_ = "1"
 
     // const fileName = "answerName.txt"
     const fileName = "Tour_Eiffel.jpg"
     // const fileName = "lesson.pdf"
 
-    const findProject = projects.projects.find(project => project._id === _id)
-    const findStep = findProject.steps.find(step => step.index === index)
 
-    const { header, drawer } = useContext(mainContext)
 
     // Calculate the Days
-    const d = new Date()
-    var Difference_In_Time = d.getTime() - projects.projects[0].lastApprove.getTime()
-    var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
+    // const d = new Date()
+    // let Difference_In_Time = d.getTime() - projects.projects[0].lastApprove.getTime()
+    // let Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
 
     useEffect(() => {
         header.setTitle("אתר מרכז הצדקה")
@@ -72,11 +59,14 @@ const BExample2 = () => {
         // header.setIsDots(false)                 // HeaderTitle
 
         apiCalls('get', `/project/getStepById/${templateId}/${stepId}`)
-            .then((res) => setStepInfo(res))
+            .then((res) => setStepInformation(res))
             .catch((err) => console.log(err))
     }, [])
-    stepInfo?.isCreatorApprove === true ? header.setIsArrow(true) : header.setIsArrow(false)
-    stepInfo?.isCreatorApprove === true ? header.setIsHamburguer(false) : header.setIsHamburguer(true)
+
+    useEffect(() => {
+        header.setIsArrow(stepInformation?.isCreatorApprove);
+        header.setIsHamburguer(!stepInformation?.isCreatorApprove);
+    }, [stepInformation])
 
     const handlePDF = () => {
         axios({
@@ -101,17 +91,14 @@ const BExample2 = () => {
             link.click();
         });
     }
-
-    function handleIMG() {
-
+    const handleIMG = () => {
         // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
         // drawer.setDrawer(<TempPDF step={step} project={project}/>)
         // drawer.setDrawer(<UploadedIMGView step={step} project={project} />)
-
         const data = {
             // This is the body part
             client: "solyattie",
-            projectName: "fisrtProject",
+            projectName: "firstProject",
             stepNum: "1",
             fileName: fileName,
         }
@@ -135,36 +122,31 @@ const BExample2 = () => {
         //     setImage(`data:image/jpeg;base64,${img.data}`)
         // })
     }
-
-
-
-
-    function handleFile() {
-        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
-
+    const handleFile = () => {
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step_} />); //id={id} stepId={stepId}
     }
-
-    function handleAnswer() {
-        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step} />);
+    const handleAnswer = () => {
+        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step_} />);
     }
-
-    function handleFunc() {
+    const completed = () => {
         const body = { stepId }
 
         apiCalls('put', `/project/completeStep/${templateId}`, body)
             .then((res) => { navigate(`/project/biz/${templateId}`) })
             .catch((err) => console.log(err))
     }
-    console.log(image);
-
+    const stepEdit = () => {
+        console.log("GO TO EDIT STEP");
+        navigate(`/template/${templateId}/edit-step/${stepId}`)
+    }
     return (
         <div className={styles.page}>
-            {stepInfo?.isCreatorApprove === true  // can be false => client or true => biz
-                ? <StatusStep numOfStage={stepInfo?.index} user={findProject.client.clientName} time={Difference_In_Days} />
-                : <StatusStep numOfStage={stepInfo?.index} user={findProject.client.clientName} />}
+            {stepInformation?.isCreatorApprove === true  // can be false => client or true => biz
+                ? <StatusStep numOfStage={stepInformation?.index} user={""/*findProject.client.clientName*/} time={""/*Difference_In_Days*/} />
+                : <StatusStep numOfStage={stepInformation?.index} user={""/*findProject.client.clientName*/} />}
 
-            <div className={styles.title}>{stepInfo?.name}</div>
-            <div className={styles.text}>{stepInfo?.description}</div>
+            <div className={styles.title}>{stepInformation?.name}</div>
+            <div className={styles.text}>{stepInformation?.description}</div>
 
             {/* no relevant yet but dont delete  */}
             {/* {image &&
@@ -174,7 +156,7 @@ const BExample2 = () => {
             } */}
 
             <div className={styles.pdf} >
-                {stepInfo?.data.map((data, index) => {
+                {stepInformation?.data.map((data, index) => {
                     switch (data.type) {
                         case "img":
                             return <ImageView
@@ -224,25 +206,16 @@ const BExample2 = () => {
 
             <div className={styles.btns}>
                 <>
-                    <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
-                    <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" func={handleFunc} /></div></>
-                {/* {findStep.data[0].owner === "client" && findStep.status === "client" ?
-                    <>
-                        <div style={{ width: "14%" }}><BtnSubmitIcon icon="whatsapp.svg" color="lite" /></div>
-                        <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
-                    : findStep.data[0].owner === "client" && findStep.status === "biz" ?
-                        <div style={{ width: "14%" }}><BtnSubmitIcon icon="whatsapp.svg" color="lite" /></div>
-                        : findStep.data[0].owner === "biz" && findStep.status === "biz" ?
-                            <>
-                                <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
-                                <div style={{ width: "86%" }}><BtnSubmitIcon icon="v.svg" color="gray" /></div></>
-                            : <div style={{ width: "14%" }}><BtnSubmitIcon icon="pencil.svg" color="lite" /></div>
-                } */}
-
-
+                    <div style={{ width: "14%" }}>
+                        <BtnSubmitIcon icon="pencil.svg" color="lite" func={stepEdit} />
+                    </div>
+                    <div style={{ width: "86%" }}>
+                        <BtnSubmitIcon icon="v.svg" color="gray" func={completed} />
+                    </div>
+                </>
             </div>
         </div>
     )
 }
 
-export default BExample2
+export default Step
