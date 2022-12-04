@@ -1,8 +1,28 @@
-.wraper {
+.wrapper {
     display: flex;
 }
+.button{
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #D7D7D9;
+  border-radius: 12px;
+  width: 107.5px;
+  height: 40px;
+}
+.checkmark{
+  border: 1px solid #FF4F00;
+  color: #FF4F00 ;
+}
+.name_btn{
+  margin-right: 8px;
+  font-size: 15px;
+  font-family: "Heebo";
+}
+/*
 .container {
-    position: relative;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 15px;
@@ -12,13 +32,11 @@
   }
   
   .container input {
-    position: absolute;
     opacity: 0;
     cursor: pointer;
   }
   
   .checkmark {
-    position: absolute;
     display: flex;
     top: 0;
     left: 0;
@@ -48,4 +66,4 @@
   
   .checkmark > img {
     margin-left: 5px ;
-  }
+  }*/

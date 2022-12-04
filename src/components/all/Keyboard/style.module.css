@@ -3,7 +3,6 @@
     justify-content: center;
 
 }
-
 .keyboard {
     border: none;
     font-family: 'heebo';
@@ -16,12 +15,9 @@
     text-align: right;
     border-radius: 0%
 }
-
-
 .keyboard:focus {
     outline: none;
 }
-
 .keyboard::placeholder {
     color: var(--grey3-color);
 

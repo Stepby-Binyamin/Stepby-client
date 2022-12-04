@@ -8,8 +8,8 @@ import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
 const CreateClient = ({ createProject = false, data_, templateId }) => {
-    const { language, drawer } = useContext(mainContext)
     const navigate = useNavigate()
+    const { language, drawer } = useContext(mainContext)
 
     const collect = (e) => {
         e.preventDefault();
@@ -20,16 +20,17 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
-        const dataToServer = { projectName: data_?.projectName, isNewClient: true, fullName: data.fullName, phoneNumber: data.phoneNumber, email: data.email }
-        console.log(dataToServer);
+        const dataToServer = {
+            projectName: data_?.projectName, isNewClient: true,
+            fullName: data.fullName, phoneNumber: data.phoneNumber, email: data.email
+        }
         if (createProject) {
             apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
                 .then(projectId => {
-                    console.log("res:", projectId)
                     navigate(`/project/biz/${projectId}`)
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log("🚀 ~ file: index.jsx ~ line 30 ~ collect ~ error", error)
                 });
         }
         else {
@@ -38,15 +39,24 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
         drawer.setDrawer('')
     }
 
-
     return (
         <form className={styles.container} onSubmit={(e) => collect(e)} >
             <Keyboard placeholder={language.FULL_NAME_CUSTOMER} name="fullName" />
-            <SubKeyboard placeholder={language.USER_PHONE} iconSrc={"/images/icons/tell.svg"} name="phoneNumber" />
-            <SubKeyboard placeholder={language.EMAIL} iconSrc={"/images/icons/email.svg"} name="email" />
-            <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} /> </div>
+            <SubKeyboard
+                placeholder={language.USER_PHONE}
+                iconSrc={"/images/icons/tell.svg"}
+                name="phoneNumber" />
+            <SubKeyboard
+                placeholder={language.EMAIL}
+                iconSrc={"/images/icons/email.svg"}
+                name="email" />
+            <div className={styles.btn}>
+                <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} />
+            </div>
             {createProject &&
-                <div className={styles.btn}> <BtnSubmitText color={"gray"} text={language.CREATE_PROJECT} icon={"v to text.svg"} /> </div>
+                <div className={styles.btn}>
+                    <BtnSubmitText color={"gray"} text={language.CREATE_PROJECT} icon={"v to text.svg"} />
+                </div>
             }
         </form>
     )

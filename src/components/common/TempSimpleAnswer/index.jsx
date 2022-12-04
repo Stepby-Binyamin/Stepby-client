@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
 
@@ -8,11 +8,10 @@ import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
 import apiCalls from '../../../functions/apiRequest'
+import RadioBtnWithIcon from '../../all/radioBtn/WithIcon'
 
-const TempSimpleAnswer = ({ fetchDataFunc,data, step, project, id, stepId }) => {
-    // console.log("dat00", data);
-
-    const { drawer } = useContext(mainContext)
+const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id, stepId }) => {
+    const { drawer, language } = useContext(mainContext)
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
@@ -71,9 +70,13 @@ const TempSimpleAnswer = ({ fetchDataFunc,data, step, project, id, stepId }) => 
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.radio}>
-                <RadioBtn
+                {/* <RadioBtn
                     arr={['שאלת חובה', 'שאלת רשות']}
                     changeFunc={(e) => handleRadio(e)}
+                /> */}
+                <RadioBtnWithIcon
+                    changeFunc={(e) => handleRadio(e)}
+                    obj={[{ name: language.ASK_REQ }, { name: language.ASK_PER }]}
                 />
             </div>
             <div className={styles.submitButton}>

@@ -29,9 +29,12 @@ const Project = ({ mode }) => {
     // curr && curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
 
     useEffect(() => {
-        console.log("templateId:", templateId)
+        header.setIsArrow(true)
         apiCalls("get", `/project/projectById/${templateId}`)
-            .then((result) => setCurr(result));
+            .then((result) => {
+                console.log("🚀 ~ file: index.jsx ~ line 35 ~ useEffect ~ result", result)
+                setCurr(result)
+            });
     }, [])
 
     useEffect(() => {
@@ -119,7 +122,7 @@ const Project = ({ mode }) => {
                     [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' },
                     { color: "gray", icon: "+", func: onClickPlus, link: '' }]
             case "biz":
-                return [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${curr?.client.phoneNumber.replace("0", "+972")}` }
+                return [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${curr?.client?.phoneNumber.replace("0", "+972")}` }
                     , { color: "gray", icon: "+", func: onClickPlus, link: '' }]
             case "client":
                 return [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${userData.phoneNumber.replace("0", "+972")}` }]
@@ -128,28 +131,28 @@ const Project = ({ mode }) => {
         }
     }
 
-    // mode-template
+    //Mode-template
     const createNewProject = () => {
         drawer.setDrawer(<CreateProjectNewUser templateName={curr.name} templateId={templateId} />)
     }
 
-    //mode -template , biz
+    //Mode -template , biz
     const onClickPlus = () => {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
     }
     const newStep = (data) => {
-        const dataToServer = { stepName: data.stepName, description: data.description, isCreatorApprove: data.radio === 'שלי' ? true : false }
-        apiCalls("put", "/template/newStep/" + templateId, dataToServer)
+        const dataToServer = {
+            stepName: data.stepName,
+            description: data.description,
+            isCreatorApprove: data.radio === language.MY ? true : false
+        }
+        apiCalls("put", `/template/newStep/${templateId}`, dataToServer)
             .then(response => {
-                console.log('response: ', response);
-                console.log('curr: ', curr);
                 setCurr((current) => ({ ...current, steps: response }));
             })
             .catch(error => {
                 console.log(error)
             });
-
-        // console.log(curr);
     }
 
     return (<>
@@ -157,13 +160,13 @@ const Project = ({ mode }) => {
             <div className={styles.container}>
                 {(mode === "client" || mode === "biz") &&
                     <StatusProject
-                        status={curr.status}
+                        isDone={curr.status === "done"}
                         isLink={mode === "biz" ? true : false}
-                        name={curr.steps[indexNextStep]?.isCreatorApprove ? userData.firstName : curr.client.fullName}
+                        name={curr.status === "biz" ? userData.firstName : curr.client?.fullName}
                         completed={indexNextStep}
                         totalTask={curr.steps.length}
                         projectId={templateId}
-                        clientPhone={curr?.client.phoneNumber}
+                        clientPhone={curr?.client?.phoneNumber}
                         isCreatorApprove={curr.steps[indexNextStep]?.isCreatorApprove}
                     />}
                 {mode === "template" && <StatusTemp />}

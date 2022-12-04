@@ -1,5 +1,5 @@
 import styles from "./style.module.css"
-import React , { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 
 import mainContext from "../../../context/mainContext"
 
@@ -9,10 +9,13 @@ import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
 import apiCalls from "../../../functions/apiRequest"
+import RadioBtnWithIcon from "../../all/radioBtn/WithIcon"
 
 const TempFile = ({ data, step, project, id, stepId }) => {
-const {drawer} = useContext(mainContext)
-// console.log("dat00", data);
+    const { drawer } = useContext(mainContext)
+    const { language } = useContext(mainContext)
+
+    // console.log("dat00", data);
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
@@ -67,9 +70,13 @@ const {drawer} = useContext(mainContext)
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.radio}>
-                <RadioBtn
+                {/* <RadioBtn
                     arr={['שאלת חובה', 'שאלת רשות']}
                     changeFunc={(e) => handleRadio(e)}
+                /> */}
+                <RadioBtnWithIcon
+                    changeFunc={(e) => handleRadio(e)}
+                    obj={[{ name: language.ASK_REQ }, { name: language.ASK_PER }]}
                 />
             </div>
             <div className={styles.submitButton}>

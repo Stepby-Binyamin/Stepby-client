@@ -15,16 +15,14 @@ import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import apiCalls from '../../../functions/apiRequest'
 import userContext from '../../../context/userContext'
 
-const HomeTemplate = ({ style = {}, ...props }) => {
-   const navigate = useNavigate()
+const HomeTemplate = ({ style = {} }) => {
    const { userData } = useContext(userContext)
    const { header, drawer, language } = useContext(mainContext)
 
    const [isAdmin, setIsAdmin] = useState(false)
-   const [displayTemplates, setDisplayTemplates] = useState()
    const [templatesByUser, setTemplatesByUser] = useState()
-   const [templatesByUserLength, setTemplatesByUserLength] = useState()
    const [recommend, setRecommend] = useState()
+   const [displayTemplates, setDisplayTemplates] = useState()
    const [choose, setChoose] = useState(language.MY_TEMP)
 
    useEffect(() => {
@@ -35,7 +33,6 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          .then(response => {
             setTemplatesByUser(response);
             setDisplayTemplates(response)
-            setTemplatesByUserLength(response.length)
          })
          .catch(error => {
             console.log(error)
@@ -48,42 +45,14 @@ const HomeTemplate = ({ style = {}, ...props }) => {
          .catch(error => {
             console.log(error)
          });
-
    }, [])
-
    useEffect(() => {
-      console.log("userData: " + userData);
       setIsAdmin(userData?.permissions === 'admin' ? true : false);
    }, [userData])
-
    useEffect(() => {
       choose === language.MY_TEMP ? setDisplayTemplates(templatesByUser) : setDisplayTemplates(recommend)
    }, [choose])
 
-   const createNewTemplate = async (templateName) => {
-      console.log(templateName);
-      apiCalls("post", "/template/createTemplate", templateName)
-         .then(() => {
-            apiCalls('get', '/template/templateByUser')
-               .then(res => {
-                  setDisplayTemplates(res);
-                  navigate(`/template/${res[res.length - 1]._id}`)
-               })
-               .catch(error => {
-                  console.log(error)
-               });
-         })
-         .catch(error => {
-            console.log(error)
-         });
-
-   }
-   const createNewTemplateAdmin = async (data) => {
-      apiCalls("post", "/template/createTemplateAdmin", { ...data, categories: data.res })
-         .then((res) => {
-            navigate(`/template/${res.message._id}`)
-         })
-   }
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
    }
@@ -92,22 +61,22 @@ const HomeTemplate = ({ style = {}, ...props }) => {
    }
    const createTemp = () => {
       isAdmin ?
-         drawer.setDrawer(<CreateTemplateGeneral printData={printData} NewAdminTemplate={createNewTemplateAdmin} />) :
-         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} printData={printData} />)
+         drawer.setDrawer(<CreateTemplateGeneral />) :
+         drawer.setDrawer(<CreateTemplate />)
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
    }
-   const printData = (d) => {
-      console.log("printData:", d);
-   }
 
    return (
-      <div className={styles.HomeTemplate} style={style} {...props} >
-
-         <NavLink firstText={language.PROJECTS} secondText={language.TEMPLATES} />
-         <NavLinkTab state={choose} setState={setChoose} firstText={language.MY_TEMP} secondText={language.RECOMENDED} counter={templatesByUserLength} />
-
+      <div className={styles.HomeTemplate} style={style} >
+         <NavLink />
+         <NavLinkTab
+            state={choose}
+            setState={setChoose}
+            firstText={language.MY_TEMP}
+            secondText={language.RECOMENDED}
+            counter={templatesByUser?.length} />
          <ul className={styles.list}>
             {
                (displayTemplates?.map(item =>
@@ -129,5 +98,4 @@ const HomeTemplate = ({ style = {}, ...props }) => {
       </div>
    )
 }
-
 export default HomeTemplate

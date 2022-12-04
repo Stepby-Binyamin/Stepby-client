@@ -2,18 +2,17 @@ import styles from "./style.module.css"
 import React, { useContext } from 'react'
 import mainContext from "../../../context/mainContext"
 
-const StatusProject = ({ isLink, name, isCreatorApprove, status, completed, totalTask, clientPhone, projectId, style = {}, ...props }) => {
+const StatusProject = ({ isLink, name, isCreatorApprove, isDone, completed, totalTask, clientPhone, projectId, style = {}, ...props }) => {
     const { language } = useContext(mainContext)
 
     const phoneUpdate = clientPhone && clientPhone.replace("0", "+972")
-    const message = `http://localhost:3000/project/client/${projectId}` //TODO- localhost, message
+    const messageToClient = `http://localhost:3000/project/client/${projectId}` //TODO- localhost, message
 
     const careOf = ((isLink && isCreatorApprove) || (!isLink && !isCreatorApprove)) ? language.AWAIT : language.CARE_OF
 
-    console.log("status === done:", status === "done");
     return (
         <div className={styles.large} {...props}>
-            {status === "done" ?
+            {isDone ?
                 <div>
                     <img src={"/images/icons/doneProject.svg"} alt="doneProject" />
                     <div>{language.FINISH_PROJECT}</div>
@@ -28,7 +27,7 @@ const StatusProject = ({ isLink, name, isCreatorApprove, status, completed, tota
                     {isLink && (
                         <div className={styles.link}>
                             <img src="/images/icons/link.svg" alt="link" />
-                            <a href={`https://wa.me/${phoneUpdate}?text=${message}`}> {language.SHARE_WITH_CLIENT}</a>
+                            <a href={`https://wa.me/${phoneUpdate}?text=${messageToClient}`}> {language.SHARE_WITH_CLIENT}</a>
                         </div>)}
                 </>
             }

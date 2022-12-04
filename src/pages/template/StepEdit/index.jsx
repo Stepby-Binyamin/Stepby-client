@@ -15,14 +15,12 @@ import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
 import apiCalls from '../../../functions/apiRequest'
 
 const StepEdit = ({ style = {}, ...props }) => {
-
-
-   const { header, drawer, language } = useContext(mainContext)
+   const navigate = useNavigate()
    const { state } = useLocation()
    const { stepId, templateId } = useParams()
+   const { header, drawer, language } = useContext(mainContext)
    const [stepData, setStepData] = useState()
    const { MORE_TO_ADD, PRESS_ON, SHOW_MORE_DATA, DISPLAY_ALL, TREATMENT, CUSTOMER, MY } = language
-   const navigate = useNavigate()
    // console.log(state);
    // console.log('stepData:', stepData);
 
@@ -38,13 +36,13 @@ const StepEdit = ({ style = {}, ...props }) => {
                console.log(error)
             });
 
-      if (state && state.tempName)
+      if (state && state.tempName) {
          localStorage.setItem("tempName", JSON.stringify(state.tempName));
-
+         header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
+      }
 
       stepData && header.setTitle(stepData.name)
       header.setIsArrow(true)
-      header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
       drawer.setDrawerContentHeader(<MoreStep duplicateFunc={duplicateStep} CurrentStepFunc={''} deleteFunc={deleteStep} />)
    }, [])
 
@@ -65,7 +63,11 @@ const StepEdit = ({ style = {}, ...props }) => {
 
    const openDrawer = (e) => {
       e.target.id === "display" ?
-         drawer.setDrawer(<StepBasics fetchDataFunc={editStep} stepName={stepData.name} isCreatorApprove={stepData.isCreatorApprove} description={stepData.description} />) :
+         drawer.setDrawer(<StepBasics
+            fetchDataFunc={editStep}
+            stepName={stepData.name}
+            isCreatorApprove={stepData.isCreatorApprove}
+            description={stepData.description} />) :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
 
@@ -86,14 +88,14 @@ const StepEdit = ({ style = {}, ...props }) => {
       )
    }
    const duplicateStep = () => { // steps list won't re-render when user go back to the list! need to be fixed.
-      apiCalls("put", "/template/duplicateStep/" + templateId, {stepId}).then((result) => {
+      apiCalls("put", "/template/duplicateStep/" + templateId, { stepId }).then((result) => {
          console.log(result);
       });
       navigate(-1);
       drawer.setDrawer();
    }
    const deleteStep = () => {
-      apiCalls("delete", "/template/deleteStep/" + templateId, {stepId}).then((result) => {
+      apiCalls("delete", "/template/deleteStep/" + templateId, { stepId }).then((result) => {
          console.log(result);
       });
       navigate(-1);
@@ -101,19 +103,17 @@ const StepEdit = ({ style = {}, ...props }) => {
    }
 
    const addAnswerToStep = (data) => {
-
-      const dataToServer = {...data, stepId}
+      const dataToServer = { ...data, stepId }
       apiCalls("put", "/template/dataToStep/" + templateId, dataToServer).then((result) => {
-         setStepData((current)=> ({...current, data: result }));
+         setStepData((current) => ({ ...current, data: result }));
       });
-      console.log("stepData.data: ",  stepData.data);
-      
+      console.log("stepData.data: ", stepData.data);
+
    }
 
    return (
       <div className={styles.StepEdit} style={style} {...props} >
          <div className={styles.preView} >
-
             <div className={styles.raw1} >
                <img src='/images/icons/incareMan.svg' alt="" />
                <div className={styles.inTreatTitle}>{TREATMENT}</div>
@@ -125,7 +125,6 @@ const StepEdit = ({ style = {}, ...props }) => {
                   <div className={styles.inTreatOf} >{stepData && stepData.isCreatorApprove ? MY : CUSTOMER}</div>
                </div>
             </div>
-
             <div className={styles.raw2} >
                <img src='/images/icons/textPrewIcon.svg' alt="" />
                <div className={styles.desContainer} >
@@ -135,15 +134,24 @@ const StepEdit = ({ style = {}, ...props }) => {
             </div>
 
          </div>
-
          {stepData && stepData.data && (stepData.data.length > 0 ?
-              stepData.data.map(item =>
-               <StepEditListItem key={item.index} title={item.title} text={item.content} type={item.type} onClickItem={onClickItem} data={{ ...item, stepId: stepData._id, tempId: templateId }} />
+            stepData.data.map(item =>
+               <StepEditListItem
+                  key={item.index}
+                  title={item.title}
+                  text={item.content}
+                  type={item.type}
+                  onClickItem={onClickItem}
+                  data={{ ...item, stepId: stepData._id, tempId: templateId }} />
             ) :
-            <UiDirectionText mainTitle={MORE_TO_ADD} text1={PRESS_ON} text2={SHOW_MORE_DATA} />
+            <UiDirectionText
+               mainTitle={MORE_TO_ADD}
+               text1={PRESS_ON}
+               text2={SHOW_MORE_DATA} />
          )}
-
-         <BtnHolder buttons={[{ color: "lite", icon: "V", func: viewStep }, { color: "gray", icon: "+", func: openDrawer }]} />
+         <BtnHolder
+            buttons={[{ color: "lite", icon: "V", func: viewStep },
+            { color: "gray", icon: "+", func: openDrawer }]} />
 
       </div>
    )
