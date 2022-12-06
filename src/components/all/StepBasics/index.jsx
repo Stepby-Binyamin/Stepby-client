@@ -9,7 +9,7 @@ import mainContext from "../../../context/mainContext"
 const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
    const { drawer, language } = useContext(mainContext)
    const [data, setData] = useState({ radio: language.MY });
-   // const [currentStepName, setCurrentStepName] = useState(stepName)
+
    const sort = isCreatorApprove ?
       [{ name: language.MY, icon: "triangle" }, { name: language.THE_CUSTOMER, icon: "circle" }] :
       [{ name: language.THE_CUSTOMER, icon: "circle" }, { name: language.MY, icon: "triangle" }]

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
 import StatusTemp from "../../../components/all/StatusTemp"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
@@ -12,93 +12,81 @@ import UiDirectionText from "../../../components/all/UiDirectionText"
 import apiCalls from "../../../functions/apiRequest"
 import StepBasics from "../../../components/all/StepBasics"
 import CreateProjectNewUser from "../../../components/all/CreateProjectNewUser"
+import MoreMenuTemplate from "../../../components/all/MoreMenuTemplate"
 
 const Project = ({ mode }) => {
     const { templateId } = useParams()
     const { userData } = useContext(userContext)
     const { drawer, header, language = {} } = useContext(mainContext)
-    const [curr, setCurr] = useState()
 
-    const findNextStep = (curr) => {
-        curr && curr.steps.sort((a, b) => a.index < b.index ? -1 : 1)
+    const [curr, setCurr] = useState()
+    const [stepsDisplay, setStepsDisplay] = useState()
+    const [indexNextStep, setIndexNextStep] = useState()
+
+    const findNextStep = () => {
         const result = curr && curr.steps.find(step => step.isApprove === false)
         return result?.index
     }
-    const indexNextStep = findNextStep(curr)
-
-    // curr && curr.steps?.sort((a, b) => a.index < b.index ? -1 : 1)
 
     useEffect(() => {
         header.setIsArrow(true)
         apiCalls("get", `/project/projectById/${templateId}`)
             .then((result) => {
-                console.log("🚀 ~ file: index.jsx ~ line 35 ~ useEffect ~ result", result)
+                console.log("🚀 ~ file: index.jsx ~ line 43 ~ .then ~ curr", result)
                 setCurr(result)
             });
-    }, [])
+    }, [templateId])
 
     useEffect(() => {
         header.setIsTitle(true)
         header.setTitle(curr?.name)
         // curr?.status === "done" && header.setArrowNav("/projects")
-        // TODO יש צורך בלהגדיר את הdrawers לפי המצב
         switch (mode) {
             case "template":
-                // TODO setDrawerContentHeader
+                header.setSubTitle("")
+                drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} />)   // TODO setDrawerContentHeader
                 break;
-
             case "client":
                 header.setIsArrow(false)
                 header.setIsDots(false)
                 header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
-                // TODO setDrawerContentHeader
+                drawer.setDrawerContentHeader(<></>)  // TODO setDrawerContentHeader
                 break;
-
             case "biz":
                 header.setIsDots(true)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
-                // TODO setDrawerContentHeader
+                drawer.setDrawerContentHeader(<></>)  // TODO setDrawerContentHeader
                 break;
 
             default:
                 break;
         }
-        console.log("🚀 ~ file: index.jsx ~ line 66 ~ Project ~ curr", curr)
+        curr && setStepsDisplay([...curr.steps].sort((a, b) => a.index < b.index ? -1 : 1))
+        setIndexNextStep(findNextStep())
     }, [curr])
 
     const findTheOwner = (curr) => {
         const result = curr.steps[indexNextStep]?.isCreatorApprove
-        if (result) {
-            return "שלך"
-        } else {
-            return (curr?.client?.firstName, curr?.client?.lastName) || curr?.client?.fullName
-        }
+        return result ? language.YOURS : (curr?.client?.firstName, curr?.client?.lastName) || curr?.client?.fullName
+
     }
     const secondaryTitle = (curr, step) => {
-        if (step.isApprove === true) {
-            return language.COMPLET;
-        }
-        else {
-            return indexNextStep === step.index && `${language.TREATMENT} ${findTheOwner(curr)}`
-        }
-        // return step.isApprove === true ? language.COMPLET : indexNextStep === step.index && `בטיפול ${findTheOwner(curr)}`
+        return step.isApprove === true ?
+            language.COMPLET
+            : indexNextStep === step.index && `${language.TREATMENT} ${findTheOwner(curr)}`
     }
-
     const upMove = (step) => {
         apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index - 1 })
             .then((result) => setCurr(result))
-        // console.log("hay i'm up", " step index:step" + step.index--, "project id:" + curr._id);
-        return // למה צריך להחזיר ריק?
     }
     const downMove = (step) => {
         apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index })
-            .then((result) => setCurr(result))
-        // console.log("hay i'm down", " step index:" + step.index, "project id:" + curr._id);
-        return // למה צריך להחזיר ריק?
+            .then((result) => {
+                setCurr(result)
+            })
     }
-
     const nav = (mode, curr, step) => {
         // console.log('mode: ', mode, 'curr: ', curr, 'step: ', step);
         switch (mode) {
@@ -112,15 +100,13 @@ const Project = ({ mode }) => {
                 break;
         }
     }
-
-    const buttonsByMode = () => {
+    const buttonsAccordingMode = () => {
         switch (mode) {
             case "template":
-                return curr.steps?.length < 1 ?
-                    [{ color: "gray", icon: "+", func: onClickPlus, link: '' }]
-                    :
-                    [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' },
-                    { color: "gray", icon: "+", func: onClickPlus, link: '' }]
+                const addStep = userData.permissions === "biz" && curr?.creatorId.permissions === "admin" ?
+                    [] : [{ color: "gray", icon: "+", func: onClickPlus, link: '' }]
+                return curr.steps?.length < 1 ? addStep
+                    : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }].concat(addStep)
             case "biz":
                 return [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${curr?.client?.phoneNumber.replace("0", "+972")}` }
                     , { color: "gray", icon: "+", func: onClickPlus, link: '' }]
@@ -170,12 +156,12 @@ const Project = ({ mode }) => {
                         isCreatorApprove={curr.steps[indexNextStep]?.isCreatorApprove}
                     />}
                 {mode === "template" && <StatusTemp />}
-                {curr.steps?.map(step =>
+                {stepsDisplay?.map(step =>
                     <ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
                         secondaryTitle={mode !== "template" && secondaryTitle(curr, step)}
                         mainTitle={step.name}
-                        isFirstStep={step.index === 0 ? true : false}
+                        stepsNum={curr.steps.length}
                         key={step._id}
                         time={step.approvedDate && `${convertDate(step.approvedDate).time}${convertDate(step.approvedDate).type}`}
                         step={step}
@@ -193,7 +179,7 @@ const Project = ({ mode }) => {
                         text2={language.ADD_STEP}
                     />
                 }
-                <BtnHolder buttons={buttonsByMode()} />
+                <BtnHolder buttons={buttonsAccordingMode()} />
             </div>
         }
     </>)

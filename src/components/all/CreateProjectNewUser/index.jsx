@@ -17,7 +17,6 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
 
     const [data, setData] = useState({});
     const [select, setSelect] = useState(true);
-    // const [change, setChange] = useState();
 
     useEffect(() => {
         const getData = async () => {
@@ -29,25 +28,11 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
         getData();
     }, [])
 
-    useEffect(() => {
-        data.radio === language.NEW && setSelect(true);
-        data.radio === language.EXIST && setSelect(false);
-    }, [data])
-
-    const newProject = (data) => {
-        apiCalls('post', `/project/createProject/${templateId}`, data)
-            .then(projectId => {
-                console.log("🚀 ~ file: index.jsx ~ line 40 ~ newProject ~ projectId", projectId)
-                navigate(`/project/biz/${projectId}`)
-            })
-            .catch(error => {
-                console.log("🚀 ~ file: index.jsx ~ line 42 ~ newProject ~ error", error)
-            });
-    }
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setData(values => ({ ...values, [name]: value }));
+    const clientMode = (e) => {
+        const value = e.target.value;
+        value === language.NEW && setSelect(true);
+        value === language.EXIST && setSelect(false);
+        setData(values => ({ ...values, radio: value }));
     }
     const btnSelectClient = (name) => {
         const clients = data.clients?.map(elem => elem.fullName === name ?
@@ -55,10 +40,18 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
             : ({ ...elem, isActive: false }))
         setData((current) => ({ ...current, clients }))
     }
+    const newProject = (dataToServer) => {
+        apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
+            .then(projectId => {
+                navigate(`/project/biz/${projectId}`)
+            })
+            .catch(error => {
+                console.log("🚀 ~ file: index.jsx ~ line 42 ~ newProject ~ error", error)
+            });
+    }
     const btnCreateProject = () => {
         data.clients = data.clients?.filter(e => e.isActive === true)
         newProject({ projectName: data.projectName, clientId: data.clients[0]._id, isNewClient: false })
-        // setChange(data.projectName)
         drawer.setDrawer()
     }
     const btnNext = () => {
@@ -68,7 +61,7 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
     return (
         <div className={styles.container}>
             <Keyboard
-                onChange={handleChange}
+                onChange={(e) => setData(values => ({ ...values, projectName: e.target.value }))}
                 placeholder={language.NAME_NEW_PROJECT}
                 name={"projectName"} />
             <div className={styles.subContainer}>
@@ -83,7 +76,7 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
                     <RadioBtnWithIcon
-                        changeFunc={handleChange}
+                        changeFunc={clientMode}
                         obj={[{ name: language.NEW }, { name: language.EXIST }]} />
                     <div className={styles.rightContainer}>
                         <img src='/images/icons/menWithV.svg' alt="" />

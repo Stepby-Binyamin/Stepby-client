@@ -61,5 +61,4 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
         </form>
     )
 }
-
 export default CreateClient

@@ -7,7 +7,7 @@ const RadioBtnWithIcon = ({ obj, changeFunc, data }) => {
 
   const func = (name) => {
     setChoose(name)
-    changeFunc({ target: { name: "radio", value: name } }) //**** */
+    changeFunc({ target: { name: "radio", value: name } }) //TODO -target
   }
 
   return (

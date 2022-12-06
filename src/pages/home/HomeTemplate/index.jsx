@@ -83,6 +83,7 @@ const HomeTemplate = ({ style = {} }) => {
                   <ListItem
                      key={item._id}
                      mainTitle={item.name}
+                     step={item}
                      secondaryTitle={choose === language.MY_TEMP ? language.LAST_DUPLICATED : language.CREATED_BY}
                      secondaryTitleWeight={choose === language.MY_TEMP ?
                         `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :

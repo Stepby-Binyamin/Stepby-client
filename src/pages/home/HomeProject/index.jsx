@@ -126,7 +126,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                            status={item.status}
                            mainTitle={item.client?.fullName}
                            secondaryTitle={item.name}
-                           sconderyBoldTitle={findCurrentStep(item.steps)}
+                           secondaryBoldTitle={findCurrentStep(item.steps)}
                            time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                            link={`/project/biz/${item._id}`}
                            linkState={{ temp: item }}
@@ -139,7 +139,7 @@ const HomeProject = ({ style = {}, ...props }) => {
                               status={item.status}
                               mainTitle={item.client?.bizName}
                               secondaryTitle={item.name}
-                              sconderyBoldTitle={findCurrentStep(item.steps)}
+                              secondaryBoldTitle={findCurrentStep(item.steps)}
                               time={item.status === "done" ? "" : `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}`}
                               link={`/project/biz/${item._id}`}
                               linkState={{ temp: item }}

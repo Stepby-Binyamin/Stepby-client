@@ -14,14 +14,13 @@ const CreateTemplateGeneral = () => {
     const navigate = useNavigate();
     const { drawer, language } = useContext(mainContext)
 
-    const [categories, setCategories] = useState({});
+    const [data, setData] = useState({});
     const [isGeneral, setIsGeneral] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
-            const res = await apiCalls("get", "/category/")
-            console.log("🚀 ~ file: index.jsx ~ line 23 ~ getData ~ res", res)
-            setCategories((current) => ({ ...current, res }))
+            const categories = await apiCalls("get", "/category/")
+            setData((current) => ({ ...current, categories }))
         }
         getData()
     }, [])
@@ -31,20 +30,21 @@ const CreateTemplateGeneral = () => {
         const value = event.target.value;
         value === language.GENERAL && setIsGeneral(true)
         value === language.SOME_CUSTOMER && setIsGeneral(false);
-        setCategories(values => ({ ...values, [name]: value }));
+        setData(values => ({ ...values, [name]: value }));
     }
     const btnUpdateCategories = (name) => {
-        const categoriesUpdate = categories?.res.map(elem => elem.categoryName === name ?
+        const categoriesUpdate = data?.categories.map(elem => elem.categoryName === name ?
             ({ ...elem, isActive: !elem.isActive }) : elem)
-        setCategories((current) => ({ ...current, res: categoriesUpdate }))
+        setData((current) => ({ ...current, categories: categoriesUpdate }))
     }
     const btnCreateTemplate = () => {
         drawer.setDrawer()
-        apiCalls("post", "/template/createTemplateAdmin", { ...categories, isGeneral: isGeneral })
+        apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral })
             .then((res) => {
                 navigate(`/template/${res.message._id}`)
             })
     }
+
     return (
         <div className={styles.container}>
             <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"templateName"} />
@@ -61,7 +61,7 @@ const CreateTemplateGeneral = () => {
                 </div>
                 {isGeneral &&
                     <div className={styles.categories}>
-                        {categories.res?.map(elem => <BtnCheckBox handleClick={btnUpdateCategories}
+                        {data.categories?.map(elem => <BtnCheckBox handleClick={btnUpdateCategories}
                             name={elem.categoryName}
                             id={elem._id}
                             isActive={elem.isActive}
