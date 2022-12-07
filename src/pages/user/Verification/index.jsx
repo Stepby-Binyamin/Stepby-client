@@ -13,17 +13,19 @@ import userContext from '../../../context/userContext'
 import { setToken } from '../../../functions/apiRequest'
 import apiCalls from '../../../functions/apiRequest'
 
-export default function Verification() {
+const Verification = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const { header } = useContext(mainContext);
   const { userData, setUserData } = useContext(userContext)
-  const navigate = useNavigate();
-  const [counter, setCounter] = useState(0);
-  const location = useLocation();
+
   const [code, setCode] = useState()
+  const [counter, setCounter] = useState(0);
   const [wrongPassword, setWrongPassword] = useState(false);
   const [language, setLanguage] = useState(JSON.parse(localStorage.language))
-  let start = "054", end = "7668489"
 
+  let start = "054", end = "7668489"
 
   if (location.state) {
     start = location.state.slice(0, 3)
@@ -35,11 +37,11 @@ export default function Verification() {
     if (localStorage.token) setToken(localStorage.token)
     await apiCalls("post", "/user/send-code", { phoneNumber: location.state })
       .then((res) => {
-        if(res.firstName){
-          setUserData(res) 
+        if (res.firstName) {
+          setUserData(res)
           localStorage.user = JSON.stringify(res)
-           navigate('/projects')
-        } 
+          navigate('/projects')
+        }
       })
       .catch((err) => console.log(err))
   }
@@ -52,9 +54,8 @@ export default function Verification() {
     setLanguage(JSON.parse(localStorage.language))
   }, [])
 
-  async function handleClick() {
+  const handleClick = async () => {
     const body = { phoneNumber: location.state, code: code }
-
     await apiCalls('post', '/user/check-code', body)
       .then(result => {
         setToken(result.token)
@@ -66,7 +67,6 @@ export default function Verification() {
       })
       .catch(() => setWrongPassword(true))
     console.log(localStorage.user);
-
   }
 
   return (
@@ -77,7 +77,7 @@ export default function Verification() {
       <div className={styles.input}>
         <InputVerification setCode={setCode} />
       </div>
-      {wrongPassword ? <div className={styles.thatpasswordiswrong}>
+      {wrongPassword ? <div className={styles.that_password_is_wrong}>
         <div><b>{language.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
       </div> : <div className={styles.phoneNum}>
         <UserNumberVerification counter={counter} phoneNum={location.state} ilPhoneNum1={ilPhoneNum} />
@@ -94,3 +94,4 @@ export default function Verification() {
     </div >
   )
 }
+export default Verification

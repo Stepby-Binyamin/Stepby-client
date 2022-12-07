@@ -7,16 +7,12 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 import RadioBtnWithIcon from '../radioBtn/WithIcon';
 
-//TODO: language
 const UserOnly = ({ style = {}, ...props }) => {
    const { language } = useContext(mainContext)
-   const keyboardPlaceholder = 'שם התבנית החדשה...'
-   const subKeyboardPlaceholder = 'אימייל או ID'
    return (
       <div className={styles.UserOnlyContainer}>
          <div className={styles.inputContainer}>
-            <Keyboard placeholder={keyboardPlaceholder} />
-
+            <Keyboard placeholder={language.TEMPLATES_NAME} />
             <div className={styles.radioButton}>
                {/* <RadioBtn arr={['כללי','לקוח מסוים']}/> */}
                <RadioBtnWithIcon
@@ -25,14 +21,13 @@ const UserOnly = ({ style = {}, ...props }) => {
                />
                <div className={styles.rightContainer}>
                   <img src='/images/icons/target.svg' alt="" />
-                  <div className={styles.text}>תפוצה</div>
+                  <div className={styles.text}> {language.DISPERSTION} </div>
                </div>
             </div>
-            <SubKeyboard iconSrc={'/images/icons/userOnly.svg'} placeholder={subKeyboardPlaceholder} />
+            <SubKeyboard iconSrc={'/images/icons/userOnly.svg'} placeholder={language.EMAIL_ID} />
          </div>
-         <BtnSubmitText text={'שמירה'} color={'gray'} icon={'v to text.svg'} />
+         <BtnSubmitText text={language.SAVE} color={'gray'} icon={'v to text.svg'} />
       </div>
    )
 }
-
 export default UserOnly;

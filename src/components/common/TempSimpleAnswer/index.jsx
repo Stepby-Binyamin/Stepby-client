@@ -1,12 +1,10 @@
 import React, { useState, useContext } from 'react'
 import mainContext from "../../../context/mainContext"
 import styles from "./style.module.css"
-
 import BtnIcon from "../BtnIcon"
 import Input from "../Input/Input"
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
-
 import apiCalls from '../../../functions/apiRequest'
 import RadioBtnWithIcon from '../../all/radioBtn/WithIcon'
 
@@ -22,7 +20,7 @@ const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id, stepId }) =>
 
     const handleRadio = (e) => {
         // console.dir(e.target.value);
-        e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
+        e.target.value === language.ASK_REQ ? setIsRequired(true) : setIsRequired(false)
     }
 
     const handleSubmitAnswer = async () => {
@@ -57,13 +55,13 @@ const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id, stepId }) =>
     return (<>
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={"תשובה פשוטה"}
+                text={language.SIMPLE_ANS}
                 icon={"/images/icon-btns/answer.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
             />
             <Input
                 name={"TempSimpleAnswer"}
-                placeholder="השאלה שלך"
+                placeholder={language.DESCRIPTION_ASK}
                 onChange={(e) => handleChange(e)}
                 type="text"
                 autoFocus
@@ -81,7 +79,7 @@ const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id, stepId }) =>
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
+                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
                 </div>
             </div>
 

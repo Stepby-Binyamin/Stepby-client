@@ -5,23 +5,17 @@
     align-items: center;
     width: 100%;
 }
-
-
-
 .title{
     padding: 44px 24px 0 24px;
 }
-
 .input{
     width: 100%;
     padding: 0px 0  0 15px;
 }
-
 .phoneNum{
     padding: 0 0 15px 0;
 
 }
-
 .someThingWrong{
 padding: 0 0 20px 0;
 color: var(--orange100-color);
@@ -29,14 +23,12 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-
 .btn{
     align-items: center;
     padding: 10px 0;
     width: 100%;
 }
-
-.thatpasswordiswrong{
+.that_password_is_wrong{
     color: var(--orange100-color);
     padding: 0 20px 0 20px;
     display: flex;

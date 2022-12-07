@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
 import mainContext from './mainContext'
-import dataContext from './dataContext'
 import userContext from "./userContext";
-import { projects, categories } from "../data/fakeProjects";
-import { user } from "../data/fakeUser";
 import apiCalls from "../functions/apiRequest";
 
 export const ContextProvider = ({ children }) => {
-
     // *** header state ***
     const [title, setTitle] = useState("Stepby");
     const [subTitle, setSubTitle] = useState();
@@ -65,9 +61,7 @@ export const ContextProvider = ({ children }) => {
             language
         }}>
             <userContext.Provider value={{ userData, setUserData }}>
-                <dataContext.Provider value={{ data: { projects, categories } }} >
                     {children}
-                </dataContext.Provider>
             </userContext.Provider>
         </mainContext.Provider >
     )

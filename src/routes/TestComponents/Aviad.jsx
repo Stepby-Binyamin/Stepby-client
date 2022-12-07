@@ -43,10 +43,7 @@ export default function Aviad() {
                isAdmin={false}
                onClick={() => handleClick(v.id)}
             />
-
          })}
-
-
       </>
    )
 }

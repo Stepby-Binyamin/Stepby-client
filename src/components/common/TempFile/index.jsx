@@ -12,10 +12,7 @@ import apiCalls from "../../../functions/apiRequest"
 import RadioBtnWithIcon from "../../all/radioBtn/WithIcon"
 
 const TempFile = ({ data, step, project, id, stepId }) => {
-    const { drawer } = useContext(mainContext)
-    const { language } = useContext(mainContext)
-
-    // console.log("dat00", data);
+    const { language, drawer } = useContext(mainContext)
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
@@ -26,7 +23,7 @@ const TempFile = ({ data, step, project, id, stepId }) => {
 
     const handleRadio = (e) => {
         // console.dir(e.target.value);
-        e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
+        e.target.value === language.ASK_REQ ? setIsRequired(true) : setIsRequired(false)
     }
 
     const handleSubmitAnswer = async () => {
@@ -58,12 +55,12 @@ const TempFile = ({ data, step, project, id, stepId }) => {
     return (
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={"העלאת קובץ / צילום"}
+                text={language.UPLOAD}
                 icon={"/images/icon-btns/Upload.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }} />
             <Input
                 name={"TempFile"}
-                placeholder="תיאור לקובץ"
+                placeholder={language.DESCRIPTION_FILE}
                 onChange={(e) => handleChange(e)}
                 type="text"
                 autoFocus
@@ -81,7 +78,7 @@ const TempFile = ({ data, step, project, id, stepId }) => {
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
+                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
                 </div>
             </div>
         </div>

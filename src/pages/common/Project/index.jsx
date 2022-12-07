@@ -29,6 +29,7 @@ const Project = ({ mode }) => {
     }
 
     useEffect(() => {
+        console.log("🚀 🚀🚀🚀~ file: index.jsx ~ line 43 ~ .then ~ curr")
         header.setIsArrow(true)
         apiCalls("get", `/project/projectById/${templateId}`)
             .then((result) => {
