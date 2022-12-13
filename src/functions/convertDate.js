@@ -12,9 +12,5 @@ export  function convertDate(date){
      return   {type:"d",time:diffDays}
 
 }
-
-
-
-
-const birthday = new Date('December 17, 1995 03:24:00')
-convertDate(birthday);
+// const birthday = new Date('December 1, 2022 03:24:00')
+// console.log("🚀 ~ file: convertDate.js ~ line 17 ~ birthday", convertDate(birthday))

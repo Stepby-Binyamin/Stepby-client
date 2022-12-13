@@ -3,7 +3,7 @@ import BtnIcon from '../../common/BtnIcon'
 import styles from "./style.module.css"
 import mainContext from "../../../context/mainContext"
 
-const MoreStep = ({ style = {}, duplicateFunc, CurrentStepFunc, deleteFunc, isTemplate = true, ...props }) => {
+const MoreStep = ({ duplicateFunc, CurrentStepFunc, deleteFunc, isTemplate = true, style = {}, ...props }) => {
    const { language } = useContext(mainContext)
 
    return (

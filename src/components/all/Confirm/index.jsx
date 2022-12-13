@@ -1,14 +1,12 @@
-import React, {  useContext} from 'react'
+import React, { useContext } from 'react'
 import styles from "./style.module.css"
 import mainContext from "../../../context/mainContext"
 
 const Confirm = ({ clientName, stepName, btnYes, btnNo, ...props }) => {
-
-   const {language}= useContext(mainContext)
+   const { language } = useContext(mainContext)
 
    return (
       <div className={styles.Confirm}>
-
          <div className={styles.areYouSure}>{language.WE_SAFE}</div>
          <div className={styles.user}> {language.EMAIL_UPDATE} {clientName}</div>
          <div className={styles.step}> {language.NEXT_STEP}'{stepName}' </div>
@@ -22,5 +20,4 @@ const Confirm = ({ clientName, stepName, btnYes, btnNo, ...props }) => {
       </div>
    )
 }
-
 export default Confirm

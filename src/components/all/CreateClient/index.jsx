@@ -21,21 +21,18 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
             email: fd.get("email", e.target.email.value)
         }
         const dataToServer = {
-            projectName: data_?.projectName, isNewClient: true,
-            fullName: data.fullName, phoneNumber: data.phoneNumber, email: data.email
+            projectName: data_?.projectName,
+            isNewClient: true,
+            fullName: data.fullName,
+            phoneNumber: data.phoneNumber,
+            email: data.email
         }
-        if (createProject) {
+        createProject ?
             apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
-                .then(projectId => {
-                    navigate(`/project/biz/${projectId}`)
-                })
-                .catch(error => {
-                    console.log("🚀 ~ file: index.jsx ~ line 30 ~ collect ~ error", error)
-                });
-        }
-        else {
+                .then(projectId => { navigate(`/project/biz/${projectId}`) })
+                .catch(error => { console.log("🚀 ~ file: index.jsx ~ line 30 ~ collect ~ error", error) })
+            :
             apiCalls('post', '/user/new-client', data)
-        }
         drawer.setDrawer('')
     }
 

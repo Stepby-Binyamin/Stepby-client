@@ -1,12 +1,10 @@
 import MainRouter from '../routes/MainRouter'
 
-function Main() {
-
+const Main = () => {
    return (
       <>
          <MainRouter />
       </>
    )
 }
-
 export default Main

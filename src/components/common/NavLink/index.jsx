@@ -8,13 +8,10 @@ const NavLink = () => {
 
     return (
         <div className={styles.main}>
-            {/* another way to filter 
-              <Link to='/projects' className={window.location.pathname.split('/')[1] === 'projects'? styles.active : ''}  >{firstText}</Link> */}
-
-            <Link to='/projects' className={window.location.pathname.includes('projects') ? styles.active : ''}  >
+            <Link to='/projects' className={window.location.pathname.split('/')[1] === 'projects' ? styles.active : ''}  >
                 {language.PROJECTS}
             </Link>
-            <Link to='/templates' className={window.location.pathname.includes('templates') ? styles.active : ''} >
+            <Link to='/templates' className={window.location.pathname.split('/')[1] === 'templates' ? styles.active : ''} >
                 {language.TEMPLATES}
             </Link>
         </div>

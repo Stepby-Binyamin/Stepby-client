@@ -14,35 +14,34 @@ import TempIMG from '../../../components/common/TempIMG'
 import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
 import apiCalls from '../../../functions/apiRequest'
 
-const StepEdit = ({ style = {}, ...props }) => {
+const StepEdit = ({ mode }) => {
    const navigate = useNavigate()
    const { state } = useLocation()
    const { stepId, templateId } = useParams()
    const { header, drawer, language } = useContext(mainContext)
-   const [stepData, setStepData] = useState()
+
+   const [information, setInformation] = useState()
 
    useEffect(() => {
-      // header.setIsArrow(true)
-      (state && state.step) ?
-         setStepData(state.step)
+      state ?
+         setInformation(state)
          :
          apiCalls("get", `/template/getStepById/${templateId}/${stepId}`)
-            .then(response => {
-               setStepData(response)
-            })
-            .catch(error => {
-               console.log(error)
-            });
-      //TODO :???
-      if (state && state.tempName) {
-         localStorage.setItem("tempName", JSON.stringify(state.tempName)); // TODO: ??? localStorage
-         header.setSubTitle((state.tempName) || (localStorage.tempName && JSON.parse(localStorage.tempName)))
-      }
-      stepData && header.setTitle(stepData.name)
-      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={duplicateStep} CurrentStepFunc={''} deleteFunc={deleteStep} isTemplate={state.mode === "template"} />)
-   }, [state])
+            .then(response => { setInformation(response) })
+            .catch(error => { console.log(error) });
 
-   const onClickItem = (type, data = { stepId: stepData._id, tempId: templateId }) => {
+      header.setIsArrow(true)
+      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={duplicateStep} CurrentStepFunc={''} deleteFunc={deleteStep} isTemplate={mode === "template"} />)
+      console.log("🚀 ~ file: index.jsx ~ StepEdit ~ state", state)
+      console.log("🚀 ~ file: index.jsx ~ StepEdit ~ mode", mode)
+   }, [state, stepId])
+
+   useEffect(() => {
+      header.setTitle(information?.step?.name)
+      header.setSubTitle(information?.tempName)
+   }, [information])
+
+   const onClickItem = (type, data = { stepId: information?.step._id, tempId: templateId }) => {
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);
             break;
@@ -56,56 +55,52 @@ const StepEdit = ({ style = {}, ...props }) => {
             break;
       }
    }
-
    const editStep = (data) => {
+      if (data === undefined) return
       const { radio } = data;
       const isCreatorApprove = radio === language.THE_CUSTOMER ? false : true
       const dataToServer = { ...data, stepId, isCreatorApprove }
-      console.log('dataToServer: ', dataToServer);
-      apiCalls("put", "/template/edit-step/" + templateId, dataToServer).then((result) => {
-         const res = result.filter(v => v._id === stepId)[0];
-         setStepData(res);
-      }
-      )
+      console.log("🚀 ~ file: index.jsx:64 ~ editStep ~ dataToServer", dataToServer)
+      apiCalls("put", "/template/edit-step/" + templateId, dataToServer)
+         .then((result) => { setInformation((current) => ({ ...current, step: result })) }
+         )
    }
    const addAnswerToStep = (data) => {
       const dataToServer = { ...data, stepId }
-      apiCalls("put", "/template/dataToStep/" + templateId, dataToServer).then((result) => {
-         setStepData((current) => ({ ...current, data: result }));
-      });
-      console.log("stepData.data: ", stepData.data);
+      apiCalls("put", "/template/dataToStep/" + templateId, dataToServer)
+         .then((result) => { setInformation((current) => ({ ...current, step: result })) });
+      console.log("information.stepData.data: ", information?.step.data);
    }
-
    const openDrawer = (e) => {
       e.target.id === "display" ?
          drawer.setDrawer(<StepBasics
             fetchDataFunc={editStep}
-            stepName={stepData.name}
-            isCreatorApprove={stepData.isCreatorApprove}
-            description={stepData.description} />)
+            stepName={information?.step?.name}
+            isCreatorApprove={information?.step.isCreatorApprove}
+            description={information?.step?.description} />)
          :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
    const viewStep = () => {
-      navigate(`/template/${templateId}/step/${stepData._id}`, { state: { stepData, stepId: stepData._id, tempId: templateId } })
+      navigate(`/template/${templateId}/step/${information.step._id}`, { state: information })
    }
-
    const duplicateStep = () => {
-      apiCalls("put", "/template/duplicateStep/" + templateId, { stepId }).then((stepId) => {
-         navigate(`/template/${templateId}/edit-step/${stepId}`, { state: { ...state, step: null } });
-         drawer.setDrawer();
-      });
+      apiCalls("put", "/template/duplicateStep/" + templateId, { stepId })
+         .then((stepId) => {
+            // console.log({ ...information, step: { ...information?.step, _id: stepId } });  //state in navigate?
+            navigate(`/template/${templateId}/edit-step/${stepId}`);
+            drawer.setDrawer();
+         });
    }
    const deleteStep = () => {
-      apiCalls("delete", "/template/deleteStep/" + templateId, { stepId }).then((result) => {
-         console.log(result);
-      });
+      apiCalls("delete", "/template/deleteStep/" + templateId, { stepId })
+         .then((result) => { console.log(result); });
       navigate(`/template/${templateId}`);
       drawer.setDrawer();
    }
 
    return (
-      <div className={styles.StepEdit} style={style} {...props} >
+      <div className={styles.StepEdit}  >
          <div className={styles.preView} >
             <div className={styles.raw1} >
                <img src='/images/icons/incareMan.svg' alt="" />
@@ -113,13 +108,13 @@ const StepEdit = ({ style = {}, ...props }) => {
                   {language.TREATMENT}
                </div>
                <div className={styles.inTreatBox} >
-                  {stepData && stepData.isCreatorApprove ?
+                  {information?.step && information?.step.isCreatorApprove ?
                      <img src='/images/icons/triangleOrange.svg' alt="" />
                      :
                      <img src='/images/icons/circleOrange.svg' alt="" />
                   }
                   <div className={styles.inTreatOf}>
-                     {stepData && stepData.isCreatorApprove ? language.MY : language.CUSTOMER}
+                     {information?.step && information?.step.isCreatorApprove ? language.MY : language.CUSTOMER}
                   </div>
                </div>
             </div>
@@ -127,7 +122,7 @@ const StepEdit = ({ style = {}, ...props }) => {
                <img src='/images/icons/textPrewIcon.svg' alt="" />
                <div className={styles.desContainer} >
                   <div className={styles.desText}>
-                     {stepData && stepData.description}
+                     {information?.step && information?.step.description}
                   </div>
                   <div className={styles.displayAll} onClick={(e) => openDrawer(e)} id="display">
                      {language.DISPLAY_ALL}
@@ -135,15 +130,15 @@ const StepEdit = ({ style = {}, ...props }) => {
                </div>
             </div>
          </div>
-         {stepData && stepData.data && (stepData.data.length > 0 ?
-            stepData.data.map(item =>
+         {information?.step && information?.step.data && (information?.step.data.length > 0 ?
+            information?.step.data.map(item =>
                <StepEditListItem
                   key={item.index}
                   title={item.title}
                   text={item.content}
                   type={item.type}
                   onClickItem={onClickItem}
-                  data={{ ...item, stepId: stepData._id, tempId: templateId }} />
+                  data={{ ...item, stepId: information?.step._id, tempId: templateId }} />
             ) :
             <UiDirectionText
                mainTitle={language.MORE_TO_ADD}

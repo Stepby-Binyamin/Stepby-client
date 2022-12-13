@@ -23,5 +23,4 @@ const Keyboard = ({ placeholder, onChange, required, defaultValue, name, ...prop
         </div>
     )
 }
-
 export default Keyboard

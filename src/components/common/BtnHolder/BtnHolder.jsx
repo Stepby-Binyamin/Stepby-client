@@ -13,9 +13,13 @@ const BtnHolder = ({ buttons = {} }) => {
           return (
             <button key={`${v.icon}`} className={`${styles[v.color]} ${styles.submit} `}>
               {v.link ?
-                <a href={v.link}> <img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} /> </a>
+                <a href={v.link}>
+                  <img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} />
+                </a>
                 :
-                <div onClick={v.func}><img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} /> </div>}
+                <div onClick={v.func}>
+                  <img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} />
+                </div>}
             </button>)
         }
         )}
@@ -23,5 +27,4 @@ const BtnHolder = ({ buttons = {} }) => {
     </>
   )
 }
-
 export default BtnHolder;

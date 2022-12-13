@@ -10,5 +10,4 @@ const Logo = ({ logo, style = {}, ...props }) => {
       </div>
    )
 }
-
 export default Logo

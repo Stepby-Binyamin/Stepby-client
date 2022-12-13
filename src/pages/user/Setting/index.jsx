@@ -13,15 +13,19 @@ const Setting = ({ style = {}, ...props }) => {
     const { header, language } = useContext(mainContext)
     const { userData, setUserData } = useContext(userContext)
 
-    let interests = []
-    userData?.categories.map(cat => interests.push(cat.categoryName))
-    interests = interests.toString().replaceAll(',', ', ')
-    console.log(interests);
+    const [interests, setInterests] = useState("")
 
     useEffect(() => {
         header.setIsArrow(true)
-        header.setIsDots(false)
+        header.setIsHeaderSet(false)
     }, [])
+
+    useEffect(() => {
+        let interestsStr = []
+        userData?.categories?.map(cat => interestsStr.push(cat.categoryName))
+        interestsStr = interestsStr.toString().replaceAll(',', ', ')
+        setInterests(interestsStr)
+    }, [userData])
 
     const logOff = () => {
         setUserData({})
@@ -29,7 +33,6 @@ const Setting = ({ style = {}, ...props }) => {
         localStorage.token = ""
         setToken('')
         navigate("/login")
-        console.log("logout")
     }
 
     return (
@@ -37,7 +40,8 @@ const Setting = ({ style = {}, ...props }) => {
             <div>
                 <ul>
                     <li>
-                        <LiComp header={language.FIRST_AND_LAST_NAME} subTitle={userData.firstName + " " + userData.lastName}
+                        <LiComp header={language.FIRST_AND_LAST_NAME}
+                            subTitle={userData.firstName + " " + userData.lastName}
                             link="/user-name" />
                     </li>
                     <li>
@@ -54,5 +58,4 @@ const Setting = ({ style = {}, ...props }) => {
         </div >
     )
 }
-
 export default Setting

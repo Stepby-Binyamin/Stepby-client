@@ -17,5 +17,4 @@ const UiDirectionText = ({ mainTitle, text1, text2, style = { marginTop: "100px"
 
    )
 }
-
 export default UiDirectionText

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import StatusProject from "../../../components/all/StatusProject"
 import StatusTemp from "../../../components/all/StatusTemp"
 import BtnHolder from "../../../components/common/BtnHolder/BtnHolder"
@@ -13,8 +13,10 @@ import apiCalls from "../../../functions/apiRequest"
 import StepBasics from "../../../components/all/StepBasics"
 import CreateProjectNewUser from "../../../components/all/CreateProjectNewUser"
 import MoreMenuTemplate from "../../../components/all/MoreMenuTemplate"
+import MoreProject from "../../../components/all/MoreProject"
 
 const Project = ({ mode }) => {
+    const navigate = useNavigate()
     const { templateId } = useParams()
     const { userData } = useContext(userContext)
     const { drawer, header, language = {} } = useContext(mainContext)
@@ -22,6 +24,7 @@ const Project = ({ mode }) => {
     const [curr, setCurr] = useState()
     const [stepsDisplay, setStepsDisplay] = useState()
     const [indexNextStep, setIndexNextStep] = useState()
+    const [approvedForEditing, setApprovedForEditing] = useState(false)
 
     const findNextStep = () => {
         const result = curr && curr.steps.find(step => step.isApprove === false)
@@ -29,36 +32,33 @@ const Project = ({ mode }) => {
     }
 
     useEffect(() => {
-        console.log("🚀 🚀🚀🚀~ file: index.jsx ~ line 43 ~ .then ~ curr")
-        header.setIsArrow(true)
         apiCalls("get", `/project/projectById/${templateId}`)
-            .then((result) => {
-                console.log("🚀 ~ file: index.jsx ~ line 43 ~ .then ~ curr", result)
-                setCurr(result)
-            });
+            .then((result) => { setCurr(result) })
+            .catch((err) => console.log("🚀 ~ file: index.jsx:37 ~ useEffect ~ err", err))
     }, [templateId])
 
     useEffect(() => {
+        console.log("🚀 ~ file: index.jsx ~~ curr", curr)
+        header.setIsArrow(true)
         header.setIsTitle(true)
         header.setTitle(curr?.name)
         // curr?.status === "done" && header.setArrowNav("/projects")
         switch (mode) {
             case "template":
                 header.setSubTitle("")
-                drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} />)   // TODO setDrawerContentHeader
+                drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} deleteProjectFunc={() => deleteProjectFunc("templates")} />)
                 break;
             case "client":
                 header.setIsArrow(false)
                 header.setIsDots(false)
-                header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
-                drawer.setDrawerContentHeader(<></>)  // TODO setDrawerContentHeader
+                header.setSubTitle(curr?.creatorId?.bizName)
                 break;
             case "biz":
                 header.setIsDots(true)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
-                header.setSubTitle(curr?.client?.fullName || (curr?.client?.firstName, curr?.client?.lastName))
-                drawer.setDrawerContentHeader(<></>)  // TODO setDrawerContentHeader
+                header.setSubTitle(curr?.client?.fullName)
+                drawer.setDrawerContentHeader(<MoreProject templateId={templateId} completeProjectFunc={completeProjectFunc} deleteProjectFunc={() => deleteProjectFunc("projects")} />)
                 break;
 
             default:
@@ -66,7 +66,24 @@ const Project = ({ mode }) => {
         }
         curr && setStepsDisplay([...curr.steps].sort((a, b) => a.index < b.index ? -1 : 1))
         setIndexNextStep(findNextStep())
+        console.log("ApprovedForEditing:" + !(userData.permissions === "biz" && curr?.creatorId.permissions === "admin"));
+        setApprovedForEditing(!(userData.permissions === "biz" && curr?.creatorId.permissions === "admin"))
     }, [curr])
+
+    const deleteProjectFunc = (page) => {
+        apiCalls("delete", `/template/deleteTemplate/${templateId}`)
+            .then((res) => {
+                navigate(`/${page}`)
+                drawer.setDrawer()
+            })
+    }
+    const completeProjectFunc = () => {
+        apiCalls("put", `/project/doneProject/${templateId}`)
+            .then((res) => {
+                setCurr(res)
+                drawer.setDrawer()
+            })
+    }
 
     const findTheOwner = (curr) => {
         const result = curr.steps[indexNextStep]?.isCreatorApprove
@@ -104,13 +121,14 @@ const Project = ({ mode }) => {
     const buttonsAccordingMode = () => {
         switch (mode) {
             case "template":
-                const addStep = userData.permissions === "biz" && curr?.creatorId.permissions === "admin" ?
-                    [] : [{ color: "gray", icon: "+", func: onClickPlus, link: '' }]
+                const addStep = approvedForEditing ? [{ color: "gray", icon: "+", func: onClickPlus, link: '' }] : []
                 return curr.steps?.length < 1 ? addStep
                     : [{ color: "lite", icon: "triangle", func: () => createNewProject(), link: '' }].concat(addStep)
             case "biz":
-                return [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${curr?.client?.phoneNumber.replace("0", "+972")}` }
-                    , { color: "gray", icon: "+", func: onClickPlus, link: '' }]
+                return curr?.status === "done" ? [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${curr?.client?.phoneNumber?.replace("0", "+972")}` }]
+                    :
+                    [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${curr?.client?.phoneNumber?.replace("0", "+972")}` }
+                        , { color: "gray", icon: "+", func: onClickPlus, link: '' }]
             case "client":
                 return [{ color: "lite", icon: "whatsapp", link: `https://wa.me/${userData.phoneNumber.replace("0", "+972")}` }]
             default:
@@ -166,11 +184,11 @@ const Project = ({ mode }) => {
                         key={step._id}
                         time={step.approvedDate && `${convertDate(step.approvedDate).time}${convertDate(step.approvedDate).type}`}
                         step={step}
-                        up={upMove}
-                        down={downMove}
+                        up={approvedForEditing && upMove}
+                        down={approvedForEditing && downMove}
                         id={step._id}
                         link={nav(mode, curr, step)}
-                        linkState={{ tempName: curr.name, stepId: step._id, curr, step, mode: mode }}  //TODO - delete mode 
+                        linkState={{ tempName: curr.name, bizName: curr.creatorId.firstName, clientName: curr.client?.fullName, step: step }}
                     />)
                 }
                 {curr.steps?.length < 1 &&

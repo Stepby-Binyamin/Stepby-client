@@ -15,27 +15,34 @@ import apiCalls from '../../../functions/apiRequest'
 
 const Verification = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-
+  const { state } = useLocation()
   const { header } = useContext(mainContext);
-  const { userData, setUserData } = useContext(userContext)
+  const { setUserData } = useContext(userContext)
+
+  const [ilPhoneNum, setIlPhoneNum] = useState()
 
   const [code, setCode] = useState()
   const [counter, setCounter] = useState(0);
   const [wrongPassword, setWrongPassword] = useState(false);
   const [language, setLanguage] = useState(JSON.parse(localStorage.language))
 
-  let start = "054", end = "7668489"
+  useEffect(() => {
+    sendCode()
+    header.setIsTitle(false)
+    header.setIsHeaderSet(false)
+    header.setIsArrow(false)
+    setLanguage(JSON.parse(localStorage.language))
+  }, [])
 
-  if (location.state) {
-    start = location.state.slice(0, 3)
-    end = location.state.slice(3)
-  }
-  const ilPhoneNum = `${start}-${end}`
+  useEffect(() => {
+    const start = state.phoneNumber.slice(0, 3)
+    const end = state.phoneNumber.slice(3)
+    setIlPhoneNum(`${start}-${end}`)
+  }, [state])
 
   const sendCode = async () => {
     if (localStorage.token) setToken(localStorage.token)
-    await apiCalls("post", "/user/send-code", { phoneNumber: location.state })
+    await apiCalls("post", "/user/send-code", { phoneNumber: state.phoneNumber })
       .then((res) => {
         if (res.firstName) {
           setUserData(res)
@@ -46,16 +53,8 @@ const Verification = () => {
       .catch((err) => console.log(err))
   }
 
-  useEffect(() => {
-    sendCode()
-    header.setIsTitle(false)
-    header.setIsHeaderSet(false)
-    header.setIsArrow(false)
-    setLanguage(JSON.parse(localStorage.language))
-  }, [])
-
   const handleClick = async () => {
-    const body = { phoneNumber: location.state, code: code }
+    const body = { phoneNumber: state.phoneNumber, code: code }
     await apiCalls('post', '/user/check-code', body)
       .then(result => {
         setToken(result.token)
@@ -77,14 +76,16 @@ const Verification = () => {
       <div className={styles.input}>
         <InputVerification setCode={setCode} />
       </div>
-      {wrongPassword ? <div className={styles.that_password_is_wrong}>
-        <div><b>{language.WRONG_CODE_MESSAGE}{ilPhoneNum}</b></div>
-      </div> : <div className={styles.phoneNum}>
-        <UserNumberVerification counter={counter} phoneNum={location.state} ilPhoneNum1={ilPhoneNum} />
-      </div>}
+      {wrongPassword ?
+        <div className={styles.that_password_is_wrong}>
+          <div><b>{language.WRONG_CODE_MESSAGE} {ilPhoneNum}</b></div>
+        </div>
+        :
+        <div className={styles.phoneNum}>
+          <UserNumberVerification counter={counter} phoneNum={state.phoneNumber} ilPhoneNum1={ilPhoneNum} />
+        </div>}
       {/* צריך להוסיף אופציה למקרה שהוא הזין סיסמא לא נכונה ואז הוא מבקש שישלחו סיסמא שוב שיציג את הUSERVERIFICATION ולא את הודעת השגיאה
        */}
-
       <div className={styles.someThingWrong}>
         <SomethingWentWrong sendCode={sendCode} setCounter={setCounter} setWrongPassword={setWrongPassword} />
       </div>

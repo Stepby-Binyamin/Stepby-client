@@ -1,10 +1,10 @@
 import React from 'react'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Answer from '../../components/all/Answer';
-import mainContext from '../../context/mainContext'
-import userContext from '../../context/userContext';
-import apiCalls, { setToken } from "../../functions/apiRequest"
+import Answer from '../components/all/Answer';
+import mainContext from '../context/mainContext';
+import userContext from '../context/userContext';
+import apiCalls, { setToken } from '../functions/apiRequest';
 
 export default function Aviad() {
    const users = [

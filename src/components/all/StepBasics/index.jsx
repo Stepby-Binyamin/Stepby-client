@@ -8,7 +8,7 @@ import mainContext from "../../../context/mainContext"
 
 const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
    const { drawer, language } = useContext(mainContext)
-   const [data, setData] = useState({ radio: language.MY });
+   const [data, setData] = useState();
 
    const sort = isCreatorApprove ?
       [{ name: language.MY, icon: "triangle" }, { name: language.THE_CUSTOMER, icon: "circle" }] :
@@ -25,6 +25,7 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
    }
    const saveStep = (addStep) => {
       fetchDataFunc(data);
+      console.log("🚀 ~ file: index.jsx:28 ~ saveStep ~ data", data)
       addStep ? newStep() : drawer.setDrawer();
    }
 
@@ -71,5 +72,4 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
       </div>
    )
 }
-
 export default StepBasics;

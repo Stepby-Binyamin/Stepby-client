@@ -20,28 +20,29 @@ const UploadCShortAnswer = ({ setIsAnswer, client, project, step, id, stepId }) 
         drawer.setDrawer('')
     }
 
-    return (<>
-        <div className={styles.drawerPage}>
-            <BtnIcon
-                text={"text_from language"}
-                icon={"/images/icon-btns/answer.svg"}
-                style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
-            />
-            <Input
-                name={"UploadCShortAnswer"}
-                placeholder={language.YOUR_ANSWER}
-                onChange={(e) => setDescription(e.target.value)}
-                type="text"
-                autoFocus
-                style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
-            />
-        </div>
-        <div className={styles.submitButton}>
-            <div className={styles.sub}>
-                <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+    return (
+        <>
+            <div className={styles.drawerPage}>
+                <BtnIcon
+                    text={"text_from language"}
+                    icon={"/images/icon-btns/answer.svg"}
+                    style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                />
+                <Input
+                    name={"UploadCShortAnswer"}
+                    placeholder={language.YOUR_ANSWER}
+                    onChange={(e) => setDescription(e.target.value)}
+                    type="text"
+                    autoFocus
+                    style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
+                />
             </div>
-        </div>
-    </>
+            <div className={styles.submitButton}>
+                <div className={styles.sub}>
+                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                </div>
+            </div>
+        </>
     )
 }
 

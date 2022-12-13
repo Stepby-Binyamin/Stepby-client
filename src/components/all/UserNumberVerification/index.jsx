@@ -1,22 +1,19 @@
-import React, { useContext} from 'react'
+import React, { useContext } from 'react'
 import mainContext from '../../../context/mainContext';
 
-
-
-export default function UserNumberVerification({ counter,  ilPhoneNum1 }) {
-
-    const {language} = useContext(mainContext)
-    const sendCode = language.SEND_CODE;
-       let ilPhoneNum = ilPhoneNum1
-    const resendCode1 = language.RESEND_CODE, resendCode2 = language.RESEND_CODE_END;
-
+const UserNumberVerification = ({ counter, ilPhoneNum1 }) => {
+    const { language } = useContext(mainContext)
 
     return (
         <>
             {counter > 0 ?
-                <div><b>{resendCode1}</b> {` ${resendCode2}`} {ilPhoneNum}</div> :
-                <div>{sendCode} {ilPhoneNum}</div>
+                <div>
+                    <b>{language.RESEND_CODE}</b> {` ${language.RESEND_CODE_END}`} {ilPhoneNum1}
+                </div>
+                :
+                <div>{language.SEND_CODE} {ilPhoneNum1}</div>
             }
         </>
     )
 }
+export default UserNumberVerification

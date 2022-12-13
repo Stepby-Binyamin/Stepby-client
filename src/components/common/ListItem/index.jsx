@@ -53,8 +53,8 @@ const ListItem = ({
          <li className={styles.ListItem} onClick={handleOnClick} style={style} {...props} >
             {
                showMoveArrow && <>
-                  {step.index + 1 !== stepsNum && <img src={`/images/icons/listArrowDown.svg`} onClick={() => down(step)} alt="move down" style={{ "marginLeft": "4px" }} />}
-                  {step.index !== 0 && <img src={`/images/icons/listArrowUp.svg`} onClick={() => up(step)} alt="move up" style={{ "marginLeft": "7.5px" }} />}
+                  {step?.index + 1 !== stepsNum && <img src={`/images/icons/listArrowDown.svg`} onClick={() => down(step)} alt="move down" style={{ "marginLeft": "4px" }} />}
+                  {step?.index !== 0 && <img src={`/images/icons/listArrowUp.svg`} onClick={() => up(step)} alt="move up" style={{ "marginLeft": "7.5px" }} />}
                </>
             }
             {/* TODO img div container with min-width and flex center  ??*/}
@@ -74,7 +74,7 @@ const ListItem = ({
                      <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>
                         {mainTitle}
                      </div>
-                     {step.index === 0 && secondaryTitle !== language.COMPLET &&
+                     {step?.index === 0 && secondaryTitle !== language.COMPLET &&
                         <div className={styles.firstStep}>{language.TO_THE_WAY}</div>
                      }
                   </div>
@@ -89,7 +89,7 @@ const ListItem = ({
                         <div className={styles.secondaryTitle}>{secondaryTitle}</div>
                         {secondaryTitleWeight &&
                            <div className={styles.secondaryTitleWeight}>{secondaryTitleWeight}</div>}
-                        {secondaryBoldTitle && <>
+                        {secondaryBoldTitle && status !== "done" && <>
                            <div className={styles.secondaryTitleTriangle}>{">"}</div>
                            <div className={styles.secondaryBold}>{secondaryBoldTitle}</div>
                         </>}

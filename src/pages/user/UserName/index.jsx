@@ -11,7 +11,6 @@ import userContext from '../../../context/userContext'
 import apiCalls from '../../../functions/apiRequest'
 
 //  phoneNumber, firstName, lastName, email, bizName, categories
-
 const UserName = () => {
   const navigate = useNavigate()
   const { header, language } = useContext(mainContext)
@@ -20,14 +19,10 @@ const UserName = () => {
   const [data, setData] = useState({})
 
   useEffect(() => {
-    if (!userData?.email) {
-      header.setIsArrow(true)
-    }
-    else {
-      header.setIsTitle(false)
-      header.setIsHeaderSet(false)
-      header.setIsArrow(false)
-    }
+    header.setIsTitle(false)
+    header.setIsArrow(userData?.email)
+    header.setIsHeaderSet(false)
+    // setData({ email: userData?.email ? userData?.email : '' })
   }, [])
 
   const saveData = (e) => {
@@ -49,15 +44,22 @@ const UserName = () => {
 
   const handleClick = (newUser) => {
     console.log("🚀 ~ file: index.jsx ~ line 60 ~ handleClick ~ data", data)
-    if (data.firstName && data.lastName && data.email) {
-      apiCalls('put', '/user/edit-biz', data).then(res => {
-        setUserData(res)
-        if (typeof res === 'object') localStorage.user = JSON.stringify(res)
-        newUser ? navigate('/business-name') : navigate('/setting')
-      }).catch(err => console.log(err))
+    if ((newUser && data.firstName && data.lastName && data.email)
+      || (!newUser && (data.firstName !== undefined || data.lastName !== undefined))) {
+      apiCalls('put', '/user/edit-biz', data)
+        .then(res => {
+          setUserData(res)
+          // if (typeof res === 'object')
+          localStorage.user = JSON.stringify(res)
+          newUser ? navigate('/business-name') : navigate('/setting')
+        })
+        .catch(err => console.log(err))
     }
     else {
-      console.log("ERROR - enter firstName,lastName or email")
+      newUser ?
+        console.log("ERROR - enter firstName,lastName or email") //TODO
+        :
+        navigate('/setting')
     }
   }
 

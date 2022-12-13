@@ -11,9 +11,9 @@ import HomeTemplate from '../pages/home/HomeTemplate'
 import Project from './../pages/common/Project'
 import Step from '../pages/project/Step'
 import StepEdit from '../pages/template/StepEdit'
-import Aviad from './TestComponents/Aviad'
+import Aviad from './Aviad'
 
-function MainRouter() {
+const MainRouter = () => {
     return (
         <Routes>
             <Route path='/' element={<><Login /> <Aviad /></>} />
@@ -29,16 +29,16 @@ function MainRouter() {
 
             <Route path='/template/:templateId'  >
                 <Route index element={<Project mode="template" />} />
-                <Route path='step/:stepId' element={<Step />} />
-                <Route path='edit-step/:stepId' element={<StepEdit />} />
+                <Route path='step/:stepId' element={<Step mode="template" />} />
+                <Route path='edit-step/:stepId' element={<StepEdit mode="template" />} />
             </Route>
 
             <Route path='project/biz/:templateId'>
                 {/* <Route path='biz'>
                     <Route path=':templateId'  > */}
                 <Route index element={<Project mode="biz" />} />
-                <Route path='step/:stepId' element={<Step />} />
-                <Route path='edit-step/:stepId' element={<StepEdit />} />
+                <Route path='step/:stepId' element={<Step mode="biz" />} />
+                <Route path='edit-step/:stepId' element={<StepEdit mode="biz" />} />
                 {/* </Route>
                 </Route> */}
             </Route>
@@ -46,7 +46,7 @@ function MainRouter() {
             <Route path='project/client/:templateId'>
                 {/* <Route path=':templateId'  > */}
                 <Route index element={<Project mode="client" />} />
-                <Route path='step/:stepId' element={<Step />} />
+                <Route path='step/:stepId' element={<Step mode="client" />} />
                 {/* </Route> */}
             </Route>
 
