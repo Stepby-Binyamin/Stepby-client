@@ -82,7 +82,7 @@ const StepEdit = ({ mode }) => {
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
    const viewStep = () => {
-      navigate(`/template/${templateId}/step/${information.step._id}`, { state: information })
+      navigate(`/${mode}/${templateId}/step/${information.step._id}`, { state: information })
    }
    const duplicateStep = () => {
       apiCalls("put", "/template/duplicateStep/" + templateId, { stepId })

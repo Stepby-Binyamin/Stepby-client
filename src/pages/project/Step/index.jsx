@@ -17,6 +17,7 @@ import UploadedIMGView from "../../../components/common/UploadedIMGView"
 import axios from "axios"
 import apiCalls from "../../../functions/apiRequest"
 import MoreStep from "../../../components/all/MoreStep"
+import Confirm from "../../../components/all/Confirm"
 
 const Step = ({ mode }) => {
     const navigate = useNavigate()
@@ -59,10 +60,6 @@ const Step = ({ mode }) => {
     }, [])
 
     useEffect(() => {
-        console.log("🚀 ~ file: index.jsx:64 ~ Step ~ buttons", buttons)
-    }, [buttons])
-
-    useEffect(() => {
         switch (mode) {
             case "template":
                 header.setTitle(information?.step.name)
@@ -74,7 +71,7 @@ const Step = ({ mode }) => {
                 break
             case "biz":
                 header.setTitle(information?.tempName)
-                header.setSubTitle(information?.clientName)
+                header.setSubTitle(information?.client.fullName)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setIsDots(true)
@@ -158,16 +155,25 @@ const Step = ({ mode }) => {
         drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step_} />);
     }
     const completed = () => {
-        apiCalls('put', `/project/completeStep/${templateId}`, { stepId })
-            .then((res) => { navigate(`/project/biz/${templateId}`) })
-            .catch((err) => console.log(err))
+        const name = mode === "biz" ? information?.client.fullName : information?.bizName;
+        console.log("🚀 ~ file: index.jsx:159 ~ completed ~ information", information)
+        console.log();
+        const btnNo = () => { drawer.setDrawer("") }
+        const btnYes = () => {
+            apiCalls('put', `/project/completeStep/${templateId}`, { stepId })
+                .then((res) => { navigate(`/project/${mode}/${templateId}`) })
+                .catch((err) => console.log(err))
+            drawer.setDrawer("")
+        }
+        drawer.setDrawer(<Confirm clientName={name} nextStepName={"nextStepName"} btnYes={btnYes} btnNo={btnNo} />)
     }
     const stepEdit = () => {
-        navigate(`/template/${templateId}/edit-step/${stepId}`, { state: information })
+        navigate(`/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
+    }
+    const goToProject = () => {
+        navigate(`/project/biz/${templateId}`, { state: information })
     }
     const buttonsAccordingMode = () => {
-        console.log("mode:", mode);
-        console.log(information?.step?.isCreatorApprove);
         switch (mode) {
             case "template":
                 setButtons((current) => ({ ...current, edit: true }))
@@ -188,7 +194,6 @@ const Step = ({ mode }) => {
                 break;
         }
     }
-
     return (
         <div className={styles.page}>
             {mode === "template" ?
@@ -197,7 +202,7 @@ const Step = ({ mode }) => {
                 information?.step?.isCreatorApprove ?
                     <StatusStep numOfStage={information?.step?.index} user={information?.bizName} time={""/*Difference_In_Days*/} />
                     :
-                    <StatusStep numOfStage={information?.step?.index} user={information?.clientName} />}
+                    <StatusStep numOfStage={information?.step?.index} user={information?.client.fullName} />}
 
             <div className={styles.title}>{information?.step?.name}</div>
             <div className={styles.text}>{information?.step?.description}</div>
@@ -256,23 +261,25 @@ const Step = ({ mode }) => {
                 })}
             </div>
 
-
             <div className={styles.btns}>
                 {buttons.edit && <div style={{ width: "52px" }}>
                     <BtnSubmitIcon icon="pencil.svg" color="lite" func={stepEdit} />
                 </div>}
+                {buttons.whatsApp &&
+                    <a href={`https://wa.me/${information?.client.phoneNumber}`}>
+                        <div style={{ width: "52px" }}>
+                            <BtnSubmitIcon icon="whatsapp.svg" color="lite" func={""} />
+                        </div>
+                    </a>
+                }
                 {buttons.dark && <div style={{ width: "283px", marginRight: '12px' }}>
                     <BtnSubmitIcon icon="v.svg" color="gray" func={completed} />
                 </div>}
-                {buttons.whatsApp && <div style={{ width: "52px" }}>
-                    <BtnSubmitIcon icon="whatsapp.svg" color="lite" func={stepEdit} />
-                </div>}
                 {buttons.light && <div style={{ width: "52px" }}>
-                    <BtnSubmitIcon icon="v.svg" color="lite" func={completed} />
+                    <BtnSubmitIcon icon="v.svg" color="lite" func={goToProject} />
                 </div>}
             </div>
         </div>
     )
 }
-
 export default Step

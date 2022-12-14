@@ -188,7 +188,7 @@ const Project = ({ mode }) => {
                         down={approvedForEditing && downMove}
                         id={step._id}
                         link={nav(mode, curr, step)}
-                        linkState={{ tempName: curr.name, bizName: curr.creatorId.firstName, clientName: curr.client?.fullName, step: step }}
+                        linkState={{ tempName: curr.name, bizName: curr.creatorId.firstName, client: curr.client, step: step }}
                     />)
                 }
                 {curr.steps?.length < 1 &&
