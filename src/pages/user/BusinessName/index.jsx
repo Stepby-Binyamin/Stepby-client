@@ -30,7 +30,7 @@ const BusinessName = () => {
             apiCalls('put', '/user/edit-biz', { bizName: bizName })
                 .then(res => {
                     //TODO- adding apicall to create client's biz folder - shaul
-                    apiCalls("post", "/files/createbiz", res)
+                    apiCalls("post", "/files/create-biz", res)
                     setUserData(res)
                     // if (typeof res === 'object') 
                     localStorage.user = JSON.stringify(res)

@@ -32,5 +32,4 @@ const CreateTemplate = () => {
         </div>
     )
 }
-
 export default CreateTemplate

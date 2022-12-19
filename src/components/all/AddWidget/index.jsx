@@ -12,7 +12,7 @@ const AddWidget = ({ func }) => {
                 <label>{language.COLLECTING_INFO_FROM_CLIENT}</label>
             </div>
             <BtnIcon
-                onClick={(e) => func('answer')}
+                onClick={() => func('answer')}
                 text={language.SIMPLE_ANS}
                 icon={"/images/icon-btns/answer.svg"}
                 style={{ "marginBottom": "15px" }}

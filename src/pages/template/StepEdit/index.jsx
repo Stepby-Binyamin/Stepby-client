@@ -41,7 +41,14 @@ const StepEdit = ({ mode }) => {
       header.setSubTitle(information?.tempName)
    }, [information])
 
-   const onClickItem = (type, data = { stepId: information?.step._id, tempId: templateId }) => {
+   const onClickItem = (type, data_) => {
+      const data = {
+         ...data_,
+         stepId: stepId,
+         templateId: templateId,
+         // owner: information?.step.isCreatorApprove ? "biz" : "client",
+         type
+      }
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);
             break;
@@ -67,9 +74,13 @@ const StepEdit = ({ mode }) => {
    }
    const addAnswerToStep = (data) => {
       const dataToServer = { ...data, stepId }
+      console.log("🚀 ~ file: index.jsx:70 ~ addAnswerToStep ~ dataToServer", dataToServer)
       apiCalls("put", "/template/dataToStep/" + templateId, dataToServer)
-         .then((result) => { setInformation((current) => ({ ...current, step: result })) });
-      console.log("information.stepData.data: ", information?.step.data);
+         .then((result) => {
+            console.log("🚀 ~ file: index.jsx:79 ~ .then ~ result", result)
+            setInformation((current) => ({ ...current, step: result }))
+         });
+      drawer.setDrawer()
    }
    const openDrawer = (e) => {
       e.target.id === "display" ?
@@ -82,7 +93,10 @@ const StepEdit = ({ mode }) => {
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
    const viewStep = () => {
-      navigate(`/${mode}/${templateId}/step/${information.step._id}`, { state: information })
+      mode === "biz" ?
+         navigate(`/project/${mode}/${templateId}/step/${information.step._id}`, { state: information })
+         :
+         navigate(`/${mode}/${templateId}/step/${information.step._id}`, { state: information })
    }
    const duplicateStep = () => {
       apiCalls("put", "/template/duplicateStep/" + templateId, { stepId })
@@ -137,8 +151,8 @@ const StepEdit = ({ mode }) => {
                   title={item.title}
                   text={item.content}
                   type={item.type}
-                  onClickItem={onClickItem}
-                  data={{ ...item, stepId: information?.step._id, tempId: templateId }} />
+                  // onClickItem={() => onClickItem(item.type, { title: item.title })}
+                  data={{ ...item }} />
             ) :
             <UiDirectionText
                mainTitle={language.MORE_TO_ADD}

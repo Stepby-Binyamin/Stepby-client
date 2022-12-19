@@ -6,7 +6,7 @@ const StatusProject = ({ isLink, name, isCreatorApprove, isDone, completed, tota
     const { language } = useContext(mainContext)
 
     const phoneUpdate = clientPhone && clientPhone.replace("0", "+972")
-    const messageToClient = `http://localhost:3000/project/client/${projectId}` //TODO- localhost, message
+    const messageToClient = `   ${window.location.origin}/project/client/${projectId}   ` //TODO- localhost, message
 
     const careOf = ((isLink && isCreatorApprove) || (!isLink && !isCreatorApprove)) ? language.AWAIT : language.CARE_OF
 

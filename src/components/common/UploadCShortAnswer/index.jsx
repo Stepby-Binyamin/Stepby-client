@@ -6,7 +6,8 @@ import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
-const UploadCShortAnswer = ({ setIsAnswer, client, project, step, id, stepId }) => {
+const UploadCShortAnswer = ({ title, setIsAnswer, client, project, step, id, stepId }) => {
+    console.log("🚀 ~ file: index.jsx:10 ~ UploadCShortAnswer ~ step", step)
     const { drawer, language } = useContext(mainContext)
     const [description, setDescription] = useState()
 
@@ -24,7 +25,7 @@ const UploadCShortAnswer = ({ setIsAnswer, client, project, step, id, stepId }) 
         <>
             <div className={styles.drawerPage}>
                 <BtnIcon
-                    text={"text_from language"}
+                    text={title}
                     icon={"/images/icon-btns/answer.svg"}
                     style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
                 />

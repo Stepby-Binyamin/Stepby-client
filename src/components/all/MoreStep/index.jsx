@@ -8,12 +8,14 @@ const MoreStep = ({ duplicateFunc, CurrentStepFunc, deleteFunc, isTemplate = tru
 
    return (
       <div className={styles.MoreStep}>
-         <div className={styles.btn}>
-            <BtnIcon icon='/images/icons/duplicate.svg' text={language.DUPLICATE_STEP} onClick={duplicateFunc} />
-         </div>
-         {!isTemplate && <div className={styles.btn1}>
-            <BtnIcon icon='/images/icons/pin.svg' text={language.REQ_STEP} onClick={CurrentStepFunc} />
-         </div>}
+         {isTemplate ?
+            <div className={styles.btn}>
+               <BtnIcon icon='/images/icons/duplicate.svg' text={language.DUPLICATE_STEP} onClick={duplicateFunc} />
+            </div>
+            :
+            <div className={styles.btn1}>
+               <BtnIcon icon='/images/icons/pin.svg' text={language.REQ_STEP} onClick={CurrentStepFunc} />
+            </div>}
          <div>
             <BtnIcon icon='/images/icons/delete.svg' text={language.DELETE_STEP} textColor="#EF0E0E" onClick={deleteFunc} />
          </div>

@@ -14,6 +14,7 @@ import StepBasics from "../../../components/all/StepBasics"
 import CreateProjectNewUser from "../../../components/all/CreateProjectNewUser"
 import MoreMenuTemplate from "../../../components/all/MoreMenuTemplate"
 import MoreProject from "../../../components/all/MoreProject"
+import { isCursorAtEnd } from "@testing-library/user-event/dist/utils"
 
 const Project = ({ mode }) => {
     const navigate = useNavigate()
@@ -23,13 +24,11 @@ const Project = ({ mode }) => {
 
     const [curr, setCurr] = useState()
     const [stepsDisplay, setStepsDisplay] = useState()
-    const [indexNextStep, setIndexNextStep] = useState()
     const [approvedForEditing, setApprovedForEditing] = useState(false)
 
-    const findNextStep = () => {
-        const result = curr && curr.steps.find(step => step.isApprove === false)
-        return result?.index
-    }
+    useEffect(() => {
+        console.log("🚀 ~ file: index.jsx:29 ~ Project ~ stepsDisplay", stepsDisplay)
+    }, [stepsDisplay])
 
     useEffect(() => {
         apiCalls("get", `/project/projectById/${templateId}`)
@@ -48,11 +47,6 @@ const Project = ({ mode }) => {
                 header.setSubTitle("")
                 drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} deleteProjectFunc={() => deleteProjectFunc("templates")} />)
                 break;
-            case "client":
-                header.setIsArrow(false)
-                header.setIsDots(false)
-                header.setSubTitle(curr?.creatorId?.bizName)
-                break;
             case "biz":
                 header.setIsDots(true)
                 header.setIsArrow(true)
@@ -60,13 +54,16 @@ const Project = ({ mode }) => {
                 header.setSubTitle(curr?.client?.fullName)
                 drawer.setDrawerContentHeader(<MoreProject templateId={templateId} completeProjectFunc={completeProjectFunc} deleteProjectFunc={() => deleteProjectFunc("projects")} />)
                 break;
-
+            case "client":
+                header.setIsArrow(false)
+                header.setIsDots(false)
+                header.setIsHamburguer(false)
+                header.setSubTitle(curr?.creatorId?.bizName)
+                break;
             default:
                 break;
         }
         curr && setStepsDisplay([...curr.steps].sort((a, b) => a.index < b.index ? -1 : 1))
-        setIndexNextStep(findNextStep())
-        console.log("ApprovedForEditing:" + !(userData.permissions === "biz" && curr?.creatorId.permissions === "admin"));
         setApprovedForEditing(!(userData.permissions === "biz" && curr?.creatorId.permissions === "admin"))
     }, [curr])
 
@@ -84,16 +81,21 @@ const Project = ({ mode }) => {
                 drawer.setDrawer()
             })
     }
-
-    const findTheOwner = (curr) => {
-        const result = curr.steps[indexNextStep]?.isCreatorApprove
-        return result ? language.YOURS : (curr?.client?.firstName, curr?.client?.lastName) || curr?.client?.fullName
-
-    }
-    const secondaryTitle = (curr, step) => {
-        return step.isApprove === true ?
-            language.COMPLET
-            : indexNextStep === step.index && `${language.TREATMENT} ${findTheOwner(curr)}`
+    const secondaryTitle = (step) => {
+        let message
+        if (mode === "template") return ""
+        if (step.isApprove) { return language.COMPLET }
+        else {
+            if (curr.status === "done") return ""
+            if (step.index === stepsDisplay?.find(step => !step.isApprove).index && curr?.status) {
+                message = mode === curr?.status ?
+                    language.WAITING_FOR_YOU
+                    :
+                    `${language.WAITING_FOR}${curr?.status === "biz" ? curr?.creatorId.firstName : curr?.client?.fullName}`
+                return mode === "biz" ? `${message} ${language.ALREADY}` : `${message}`
+            }
+            else { return "" }
+        }
     }
     const upMove = (step) => {
         apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index - 1 })
@@ -168,28 +170,38 @@ const Project = ({ mode }) => {
                         isDone={curr.status === "done"}
                         isLink={mode === "biz" ? true : false}
                         name={curr.status === "biz" ? userData.firstName : curr.client?.fullName}
-                        completed={indexNextStep}
+                        completed={curr?.steps.filter(step => step.isApprove).length}
                         totalTask={curr.steps.length}
                         projectId={templateId}
                         clientPhone={curr?.client?.phoneNumber}
-                        isCreatorApprove={curr.steps[indexNextStep]?.isCreatorApprove}
+                        isCreatorApprove={curr.status === "biz"}
                     />}
                 {mode === "template" && <StatusTemp />}
-                {stepsDisplay?.map(step =>
-                    <ListItem
+                {stepsDisplay?.map(step => {
+                    const nextStepName = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index + 1].name   //TODO  state?
+                    const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove).index
+                    return (<ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
-                        secondaryTitle={mode !== "template" && secondaryTitle(curr, step)}
+                        secondaryTitle={mode !== "template" && secondaryTitle(step)}
                         mainTitle={step.name}
                         stepsNum={curr.steps.length}
                         key={step._id}
-                        time={step.approvedDate && `${convertDate(step.approvedDate).time}${convertDate(step.approvedDate).type}`}
+                        time={step.approvedDate && `${convertDate(curr.lastApprove).time}${convertDate(step.approvedDate).type}`}
                         step={step}
                         up={approvedForEditing && upMove}
                         down={approvedForEditing && downMove}
                         id={step._id}
                         link={nav(mode, curr, step)}
-                        linkState={{ tempName: curr.name, bizName: curr.creatorId.firstName, client: curr.client, step: step }}
+                        linkState={{
+                            tempName: curr.name,
+                            bizName: curr.creatorId.firstName,
+                            client: curr.client, step: step,
+                            nextStepName,
+                            isCurrent
+                        }}
                     />)
+                }
+                )
                 }
                 {curr.steps?.length < 1 &&
                     <UiDirectionText

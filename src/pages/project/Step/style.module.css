@@ -22,7 +22,7 @@
     font-size: 15px;
     line-height: 22px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     text-align: right;
     color: #7C818D;
     margin-bottom: 32px;

@@ -23,7 +23,7 @@ const Step = ({ mode }) => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const { templateId, stepId } = useParams()
-    const { header, drawer } = useContext(mainContext)
+    const { header, drawer, language } = useContext(mainContext)
 
     const [information, setInformation] = useState()
     const [buttons, setButtons] = useState({ edit: false, whatsApp: false, light: false, dark: false })
@@ -55,8 +55,6 @@ const Step = ({ mode }) => {
                 .then(response => { setInformation(response) })
                 .catch(error => { console.log(error) });
 
-        console.log("🚀 ~ file: index.jsx ~ Step ~ mode", mode)
-        console.log("🚀 ~ file: index.jsx ~ Step ~ state", state)
     }, [])
 
     useEffect(() => {
@@ -88,6 +86,8 @@ const Step = ({ mode }) => {
                 break;
         }
         information && buttonsAccordingMode()
+        console.log("🚀 ~ file: index.jsx ~ Step ~ mode", mode)
+        console.log("🚀 ~ file: index.jsx:92 ~ useEffect ~ information", information)
     }, [information])
 
     useEffect(() => {
@@ -151,24 +151,39 @@ const Step = ({ mode }) => {
     const handleFile = () => {
         drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step_} />); //id={id} stepId={stepId}
     }
-    const handleAnswer = () => {
-        drawer.setDrawer(<UploadCShortAnswer setIsAnswer={setIsAnswer} client={client} project={project} step={step_} />);
+    const handleAnswer = (title) => {
+        console.log(information.step.isCreatorApprove);
+        switch (mode) {
+            case "template": return
+            case "biz":
+                information.step.isCreatorApprove
+                    && drawer.setDrawer(<UploadCShortAnswer title={title} setIsAnswer={setIsAnswer} client={client} project={project} step={step_} />);
+                break;
+            case "client":
+                !information.step.isCreatorApprove
+                    && drawer.setDrawer(<UploadCShortAnswer title={title} setIsAnswer={setIsAnswer} client={client} project={project} step={step_} />);
+                break;
+            default:
+                break;
+        }
     }
     const completed = () => {
         const name = mode === "biz" ? information?.client.fullName : information?.bizName;
-        console.log("🚀 ~ file: index.jsx:159 ~ completed ~ information", information)
-        console.log();
         const btnNo = () => { drawer.setDrawer("") }
         const btnYes = () => {
+            //TODO send email
             apiCalls('put', `/project/completeStep/${templateId}`, { stepId })
                 .then((res) => { navigate(`/project/${mode}/${templateId}`) })
                 .catch((err) => console.log(err))
             drawer.setDrawer("")
         }
-        drawer.setDrawer(<Confirm clientName={name} nextStepName={"nextStepName"} btnYes={btnYes} btnNo={btnNo} />)
+        drawer.setDrawer(<Confirm clientName={name} nextStepName={information?.nextStepName} btnYes={btnYes} btnNo={btnNo} />)
     }
     const stepEdit = () => {
-        navigate(`/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
+        mode === "biz" ?
+            navigate(`/project/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
+            :
+            navigate(`/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
     }
     const goToProject = () => {
         navigate(`/project/biz/${templateId}`, { state: information })
@@ -199,10 +214,10 @@ const Step = ({ mode }) => {
             {mode === "template" ?
                 <StatusStep isPreview={true} />
                 :
-                information?.step?.isCreatorApprove ?
+                information?.isCurrent && (information?.step?.isCreatorApprove ?
                     <StatusStep numOfStage={information?.step?.index} user={information?.bizName} time={""/*Difference_In_Days*/} />
                     :
-                    <StatusStep numOfStage={information?.step?.index} user={information?.client.fullName} />}
+                    <StatusStep numOfStage={information?.step?.index} user={information?.client.fullName} />)}
 
             <div className={styles.title}>{information?.step?.name}</div>
             <div className={styles.text}>{information?.step?.description}</div>
@@ -214,6 +229,7 @@ const Step = ({ mode }) => {
             } */}
             <div className={styles.pdf} >
                 {information?.step?.data.map((data, index) => {
+                    console.log("🚀 ~ file: index.jsx:257 ~ {information?.step?.data.map ~ data", data.content)
                     switch (data.type) {
                         case "img":
                             return <ImageView
@@ -231,10 +247,8 @@ const Step = ({ mode }) => {
                                 isTitleFirst={true}
                                 isAdmin={false}
                             />
-
-
                         case "file":
-                            return <Answer src="\images\icon-btns\Upload.svg"
+                            return <Answer src="/images/icon-btns/Upload.svg"
                                 key={Math.random().toString()}
                                 onClick={handleFile}
                                 title={data.title}
@@ -243,20 +257,17 @@ const Step = ({ mode }) => {
                                 isAdmin={true}
                                 isDone={isUploaded}
                             />
-
                         case "answer":
                             return <Answer src="/images/icon-btns/answer.svg"
                                 key={Math.random().toString()}
-                                onClick={handleAnswer}
+                                onClick={() => handleAnswer(data.title)}
                                 title={data.title}
-                                p={data.content === "" ? "למענה לוחצים כאן..." : `${data.content}`}
+                                p={!data.content ? `${language.FOR_HER_ANSWER_CLICK_HERE}` : `${data.content}`}
                                 isTitleFirst={true}
                                 isAdmin={true}
                                 isDone={isAnswer}
                             />
-
-                        default: break
-                        // code block
+                        default: return <></>
                     }
                 })}
             </div>
