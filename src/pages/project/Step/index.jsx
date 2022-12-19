@@ -69,7 +69,7 @@ const Step = ({ mode }) => {
                 break
             case "biz":
                 header.setTitle(information?.tempName)
-                header.setSubTitle(information?.client.fullName)
+                header.setSubTitle(information?.client?.fullName)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setIsDots(true)
@@ -168,7 +168,7 @@ const Step = ({ mode }) => {
         }
     }
     const completed = () => {
-        const name = mode === "biz" ? information?.client.fullName : information?.bizName;
+        const name = mode === "biz" ? information?.client?.fullName : information?.bizName;
         const btnNo = () => { drawer.setDrawer("") }
         const btnYes = () => {
             //TODO send email
@@ -217,7 +217,7 @@ const Step = ({ mode }) => {
                 information?.isCurrent && (information?.step?.isCreatorApprove ?
                     <StatusStep numOfStage={information?.step?.index} user={information?.bizName} time={""/*Difference_In_Days*/} />
                     :
-                    <StatusStep numOfStage={information?.step?.index} user={information?.client.fullName} />)}
+                    <StatusStep numOfStage={information?.step?.index} user={information?.client?.fullName} />)}
 
             <div className={styles.title}>{information?.step?.name}</div>
             <div className={styles.text}>{information?.step?.description}</div>
