@@ -42,7 +42,7 @@ const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id }) => {
         // const formData = new FormData();
         // formData.append("objShortQuestion", JSON.stringify(data))
         // // console.log('formData: ', formData);
-        // const result = await apiCalls('post', '/files/uploadanswer/', formData)
+        // const result = await apiCalls('post', '/files/upload-answer/', formData)
         // // console.log("apiCalls result", result);
         // // fetchDataFunc(data);
         // drawer.setDrawer('')

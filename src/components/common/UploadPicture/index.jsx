@@ -34,7 +34,7 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step
         const formData = new FormData();
         formData.append("new_file", currentFile);
         formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, client: client, projectName: project, stepNum: step, date: new Date() })) //id={id} stepId={stepId}
-        const result = await apiCalls('post', '/files/uploadfile/', formData)
+        const result = await apiCalls('post', '/files/upload-file/', formData)
         console.log("apiCalls result", result);
         currentFile && setIsUploaded(true)
         drawer.setDrawer('')

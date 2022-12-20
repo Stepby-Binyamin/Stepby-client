@@ -46,7 +46,7 @@ const TempFile = ({ data, step, project, id, stepId }) => {
         }
         const formData = new FormData();
         formData.append("objShortQuestion", JSON.stringify(data))
-        const result = await apiCalls('post', '/files/uploadfile/', formData)
+        const result = await apiCalls('post', '/files/upload-file/', formData)
         console.log("apiCalls result", result);
 
         drawer.setDrawer('')
