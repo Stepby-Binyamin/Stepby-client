@@ -9,33 +9,32 @@ import mainContext from '../../../context/mainContext'
 import BtnSubmitIcon from '../../../components/common/BtnSubmitIcon'
 import { useNavigate } from 'react-router-dom'
 
-export default function Login() {
+const Login = () => {
+  const navigate = useNavigate()
+  const { header } = useContext(mainContext)
 
-  const { header } = useContext(mainContext),
-    navigate = useNavigate(),
-    [limitDigits, setLimitDigits] = useState(''),
-    [phoneNumber, setphonenumber] = useState(''),
-    [language, setLanguage] = useState(JSON.parse(localStorage.language));
+  const [limitDigits, setLimitDigits] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [language, setLanguage] = useState(JSON.parse(localStorage.language));
 
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
-    header.setIsArrow(false)  
+    header.setIsArrow(false)
     setLanguage(JSON.parse(localStorage.language))
   }, [])
 
   const handleChange = (e) => {
-
     if (e.target.value.length > 10) {
       return
     }
     setLimitDigits(e.target.value)
-    setphonenumber(e.target.value)
+    setPhoneNumber(e.target.value)
   }
 
   const handleClick = async () => {
     if (phoneNumber.length < 10) return
-    navigate('/verification', { state: phoneNumber })
+    navigate('/verification', { state: { phoneNumber } })
   }
 
   return (
@@ -53,3 +52,4 @@ export default function Login() {
     </div>
   )
 }
+export default Login

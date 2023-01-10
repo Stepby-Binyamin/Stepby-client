@@ -36,6 +36,7 @@ export const languages = [
             WAITING_CUSTOMER: "ממתין ללקוח",
             FIRST_AND_LAST_NAME: "שם פרטי ומשפחה",
             AREAS_PRACTICE: " מה תחומי העיסוק של",
+            PRACTICE_AREAS: "תחומי עיסוק",
             LOGGING_OFF: "התנתקות",
             LETS_GO: "פשוט, בוא נתחיל",
             ICON: "האייקון",

@@ -2,7 +2,6 @@ import React from 'react'
 import styles from "./style.module.css"
 import { useNavigate } from 'react-router-dom'
 
-
 const LiComp = ({ style = {}, header, subTitle, link, ...props }) => {
     const navigate = useNavigate()
 
@@ -19,5 +18,4 @@ const LiComp = ({ style = {}, header, subTitle, link, ...props }) => {
         </div >
     )
 }
-
 export default LiComp

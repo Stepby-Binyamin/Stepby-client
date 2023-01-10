@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./style.module.css"
 
-export default function BtnConfirm({ func, ...props }) {
+const BtnConfirm = ({ func, ...props }) => {
     return (<>
         <button className={styles.confirm} onClick={func}>
             {/* TODO: func of closing task */}
@@ -10,3 +10,4 @@ export default function BtnConfirm({ func, ...props }) {
     </>
     );
 }
+export default BtnConfirm

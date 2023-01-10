@@ -11,7 +11,12 @@
     height: 40px;
     font-size: 12px;
 }
-
+.preview{
+    display: flex;
+}
+.previewText{
+    margin-right: 5.5px;
+}
 .currentStage {
     display: flex;
     justify-content: space-between;
@@ -20,7 +25,6 @@
     width: 100%;
     height: 40px;
 }
-
 .supremeBoxCenter {
     font-family: 'Heebo';
     direction: rtl;

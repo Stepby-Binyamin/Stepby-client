@@ -3,15 +3,15 @@ import styles from './style.module.css'
 import Logo from '../../components/all/Logo'
 
 const Splash = () => {
-
-    const SPLASHUNDER = localStorage.language && JSON.parse(localStorage.language).SPLASH_UNDER
+    const splashUnder = localStorage.language && JSON.parse(localStorage.language).SPLASH_UNDER
 
     return (
         <div className={styles.container}>
-            <div className={styles.logo}><Logo logo={"/images/stepby"} /></div>
-            <div className={styles.text1}>{SPLASHUNDER}</div>
+            <div className={styles.logo}>
+                <Logo logo={"/images/stepby"} />
+            </div>
+            <div className={styles.text1}>{splashUnder}</div>
         </div>
     );
 }
-
 export default Splash;

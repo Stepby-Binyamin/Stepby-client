@@ -4,24 +4,22 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import styles from './style.module.css'
 
-
-export default function InputVerification({ setCode }) {
+const InputVerification = ({ setCode }) => {
     const [inputData, setInputData] = useState({ inputOne: "", inputTwo: "", inputThree: "", inputFour: "" })
     const inputOne = useRef(null)
     const inputTwo = useRef(null)
     const inputThree = useRef(null)
     const inputFour = useRef(null)
 
-
     useEffect(() => {
         inputOne.current.focus();
     }, [])
+
     useEffect(() => {
         setCode(Object.values(inputData).join(""))
     }, [inputData])
 
     const handlePress = (e) => {
-
         if (e.target.name === 'inputOne' && e.target.value !== 0) {
             inputTwo.current.focus();
             setInputData({ ...inputData, inputOne: e.target.value[e.target.value.length - 1] })
@@ -57,3 +55,4 @@ export default function InputVerification({ setCode }) {
         </div>
     )
 }
+export default InputVerification

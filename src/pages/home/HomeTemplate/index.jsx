@@ -14,80 +14,38 @@ import CreateTemplateGeneral from '../../../components/all/CreateTemplateGeneral
 import BtnHolder from '../../../components/common/BtnHolder/BtnHolder'
 import apiCalls from '../../../functions/apiRequest'
 import userContext from '../../../context/userContext'
+import UiDirectionText from '../../../components/all/UiDirectionText'
 
-const HomeTemplate = ({ style = {}, ...props }) => {
+const HomeTemplate = ({ style = {} }) => {
    const { userData } = useContext(userContext)
-   const navigate = useNavigate()
-   const [isAdmin, setIsAdmin] = useState(false)
-
-   const [displayTemplates, setDisplayTemplates] = useState()
-
    const { header, drawer, language } = useContext(mainContext)
-   const { MY_TEMP, RECOMENDED, LAST_DUPLICATED, CREATED_BY, PROJECTS, TEMPLATES } = language
 
    const [templatesByUser, setTemplatesByUser] = useState()
-   const [templatesByUserLength, setTemplatesByUserLength] = useState()
    const [recommend, setRecommend] = useState()
-
-   const [choose, setChoose] = useState(MY_TEMP)
+   const [displayTemplates, setDisplayTemplates] = useState()
+   const [choose, setChoose] = useState(language.MY_TEMP)
 
    useEffect(() => {
       header.setIsTitle(false)
       header.setIsArrow(false)
+      header.setIsHeaderSet(true)
 
       apiCalls('get', '/template/templateByUser')
          .then(response => {
             setTemplatesByUser(response);
             setDisplayTemplates(response)
-            setTemplatesByUserLength(response.length)
          })
-         .catch(error => {
-            console.log(error)
-         });
+         .catch(error => { console.log("🚀 ~ file: index.jsx:39 ~ useEffect ~ error", error) });
 
       apiCalls('get', '/template/categoriesByUser')
-         .then(response => {
-            setRecommend(response);
-         })
-         .catch(error => {
-            console.log(error)
-         });
-
+         .then(response => { setRecommend(response); })
+         .catch(error => { console.log("🚀 ~ file: index.jsx:45 ~ useEffect ~ error", error) });
    }, [])
 
    useEffect(() => {
-      console.log("userData: " + userData);
-      setIsAdmin(userData?.permissions === 'admin' ? true : false);
-   }, [userData])
-
-   useEffect(() => {
-      choose === MY_TEMP ? setDisplayTemplates(templatesByUser) : setDisplayTemplates(recommend)
+      choose === language.MY_TEMP ? setDisplayTemplates(templatesByUser) : setDisplayTemplates(recommend)
    }, [choose])
 
-   const createNewTemplate = async (templateName) => {
-      console.log(templateName);
-      apiCalls("post", "/template/createTemplate", templateName)
-         .then(() => {
-            apiCalls('get', '/template/templateByUser')
-               .then(res => {
-                  setDisplayTemplates(res);
-                  navigate(`/template/${res[res.length - 1]._id}`)
-               })
-               .catch(error => {
-                  console.log(error)
-               });
-         })
-         .catch(error => {
-            console.log(error)
-         });
-
-   }
-   const createNewTemplateAdmin = async (data) => {
-      apiCalls("post", "/template/createTemplateAdmin", { ...data, categories: data.res })
-         .then((res) => {
-            navigate(`/template/${res.message._id}`)
-         })
-   }
    const createClient = () => {
       drawer.setDrawer(<CreateClient />)
    }
@@ -95,43 +53,46 @@ const HomeTemplate = ({ style = {}, ...props }) => {
       drawer.setDrawer(<CreateProject />)
    }
    const createTemp = () => {
-      isAdmin ?
-         drawer.setDrawer(<CreateTemplateGeneral printData={printData} NewAdminTemplate={createNewTemplateAdmin} />) :
-         drawer.setDrawer(<CreateTemplate createNewTemplate={createNewTemplate} printData={printData} />)
+      userData?.permissions === 'admin' ?
+         drawer.setDrawer(<CreateTemplateGeneral />) :
+         drawer.setDrawer(<CreateTemplate />)
    }
    const openDrawer = () => {
       drawer.setDrawer(<AllAction newTempFunc={createTemp} newUserFunc={createClient} projectToUserFunc={createProject} />)
    }
-   const printData = (d) => {
-      console.log("printData:", d);
-   }
 
    return (
-      <div className={styles.HomeTemplate} style={style} {...props} >
-
-         <NavLink firstText={PROJECTS} secondText={TEMPLATES} />
-         <NavLinkTab state={choose} setState={setChoose} firstText={MY_TEMP} secondText={RECOMENDED} counter={templatesByUserLength} />
-
-         <ul className={styles.list}>
-            {
-               (displayTemplates?.map(item =>
-                  <ListItem
-                     key={item._id}
-                     mainTitle={item.name}
-                     secondaryTitle={choose === MY_TEMP ? LAST_DUPLICATED : CREATED_BY}
-                     secondaryTitleWeight={choose === MY_TEMP ?
-                        `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :
-                        `${item.creatorId.firstName} ${item.creatorId.lastName}`}
-                     link={`/template/${item._id}`}
-                     linkState={{ temp: item, mode: "template" }}
-                  />))
-            }
-         </ul>
-         {choose === MY_TEMP &&
+      <div className={styles.HomeTemplate} style={style} >
+         <NavLink />
+         <NavLinkTab
+            state={choose}
+            setState={setChoose}
+            firstText={language.MY_TEMP}
+            secondText={language.RECOMENDED}
+            counter={templatesByUser?.length} />
+         {displayTemplates?.length === 0 && choose === language.MY_TEMP ?
+            <UiDirectionText mainTitle={language.LETS_GO} text1={language.ICON} text2={language.CALL_YOU} />
+            :
+            <ul className={styles.list}>
+               {
+                  (displayTemplates?.map(item =>
+                     <ListItem
+                        key={item._id}
+                        mainTitle={item.name}
+                        step={item}
+                        secondaryTitle={choose === language.MY_TEMP ? language.LAST_DUPLICATED : language.CREATED_BY}
+                        secondaryTitleWeight={choose === language.MY_TEMP ?
+                           `${convertDate(item.lastApprove).time}${convertDate(item.lastApprove).type}` :
+                           `${item.creatorId.firstName} ${item.creatorId.lastName}`}
+                        link={`/template/${item._id}`}
+                        linkState={{ temp: item }}
+                     />))
+               }
+            </ul>}
+         {choose === language.MY_TEMP &&
             <BtnHolder buttons={[{ color: "gray", icon: "+", func: openDrawer }]} />
          }
       </div>
    )
 }
-
 export default HomeTemplate

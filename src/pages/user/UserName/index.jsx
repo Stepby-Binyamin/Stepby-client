@@ -10,46 +10,57 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import userContext from '../../../context/userContext'
 import apiCalls from '../../../functions/apiRequest'
 
-
-
 //  phoneNumber, firstName, lastName, email, bizName, categories
-
-export default function UserName() {
+const UserName = () => {
+  const navigate = useNavigate()
+  const { header, language } = useContext(mainContext)
   const { userData, setUserData } = useContext(userContext)
 
-  const { header } = useContext(mainContext)
-  const navigate = useNavigate(),
-    [language, setLanguage] = useState(JSON.parse(localStorage.language)),
-    [data, setData] = useState({})
+  const [data, setData] = useState({})
 
   useEffect(() => {
     header.setIsTitle(false)
+    header.setIsArrow(userData?.email)
     header.setIsHeaderSet(false)
-    header.setIsArrow(false)
-    setLanguage(JSON.parse(localStorage.language))
+    // setData({ email: userData?.email ? userData?.email : '' })
   }, [])
 
   const saveData = (e) => {
-    if (e.target.name === 'firstName' && e.target.value !== '') {
-      setData({ ...data, firstName: e.target.value })
-    }
-    if (e.target.name === 'lastName' && e.target.value !== '') {
-      setData({ ...data, lastName: e.target.value })
-    }
-    if (e.target.name === 'email' && e.target.value !== '') {
-      setData({ ...data, email: e.target.value })
+    if (e.target.value === '') return
+    switch (e.target.name) {
+      case 'firstName':
+        setData({ ...data, firstName: e.target.value })
+        break;
+      case 'lastName':
+        setData({ ...data, lastName: e.target.value })
+        break;
+      case 'email':
+        setData({ ...data, email: e.target.value })
+        break;
+      default:
+        break;
     }
   }
 
   const handleClick = (newUser) => {
-    console.log(1234555, data);
-    apiCalls('put', '/user/edit-biz', data).then(res => {
-      setUserData(res)
-      if (typeof res === 'object') localStorage.user = JSON.stringify(res)
-      newUser ? navigate('/business-name')
-        : navigate('/setting')
-    }).catch(err => console.log(err))
-
+    console.log("🚀 ~ file: index.jsx ~ line 60 ~ handleClick ~ data", data)
+    if ((newUser && data.firstName && data.lastName && data.email)
+      || (!newUser && (data.firstName !== undefined || data.lastName !== undefined))) {
+      apiCalls('put', '/user/edit-biz', data)
+        .then(res => {
+          setUserData(res)
+          // if (typeof res === 'object')
+          localStorage.user = JSON.stringify(res)
+          newUser ? navigate('/business-name') : navigate('/setting')
+        })
+        .catch(err => console.log(err))
+    }
+    else {
+      newUser ?
+        console.log("ERROR - enter firstName,lastName or email") //TODO
+        :
+        navigate('/setting')
+    }
   }
 
   return (
@@ -58,13 +69,37 @@ export default function UserName() {
         <UserTitle text1={language.PERSONAL_INFORMATION} />
       </div>
       <div className={styles.input}>
-        <Input autoFocus onChange={saveData} type='text' name='firstName' placeholder={!userData?.firstName ? language.FIRST_NAME : ''} defaultValue={userData?.firstName ? userData?.firstName : ''} />
-        <Input onChange={saveData} type='text' name='lastName' placeholder={!userData?.lastName ? language.LAST_NAME : ''} defaultValue={userData?.lastName ? userData?.lastName : ''} />
-        {!userData?.email && <Input onChange={saveData} type='email' name='email' placeholder={language.EMAIL} />}
+        <Input
+          autoFocus
+          onChange={saveData}
+          type='text'
+          name='firstName'
+          placeholder={!userData?.firstName ? language.FIRST_NAME : ''}
+          defaultValue={userData?.firstName ? userData?.firstName : ''}
+        />
+        <Input
+          onChange={saveData}
+          type='text'
+          name='lastName'
+          placeholder={!userData?.lastName ? language.LAST_NAME : ''}
+          defaultValue={userData?.lastName ? userData?.lastName : ''}
+        />
+        {!userData?.email &&
+          <Input
+            onChange={saveData}
+            type='email'
+            name='email'
+            placeholder={language.EMAIL}
+          />}
       </div>
       <div className={styles.btn}>
-        <BtnSubmitIcon color='orange' icon={userData?.email ? 'v to text.svg' : 'Arrow.svg'} func={() => handleClick(userData?.email ? false : true)} />
+        <BtnSubmitIcon
+          color='orange'
+          icon={userData?.email ? 'v to text.svg' : 'Arrow.svg'}
+          func={() => handleClick(userData?.email ? false : true)}
+        />
       </div>
     </div>
   )
 }
+export default UserName

@@ -1,9 +1,7 @@
 import styles from "./style.module.css"
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import mainContext from '../../../context/mainContext'
-
 import Logo from '../../all/Logo'
 
 const HeaderLogo = () => {
@@ -16,7 +14,7 @@ const HeaderLogo = () => {
                 {header.isArrow && <img src="/images/icons/arrow.svg" alt="Arrow" onClick={() => navigate(-1)} />}
             </div>
 
-            <div onClick={()=>navigate("/projects")}>
+            <div onClick={() => navigate("/projects")}>
                 <Logo logo="/images/stepbyOrange" />
             </div>
 
@@ -26,5 +24,4 @@ const HeaderLogo = () => {
         </div>
     );
 }
-
 export default HeaderLogo

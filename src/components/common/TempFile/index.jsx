@@ -1,5 +1,5 @@
 import styles from "./style.module.css"
-import React , { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 
 import mainContext from "../../../context/mainContext"
 
@@ -9,10 +9,10 @@ import RadioBtn from '../../all/radioBtn/withoutIcon'
 import BtnSubmitText from "../BtnSubmitText"
 
 import apiCalls from "../../../functions/apiRequest"
+import RadioBtnWithIcon from "../../all/radioBtn/WithIcon"
 
 const TempFile = ({ data, step, project, id, stepId }) => {
-const {drawer} = useContext(mainContext)
-// console.log("dat00", data);
+    const { language, drawer } = useContext(mainContext)
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
@@ -23,7 +23,7 @@ const {drawer} = useContext(mainContext)
 
     const handleRadio = (e) => {
         // console.dir(e.target.value);
-        e.target.value === "שאלת חובה" ? setIsRequired(true) : setIsRequired(false)
+        e.target.value === language.ASK_REQ ? setIsRequired(true) : setIsRequired(false)
     }
 
     const handleSubmitAnswer = async () => {
@@ -46,7 +46,7 @@ const {drawer} = useContext(mainContext)
         }
         const formData = new FormData();
         formData.append("objShortQuestion", JSON.stringify(data))
-        const result = await apiCalls('post', '/files/uploadfile/', formData)
+        const result = await apiCalls('post', '/files/upload-file/', formData)
         console.log("apiCalls result", result);
 
         drawer.setDrawer('')
@@ -55,26 +55,30 @@ const {drawer} = useContext(mainContext)
     return (
         <div className={styles.drawerPage}>
             <BtnIcon
-                text={"העלאת קובץ / צילום"}
+                text={language.UPLOAD}
                 icon={"/images/icon-btns/Upload.svg"}
                 style={{ "marginBottom": "15px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }} />
             <Input
                 name={"TempFile"}
-                placeholder="תיאור לקובץ"
+                placeholder={language.DESCRIPTION_FILE}
                 onChange={(e) => handleChange(e)}
                 type="text"
                 autoFocus
                 style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
             />
             <div className={styles.radio}>
-                <RadioBtn
+                {/* <RadioBtn
                     arr={['שאלת חובה', 'שאלת רשות']}
                     changeFunc={(e) => handleRadio(e)}
+                /> */}
+                <RadioBtnWithIcon
+                    changeFunc={(e) => handleRadio(e)}
+                    obj={[{ name: language.ASK_REQ }, { name: language.ASK_PER }]}
                 />
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text="שמירה" func={handleSubmitAnswer} />
+                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
                 </div>
             </div>
         </div>

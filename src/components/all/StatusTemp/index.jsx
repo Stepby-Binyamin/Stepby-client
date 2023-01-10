@@ -1,18 +1,20 @@
 
 import styles from './style.module.css';
-import React, {  useContext} from 'react'
+import React, { useContext } from 'react'
 import mainContext from "../../../context/mainContext"
 
-export default function TemplateEdit() {
-  const {language}= useContext(mainContext)
-  const info = "מצב יצירה ועריכת תבנית"
+const TemplateEdit = () => {
+  const { language } = useContext(mainContext)
+  const info = language.CREATION_MODE
+
   return (<>
     <div className={styles.templateEdit}>
-      <img src="/images/icons/iconPage.svg" />
+      <img src="/images/icons/iconPage.svg" alt="" />
       <div className={styles.templateEditInfo}>
         {info}
       </div>
-    </div> 
+    </div>
   </>
   )
 }
+export default TemplateEdit

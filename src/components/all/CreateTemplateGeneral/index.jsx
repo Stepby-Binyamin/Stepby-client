@@ -1,4 +1,4 @@
-import React, { version, useRef, useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import Keyboard from '../Keyboard'
 import SubKeyboard from '../SubKeyboard'
@@ -8,88 +8,77 @@ import BtnCheckBox from '../../common/BtnCheckBox'
 import RadioBtn from '../../all/radioBtn/withoutIcon'
 import mainContext from '../../../context/mainContext'
 import apiCalls from '../../../functions/apiRequest';
+import RadioBtnWithIcon from '../radioBtn/WithIcon';
 
-
-
-const CreateTemplateGeneral = ({ placeholder, NewAdminTemplate, ...props }) => {
-
-    const { header, drawer, language } = useContext(mainContext)
-    let navigate = useNavigate();
+const CreateTemplateGeneral = () => {
+    const navigate = useNavigate();
+    const { drawer, language } = useContext(mainContext)
 
     const [data, setData] = useState({});
-    const [select, setSelect] = useState(true);
+    const [isGeneral, setIsGeneral] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
-            const res = await apiCalls("get", "/category/")
-            setData((current) => ({ ...current, res }))
+            const categories = await apiCalls("get", "/category/")
+            setData((current) => ({ ...current, categories }))
         }
         getData()
-
     }, [])
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        value === language.GENERAL && setIsGeneral(true)
+        value === language.SOME_CUSTOMER && setIsGeneral(false);
         setData(values => ({ ...values, [name]: value }));
-
     }
-
-    const btnCheckBoxHandler = (name) => {
-        const categories = data?.res.map(elem => elem.categoryName === name ? ({ ...elem, isActive: !elem.isActive }) : elem)
-        setData((current) => ({ ...current, res: categories }))
+    const btnUpdateCategories = (name) => {
+        const categoriesUpdate = data?.categories.map(elem => elem.categoryName === name ?
+            ({ ...elem, isActive: !elem.isActive }) : elem)
+        setData((current) => ({ ...current, categories: categoriesUpdate }))
     }
-
-    const btnSubmitTextHandler = () => {
+    const btnCreateTemplate = () => {
         drawer.setDrawer()
-        // console.log(typeof NewAdminTemplate);
-        NewAdminTemplate({ ...data, isGeneral: select })
-        // navigate('/template/1234')
-
+        apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral })
+            .then((res) => {
+                navigate(`/template/${res.message._id}`)
+            })
     }
-
-    useEffect(() => {
-
-        if (data.radio == language.GENERAL) {
-            setSelect(true);
-        }
-        if (data.radio == language.SOME_CUSTOMER) {
-
-            setSelect(false);
-
-        }
-
-    }, [data])
-
-
-
 
     return (
         <div className={styles.container}>
             <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"templateName"} />
-
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
-                    <RadioBtn arr={[language.GENERAL, language.SOME_CUSTOMER]} changeFunc={(e) => { handleChange(e) }} />
+                    <RadioBtnWithIcon
+                        changeFunc={handleChange}
+                        obj={[{ name: language.GENERAL }, { name: language.SOME_CUSTOMER }]}
+                    />
                     <div className={styles.rightContainer}>
                         <img src='/images/icons/target.svg' alt="" />
                         <div className={styles.text}>{language.DISPERSTION}</div>
                     </div>
                 </div>
-                {select &&
-                    <div className={styles.categoris}>
-                        {data.res?.map(elem => <BtnCheckBox handleClick={btnCheckBoxHandler} name={elem.categoryName} id={elem._id} isActive={elem.isActive} key={elem._id} />)}
-                    </div>
-
-                }
-                {!select &&
-                    <SubKeyboard iconSrc={'/images/icons/tell.svg'} placeholder={language.USER_PHONE} onChange={handleChange} name={"phoneNumber"} type={"number"} />}
-
+                {isGeneral &&
+                    <div className={styles.categories}>
+                        {data.categories?.map(elem => <BtnCheckBox handleClick={btnUpdateCategories}
+                            name={elem.categoryName}
+                            id={elem._id}
+                            isActive={elem.isActive}
+                            key={elem._id} />)}
+                    </div>}
+                {!isGeneral &&
+                    <SubKeyboard iconSrc={'/images/icons/tell.svg'}
+                        placeholder={language.USER_PHONE}
+                        onChange={handleChange}
+                        name={"phoneNumber"}
+                        type={"number"} />}
             </div>
-            <div className={select ? styles.btn : styles.btnFix}> <BtnSubmitText func={btnSubmitTextHandler} color={"gray"} text={language.SAVE} icon={"v to text.svg"} /> </div>
+            <div className={isGeneral ? styles.btn : styles.btnFix}>
+                <BtnSubmitText func={btnCreateTemplate} color={"gray"} text={language.SAVE} icon={"v to text.svg"} />
+            </div>
         </div>
 
     )
 }
-
 export default CreateTemplateGeneral;

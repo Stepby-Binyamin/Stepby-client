@@ -8,18 +8,23 @@ const BtnHolder = ({ buttons = {} }) => {
 
   return (
     <>
-    <div className={styles.container}>
-    {buttons?.map((v, i) =>{ return (
-      <button  key={`${v.icon}`} className={`${styles[v.color]} ${styles.submit} `}>
-        {v.link? <a href={`https://wa.me/${v.link || "+972535277354"}`}><img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} /> </a>:
-         <div onClick={v.func}><img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} /> </div> }
-        
-      </button>)}
-      
-      )}
+      <div className={styles.container}>
+        {buttons?.map((v, i) => {
+          return (
+            <button key={`${v.icon}`} className={`${styles[v.color]} ${styles.submit} `}>
+              {v.link ?
+                <a href={v.link}>
+                  <img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} />
+                </a>
+                :
+                <div onClick={v.func}>
+                  <img src={`/images/icon-btns/${v.icon}.svg`} alt={v.icon} />
+                </div>}
+            </button>)
+        }
+        )}
       </div>
     </>
-    )
+  )
 }
-
 export default BtnHolder;
