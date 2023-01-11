@@ -31,7 +31,7 @@ const StepEdit = ({ mode }) => {
             .catch(error => { console.log(error) });
 
       header.setIsArrow(true)
-      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={''} isTemplate={mode === "template"} />)
+      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} />)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ state", state)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ mode", mode)
    }, [state, stepId])

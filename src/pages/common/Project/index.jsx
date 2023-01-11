@@ -26,7 +26,13 @@ const Project = ({ mode }) => {
     const [stepsDisplay, setStepsDisplay] = useState()
     const [approvedForEditing, setApprovedForEditing] = useState(false)
 
+    const [nextStepName, setNextStepName] = useState()
+
     useEffect(() => {
+        if (stepsDisplay) {
+            const name = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index]?.name
+            setNextStepName(name)
+        }
         console.log("🚀 ~ file: index.jsx:29 ~ Project ~ stepsDisplay", stepsDisplay)
     }, [stepsDisplay])
 
@@ -178,7 +184,6 @@ const Project = ({ mode }) => {
                     />}
                 {mode === "template" && <StatusTemp />}
                 {stepsDisplay?.map(step => {
-                    const nextStepName = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index + 1]?.name   //TODO  state?
                     const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove)?.index
                     return (<ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
@@ -195,8 +200,9 @@ const Project = ({ mode }) => {
                         linkState={{
                             tempName: curr.name,
                             bizName: curr.creatorId.firstName,
-                            client: curr.client, step: step,
-                            nextStepName,
+                            client: curr.client,
+                            step: step,
+                            nextStepName: isCurrent ? stepsDisplay[step.index + 1].name : nextStepName,
                             isCurrent
                         }}
                     />)
