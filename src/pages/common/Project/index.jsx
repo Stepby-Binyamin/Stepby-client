@@ -178,8 +178,8 @@ const Project = ({ mode }) => {
                     />}
                 {mode === "template" && <StatusTemp />}
                 {stepsDisplay?.map(step => {
-                    const nextStepName = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index + 1].name   //TODO  state?
-                    const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove).index
+                    const nextStepName = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index + 1]?.name   //TODO  state?
+                    const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove)?.index
                     return (<ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
                         secondaryTitle={mode !== "template" && secondaryTitle(step)}
