@@ -31,7 +31,7 @@ const StepEdit = ({ mode }) => {
             .catch(error => { console.log(error) });
 
       header.setIsArrow(true)
-      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={duplicateStep} CurrentStepFunc={''} deleteFunc={deleteStep} isTemplate={mode === "template"} />)
+      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} />)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ state", state)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ mode", mode)
    }, [state, stepId])
@@ -98,20 +98,8 @@ const StepEdit = ({ mode }) => {
          :
          navigate(`/${mode}/${templateId}/step/${information.step._id}`, { state: information })
    }
-   const duplicateStep = () => {
-      apiCalls("put", "/template/duplicateStep/" + templateId, { stepId })
-         .then((stepId) => {
-            // console.log({ ...information, step: { ...information?.step, _id: stepId } });  //state in navigate?
-            navigate(`/template/${templateId}/edit-step/${stepId}`);
-            drawer.setDrawer();
-         });
-   }
-   const deleteStep = () => {
-      apiCalls("delete", "/template/deleteStep/" + templateId, { stepId })
-         .then((result) => { console.log(result); });
-      navigate(`/template/${templateId}`);
-      drawer.setDrawer();
-   }
+
+
 
    return (
       <div className={styles.StepEdit}  >

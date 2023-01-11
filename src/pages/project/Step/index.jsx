@@ -65,7 +65,7 @@ const Step = ({ mode }) => {
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setIsDots(true)
-                drawer.setDrawerContentHeader(<MoreStep duplicateFunc={""} CurrentStepFunc={""} deleteFunc={""} isTemplate={true} />)
+                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={true} />)
                 break
             case "biz":
                 header.setTitle(information?.tempName)
@@ -73,7 +73,7 @@ const Step = ({ mode }) => {
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setIsDots(true)
-                drawer.setDrawerContentHeader(<MoreStep duplicateFunc={""} CurrentStepFunc={""} deleteFunc={""} isTemplate={false} />)
+                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={false} />)
                 break
             case "client":
                 header.setTitle(information?.tempName)
