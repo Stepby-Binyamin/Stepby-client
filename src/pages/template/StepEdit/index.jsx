@@ -37,6 +37,7 @@ const StepEdit = ({ mode }) => {
    }, [state, stepId])
 
    useEffect(() => {
+      header.setIsTitle(true)
       header.setTitle(information?.step?.name)
       header.setSubTitle(information?.tempName)
    }, [information])

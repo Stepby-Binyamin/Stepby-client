@@ -61,6 +61,7 @@ const Step = ({ mode }) => {
     }, [])
 
     useEffect(() => {
+        header.setIsTitle(true)
         switch (mode) {
             case "template":
                 header.setTitle(information?.step.name)

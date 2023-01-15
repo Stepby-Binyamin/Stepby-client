@@ -16,6 +16,7 @@ const Setting = ({ style = {}, ...props }) => {
     const [interests, setInterests] = useState("")
 
     useEffect(() => {
+        header.setIsTitle(false)
         header.setIsArrow(true)
         header.setIsHeaderSet(false)
     }, [])
