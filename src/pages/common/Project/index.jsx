@@ -25,6 +25,7 @@ const Project = ({ mode }) => {
     const [curr, setCurr] = useState()
     const [stepsDisplay, setStepsDisplay] = useState()
     const [approvedForEditing, setApprovedForEditing] = useState(false)
+    console.log("🚀🚀🚀🚀🚀🚀 ~ file: index.jsx:28 ~ Project ~ approvedForEditing", approvedForEditing)
 
     const [nextStepName, setNextStepName] = useState()
 
@@ -51,6 +52,7 @@ const Project = ({ mode }) => {
         switch (mode) {
             case "template":
                 header.setSubTitle("")
+                header.setIsDots(true)
                 drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} deleteProjectFunc={() => deleteProjectFunc("templates")} />)
                 break;
             case "biz":
@@ -117,7 +119,7 @@ const Project = ({ mode }) => {
         // console.log('mode: ', mode, 'curr: ', curr, 'step: ', step);
         switch (mode) {
             case "template":
-                return `/template/${curr._id}/edit-step/${step._id}`
+                return approvedForEditing ? `/template/${curr._id}/edit-step/${step._id}` : `/template/${curr._id}/step/${step._id}`
             case "biz":
                 return `/project/biz/${curr._id}/step/${step._id}`
             case "client":
@@ -201,6 +203,7 @@ const Project = ({ mode }) => {
                         linkState={{
                             tempName: curr.name,
                             bizName: curr.creatorId.firstName,
+                            creatorIdPermissions: curr?.creatorId.permissions,
                             client: curr.client,
                             step: step,
                             nextStepName: isCurrent ? stepsDisplay[step.index + 1]?.name : nextStepName,
