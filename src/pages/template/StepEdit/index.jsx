@@ -129,7 +129,7 @@ const StepEdit = ({ mode }) => {
                      {information?.step && information?.step.description}
                   </div>
                   <div className={styles.displayAll} onClick={(e) => openDrawer(e)} id="display">
-                     {language.DISPLAY_ALL}
+                     {language.EDITING}
                   </div>
                </div>
             </div>

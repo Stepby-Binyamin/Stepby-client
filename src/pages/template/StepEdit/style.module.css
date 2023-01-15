@@ -49,6 +49,7 @@
 .desContainer{
     margin-right: 11.19px;
     height: 122px;
+    width: 268px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
