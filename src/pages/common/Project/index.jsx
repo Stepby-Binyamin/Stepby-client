@@ -153,7 +153,7 @@ const Project = ({ mode }) => {
 
     //Mode -template , biz
     const onClickPlus = () => {
-        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
+        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} isNew={true} />);
     }
     const newStep = (data) => {
         console.log("🚀 ~ file: index.jsx:157 ~ newStep ~ data", data)
