@@ -154,6 +154,7 @@ const Project = ({ mode }) => {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
     }
     const newStep = (data) => {
+        console.log("🚀 ~ file: index.jsx:157 ~ newStep ~ data", data)
         const dataToServer = {
             stepName: data.stepName,
             description: data.description,
