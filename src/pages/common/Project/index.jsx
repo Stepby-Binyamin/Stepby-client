@@ -202,7 +202,7 @@ const Project = ({ mode }) => {
                             bizName: curr.creatorId.firstName,
                             client: curr.client,
                             step: step,
-                            nextStepName: isCurrent ? stepsDisplay[step.index + 1].name : nextStepName,
+                            nextStepName: isCurrent ? stepsDisplay[step.index + 1]?.name : nextStepName,
                             isCurrent
                         }}
                     />)
