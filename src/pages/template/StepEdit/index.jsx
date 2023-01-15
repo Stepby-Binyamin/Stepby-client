@@ -89,7 +89,8 @@ const StepEdit = ({ mode }) => {
             fetchDataFunc={editStep}
             stepName={information?.step?.name}
             isCreatorApprove={information?.step.isCreatorApprove}
-            description={information?.step?.description} />)
+            description={information?.step?.description}
+            isNew={false} />)
          :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }

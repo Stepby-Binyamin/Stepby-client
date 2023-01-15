@@ -6,7 +6,7 @@ import RadioBtnWithIcon from '../radioBtn/WithIcon';
 import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
-const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
+const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
    const { drawer, language } = useContext(mainContext)
    const [data, setData] = useState({ radio: isCreatorApprove ? language.MY : language.THE_CUSTOMER });
 
@@ -62,11 +62,11 @@ const StepBasics = ({ fetchDataFunc, stepName, isCreatorApprove, description, st
                      text={language.SAVE}
                      func={() => saveStep(false)} />
                </div>
-               <div className={styles.saveAndCreateButton}>
+               {isNew && <div className={styles.saveAndCreateButton}>
                   <BtnSubmitText
                      text={language.SAVE_AND_CREATE}
                      func={() => saveStep(true)} />
-               </div>
+               </div>}
             </div>
          </div>
       </div>

@@ -20,8 +20,10 @@ const MoreStep = ({ templateId, stepId, CurrentStepFunc, isTemplate = true, styl
 
    const deleteStep = () => {
       apiCalls("delete", "/template/deleteStep/" + templateId, { stepId })
-         .then((result) => { console.log(result); });
-      navigate(`/template/${templateId}`);
+         .then((result) => {
+            console.log(result);
+            navigate(`/template/${templateId}`);
+         });
       drawer.setDrawer();
    }
 
