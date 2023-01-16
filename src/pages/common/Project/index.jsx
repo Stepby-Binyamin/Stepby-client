@@ -15,6 +15,7 @@ import CreateProjectNewUser from "../../../components/all/CreateProjectNewUser"
 import MoreMenuTemplate from "../../../components/all/MoreMenuTemplate"
 import MoreProject from "../../../components/all/MoreProject"
 import { isCursorAtEnd } from "@testing-library/user-event/dist/utils"
+import RenameProject from "../../../components/all/RenameProject"
 
 const Project = ({ mode }) => {
     const navigate = useNavigate()
@@ -25,8 +26,6 @@ const Project = ({ mode }) => {
     const [curr, setCurr] = useState()
     const [stepsDisplay, setStepsDisplay] = useState()
     const [approvedForEditing, setApprovedForEditing] = useState(false)
-    console.log("🚀🚀🚀🚀🚀🚀 ~ file: index.jsx:28 ~ Project ~ approvedForEditing", approvedForEditing)
-
     const [nextStepName, setNextStepName] = useState()
 
     useEffect(() => {
@@ -60,7 +59,7 @@ const Project = ({ mode }) => {
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setSubTitle(curr?.client?.fullName)
-                drawer.setDrawerContentHeader(<MoreProject templateId={templateId} completeProjectFunc={completeProjectFunc} deleteProjectFunc={() => deleteProjectFunc("projects")} />)
+                drawer.setDrawerContentHeader(<MoreProject templateId={templateId} editProjectNameFunc={editProjectNameFunc} completeProjectFunc={completeProjectFunc} deleteProjectFunc={() => deleteProjectFunc("projects")} />)
                 break;
             case "client":
                 header.setIsArrow(false)
@@ -75,6 +74,18 @@ const Project = ({ mode }) => {
         setApprovedForEditing(!(userData.permissions === "biz" && curr?.creatorId.permissions === "admin"))
     }, [curr])
 
+    const renameProjectFunc = (e, newName) => {
+        e.preventDefault()
+        apiCalls("put", `/project/renameProject/${templateId}`, { newName: newName })
+            .then(() => {
+                drawer.setDrawer()
+                curr.name = newName
+                header.setTitle(curr?.name)
+            })
+    }
+    const editProjectNameFunc = () => {
+        drawer.setDrawer(<RenameProject projectId={templateId} oldName={curr.name} renameProjectFunc={renameProjectFunc} />)
+    }
     const deleteProjectFunc = (page) => {
         apiCalls("delete", `/template/deleteTemplate/${templateId}`)
             .then((res) => {

@@ -101,7 +101,7 @@ const Step = ({ mode }) => {
         }
         else {
             header.setIsDots(true)
-            drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={true} />)
+            drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={mode === "template"} />)
         }
     }, [approvedForEditing])
 

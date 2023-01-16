@@ -6,6 +6,7 @@ import apiCalls from '../../../functions/apiRequest'
 import { useNavigate } from 'react-router-dom'
 
 const MoreStep = ({ templateId, stepId, CurrentStepFunc, isTemplate = true, style = {}, ...props }) => {
+   console.log("🚀 ~ file: index.jsx:9 ~ MoreStep ~ isTemplate", isTemplate)
    const navigate = useNavigate()
    const { language, drawer } = useContext(mainContext)
 
@@ -13,7 +14,10 @@ const MoreStep = ({ templateId, stepId, CurrentStepFunc, isTemplate = true, styl
       apiCalls("put", "/template/duplicateStep/" + templateId, { stepId })
          .then((stepId) => {
             // console.log({ ...information, step: { ...information?.step, _id: stepId } });  //state in navigate?
-            navigate(`/template/${templateId}/edit-step/${stepId}`);
+            isTemplate ?
+               navigate(`/template/${templateId}/edit-step/${stepId}`)
+               :
+               navigate(`/project/${templateId}/edit-step/${stepId}`)
             drawer.setDrawer();
          });
    }
@@ -21,8 +25,11 @@ const MoreStep = ({ templateId, stepId, CurrentStepFunc, isTemplate = true, styl
    const deleteStep = () => {
       apiCalls("delete", "/template/deleteStep/" + templateId, { stepId })
          .then((result) => {
-            console.log(result);
-            navigate(`/template/${templateId}`);
+            console.log("result" + result);
+            isTemplate ?
+               navigate(`/template/biz/${templateId}`)
+               :
+               navigate(`/project/biz/${templateId}`)
          });
       drawer.setDrawer();
    }

@@ -4,16 +4,11 @@ import styles from "./style.module.css"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 import { useNavigate } from 'react-router-dom'
+import RenameProject from '../RenameProject'
 
-const MoreProject = ({ templateId, completeProjectFunc, deleteProjectFunc, style = {}, ...props }) => {
+const MoreProject = ({ templateId, editProjectNameFunc, completeProjectFunc, deleteProjectFunc, style = {}, ...props }) => {
    const navigate = useNavigate()
    const { language, drawer } = useContext(mainContext)
-
-   const editProjectNameFunc = () => {
-
-   }
-
-
 
    return (
       <div className={styles.MoreProject}>
