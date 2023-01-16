@@ -27,7 +27,7 @@ const MoreStep = ({ templateId, stepId, CurrentStepFunc, isTemplate = true, styl
          .then((result) => {
             console.log("result" + result);
             isTemplate ?
-               navigate(`/template/biz/${templateId}`)
+               navigate(`/template/${templateId}`)
                :
                navigate(`/project/biz/${templateId}`)
          });
