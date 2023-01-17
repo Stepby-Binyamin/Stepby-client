@@ -1,5 +1,7 @@
 .wrapper {
     display: flex;
+    width: 221px;
+    justify-content: space-between;
 }
 .button{
   cursor: pointer;

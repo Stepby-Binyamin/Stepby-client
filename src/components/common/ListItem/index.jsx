@@ -18,6 +18,7 @@ const ListItem = ({
    up,   //send function to change index up
    down, //send function to change index down
    step,
+   index,
    ...props
 }) => {
    const navigate = useNavigate()
@@ -53,8 +54,8 @@ const ListItem = ({
          <li className={styles.ListItem} onClick={handleOnClick} style={style} {...props} >
             {
                showMoveArrow && <>
-                  {step?.index + 1 !== stepsNum && <img src={`/images/icons/listArrowDown.svg`} onClick={() => down(step)} alt="move down" style={{ "marginLeft": "4px" }} />}
-                  {step?.index !== 0 && <img src={`/images/icons/listArrowUp.svg`} onClick={() => up(step)} alt="move up" style={{ "marginLeft": "7.5px" }} />}
+                  {index !== stepsNum - 1 && <img src={`/images/icons/listArrowDown.svg`} onClick={() => down(step)} alt="move down" style={{ "marginLeft": "4px" }} />}
+                  {index !== 0 && <img src={`/images/icons/listArrowUp.svg`} onClick={() => up(step)} alt="move up" style={{ "marginLeft": "7.5px" }} />}
                </>
             }
             {/* TODO img div container with min-width and flex center  ??*/}

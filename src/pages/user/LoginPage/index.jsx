@@ -15,13 +15,13 @@ const Login = () => {
 
   const [limitDigits, setLimitDigits] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [language, setLanguage] = useState(JSON.parse(localStorage.language));
+  const [language, setLanguage] = useState({});
 
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     header.setIsArrow(false)
-    setLanguage(JSON.parse(localStorage.language))
+    setLanguage(localStorage.language ? JSON.parse(localStorage.language) : {})
   }, [])
 
   const handleChange = (e) => {

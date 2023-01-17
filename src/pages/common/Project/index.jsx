@@ -31,6 +31,7 @@ const Project = ({ mode }) => {
     useEffect(() => {
         if (stepsDisplay) {
             const name = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index]?.name
+            console.log("🚀🚀🚀🚀 ~ file: index.jsx:34 ~ useEffect ~ name", name)
             setNextStepName(name)
         }
         console.log("🚀 ~ file: index.jsx:29 ~ Project ~ stepsDisplay", stepsDisplay)
@@ -111,20 +112,16 @@ const Project = ({ mode }) => {
                     language.WAITING_FOR_YOU
                     :
                     `${language.WAITING_FOR}${curr?.status === "biz" ? curr?.creatorId.firstName : curr?.client?.fullName}`
-                return mode === "biz" ? `${message} ${language.ALREADY}` : `${message}`
+                return mode === "biz" || curr?.status === "client" ? `${message} ${language.ALREADY}` : `${message}`
             }
             else { return "" }
         }
     }
-    const upMove = (step) => {
-        apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index - 1 })
-            .then((result) => setCurr(result))
-    }
-    const downMove = (step) => {
-        apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index })
-            .then((result) => {
-                setCurr(result)
-            })
+    const replace = (step, direction) => {
+        let index = stepsDisplay.findIndex(step_ => step_ === step)
+        index = direction === "up" ? index - 1 : index + 1
+        apiCalls("put", `/template/replaceSteps`, { templateId: templateId, stepId1: step._id, stepId2: stepsDisplay[index]._id })
+            .then(res => setCurr(res))
     }
     const nav = (mode, curr, step) => {
         // console.log('mode: ', mode, 'curr: ', curr, 'step: ', step);
@@ -197,8 +194,9 @@ const Project = ({ mode }) => {
                         isCreatorApprove={curr.status === "biz"}
                     />}
                 {mode === "template" && <StatusTemp />}
-                {stepsDisplay?.map(step => {
+                {stepsDisplay?.map((step, i) => {
                     const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove)?.index
+                    console.log("🚀 ~ file: index.jsx:199 ~ {stepsDisplay?.map ~ isCurrent", isCurrent)
                     return (<ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
                         secondaryTitle={mode !== "template" && secondaryTitle(step)}
@@ -207,8 +205,9 @@ const Project = ({ mode }) => {
                         key={step._id}
                         time={step.approvedDate && `${convertDate(curr.lastApprove).time}${convertDate(step.approvedDate).type}`}
                         step={step}
-                        up={approvedForEditing && upMove}
-                        down={approvedForEditing && downMove}
+                        index={i}
+                        up={approvedForEditing && (step => replace(step, "up"))}
+                        down={approvedForEditing && (step => replace(step, "down"))}
                         id={step._id}
                         link={nav(mode, curr, step)}
                         linkState={{
@@ -217,7 +216,7 @@ const Project = ({ mode }) => {
                             creatorIdPermissions: curr?.creatorId.permissions,
                             client: curr.client,
                             step: step,
-                            nextStepName: isCurrent ? stepsDisplay[step.index + 1]?.name : nextStepName,
+                            nextStepName: isCurrent ? nextStepName : stepsDisplay[i + 1]?.name,
                             isCurrent
                         }}
                     />)
