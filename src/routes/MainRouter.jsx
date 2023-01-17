@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import UserName from '../pages/user/UserName'
 import Login from '../pages/user/LoginPage'
@@ -12,8 +12,22 @@ import Project from './../pages/common/Project'
 import Step from '../pages/project/Step'
 import StepEdit from '../pages/template/StepEdit'
 import Aviad from './Aviad'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import mainContext from '../context/mainContext'
 
 const MainRouter = () => {
+    const { drawer } = useContext(mainContext)
+
+    //  for web -->
+    const [url, setUrl] = useState(window.location.pathname)
+    useEffect(() => {
+        if (window.location.pathname !== url) {
+            drawer.setDrawer()
+            setUrl(window.location.pathname)
+        }
+    })
+    // <--
     return (
         <Routes>
             <Route path='/' element={<><Login /> <Aviad /></>} />

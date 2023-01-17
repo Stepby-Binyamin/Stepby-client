@@ -77,7 +77,7 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
                 <div className={styles.radioButton}>
                     <RadioBtnWithIcon
                         changeFunc={clientMode}
-                        obj={[{ name: language.NEW }, { name: language.EXIST }]} />
+                        obj={[{ name: language.NEW, disable: false }, { name: language.EXIST, disable: !data?.clients?.length }]} />
                     <div className={styles.rightContainer}>
                         <img src='/images/icons/menWithV.svg' alt="" />
                         <div className={styles.text}>{language.CUSTOMER}</div>

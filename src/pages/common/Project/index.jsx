@@ -15,6 +15,7 @@ import CreateProjectNewUser from "../../../components/all/CreateProjectNewUser"
 import MoreMenuTemplate from "../../../components/all/MoreMenuTemplate"
 import MoreProject from "../../../components/all/MoreProject"
 import { isCursorAtEnd } from "@testing-library/user-event/dist/utils"
+import RenameProject from "../../../components/all/RenameProject"
 
 const Project = ({ mode }) => {
     const navigate = useNavigate()
@@ -25,8 +26,14 @@ const Project = ({ mode }) => {
     const [curr, setCurr] = useState()
     const [stepsDisplay, setStepsDisplay] = useState()
     const [approvedForEditing, setApprovedForEditing] = useState(false)
+    const [nextStepName, setNextStepName] = useState()
 
     useEffect(() => {
+        if (stepsDisplay) {
+            const name = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index]?.name
+            console.log("🚀🚀🚀🚀 ~ file: index.jsx:34 ~ useEffect ~ name", name)
+            setNextStepName(name)
+        }
         console.log("🚀 ~ file: index.jsx:29 ~ Project ~ stepsDisplay", stepsDisplay)
     }, [stepsDisplay])
 
@@ -45,6 +52,7 @@ const Project = ({ mode }) => {
         switch (mode) {
             case "template":
                 header.setSubTitle("")
+                header.setIsDots(true)
                 drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} deleteProjectFunc={() => deleteProjectFunc("templates")} />)
                 break;
             case "biz":
@@ -52,7 +60,7 @@ const Project = ({ mode }) => {
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setSubTitle(curr?.client?.fullName)
-                drawer.setDrawerContentHeader(<MoreProject templateId={templateId} completeProjectFunc={completeProjectFunc} deleteProjectFunc={() => deleteProjectFunc("projects")} />)
+                drawer.setDrawerContentHeader(<MoreProject templateId={templateId} editProjectNameFunc={editProjectNameFunc} completeProjectFunc={completeProjectFunc} deleteProjectFunc={() => deleteProjectFunc("projects")} />)
                 break;
             case "client":
                 header.setIsArrow(false)
@@ -67,6 +75,18 @@ const Project = ({ mode }) => {
         setApprovedForEditing(!(userData.permissions === "biz" && curr?.creatorId.permissions === "admin"))
     }, [curr])
 
+    const renameProjectFunc = (e, newName) => {
+        e.preventDefault()
+        apiCalls("put", `/project/renameProject/${templateId}`, { newName: newName })
+            .then(() => {
+                drawer.setDrawer()
+                curr.name = newName
+                header.setTitle(curr?.name)
+            })
+    }
+    const editProjectNameFunc = () => {
+        drawer.setDrawer(<RenameProject projectId={templateId} oldName={curr.name} renameProjectFunc={renameProjectFunc} />)
+    }
     const deleteProjectFunc = (page) => {
         apiCalls("delete", `/template/deleteTemplate/${templateId}`)
             .then((res) => {
@@ -92,26 +112,22 @@ const Project = ({ mode }) => {
                     language.WAITING_FOR_YOU
                     :
                     `${language.WAITING_FOR}${curr?.status === "biz" ? curr?.creatorId.firstName : curr?.client?.fullName}`
-                return mode === "biz" ? `${message} ${language.ALREADY}` : `${message}`
+                return mode === "biz" || curr?.status === "client" ? `${message} ${language.ALREADY}` : `${message}`
             }
             else { return "" }
         }
     }
-    const upMove = (step) => {
-        apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index - 1 })
-            .then((result) => setCurr(result))
-    }
-    const downMove = (step) => {
-        apiCalls("put", `/template/downSteps/${templateId}`, { "stepIndex": step.index })
-            .then((result) => {
-                setCurr(result)
-            })
+    const replace = (step, direction) => {
+        let index = stepsDisplay.findIndex(step_ => step_ === step)
+        index = direction === "up" ? index - 1 : index + 1
+        apiCalls("put", `/template/replaceSteps`, { templateId: templateId, stepId1: step._id, stepId2: stepsDisplay[index]._id })
+            .then(res => setCurr(res))
     }
     const nav = (mode, curr, step) => {
         // console.log('mode: ', mode, 'curr: ', curr, 'step: ', step);
         switch (mode) {
             case "template":
-                return `/template/${curr._id}/edit-step/${step._id}`
+                return approvedForEditing ? `/template/${curr._id}/edit-step/${step._id}` : `/template/${curr._id}/step/${step._id}`
             case "biz":
                 return `/project/biz/${curr._id}/step/${step._id}`
             case "client":
@@ -145,9 +161,10 @@ const Project = ({ mode }) => {
 
     //Mode -template , biz
     const onClickPlus = () => {
-        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} />);
+        drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} isNew={true} />);
     }
     const newStep = (data) => {
+        console.log("🚀 ~ file: index.jsx:157 ~ newStep ~ data", data)
         const dataToServer = {
             stepName: data.stepName,
             description: data.description,
@@ -177,9 +194,9 @@ const Project = ({ mode }) => {
                         isCreatorApprove={curr.status === "biz"}
                     />}
                 {mode === "template" && <StatusTemp />}
-                {stepsDisplay?.map(step => {
-                    const nextStepName = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index + 1].name   //TODO  state?
-                    const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove).index
+                {stepsDisplay?.map((step, i) => {
+                    const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove)?.index
+                    console.log("🚀 ~ file: index.jsx:199 ~ {stepsDisplay?.map ~ isCurrent", isCurrent)
                     return (<ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
                         secondaryTitle={mode !== "template" && secondaryTitle(step)}
@@ -188,15 +205,18 @@ const Project = ({ mode }) => {
                         key={step._id}
                         time={step.approvedDate && `${convertDate(curr.lastApprove).time}${convertDate(step.approvedDate).type}`}
                         step={step}
-                        up={approvedForEditing && upMove}
-                        down={approvedForEditing && downMove}
+                        index={i}
+                        up={approvedForEditing && (step => replace(step, "up"))}
+                        down={approvedForEditing && (step => replace(step, "down"))}
                         id={step._id}
                         link={nav(mode, curr, step)}
                         linkState={{
                             tempName: curr.name,
                             bizName: curr.creatorId.firstName,
-                            client: curr.client, step: step,
-                            nextStepName,
+                            creatorIdPermissions: curr?.creatorId.permissions,
+                            client: curr.client,
+                            step: step,
+                            nextStepName: isCurrent ? nextStepName : stepsDisplay[i + 1]?.name,
                             isCurrent
                         }}
                     />)

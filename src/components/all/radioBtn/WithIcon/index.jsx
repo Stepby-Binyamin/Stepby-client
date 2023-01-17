@@ -15,7 +15,7 @@ const RadioBtnWithIcon = ({ obj, changeFunc, data }) => {
       {obj.map((btn, i) =>
         <div
           key={i}
-          onClick={() => func(btn.name)}
+          onClick={() => { !btn.disable && func(btn.name) }}
           className={btn.name === choose ? `${styles.button} ${styles.checkmark}` : `${styles.button}`} >
           {btn.icon && <img src={`/images/icons/${btn.icon}Orange.svg`} alt='' />}
           <p className={styles.name_btn}>{btn.name}</p>

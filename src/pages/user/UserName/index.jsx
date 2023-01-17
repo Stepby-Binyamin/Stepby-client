@@ -25,6 +25,10 @@ const UserName = () => {
     // setData({ email: userData?.email ? userData?.email : '' })
   }, [])
 
+  useEffect(() => {
+    console.log("🚀 ~ file: index.jsx:29 ~ UserName ~ userData", userData)
+  }, [userData])
+
   const saveData = (e) => {
     if (e.target.value === '') return
     switch (e.target.name) {

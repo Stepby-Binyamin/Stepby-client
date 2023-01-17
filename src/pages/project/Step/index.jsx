@@ -18,15 +18,18 @@ import axios from "axios"
 import apiCalls from "../../../functions/apiRequest"
 import MoreStep from "../../../components/all/MoreStep"
 import Confirm from "../../../components/all/Confirm"
+import userContext from "../../../context/userContext"
 
 const Step = ({ mode }) => {
     const navigate = useNavigate()
     const { state } = useLocation()
     const { templateId, stepId } = useParams()
+    const { userData } = useContext(userContext)
     const { header, drawer, language } = useContext(mainContext)
 
     const [information, setInformation] = useState()
     const [buttons, setButtons] = useState({ edit: false, whatsApp: false, light: false, dark: false })
+    const [approvedForEditing, setApprovedForEditing] = useState(false)
 
     const [isUploaded, setIsUploaded] = useState(false)
     const [isAnswer, setIsAnswer] = useState(false)
@@ -58,14 +61,13 @@ const Step = ({ mode }) => {
     }, [])
 
     useEffect(() => {
+        header.setIsTitle(true)
         switch (mode) {
             case "template":
                 header.setTitle(information?.step.name)
                 header.setSubTitle(information?.tempName)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
-                header.setIsDots(true)
-                drawer.setDrawerContentHeader(<MoreStep duplicateFunc={""} CurrentStepFunc={""} deleteFunc={""} isTemplate={true} />)
                 break
             case "biz":
                 header.setTitle(information?.tempName)
@@ -73,7 +75,7 @@ const Step = ({ mode }) => {
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setIsDots(true)
-                drawer.setDrawerContentHeader(<MoreStep duplicateFunc={""} CurrentStepFunc={""} deleteFunc={""} isTemplate={false} />)
+                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={false} />)
                 break
             case "client":
                 header.setTitle(information?.tempName)
@@ -85,10 +87,23 @@ const Step = ({ mode }) => {
             default:
                 break;
         }
-        information && buttonsAccordingMode()
+        setApprovedForEditing(!(userData.permissions === "biz" && information?.creatorIdPermissions === "admin"))
+        console.log("🚀 ~ file: index.jsx:92 ~ useEffect ~ approvedForEditing", !(userData.permissions === "biz" && information?.creatorIdPermissions === "admin"))
+
         console.log("🚀 ~ file: index.jsx ~ Step ~ mode", mode)
         console.log("🚀 ~ file: index.jsx:92 ~ useEffect ~ information", information)
     }, [information])
+
+    useEffect(() => {
+        information && buttonsAccordingMode()
+        if (mode === "template" && !approvedForEditing) {
+            header.setIsDots(false)
+        }
+        else {
+            header.setIsDots(true)
+            drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={mode === "template"} />)
+        }
+    }, [approvedForEditing])
 
     useEffect(() => {
         console.log("🚀 ~ file: index.jsx ~ line 94 ~ Step ~ buttons", buttons)
@@ -191,7 +206,7 @@ const Step = ({ mode }) => {
     const buttonsAccordingMode = () => {
         switch (mode) {
             case "template":
-                setButtons((current) => ({ ...current, edit: true }))
+                setButtons((current) => ({ ...current, edit: approvedForEditing }))
                 break
             case "biz":
                 information?.step?.isCreatorApprove ?
