@@ -31,12 +31,13 @@ const StepEdit = ({ mode }) => {
             .catch(error => { console.log(error) });
 
       header.setIsArrow(true)
-      drawer.setDrawerContentHeader(<MoreStep duplicateFunc={duplicateStep} CurrentStepFunc={''} deleteFunc={deleteStep} isTemplate={mode === "template"} />)
+      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} />)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ state", state)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ mode", mode)
    }, [state, stepId])
 
    useEffect(() => {
+      header.setIsTitle(true)
       header.setTitle(information?.step?.name)
       header.setSubTitle(information?.tempName)
    }, [information])
@@ -88,7 +89,8 @@ const StepEdit = ({ mode }) => {
             fetchDataFunc={editStep}
             stepName={information?.step?.name}
             isCreatorApprove={information?.step.isCreatorApprove}
-            description={information?.step?.description} />)
+            description={information?.step?.description}
+            isNew={false} />)
          :
          drawer.setDrawer(<AddWidget func={onClickItem} />)
    }
@@ -98,20 +100,8 @@ const StepEdit = ({ mode }) => {
          :
          navigate(`/${mode}/${templateId}/step/${information.step._id}`, { state: information })
    }
-   const duplicateStep = () => {
-      apiCalls("put", "/template/duplicateStep/" + templateId, { stepId })
-         .then((stepId) => {
-            // console.log({ ...information, step: { ...information?.step, _id: stepId } });  //state in navigate?
-            navigate(`/template/${templateId}/edit-step/${stepId}`);
-            drawer.setDrawer();
-         });
-   }
-   const deleteStep = () => {
-      apiCalls("delete", "/template/deleteStep/" + templateId, { stepId })
-         .then((result) => { console.log(result); });
-      navigate(`/template/${templateId}`);
-      drawer.setDrawer();
-   }
+
+
 
    return (
       <div className={styles.StepEdit}  >
@@ -139,7 +129,7 @@ const StepEdit = ({ mode }) => {
                      {information?.step && information?.step.description}
                   </div>
                   <div className={styles.displayAll} onClick={(e) => openDrawer(e)} id="display">
-                     {language.DISPLAY_ALL}
+                     {language.EDITING}
                   </div>
                </div>
             </div>
