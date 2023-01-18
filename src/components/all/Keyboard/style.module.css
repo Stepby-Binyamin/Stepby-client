@@ -22,3 +22,6 @@
     color: var(--grey3-color);
 
 }
+.missing_data::placeholder{
+    color:var(--red-color)
+}
