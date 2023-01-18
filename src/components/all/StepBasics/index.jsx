@@ -8,7 +8,11 @@ import mainContext from "../../../context/mainContext"
 
 const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
    const { drawer, language } = useContext(mainContext)
-   const [data, setData] = useState({ radio: isCreatorApprove ? language.MY : language.THE_CUSTOMER });
+   const [data, setData] = useState({ radio: isCreatorApprove ? language.MY : language.THE_CUSTOMER, stepName: '', description: '' });
+
+   const [missingStepName, setMissingStepName] = useState(false)
+   const [missingDescription, setMissingDescription] = useState(false)
+
 
    const sort = isCreatorApprove ?
       [{ name: language.MY, icon: "triangle" }, { name: language.THE_CUSTOMER, icon: "circle" }] :
@@ -24,8 +28,15 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
       //TODO delete stepName and description
    }
    const saveStep = (addStep) => {
+      if (data.stepName === '') {
+         setMissingStepName(true)
+         return
+      }
+      if (data.description === '') {
+         setMissingDescription(true)
+         return
+      }
       fetchDataFunc(data);
-      console.log("🚀 ~ file: index.jsx:28 ~ saveStep ~ data", data)
       addStep ? newStep() : drawer.setDrawer();
    }
 
@@ -36,7 +47,8 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
                name={"stepName"}
                placeholder={language.STEP_NAME}
                onChange={onChangeHandler}
-               defaultValue={stepName} />
+               defaultValue={stepName}
+               missingData={missingStepName} />
             <div className={styles.radioButton}>
                <div className={styles.rightContainer}>
                   <img src='/images/icons/menWithV.svg' alt="" />
@@ -52,7 +64,8 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
                onChange={onChangeHandler}
                iconSrc={'/images/icons/description.svg'}
                placeholder={language.DESCRIPTION}
-               defaultValue={description} />
+               defaultValue={description}
+               missingData={missingDescription} />
             <div className={styles.text}>{language.TEXT_STEP}</div>
             <div className={styles.buttonsContainer}>
                <div className={styles.saveButton}>
