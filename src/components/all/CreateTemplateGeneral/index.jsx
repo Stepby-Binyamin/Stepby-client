@@ -14,8 +14,12 @@ const CreateTemplateGeneral = () => {
     const navigate = useNavigate();
     const { drawer, language } = useContext(mainContext)
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({ templateName: '', phoneNumber: '' });
     const [isGeneral, setIsGeneral] = useState(true);
+
+    const [missingTemplateName, setMissingTemplateName] = useState(false)
+    const [missingUserPhone, setMissingUserPhone] = useState(false)
+
 
     useEffect(() => {
         const getData = async () => {
@@ -38,6 +42,14 @@ const CreateTemplateGeneral = () => {
         setData((current) => ({ ...current, categories: categoriesUpdate }))
     }
     const btnCreateTemplate = () => {
+        if (data.templateName === '') {
+            setMissingTemplateName(true)
+            return
+        }
+        if (!isGeneral && data.phoneNumber === '') {
+            setMissingUserPhone(true)
+            return
+        }
         drawer.setDrawer()
         apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral })
             .then((res) => {
@@ -47,7 +59,11 @@ const CreateTemplateGeneral = () => {
 
     return (
         <div className={styles.container}>
-            <Keyboard onChange={handleChange} placeholder={language.TEMPLATES_NAME} name={"templateName"} />
+            <Keyboard
+                onChange={handleChange}
+                placeholder={language.TEMPLATES_NAME}
+                name={"templateName"}
+                missingData={missingTemplateName} />
             <div className={styles.subContainer}>
                 <div className={styles.radioButton}>
                     <RadioBtnWithIcon
@@ -72,7 +88,8 @@ const CreateTemplateGeneral = () => {
                         placeholder={language.USER_PHONE}
                         onChange={handleChange}
                         name={"phoneNumber"}
-                        type={"number"} />}
+                        type={"number"}
+                        missingData={missingUserPhone} />}
             </div>
             <div className={isGeneral ? styles.btn : styles.btnFix}>
                 <BtnSubmitText func={btnCreateTemplate} color={"gray"} text={language.SAVE} icon={"v to text.svg"} />

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import styles from "./style.module.css"
 
-const Keyboard = ({ placeholder, onChange, required, defaultValue, name, ...props }) => {
+const Keyboard = ({ placeholder, onChange, required, defaultValue, name, missingData = false, ...props }) => {
     const [value, setValue] = useState(defaultValue)
     const change = (e) => {
         onChange && onChange(e)
@@ -14,7 +14,7 @@ const Keyboard = ({ placeholder, onChange, required, defaultValue, name, ...prop
                 value={value}
                 autoFocus
                 required={required}
-                className={styles.keyboard}
+                className={`${styles.keyboard} ${missingData && styles.missing_data}`}
                 placeholder={placeholder}
                 onChange={change}
                 // defaultValue={defaultValue}

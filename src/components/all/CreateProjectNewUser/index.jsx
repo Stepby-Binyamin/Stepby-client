@@ -15,8 +15,10 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
     const navigate = useNavigate();
     const { drawer, language } = useContext(mainContext)
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState({ projectName: '' });
     const [select, setSelect] = useState(true);
+
+    const [missingProjectName, setMissingProjectName] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
@@ -50,11 +52,19 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
             });
     }
     const btnCreateProject = () => {
+        if (data.projectName === '') {
+            setMissingProjectName(true)
+            return
+        }
         data.clients = data.clients?.filter(e => e.isActive === true)
         newProject({ projectName: data.projectName, clientId: data.clients[0]._id, isNewClient: false })
         drawer.setDrawer()
     }
     const btnNext = () => {
+        if (data.projectName === '') {
+            setMissingProjectName(true)
+            return
+        }
         drawer.setDrawer(<CreateClient createProject={true} data_={data} templateId={templateId} />)
     }
 
@@ -63,7 +73,8 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
             <Keyboard
                 onChange={(e) => setData(values => ({ ...values, projectName: e.target.value }))}
                 placeholder={language.NAME_NEW_PROJECT}
-                name={"projectName"} />
+                name={"projectName"}
+                missingData={missingProjectName} />
             <div className={styles.subContainer}>
                 <div className={styles.sub}>
                     <div className={styles.rightContainer}>

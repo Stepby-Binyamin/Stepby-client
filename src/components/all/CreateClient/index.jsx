@@ -6,20 +6,30 @@ import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
+import { useState } from 'react'
 
 const CreateClient = ({ createProject = false, data_, templateId }) => {
     const navigate = useNavigate()
     const { language, drawer } = useContext(mainContext)
 
+    const [missingCustomerName, setMissingCustomerName] = useState(false)
+    const [missingPhone, setMissingPhone] = useState(false)
+    const [missingEmail, setMissingEmail] = useState(false)
+
+
     const collect = (e) => {
         e.preventDefault();
         const fd = new FormData(e.target);
-
         const data = {
             fullName: fd.get("fullName", e.target.name.value),
             phoneNumber: fd.get("phoneNumber", e.target.phoneNumber.value),
             email: fd.get("email", e.target.email.value)
         }
+        data.fullName === '' && setMissingCustomerName(true)
+        data.phoneNumber === '' && setMissingPhone(true)
+        data.email === '' && setMissingEmail(true)
+        if (data.fullName === '' || data.phoneNumber === '' || data.email === '') return
+
         const dataToServer = {
             projectName: data_?.projectName,
             isNewClient: true,
@@ -38,15 +48,20 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
 
     return (
         <form className={styles.container} onSubmit={(e) => collect(e)} >
-            <Keyboard placeholder={language.FULL_NAME_CUSTOMER} name="fullName" />
+            <Keyboard
+                placeholder={language.FULL_NAME_CUSTOMER}
+                name="fullName"
+                missingData={missingCustomerName} />
             <SubKeyboard
                 placeholder={language.USER_PHONE}
                 iconSrc={"/images/icons/tell.svg"}
-                name="phoneNumber" />
+                name="phoneNumber"
+                missingData={missingPhone} />
             <SubKeyboard
                 placeholder={language.EMAIL}
                 iconSrc={"/images/icons/email.svg"}
-                name="email" />
+                name="email"
+                missingData={missingEmail} />
             <div className={styles.btn}>
                 <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} />
             </div>
