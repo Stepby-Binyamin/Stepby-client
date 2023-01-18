@@ -28,7 +28,7 @@ const Step = ({ mode }) => {
     const { header, drawer, language } = useContext(mainContext)
 
     const [information, setInformation] = useState()
-    const [buttons, setButtons] = useState({ edit: false, whatsApp: false, light: false, dark: false })
+    const [buttons, setButtons] = useState({ edit: false, whatsApp: false, light: false, dark: false, undo: false })
     const [approvedForEditing, setApprovedForEditing] = useState(false)
 
     const [isUploaded, setIsUploaded] = useState(false)
@@ -74,15 +74,15 @@ const Step = ({ mode }) => {
                 header.setSubTitle(information?.client?.fullName)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
-                header.setIsDots(true)
-                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={false} />)
+                // header.setIsDots(true)
+                // drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={false} />)
                 break
             case "client":
                 header.setTitle(information?.tempName)
                 header.setSubTitle(information?.bizName)
                 header.setIsArrow(false)
                 header.setIsHamburguer(true)
-                header.setIsDots(false)
+                // header.setIsDots(false)
                 break
             default:
                 break;
@@ -96,7 +96,7 @@ const Step = ({ mode }) => {
 
     useEffect(() => {
         information && buttonsAccordingMode()
-        if (mode === "template" && !approvedForEditing) {
+        if (mode === "template" || mode === "client" || !approvedForEditing) {
             header.setIsDots(false)
         }
         else {
@@ -188,11 +188,23 @@ const Step = ({ mode }) => {
         const btnYes = () => {
             //TODO send email
             apiCalls('put', `/project/completeStep/${templateId}`, { stepId })
-                .then((res) => { navigate(`/project/${mode}/${templateId}`) })
+                .then((res) => {
+                    // navigate(`/project/${mode}/${templateId}`)/
+                    information.step.isApprove = true
+                    buttonsAccordingMode()
+                })
                 .catch((err) => console.log(err))
             drawer.setDrawer("")
         }
         drawer.setDrawer(<Confirm clientName={name} nextStepName={information?.nextStepName} btnYes={btnYes} btnNo={btnNo} />)
+    }
+    const undo = () => {
+        apiCalls('put', `/project/stepUndo/${templateId}`, { stepId })
+            .then((res) => {
+                information.step.isApprove = false
+                buttonsAccordingMode()
+            })
+            .catch((err) => console.log(err))
     }
     const stepEdit = () => {
         mode === "biz" ?
@@ -210,7 +222,7 @@ const Step = ({ mode }) => {
                 break
             case "biz":
                 information?.step?.isCreatorApprove ?
-                    setButtons((current) => ({ ...current, edit: true, dark: true }))
+                    setButtons((current) => ({ ...current, edit: !information?.step.isApprove, dark: !information?.step.isApprove, undo: information?.step.isApprove }))
                     :
                     setButtons((current) => ({ ...current, light: true }))
                 break
@@ -218,7 +230,7 @@ const Step = ({ mode }) => {
                 information?.step?.isCreatorApprove ?
                     setButtons((current) => ({ ...current, whatsApp: true }))
                     :
-                    setButtons((current) => ({ ...current, whatsApp: true, dark: true }))
+                    setButtons((current) => ({ ...current, whatsApp: !information?.step.isApprove, dark: !information?.step.isApprove, undo: information?.step.isApprove }))
                 break
             default:
                 break;
@@ -236,12 +248,6 @@ const Step = ({ mode }) => {
 
             <div className={styles.title}>{information?.step?.name}</div>
             <div className={styles.text}>{information?.step?.description}</div>
-            {/* no relevant yet but dont delete  */}
-            {/* {image &&
-                <div className={styles.downImg}>
-                    <img src={image} alt="base64 test" />
-                </div>
-            } */}
             <div className={styles.pdf} >
                 {information?.step?.data.map((data, index) => {
                     console.log("🚀 ~ file: index.jsx:257 ~ {information?.step?.data.map ~ data", data.content)
@@ -290,6 +296,9 @@ const Step = ({ mode }) => {
             <div className={styles.btns}>
                 {buttons.edit && <div style={{ width: "52px" }}>
                     <BtnSubmitIcon icon="pencil.svg" color="lite" func={stepEdit} />
+                </div>}
+                {buttons.undo && <div style={{ width: "52px" }}>
+                    <BtnSubmitIcon icon="undo.svg" color="lite" func={undo} />
                 </div>}
                 {buttons.whatsApp &&
                     <a href={`https://wa.me/${information?.client.phoneNumber}`}>
