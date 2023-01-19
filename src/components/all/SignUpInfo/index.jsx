@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import styles from './style.module.css'
 
-
-export default function SignUpInfo() {
-    
-    const [language, setLanguage] = useState(JSON.parse(localStorage.language))
+const SignUpInfo = () => {
+    const [language, setLanguage] = useState({})
 
     useEffect(() => {
-        setLanguage(JSON.parse(localStorage.language))
-    },[])
- 
-    const  stepby = language.STEPBY, dataStart = language.TASK_MESSAGE_START, restOfData = language.TASK_MESSAGE_END
-    // console.log(dataStart, stepby, restOfData);
+        localStorage.language && setLanguage(JSON.parse(localStorage.language))
+    }, [])
 
     return (
         <>
             <div className={styles.container}>
-               <div className={styles.right}> {dataStart}<b>{stepby}</b>{restOfData}</div>
+                <div className={styles.right}> {language.TASK_MESSAGE_START}<b>{language.STEPBY}</b>{language.TASK_MESSAGE_END}</div>
             </div>
         </>
     )
 }
+export default SignUpInfo
