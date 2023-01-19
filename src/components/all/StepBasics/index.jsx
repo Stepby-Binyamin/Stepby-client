@@ -13,6 +13,9 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
    const [missingStepName, setMissingStepName] = useState(false)
    const [missingDescription, setMissingDescription] = useState(false)
 
+   const [loadingBtnSave, setLoadingBtnSave] = useState(false)
+   const [loadingBtnSaveAndCreate, setLoadingBtnSaveAndCreate] = useState(false)
+
 
    const sort = isCreatorApprove ?
       [{ name: language.MY, icon: "triangle" }, { name: language.THE_CUSTOMER, icon: "circle" }] :
@@ -36,8 +39,12 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
          setMissingDescription(true)
          return
       }
+      addStep ? setLoadingBtnSaveAndCreate(true) : setLoadingBtnSave(true)
       fetchDataFunc(data);
       addStep ? newStep() : drawer.setDrawer();
+      setTimeout(() => {
+         setLoadingBtnSaveAndCreate(false)
+      }, 1000);
    }
 
    return (
@@ -73,12 +80,14 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
                      icon={'v to text.svg'}
                      color={"gray"}
                      text={language.SAVE}
-                     func={() => saveStep(false)} />
+                     func={() => saveStep(false)}
+                     isLoading={loadingBtnSave} />
                </div>
                {isNew && <div className={styles.saveAndCreateButton}>
                   <BtnSubmitText
                      text={language.SAVE_AND_CREATE}
-                     func={() => saveStep(true)} />
+                     func={() => saveStep(true)}
+                     isLoading={loadingBtnSaveAndCreate} />
                </div>}
             </div>
          </div>
