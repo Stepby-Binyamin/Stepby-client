@@ -24,14 +24,14 @@ const Verification = () => {
   const [code, setCode] = useState()
   const [counter, setCounter] = useState(0);
   const [wrongPassword, setWrongPassword] = useState(false);
-  const [language, setLanguage] = useState(JSON.parse(localStorage.language))
+  const [language, setLanguage] = useState({})
 
   useEffect(() => {
     sendCode()
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
     header.setIsArrow(false)
-    setLanguage(JSON.parse(localStorage.language))
+    localStorage.language && setLanguage(JSON.parse(localStorage.language))
   }, [])
 
   useEffect(() => {

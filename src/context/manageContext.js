@@ -24,12 +24,12 @@ export const ContextProvider = ({ children }) => {
     useEffect(() => {
         apiCalls("get", "/language/" + lang)
             .then(response => {
-                console.log(response);
+                console.log("🚀 ~ file: manageContext.js:36 ~ useEffect ~ response", response)
                 setLanguage(response.dict)
                 localStorage.language = JSON.stringify(response.dict)
             })
             .catch(error => {
-                console.log(error)
+                console.log("🚀 ~ file: manageContext.js:34 ~ useEffect ~ error", error)
             });
 
     }, [])

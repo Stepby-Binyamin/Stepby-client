@@ -15,13 +15,13 @@ const BusinessName = () => {
     const { userData, setUserData } = useContext(userContext)
 
     const [bizName, setBizName] = useState()
-    const [language, setLanguage] = useState(JSON.parse(localStorage.language));
+    const [language, setLanguage] = useState({});
 
     useEffect(() => {
         header.setIsTitle(false)
         header.setIsArrow(userData?.bizName)
         header.setIsHeaderSet(false)
-        setLanguage(JSON.parse(localStorage.language))
+        localStorage.language && setLanguage(JSON.parse(localStorage.language))
     }, [])
 
     const handleClick = (newUser) => {
