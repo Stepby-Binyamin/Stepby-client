@@ -30,7 +30,7 @@ const HomeTemplate = ({ style = {} }) => {
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      apiCalls('get', '/template/templateByUser')
+      apiCalls('get', '/template/templatesByUser')
          .then(response => {
             setTemplatesByUser(response);
             setDisplayTemplates(response)

@@ -31,7 +31,7 @@ const StepEdit = ({ mode }) => {
             .catch(error => { console.log(error) });
 
       header.setIsArrow(true)
-      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} />)
+
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ state", state)
       console.log("🚀 ~ file: index.jsx ~ StepEdit ~ mode", mode)
    }, [state, stepId])
@@ -40,6 +40,7 @@ const StepEdit = ({ mode }) => {
       header.setIsTitle(true)
       header.setTitle(information?.step?.name)
       header.setSubTitle(information?.tempName)
+      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
    }, [information])
 
    const onClickItem = (type, data_) => {

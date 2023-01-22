@@ -7,20 +7,24 @@
     justify-content: center;
     align-items: center;
     background: orangered;
-    opacity: 0;
     animation: fadeIn 2.4s;
+}
+.fadeout_container{
+    animation: fadeout 2.4s;
 }
 
 @keyframes fadeIn {
     0% { opacity: 0; }
-    20% {opacity: 1;}
-    70% {opacity: 1;}
+    20% { opacity: 0.2; }
+    70% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+@keyframes fadeout {
+    0% { opacity: 1; }
+    20% { opacity: 0.7; }
+    70% { opacity: 0.2; }
     100% { opacity: 0; }
   }
-
-/* .logo {
-    padding-top: 7rem;
-} */
 
 .text1 {
     position: relative;
