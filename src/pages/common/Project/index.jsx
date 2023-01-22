@@ -30,7 +30,7 @@ const Project = ({ mode }) => {
 
     useEffect(() => {
         if (stepsDisplay) {
-            const name = stepsDisplay[stepsDisplay.find(step_ => !step_.isApprove)?.index]?.name
+            const name = stepsDisplay.find(step_ => !step_.isApprove)?.name
             console.log("🚀🚀🚀🚀 ~ file: index.jsx:34 ~ useEffect ~ name", name)
             setNextStepName(name)
         }
@@ -107,7 +107,7 @@ const Project = ({ mode }) => {
         if (step.isApprove) { return language.COMPLET }
         else {
             if (curr.status === "done") return ""
-            if (step.index === stepsDisplay?.find(step => !step.isApprove).index && curr?.status) {
+            if (step.index === curr?.currentStepIndex && curr?.status) {
                 message = mode === curr?.status ?
                     language.WAITING_FOR_YOU
                     :
@@ -195,8 +195,6 @@ const Project = ({ mode }) => {
                     />}
                 {mode === "template" && <StatusTemp />}
                 {stepsDisplay?.map((step, i) => {
-                    const isCurrent = step.index === stepsDisplay.find(step_ => !step_.isApprove)?.index
-                    console.log("🚀 ~ file: index.jsx:199 ~ {stepsDisplay?.map ~ isCurrent", isCurrent)
                     return (<ListItem
                         status={step.isCreatorApprove ? "biz" : "client"}
                         secondaryTitle={mode !== "template" && secondaryTitle(step)}
@@ -216,8 +214,8 @@ const Project = ({ mode }) => {
                             creatorIdPermissions: curr?.creatorId.permissions,
                             client: curr.client,
                             step: step,
-                            nextStepName: isCurrent ? nextStepName : stepsDisplay[i + 1]?.name,
-                            isCurrent
+                            nextStepName,
+                            isCurrent: step.index === curr.currentStepIndex
                         }}
                     />)
                 }

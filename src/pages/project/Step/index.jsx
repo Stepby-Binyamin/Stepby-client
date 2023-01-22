@@ -75,7 +75,7 @@ const Step = ({ mode }) => {
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 // header.setIsDots(true)
-                // drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={false} />)
+                // drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId}  isTemplate={false} />)
                 break
             case "client":
                 header.setTitle(information?.tempName)
@@ -96,12 +96,12 @@ const Step = ({ mode }) => {
 
     useEffect(() => {
         information && buttonsAccordingMode()
-        if (mode === "template" || mode === "client" || !approvedForEditing) {
+        if (mode === "client" || !approvedForEditing) {
             header.setIsDots(false)
         }
         else {
             header.setIsDots(true)
-            drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} CurrentStepFunc={""} isTemplate={mode === "template"} />)
+            drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
         }
     }, [approvedForEditing])
 
@@ -192,6 +192,7 @@ const Step = ({ mode }) => {
                     // navigate(`/project/${mode}/${templateId}`)/
                     information.step.isApprove = true
                     buttonsAccordingMode()
+                    drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
                 })
                 .catch((err) => console.log(err))
             drawer.setDrawer("")
@@ -203,12 +204,14 @@ const Step = ({ mode }) => {
             .then((res) => {
                 information.step.isApprove = false
                 buttonsAccordingMode()
+                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
+
             })
             .catch((err) => console.log(err))
     }
     const stepEdit = () => {
         mode === "biz" ?
-            navigate(`/project/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
+            navigate(`/project/biz/${templateId}/edit-step/${stepId}`, { state: information })
             :
             navigate(`/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
     }

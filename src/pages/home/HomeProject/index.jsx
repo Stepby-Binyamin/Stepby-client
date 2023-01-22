@@ -32,7 +32,7 @@ const HomeProject = ({ style = {}, ...props }) => {
       header.setIsArrow(false)
       header.setIsHeaderSet(true)
 
-      apiCalls('get', '/project/projectByUser')
+      apiCalls('get', '/project/projectsByUser')
          .then(response => { setAllProjects(response); })
          .catch(error => { console.log(error) });
    }, [])
