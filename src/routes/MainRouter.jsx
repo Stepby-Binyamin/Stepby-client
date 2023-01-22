@@ -48,20 +48,14 @@ const MainRouter = () => {
             </Route>
 
             <Route path='project/biz/:templateId'>
-                {/* <Route path='biz'>
-                    <Route path=':templateId'  > */}
                 <Route index element={<Project mode="biz" />} />
                 <Route path='step/:stepId' element={<Step mode="biz" />} />
                 <Route path='edit-step/:stepId' element={<StepEdit mode="biz" />} />
-                {/* </Route>
-                </Route> */}
             </Route>
 
             <Route path='project/client/:templateId'>
-                {/* <Route path=':templateId'  > */}
                 <Route index element={<Project mode="client" />} />
                 <Route path='step/:stepId' element={<Step mode="client" />} />
-                {/* </Route> */}
             </Route>
 
             <Route path='*' element={<></>} />
