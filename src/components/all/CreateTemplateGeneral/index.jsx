@@ -20,6 +20,7 @@ const CreateTemplateGeneral = () => {
     const [missingTemplateName, setMissingTemplateName] = useState(false)
     const [missingUserPhone, setMissingUserPhone] = useState(false)
 
+    const [isUserFound, setIsUserFound] = useState(true)
 
     useEffect(() => {
         const getData = async () => {
@@ -50,10 +51,14 @@ const CreateTemplateGeneral = () => {
             setMissingUserPhone(true)
             return
         }
-        drawer.setDrawer()
-        apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral })
+        apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral, phoneNumber: data.phoneNumber })
             .then((res) => {
-                navigate(`/template/${res.message._id}`)
+                navigate(`/template/${res._id}`)
+                drawer.setDrawer()
+            })
+            .catch((err) => {
+                console.log("🚀 ~ file: index.jsx:60 ~ btnCreateTemplate ~ err", err.response.data.message === "error - user phone doesn't exist")
+                err.response.data.message === "error - user phone doesn't exist" ? setIsUserFound(false) : setIsUserFound(true)
             })
     }
 
@@ -90,6 +95,8 @@ const CreateTemplateGeneral = () => {
                         name={"phoneNumber"}
                         type={"number"}
                         missingData={missingUserPhone} />}
+                {!isGeneral && !isUserFound && <div className={styles.user_not_found}>מספר הפלאפון לא קיים במערכת</div>}
+                {/* TODO */}
             </div>
             <div className={isGeneral ? styles.btn : styles.btnFix}>
                 <BtnSubmitText func={btnCreateTemplate} color={"gray"} text={language.SAVE} icon={"v to text.svg"} />

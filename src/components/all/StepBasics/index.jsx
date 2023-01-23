@@ -7,8 +7,13 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
 const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
+   console.log("🚀 ~ file: index.jsx:10 ~ StepBasics ~ description", description)
    const { drawer, language } = useContext(mainContext)
-   const [data, setData] = useState({ radio: isCreatorApprove ? language.MY : language.THE_CUSTOMER, stepName: '', description: '' });
+   const [data, setData] = useState({
+      radio: isCreatorApprove ? language.MY : language.THE_CUSTOMER,
+      stepName: stepName ? stepName : '',
+      description: description ? description : ''
+   });
 
    const [missingStepName, setMissingStepName] = useState(false)
    const [missingDescription, setMissingDescription] = useState(false)
@@ -31,6 +36,10 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
       //TODO delete stepName and description
    }
    const saveStep = (addStep) => {
+      console.log("🚀 ~ file: index.jsx:34 ~ saveStep ~ saveStep")
+      console.log("🚀 ~ file: index.jsx:36 ~ saveStep ~ data.stepName === ''", data.stepName === '')
+      console.log("🚀 ~ file: index.jsx:42 ~ saveStep ~ data.description === ''", data.description === '')
+
       if (data.stepName === '') {
          setMissingStepName(true)
          return
@@ -81,7 +90,8 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
                      color={"gray"}
                      text={language.SAVE}
                      func={() => saveStep(false)}
-                     isLoading={loadingBtnSave} />
+                     isLoading={loadingBtnSave}
+                  />
                </div>
                {isNew && <div className={styles.saveAndCreateButton}>
                   <BtnSubmitText
