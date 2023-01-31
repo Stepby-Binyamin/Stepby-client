@@ -64,12 +64,13 @@ const HomeTemplate = ({ style = {} }) => {
    return (
       <div className={styles.HomeTemplate} style={style} >
          <NavLink />
-         <NavLinkTab
-            state={choose}
-            setState={setChoose}
-            firstText={language.MY_TEMP}
-            secondText={language.RECOMENDED}
-            counter={templatesByUser?.length} />
+         {userData.permissions !== "admin" &&
+            <NavLinkTab
+               state={choose}
+               setState={setChoose}
+               firstText={language.MY_TEMP}
+               secondText={language.RECOMENDED}
+               counter={templatesByUser?.length} />}
          {displayTemplates?.length === 0 && choose === language.MY_TEMP ?
             <UiDirectionText mainTitle={language.LETS_GO} text1={language.ICON} text2={language.CALL_YOU} />
             :
