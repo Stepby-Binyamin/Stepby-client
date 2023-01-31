@@ -7,8 +7,8 @@ import BtnSubmitText from '../../common/BtnSubmitText';
 import mainContext from "../../../context/mainContext"
 
 const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, description, style = {}, ...props }) => {
-   console.log("🚀 ~ file: index.jsx:10 ~ StepBasics ~ description", description)
    const { drawer, language } = useContext(mainContext)
+
    const [data, setData] = useState({
       radio: isCreatorApprove ? language.MY : language.THE_CUSTOMER,
       stepName: stepName ? stepName : '',
@@ -21,6 +21,7 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
    const [loadingBtnSave, setLoadingBtnSave] = useState(false)
    const [loadingBtnSaveAndCreate, setLoadingBtnSaveAndCreate] = useState(false)
 
+   const [cleanInput, setCleanInput] = useState(false)
 
    const sort = isCreatorApprove ?
       [{ name: language.MY, icon: "triangle" }, { name: language.THE_CUSTOMER, icon: "circle" }] :
@@ -33,13 +34,13 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
    }
    const newStep = () => {
       console.log("🚀 ~ file: index.jsx ~ line 33 ~ newStep ~ newStep")
-      //TODO delete stepName and description
+      setCleanInput(true)
+      setMissingStepName(false)
+      setMissingDescription(false)
+      data.stepName = ''
+      data.description = ''
    }
    const saveStep = (addStep) => {
-      console.log("🚀 ~ file: index.jsx:34 ~ saveStep ~ saveStep")
-      console.log("🚀 ~ file: index.jsx:36 ~ saveStep ~ data.stepName === ''", data.stepName === '')
-      console.log("🚀 ~ file: index.jsx:42 ~ saveStep ~ data.description === ''", data.description === '')
-
       if (data.stepName === '') {
          setMissingStepName(true)
          return
@@ -50,10 +51,16 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
       }
       addStep ? setLoadingBtnSaveAndCreate(true) : setLoadingBtnSave(true)
       fetchDataFunc(data);
-      addStep ? newStep() : drawer.setDrawer();
-      setTimeout(() => {
-         setLoadingBtnSaveAndCreate(false)
-      }, 1000);
+      if (addStep) {
+         newStep()
+         setTimeout(() => {
+            setLoadingBtnSaveAndCreate(false)
+            setCleanInput(false)
+         }, 1000);
+      }
+      else {
+         drawer.setDrawer();
+      }
    }
 
    return (
@@ -64,7 +71,9 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
                placeholder={language.STEP_NAME}
                onChange={onChangeHandler}
                defaultValue={stepName}
-               missingData={missingStepName} />
+               missingData={missingStepName}
+               toClean={cleanInput}
+            />
             <div className={styles.radioButton}>
                <div className={styles.rightContainer}>
                   <img src='/images/icons/menWithV.svg' alt="" />
@@ -81,7 +90,9 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
                iconSrc={'/images/icons/description.svg'}
                placeholder={language.DESCRIPTION}
                defaultValue={description}
-               missingData={missingDescription} />
+               missingData={missingDescription}
+               toClean={cleanInput}
+            />
             <div className={styles.text}>{language.TEXT_STEP}</div>
             <div className={styles.buttonsContainer}>
                <div className={styles.saveButton}>
