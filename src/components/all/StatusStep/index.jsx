@@ -16,7 +16,7 @@ const StatusStep = ({ isPreview = false, user, numOfStage, time, ...props }) => 
                 <div className={`${time ? styles.currentStage : styles.currentStageCenter}`}>
                     <div className={`${time ? styles.rightSide : styles.center}`}>
                         <div className={styles.stageNow}>{language.CURRENT_STEP}  </div>
-                        <div className={styles.stageNum}>{numOfStage + 1}</div>
+                        <div className={styles.stageNum}>{numOfStage}</div>
                         <div className={styles.waitingFor}>{`${language.CURRENTLY_WAITING_FOR}${user}`}</div>
                     </div>
                     <div className={`${time ? styles.leftSide : styles.center}`}>
