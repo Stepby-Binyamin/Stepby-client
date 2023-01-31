@@ -215,7 +215,8 @@ const Project = ({ mode }) => {
                             client: curr.client,
                             step: step,
                             nextStepName,
-                            isCurrent: step.index === curr.currentStepIndex
+                            isCurrent: step.index === curr.currentStepIndex,
+                            index: step.index
                         }}
                     />)
                 }

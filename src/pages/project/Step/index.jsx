@@ -23,6 +23,7 @@ import userContext from "../../../context/userContext"
 const Step = ({ mode }) => {
     const navigate = useNavigate()
     const { state } = useLocation()
+    console.log("🚀 ~ file: index.jsx:26 ~ state", state)
     const { templateId, stepId } = useParams()
     const { userData } = useContext(userContext)
     const { header, drawer, language } = useContext(mainContext)
@@ -95,6 +96,8 @@ const Step = ({ mode }) => {
     }, [information])
 
     useEffect(() => {
+        console.log("🚀 ~ file: index.jsx:108 ~ useEffect ~ information", information)
+
         information && buttonsAccordingMode()
         if (mode === "client" || !approvedForEditing) {
             header.setIsDots(false)
@@ -186,7 +189,6 @@ const Step = ({ mode }) => {
         const name = mode === "biz" ? information?.client?.fullName : information?.bizName;
         const btnNo = () => { drawer.setDrawer("") }
         const btnYes = () => {
-            //TODO send email
             apiCalls('put', `/project/completeStep/${templateId}`, { stepId })
                 .then((res) => {
                     // navigate(`/project/${mode}/${templateId}`)/
@@ -219,6 +221,8 @@ const Step = ({ mode }) => {
         navigate(`/project/biz/${templateId}`, { state: information })
     }
     const buttonsAccordingMode = () => {
+        console.log("🚀 ~ file: index.jsx:242 ~ buttonsAccordingMode ~ information", information)
+
         switch (mode) {
             case "template":
                 setButtons((current) => ({ ...current, edit: approvedForEditing }))
@@ -245,9 +249,9 @@ const Step = ({ mode }) => {
                 <StatusStep isPreview={true} />
                 :
                 information?.isCurrent && (information?.step?.isCreatorApprove ?
-                    <StatusStep numOfStage={information?.step?.index} user={information?.bizName} time={""/*Difference_In_Days*/} />
+                    <StatusStep numOfStage={information?.index} user={information?.bizName} time={""/*Difference_In_Days*/} />
                     :
-                    <StatusStep numOfStage={information?.step?.index} user={information?.client?.fullName} />)}
+                    <StatusStep numOfStage={information?.index} user={information?.client?.fullName} />)}
 
             <div className={styles.title}>{information?.step?.name}</div>
             <div className={styles.text}>{information?.step?.description}</div>
