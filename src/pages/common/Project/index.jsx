@@ -26,16 +26,6 @@ const Project = ({ mode }) => {
     const [curr, setCurr] = useState()
     const [stepsDisplay, setStepsDisplay] = useState()
     const [approvedForEditing, setApprovedForEditing] = useState(false)
-    const [nextStepName, setNextStepName] = useState()
-
-    useEffect(() => {
-        if (stepsDisplay) {
-            const name = stepsDisplay.find(step_ => !step_.isApprove)?.name
-            console.log("🚀🚀🚀🚀 ~ file: index.jsx:34 ~ useEffect ~ name", name)
-            setNextStepName(name)
-        }
-        console.log("🚀 ~ file: index.jsx:29 ~ Project ~ stepsDisplay", stepsDisplay)
-    }, [stepsDisplay])
 
     useEffect(() => {
         apiCalls("get", `/project/projectById/${templateId}`)
@@ -56,7 +46,7 @@ const Project = ({ mode }) => {
                 drawer.setDrawerContentHeader(<MoreMenuTemplate templateId={templateId} creatorIdPermissions={curr?.creatorId.permissions} deleteProjectFunc={() => deleteProjectFunc("templates")} />)
                 break;
             case "biz":
-                header.setIsDots(true)
+                header.setIsDots(!(curr?.status === "done"))
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
                 header.setSubTitle(curr?.client?.fullName)
@@ -214,9 +204,9 @@ const Project = ({ mode }) => {
                             creatorIdPermissions: curr?.creatorId.permissions,
                             client: curr.client,
                             step: step,
-                            nextStepName,
+                            nextStepName: stepsDisplay.length - 1 !== i ? stepsDisplay[i + 1].name : null,
                             isCurrent: step.index === curr.currentStepIndex,
-                            index: step.index
+                            index: i
                         }}
                     />)
                 }

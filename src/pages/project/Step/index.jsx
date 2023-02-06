@@ -37,7 +37,6 @@ const Step = ({ mode }) => {
     const [uploadLocation, setUploadLocation] = useState()
     const [image, setImage] = useState()
 
-    //isCreatorApprove = true-biz false-client
 
     const client = "solyattie"
     const project = 'fisrtProject'
@@ -51,6 +50,7 @@ const Step = ({ mode }) => {
     // const d = new Date()
     // let Difference_In_Time = d.getTime() - projects.projects[0].lastApprove.getTime()
     // let Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24))
+
     useEffect(() => {
         state ?
             setInformation(state)
@@ -58,7 +58,6 @@ const Step = ({ mode }) => {
             apiCalls("get", `/project/getStepById/${templateId}/${stepId}`)
                 .then(response => { setInformation(response) })
                 .catch(error => { console.log(error) });
-
     }, [])
 
     useEffect(() => {
@@ -75,30 +74,26 @@ const Step = ({ mode }) => {
                 header.setSubTitle(information?.client?.fullName)
                 header.setIsArrow(true)
                 header.setIsHamburguer(false)
-                // header.setIsDots(true)
-                // drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId}  isTemplate={false} />)
                 break
             case "client":
                 header.setTitle(information?.tempName)
                 header.setSubTitle(information?.bizName)
                 header.setIsArrow(false)
                 header.setIsHamburguer(true)
-                // header.setIsDots(false)
                 break
             default:
                 break;
         }
         setApprovedForEditing(!(userData.permissions === "biz" && information?.creatorIdPermissions === "admin"))
         console.log("🚀 ~ file: index.jsx:92 ~ useEffect ~ approvedForEditing", !(userData.permissions === "biz" && information?.creatorIdPermissions === "admin"))
-
+        if (information) {
+            buttonsAccordingMode()
+        }
         console.log("🚀 ~ file: index.jsx ~ Step ~ mode", mode)
         console.log("🚀 ~ file: index.jsx:92 ~ useEffect ~ information", information)
     }, [information])
 
     useEffect(() => {
-        console.log("🚀 ~ file: index.jsx:108 ~ useEffect ~ information", information)
-
-        information && buttonsAccordingMode()
         if (mode === "client" || !approvedForEditing) {
             header.setIsDots(false)
         }
@@ -194,9 +189,9 @@ const Step = ({ mode }) => {
                     // navigate(`/project/${mode}/${templateId}`)/
                     information.step.isApprove = true
                     buttonsAccordingMode()
-                    drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
+                    drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={false} isApprove={information?.step.isApprove} />)
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => console.log("🚀 ~ file: index.jsx:195 ~ btnYes ~ err", err))
             drawer.setDrawer("")
         }
         drawer.setDrawer(<Confirm clientName={name} nextStepName={information?.nextStepName} btnYes={btnYes} btnNo={btnNo} />)
@@ -206,22 +201,21 @@ const Step = ({ mode }) => {
             .then((res) => {
                 information.step.isApprove = false
                 buttonsAccordingMode()
-                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
-
+                drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={false} isApprove={information?.step.isApprove} />)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log("🚀 ~ file: index.jsx:207 ~ undo ~ err", err))
     }
     const stepEdit = () => {
         mode === "biz" ?
             navigate(`/project/biz/${templateId}/edit-step/${stepId}`, { state: information })
             :
-            navigate(`/${mode}/${templateId}/edit-step/${stepId}`, { state: information })
+            navigate(`/template/${templateId}/edit-step/${stepId}`, { state: information })
     }
     const goToProject = () => {
         navigate(`/project/biz/${templateId}`, { state: information })
     }
     const buttonsAccordingMode = () => {
-        console.log("🚀 ~ file: index.jsx:242 ~ buttonsAccordingMode ~ information", information)
+        console.log("🚀 ~ file: index.jsx:242 ~ buttonsAccordingMode")
 
         switch (mode) {
             case "template":
