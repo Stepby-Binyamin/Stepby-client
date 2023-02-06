@@ -243,9 +243,9 @@ const Step = ({ mode }) => {
                 <StatusStep isPreview={true} />
                 :
                 information?.isCurrent && (information?.step?.isCreatorApprove ?
-                    <StatusStep numOfStage={information?.index} user={information?.bizName} time={""/*Difference_In_Days*/} />
+                    <StatusStep numOfStage={information?.index + 1} user={information?.bizName} time={""/*Difference_In_Days*/} />
                     :
-                    <StatusStep numOfStage={information?.index} user={information?.client?.fullName} />)}
+                    <StatusStep numOfStage={information?.index + 1} user={information?.client?.fullName} />)}
 
             <div className={styles.title}>{information?.step?.name}</div>
             <div className={styles.text}>{information?.step?.description}</div>
