@@ -44,8 +44,8 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
     }
     const newProject = (dataToServer) => {
         apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
-            .then(projectId => {
-                navigate(`/project/biz/${projectId}`)
+            .then(project => {
+                navigate(`/project/biz/${project._id}`)
             })
             .catch(error => {
                 console.log("🚀 ~ file: index.jsx ~ line 42 ~ newProject ~ error", error)
