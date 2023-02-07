@@ -56,7 +56,7 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
          setTimeout(() => {
             setLoadingBtnSaveAndCreate(false)
             setCleanInput(false)
-         }, 1000);
+         }, 500);
       }
       else {
          drawer.setDrawer();
