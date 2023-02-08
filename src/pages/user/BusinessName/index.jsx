@@ -41,10 +41,7 @@ const BusinessName = () => {
                 .catch(err => console.log(err))
         }
         else {
-            newUser ?
-                setMissingBizName(true)
-                :
-                navigate('/setting')
+            setMissingBizName(true)
         }
     }
 
@@ -57,7 +54,7 @@ const BusinessName = () => {
                 <Input autoFocus
                     type='text'
                     onChange={(e) => setBizName(e.target.value)}
-                    placeholder={!userData?.bizName ? language.YOUR_BUSINESS_NAME : ''}
+                    placeholder={language.YOUR_BUSINESS_NAME}
                     defaultValue={userData?.bizName ? userData?.bizName : ''}
                     missingData={missingBizName} />
             </div>

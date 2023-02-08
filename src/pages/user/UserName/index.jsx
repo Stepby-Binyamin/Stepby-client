@@ -16,25 +16,22 @@ const UserName = () => {
   const { header, language } = useContext(mainContext)
   const { userData, setUserData } = useContext(userContext)
 
-  const [data, setData] = useState({ firstName: '', lastName: '', email: '' })
-
+  const [data, setData] = useState({})
   const [missingData, setMissingData] = useState({ firstName: false, lastName: false, email: false })
 
   useEffect(() => {
     header.setIsTitle(false)
-    header.setIsArrow(userData?.email)
     header.setIsHeaderSet(false)
-    // setData({ email: userData?.email ? userData?.email : '' })
   }, [])
 
   useEffect(() => {
-    console.log("🚀 ~ file: index.jsx:29 ~ UserName ~ userData", userData)
+    header.setIsArrow(userData?.email)
+    setData(current => ({
+      ...current, firstName: userData?.firstName ? userData?.firstName : '',
+      lastName: userData?.lastName ? userData.lastName : '',
+      email: userData?.email ? userData?.email : ''
+    }))
   }, [userData])
-
-  useEffect(() => {
-    console.log("🚀 ~ file: index.jsx:20 ~ UserName ~ data", data)
-    console.log("🚀 ~ file: index.jsx:29 ~ UserName ~ missingData", missingData)
-  }, [missingData])
 
   const saveData = (e) => {
     switch (e.target.name) {
@@ -54,8 +51,7 @@ const UserName = () => {
 
   const handleClick = (newUser) => {
     console.log("🚀 ~ file: index.jsx ~ line 60 ~ handleClick ~ data", data)
-    if ((newUser && data.firstName && data.lastName && data.email)
-      || (!newUser && (data.firstName !== undefined || data.lastName !== undefined))) {
+    if (data.firstName && data.lastName && (newUser ? data.email : true)) {
       apiCalls('put', '/user/edit-biz', data)
         .then(res => {
           setUserData(res)
@@ -63,13 +59,10 @@ const UserName = () => {
           localStorage.user = JSON.stringify(res)
           newUser ? navigate('/business-name') : navigate('/setting')
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log("🚀 ~ file: index.jsx:66 ~ handleClick ~ err", err))
     }
     else {
-      newUser ?
-        setMissingData(current => ({ ...current, firstName: !data.firstName, lastName: !data.lastName, email: !data.email }))
-        :
-        navigate('/setting')
+      setMissingData(current => ({ ...current, firstName: data.firstName === '', lastName: data.lastName === '', email: data.email === '' }))
     }
   }
 
@@ -84,7 +77,7 @@ const UserName = () => {
           onChange={saveData}
           type='text'
           name='firstName'
-          placeholder={!userData?.firstName ? language.FIRST_NAME : ''}
+          placeholder={language.FIRST_NAME}
           defaultValue={userData?.firstName ? userData?.firstName : ''}
           missingData={missingData.firstName}
         />
@@ -92,9 +85,9 @@ const UserName = () => {
           onChange={saveData}
           type='text'
           name='lastName'
-          placeholder={!userData?.lastName ? language.LAST_NAME : ''}
+          placeholder={language.LAST_NAME}
           defaultValue={userData?.lastName ? userData?.lastName : ''}
-          missingData={missingData.firstName}
+          missingData={missingData.lastName}
         />
         {!userData?.email &&
           <Input
@@ -102,7 +95,7 @@ const UserName = () => {
             type='email'
             name='email'
             placeholder={language.EMAIL}
-            missingData={missingData.firstName}
+            missingData={missingData.email}
           />}
       </div>
       <div className={styles.btn}>
