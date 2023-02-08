@@ -5,7 +5,7 @@ export  function convertDate(date){
     const current = Date.now()
     const diff =  current - date.getTime()
     const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    if(!(diffDays % 7)){
+    if(!(diffDays % 7) && diffDays !==0){
         const weeks= diffDays/7
         return {type:"w",time:weeks}
     }
