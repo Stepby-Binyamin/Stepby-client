@@ -16,7 +16,9 @@ const UserName = () => {
   const { header, language } = useContext(mainContext)
   const { userData, setUserData } = useContext(userContext)
 
-  const [data, setData] = useState({})
+  const [data, setData] = useState({ firstName: '', lastName: '', email: '' })
+
+  const [missingData, setMissingData] = useState({ firstName: false, lastName: false, email: false })
 
   useEffect(() => {
     header.setIsTitle(false)
@@ -29,8 +31,12 @@ const UserName = () => {
     console.log("🚀 ~ file: index.jsx:29 ~ UserName ~ userData", userData)
   }, [userData])
 
+  useEffect(() => {
+    console.log("🚀 ~ file: index.jsx:20 ~ UserName ~ data", data)
+    console.log("🚀 ~ file: index.jsx:29 ~ UserName ~ missingData", missingData)
+  }, [missingData])
+
   const saveData = (e) => {
-    if (e.target.value === '') return
     switch (e.target.name) {
       case 'firstName':
         setData({ ...data, firstName: e.target.value })
@@ -61,7 +67,7 @@ const UserName = () => {
     }
     else {
       newUser ?
-        console.log("ERROR - enter firstName,lastName or email") //TODO
+        setMissingData(current => ({ ...current, firstName: !data.firstName, lastName: !data.lastName, email: !data.email }))
         :
         navigate('/setting')
     }
@@ -80,6 +86,7 @@ const UserName = () => {
           name='firstName'
           placeholder={!userData?.firstName ? language.FIRST_NAME : ''}
           defaultValue={userData?.firstName ? userData?.firstName : ''}
+          missingData={missingData.firstName}
         />
         <Input
           onChange={saveData}
@@ -87,6 +94,7 @@ const UserName = () => {
           name='lastName'
           placeholder={!userData?.lastName ? language.LAST_NAME : ''}
           defaultValue={userData?.lastName ? userData?.lastName : ''}
+          missingData={missingData.firstName}
         />
         {!userData?.email &&
           <Input
@@ -94,6 +102,7 @@ const UserName = () => {
             type='email'
             name='email'
             placeholder={language.EMAIL}
+            missingData={missingData.firstName}
           />}
       </div>
       <div className={styles.btn}>
