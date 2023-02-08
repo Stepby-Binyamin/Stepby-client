@@ -163,9 +163,11 @@ const Project = ({ mode }) => {
         apiCalls("put", `/template/newStep/${templateId}`, dataToServer)
             .then(response => {
                 setCurr((current) => ({ ...current, steps: response }));
+                return "success"
             })
             .catch(error => {
                 console.log(error)
+                return "error"
             });
     }
 
