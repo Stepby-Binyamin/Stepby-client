@@ -40,7 +40,7 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
       data.stepName = ''
       data.description = ''
    }
-   const saveStep = (addStep) => {
+   const saveStep = async (addStep) => {
       if (data.stepName === '') {
          setMissingStepName(true)
          return
@@ -50,7 +50,10 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
          return
       }
       addStep ? setLoadingBtnSaveAndCreate(true) : setLoadingBtnSave(true)
-      fetchDataFunc(data);
+      const res = await fetchDataFunc(data);
+      if (res === "error") {
+         return
+      }
       if (addStep) {
          newStep()
          setTimeout(() => {
