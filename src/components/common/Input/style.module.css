@@ -8,8 +8,6 @@
     font-family: 'Heebo';
     outline: none;
     padding-right: 3%;
-
-
 }
 
 .input:focus {
@@ -23,16 +21,15 @@
     font-size: 18px;
     font-family: 'Heebo';
     outline: none;
-
 }
 
 .input::placeholder {
-
     color: var(--grey3-color);
     font-size: 18px;
     font-family: 'Heebo';
     padding-right: 2%;
     outline: "none"
-
-
+}
+.missing_data::placeholder{
+    color:var(--red-color)
 }

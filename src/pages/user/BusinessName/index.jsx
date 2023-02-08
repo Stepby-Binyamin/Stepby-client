@@ -17,6 +17,8 @@ const BusinessName = () => {
     const [bizName, setBizName] = useState()
     const [language, setLanguage] = useState({});
 
+    const [missingBizName, setMissingBizName] = useState(false)
+
     useEffect(() => {
         header.setIsTitle(false)
         header.setIsArrow(userData?.bizName)
@@ -40,7 +42,7 @@ const BusinessName = () => {
         }
         else {
             newUser ?
-                console.log("ERROR - enter firstName,lastName or email") //TODO
+                setMissingBizName(true)
                 :
                 navigate('/setting')
         }
@@ -56,7 +58,8 @@ const BusinessName = () => {
                     type='text'
                     onChange={(e) => setBizName(e.target.value)}
                     placeholder={!userData?.bizName ? language.YOUR_BUSINESS_NAME : ''}
-                    defaultValue={userData?.bizName ? userData?.bizName : ''} />
+                    defaultValue={userData?.bizName ? userData?.bizName : ''}
+                    missingData={missingBizName} />
             </div>
             <div className={styles.btn}>
                 <BtnSubmitIcon color='orange'
