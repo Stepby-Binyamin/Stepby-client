@@ -33,6 +33,10 @@ const UserName = () => {
     }))
   }, [userData])
 
+  useEffect(() => {
+    console.log("🚀 ~ file: index.jsx:39 ~ UserName ~ data", data)
+  }, [data])
+
   const saveData = (e) => {
     switch (e.target.name) {
       case 'firstName':
