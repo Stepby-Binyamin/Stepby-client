@@ -75,7 +75,7 @@ const ListItem = ({
                      <div className={secondaryTitle === "done" ? styles.mainGrey : status === "done" ? styles.mainGreyBold : styles.current}>
                         {mainTitle}
                      </div>
-                     {step?.index === 0 && secondaryTitle !== language.COMPLET &&
+                     {index === 0 && secondaryTitle !== language.COMPLET &&
                         <div className={styles.firstStep}>{language.TO_THE_WAY}</div>
                      }
                   </div>
