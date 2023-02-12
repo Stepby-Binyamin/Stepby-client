@@ -153,22 +153,22 @@ const Project = ({ mode }) => {
     const onClickPlus = () => {
         drawer.setDrawer(<StepBasics isCreatorApprove={true} fetchDataFunc={newStep} isNew={true} />);
     }
-    const newStep = (data) => {
+    const newStep = async (data) => {
         console.log("🚀 ~ file: index.jsx:157 ~ newStep ~ data", data)
         const dataToServer = {
             stepName: data.stepName,
             description: data.description,
             isCreatorApprove: data.radio === language.MY ? true : false
         }
-        apiCalls("put", `/template/newStep/${templateId}`, dataToServer)
-            .then(response => {
-                setCurr((current) => ({ ...current, steps: response }));
-                return "success"
-            })
-            .catch(error => {
-                console.log(error)
-                return "error"
-            });
+        try {
+            const res = await apiCalls("put", `/template/newStep/${templateId}`, dataToServer)
+            setCurr((current) => ({ ...current, steps: res }));
+            console.log("🚀 ~ file: index.jsx:165 ~ newStep ~ res", res)
+            return "success"
+        } catch (error) {
+            console.log("🚀 ~ file: index.jsx:165 ~ newStep ~ error", error)
+            return "error"
+        }
     }
 
     return (<>
