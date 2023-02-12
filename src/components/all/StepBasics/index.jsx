@@ -51,19 +51,25 @@ const StepBasics = ({ isNew, fetchDataFunc, stepName, isCreatorApprove, descript
       }
       addStep ? setLoadingBtnSaveAndCreate(true) : setLoadingBtnSave(true)
       const res = await fetchDataFunc(data);
-      if (res === "error") {
+      console.log("🚀///🚀///🚀 ~ file: index.jsx:54 ~ saveStep ~ res", res)
+      if (res === "error") {    //TODO
+         console.log("🚀🚀🚀 if")
          return
       }
-      if (addStep) {
-         newStep()
-         setTimeout(() => {
-            setLoadingBtnSaveAndCreate(false)
-            setCleanInput(false)
-         }, 500);
-      }
       else {
-         drawer.setDrawer();
+         console.log("🚀🚀🚀 else")
+         if (addStep) {
+            newStep()
+            setTimeout(() => {
+               setLoadingBtnSaveAndCreate(false)
+               setCleanInput(false)
+            }, 500);
+         }
+         else {
+            drawer.setDrawer();
+         }
       }
+
    }
 
    return (

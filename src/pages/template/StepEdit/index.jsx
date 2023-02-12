@@ -64,15 +64,19 @@ const StepEdit = ({ mode }) => {
             break;
       }
    }
-   const editStep = (data) => {
+   const editStep = async (data) => {
       if (data === undefined) return
       const { radio } = data;
       const isCreatorApprove = radio === language.THE_CUSTOMER ? false : true
       const dataToServer = { ...data, stepId, isCreatorApprove }
       console.log("🚀 ~ file: index.jsx:64 ~ editStep ~ dataToServer", dataToServer)
-      apiCalls("put", "/template/edit-step/" + templateId, dataToServer)
-         .then((result) => { setInformation((current) => ({ ...current, step: result })) }
-         )
+      try {
+         const res = await apiCalls("put", "/template/edit-step/" + templateId, dataToServer)
+         setInformation((current) => ({ ...current, step: res }))
+         return "success"
+      } catch (error) {
+         return "error"
+      }
    }
    const addAnswerToStep = (data) => {
       const dataToServer = { ...data, stepId }
