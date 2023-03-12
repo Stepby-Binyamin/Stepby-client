@@ -23,6 +23,8 @@ const CreateTemplate = () => {
         const fd = new FormData(e.target)
         const templateName = { templateName: fd.get("templateName", e.target.templateName.value) }
         const res = await apiCalls("post", "/template/createTemplate", templateName)
+        console.log("🚀 ~ file: index.jsx:26 ~ collect ~ res", res)
+        // await apiCalls("post", "/files/create-project", res)
         drawer.setDrawer()
         navigate(`/template/${res}`)
     }

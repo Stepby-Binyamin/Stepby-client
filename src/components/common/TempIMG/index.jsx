@@ -12,7 +12,7 @@ const TempIMG = ({ data, step, project, id, stepId }) => {
     const [currentFile, setCurrentFile] = useState()
     const [question, setQuestion] = useState()
     const [fileName, setFileName] = useState()
-    const [alert, setAlert] = useState("No file found.")
+    const [alert, setAlert] = useState("")
 
     const handleChange = (e) => {
         setQuestion(e.target.value);
@@ -45,6 +45,7 @@ const TempIMG = ({ data, step, project, id, stepId }) => {
         const formData = new FormData();
         formData.append("new_file", currentFile);
         formData.append("objShortQuestion", JSON.stringify(data))
+        console.log("🚀 ~ file: index.jsx:48 ~ handleSubmitAnswer ~ formData", formData)
 
         const result = await apiCalls('post', '/files/upload-file/', formData)
         console.log("apiCalls result", result);

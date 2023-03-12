@@ -54,11 +54,11 @@ const StepEdit = ({ mode }) => {
       switch (type) {
          case 'file': drawer.setDrawer(<TempFile data={data} />);
             break;
+         case 'answer': drawer.setDrawer(<TempSimpleAnswer fetchDataFunc={addAnswerToStep} data={data} />);
+            break;
          case 'img': drawer.setDrawer(<TempIMG data={data} />);
             break;
          case 'pdf': drawer.setDrawer(<TempPDF data={data} />);
-            break;
-         case 'answer': drawer.setDrawer(<TempSimpleAnswer fetchDataFunc={addAnswerToStep} data={data} />);
             break;
          default:
             break;

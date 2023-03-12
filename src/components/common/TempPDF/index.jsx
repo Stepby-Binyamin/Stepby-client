@@ -12,7 +12,7 @@ const TempPDF = ({ data, step, project, id, stepId }) => {
     const [currentFile, setCurrentFile] = useState()
     const [question, setQuestion] = useState()
     const [fileName, setFileName] = useState()
-    const [alert, setAlert] = useState("No file found.")
+    const [alert, setAlert] = useState("")
 
 
     const showInfo = (file) => {
