@@ -39,7 +39,10 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
         }
         createProject ?
             apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
-                .then(project => { navigate(`/project/biz/${project._id}`) })
+                .then(project => {
+                    apiCalls("post", "/files/create-project", { bizId: project.creatorId, projectId: project._id })
+                        .then(() => navigate(`/project/biz/${project._id}`))
+                })
                 .catch(error => { console.log("🚀 ~ file: index.jsx ~ line 30 ~ collect ~ error", error) })
             :
             apiCalls('post', '/user/new-client', data)
