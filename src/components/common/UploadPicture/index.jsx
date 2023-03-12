@@ -12,7 +12,7 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step
     const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
     const [fileName, setFileName] = useState()
-    const [alert, setAlert] = useState("No file found.")
+    const [alert, setAlert] = useState("")
 
     const handleChange = (e) => {
         setDescription(e.target.value);

@@ -53,6 +53,8 @@ const CreateTemplateGeneral = () => {
         }
         apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral, phoneNumber: data.phoneNumber })
             .then((res) => {
+                console.log("🚀 ~ file: index.jsx:56 ~ .then ~ res", res)
+                // apiCalls("post", "/files/create-project", res)
                 navigate(`/template/${res._id}`)
                 drawer.setDrawer()
             })

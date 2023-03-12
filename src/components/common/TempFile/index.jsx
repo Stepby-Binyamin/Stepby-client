@@ -73,7 +73,7 @@ const TempFile = ({ data, step, project, id, stepId }) => {
                 /> */}
                 <RadioBtnWithIcon
                     changeFunc={(e) => handleRadio(e)}
-                    obj={[{ name: language.ASK_REQ }, { name: language.ASK_PER }]}
+                    obj={[{ name: language.REQUIRED }, { name: language.PERMISSION }]}
                 />
             </div>
             <div className={styles.submitButton}>
