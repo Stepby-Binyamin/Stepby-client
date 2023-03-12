@@ -5,12 +5,14 @@ import styles from "./style.module.css"
 import BtnSubmitText from "../../common/BtnSubmitText"
 import { useNavigate } from "react-router-dom";
 import mainContext from '../../../context/mainContext'
+import userContext from '../../../context/userContext'
 import apiCalls from '../../../functions/apiRequest'
 import { useState } from 'react'
 
 const CreateTemplate = () => {
     const navigate = useNavigate();
     const { drawer, language } = useContext(mainContext)
+    const { userData } = useContext(userContext)
 
     const [missingTemplateName, setMissingTemplateName] = useState(false)
 
@@ -24,7 +26,7 @@ const CreateTemplate = () => {
         const templateName = { templateName: fd.get("templateName", e.target.templateName.value) }
         const res = await apiCalls("post", "/template/createTemplate", templateName)
         console.log("🚀 ~ file: index.jsx:26 ~ collect ~ res", res)
-        // await apiCalls("post", "/files/create-project", res)
+        await apiCalls("post", "/files/create-project", { bizId: userData._id, projectId: res })
         drawer.setDrawer()
         navigate(`/template/${res}`)
     }

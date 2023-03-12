@@ -9,10 +9,12 @@ import RadioBtn from '../../all/radioBtn/withoutIcon'
 import mainContext from '../../../context/mainContext'
 import apiCalls from '../../../functions/apiRequest';
 import RadioBtnWithIcon from '../radioBtn/WithIcon';
+import userContext from '../../../context/userContext';
 
 const CreateTemplateGeneral = () => {
     const navigate = useNavigate();
     const { drawer, language } = useContext(mainContext)
+    const { userData } = useContext(userContext)
 
     const [data, setData] = useState({ templateName: '', phoneNumber: '' });
     const [isGeneral, setIsGeneral] = useState(true);
@@ -54,9 +56,11 @@ const CreateTemplateGeneral = () => {
         apiCalls("post", "/template/createTemplateAdmin", { templateName: data.templateName, categories: data.categories, isGeneral: isGeneral, phoneNumber: data.phoneNumber })
             .then((res) => {
                 console.log("🚀 ~ file: index.jsx:56 ~ .then ~ res", res)
-                // apiCalls("post", "/files/create-project", res)
-                navigate(`/template/${res._id}`)
-                drawer.setDrawer()
+                apiCalls("post", "/files/create-project", { bizId: isGeneral ? userData._id : res.creatorId, projectId: res._id })
+                    .then(() => {
+                        navigate(`/template/${res._id}`)
+                        drawer.setDrawer()
+                    })
             })
             .catch((err) => {
                 console.log("🚀 ~ file: index.jsx:60 ~ btnCreateTemplate ~ err", err.response.data.message === "error - user phone doesn't exist")
