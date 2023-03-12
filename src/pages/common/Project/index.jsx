@@ -162,8 +162,10 @@ const Project = ({ mode }) => {
         }
         try {
             const res = await apiCalls("put", `/template/newStep/${templateId}`, dataToServer)
-            setCurr((current) => ({ ...current, steps: res }));
             console.log("🚀 ~ file: index.jsx:165 ~ newStep ~ res", res)
+            const res2 = await apiCalls("post", "/files/create-steps", { bizId: userData._id, projectId: templateId, stepId: res[res.length - 1]._id })
+            console.log("🚀 ~ file: index.jsx:167 ~ newStep ~ res2", res2)
+            setCurr((current) => ({ ...current, steps: res }));
             return "success"
         } catch (error) {
             console.log("🚀 ~ file: index.jsx:165 ~ newStep ~ error", error)
