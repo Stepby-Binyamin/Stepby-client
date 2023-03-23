@@ -8,9 +8,8 @@ import BtnSubmitText from "../BtnSubmitText"
 import apiCalls from '../../../functions/apiRequest'
 import RadioBtnWithIcon from '../../all/radioBtn/WithIcon'
 
-const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id }) => {
-    console.log("🚀 ~ file: index.jsx:12 ~ TempSimpleAnswer ~ data", data.title)
-    const { language } = useContext(mainContext)
+const TempSimpleAnswer = ({ data, setInformation }) => {
+    const { drawer, language } = useContext(mainContext)
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState(true)
@@ -18,34 +17,16 @@ const TempSimpleAnswer = ({ fetchDataFunc, data, step, project, id }) => {
     const handleSubmitAnswer = async () => {
         data = {
             ...data,
-            // type: "answer",
-            // owner: "client",
+            owner: "client",
+            type: "answer",
             title: question,  // important 
             isRequired: isRequired,
-            // content: "",
-            // step,
-            // project,
-            // id,
-            // stepId
-            // i have to send this info
-            // bizName,
-            // projectName,
-            // stepName,
         }
         console.log("🚀 ~ file: index.jsx:19 ~ handleSubmitAnswer ~ data", data)
 
-        // const result = await apiCalls('put', '/template/addWidget', data)
-        // console.log("🚀 ~ file: index.jsx:37 ~ handleSubmitAnswer ~ result", result)
-
-        fetchDataFunc(data)
-
-        // const formData = new FormData();
-        // formData.append("objShortQuestion", JSON.stringify(data))
-        // // console.log('formData: ', formData);
-        // const result = await apiCalls('post', '/files/upload-answer/', formData)
-        // // console.log("apiCalls result", result);
-        // // fetchDataFunc(data);
-        // drawer.setDrawer('')
+        const result = await apiCalls('post', '/files/upload-answer/', data)
+        setInformation((curr) => ({ ...curr, step: result }))
+        drawer.setDrawer('')
     }
 
     return (<>

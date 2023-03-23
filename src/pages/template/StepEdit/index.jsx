@@ -13,11 +13,13 @@ import TempFile from '../../../components/common/TempFile'
 import TempIMG from '../../../components/common/TempIMG'
 import TempSimpleAnswer from '../../../components/common/TempSimpleAnswer'
 import apiCalls from '../../../functions/apiRequest'
+import userContext from '../../../context/userContext'
 
 const StepEdit = ({ mode }) => {
    const navigate = useNavigate()
    const { state } = useLocation()
    const { stepId, templateId } = useParams()
+   const { userData } = useContext(userContext)
    const { header, drawer, language } = useContext(mainContext)
 
    const [information, setInformation] = useState()
@@ -37,10 +39,11 @@ const StepEdit = ({ mode }) => {
    }, [state, stepId])
 
    useEffect(() => {
+      console.log("🚀 ~ file: index.jsx:47 ~ StepEdit ~ information", information)
       header.setIsTitle(true)
       header.setTitle(information?.step?.name)
       header.setSubTitle(information?.tempName)
-      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step.isApprove} />)
+      drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={mode === "template"} isApprove={information?.step?.isApprove} />)
    }, [information])
 
    const onClickItem = (type, data_) => {
@@ -48,17 +51,25 @@ const StepEdit = ({ mode }) => {
          ...data_,
          stepId: stepId,
          templateId: templateId,
-         // owner: information?.step.isCreatorApprove ? "biz" : "client",
+         bizId: userData._id,
          type
       }
       switch (type) {
-         case 'file': drawer.setDrawer(<TempFile data={data} />);
+         case 'file':
+            console.log("🚀 ~ file: index.jsx:56 ~ onClickItem ~ file")
+            drawer.setDrawer(<TempFile data={data} setInformation={setInformation} />);
             break;
-         case 'answer': drawer.setDrawer(<TempSimpleAnswer fetchDataFunc={addAnswerToStep} data={data} />);
+         case 'answer':
+            console.log("🚀 ~ file: index.jsx:59 ~ onClickItem ~ answer")
+            drawer.setDrawer(<TempSimpleAnswer data={data} setInformation={setInformation} />);
             break;
-         case 'img': drawer.setDrawer(<TempIMG data={data} />);
+         case 'img':
+            console.log("🚀 ~ file: index.jsx:62 ~ onClickItem ~ img")
+            drawer.setDrawer(<TempIMG data={data} setInformation={setInformation} />);
             break;
-         case 'pdf': drawer.setDrawer(<TempPDF data={data} />);
+         case 'pdf':
+            console.log("🚀 ~ file: index.jsx:65 ~ onClickItem ~ pdf")
+            drawer.setDrawer(<TempPDF data={data} setInformation={setInformation} />);
             break;
          default:
             break;
@@ -78,16 +89,7 @@ const StepEdit = ({ mode }) => {
          return "error"
       }
    }
-   const addAnswerToStep = (data) => {
-      const dataToServer = { ...data, stepId }
-      console.log("🚀 ~ file: index.jsx:70 ~ addAnswerToStep ~ dataToServer", dataToServer)
-      apiCalls("put", "/template/dataToStep/" + templateId, dataToServer)
-         .then((result) => {
-            console.log("🚀 ~ file: index.jsx:79 ~ .then ~ result", result)
-            setInformation((current) => ({ ...current, step: result }))
-         });
-      drawer.setDrawer()
-   }
+
    const openDrawer = (e) => {
       e.target.id === "display" ?
          drawer.setDrawer(<StepBasics

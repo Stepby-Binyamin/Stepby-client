@@ -11,7 +11,7 @@ import BtnSubmitText from "../BtnSubmitText"
 import apiCalls from "../../../functions/apiRequest"
 import RadioBtnWithIcon from "../../all/radioBtn/WithIcon"
 
-const TempFile = ({ data, step, project, id, stepId }) => {
+const TempFile = ({ data, setInformation }) => {
     const { language, drawer } = useContext(mainContext)
 
     const [question, setQuestion] = useState()
@@ -32,23 +32,12 @@ const TempFile = ({ data, step, project, id, stepId }) => {
             type: "file",
             owner: "client",
             title: question,
-            isRequired: isRequired,
-            content: "",
-            step,
-            project,
-            id,
-            stepId
-            // i have to send this info
-            // bizName,
-            // projectName,
-            // stepName,
-            // description, // important ???
+            isRequired: isRequired
         }
         const formData = new FormData();
-        formData.append("objShortQuestion", JSON.stringify(data))
+        formData.append("data", JSON.stringify(data))
         const result = await apiCalls('post', '/files/upload-file/', formData)
-        console.log("apiCalls result", result);
-
+        setInformation((curr) => ({ ...curr, step: result }))
         drawer.setDrawer('')
     }
 

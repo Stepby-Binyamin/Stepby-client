@@ -6,7 +6,7 @@ import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from "../../../functions/apiRequest"
 
-const TempPDF = ({ data, step, project, id, stepId }) => {
+const TempPDF = ({ data, setInformation }) => {
     const { language, drawer } = useContext(mainContext)
 
     const [currentFile, setCurrentFile] = useState()
@@ -35,24 +35,16 @@ const TempPDF = ({ data, step, project, id, stepId }) => {
             type: "pdf",
             owner: "biz",
             title: question,
-            isRequired: "",
-            content: "",
-            step,
-            project,
-            id,
-            stepId
-            // i have to send this info
-            // bizName,
-            // projectName,
-            // stepName,
+            isRequired: true
         }
+        console.log("🚀 ~ file: index.jsx:34 ~ handleSubmitAnswer ~ data", data)
+
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("objShortQuestion", JSON.stringify(data))
+        formData.append("data", JSON.stringify(data))
 
-        const result = await apiCalls('post', '/files/upload-file/', formData)
-        console.log("apiCalls result", result);
-
+        const result = await apiCalls('post', '/files/upload-file/', formData, true)
+        setInformation((curr) => ({ ...curr, step: result }))
         drawer.setDrawer('')
     }
 

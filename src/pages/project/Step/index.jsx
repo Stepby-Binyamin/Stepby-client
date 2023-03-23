@@ -42,10 +42,6 @@ const Step = ({ mode }) => {
     const project = 'fisrtProject'
     const step_ = "1"
 
-    // const fileName = "answerName.txt"
-    const fileName = "Tour_Eiffel.jpg"
-    // const fileName = "lesson.pdf"
-
     // Calculate the Days
     // const d = new Date()
     // let Difference_In_Time = d.getTime() - projects.projects[0].lastApprove.getTime()
@@ -107,18 +103,17 @@ const Step = ({ mode }) => {
         console.log("🚀 ~ file: index.jsx ~ line 94 ~ Step ~ buttons", buttons)
     }, [buttons])
 
-    const handlePDF = () => {
+    const handlePDF = async (fileName) => {
         axios({
-            url: "http://localhost:5000/files/download",
-            // url: "https://stepby-server-stepby.vercel.app/files/download",
+            url: `${process.env.REACT_APP_BASE_URL}files/download`,
             method: "POST",
             responseType: "blob",  // important
             data: {
                 // This is the body part
-                client: "solyattie",
-                projectName: "fisrtProject",
-                stepNum: "1",
-                fileName: fileName,
+                bizId: userData._id,      //TODO check in client side
+                templateId,
+                stepId,
+                fileName
             },
         }).then((response) => {
             console.log("response.data", response.headers["content-type"]);
@@ -130,16 +125,16 @@ const Step = ({ mode }) => {
             link.click();
         });
     }
-    const handleIMG = () => {
+    const handleIMG = (fileName) => {
         // drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step} />); //id={id} stepId={stepId}
         // drawer.setDrawer(<TempPDF step={step} project={project}/>)
         // drawer.setDrawer(<UploadedIMGView step={step} project={project} />)
         const data = {
             // This is the body part
-            client: "solyattie",
-            projectName: "firstProject",
-            stepNum: "1",
-            fileName: fileName,
+            bizId: userData._id,      //TODO check in client side
+            templateId,
+            stepId,
+            fileName
         }
 
         apiCalls('post', '/files/showImg', data)
@@ -162,7 +157,7 @@ const Step = ({ mode }) => {
         // })
     }
     const handleFile = () => {
-        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step_} />); //id={id} stepId={stepId}
+        drawer.setDrawer(<UploadPicture setIsUploaded={setIsUploaded} setUploadLocation={setUploadLocation} client={client} project={project} step={step_} templateId stepId />); //id={id} stepId={stepId}
     }
     const handleAnswer = (title) => {
         console.log(information.step.isCreatorApprove);
@@ -254,18 +249,19 @@ const Step = ({ mode }) => {
                     console.log("🚀 ~ file: index.jsx:257 ~ {information?.step?.data.map ~ data", data.content)
                     switch (data.type) {
                         case "img":
+                            handleIMG(data.content)
                             return <ImageView
                                 key={Math.random().toString()}
                                 imgDescription={data.title}
-                                imgPath={data.content}
-                                onClick={handleIMG}
+                                imgPath={image}
+                            // onClick={handleIMG}
                             />
                         case "pdf":
                             return <Answer src="/images/icon-btns/filePDF.svg"
                                 key={Math.random().toString()}
-                                onClick={handlePDF}
+                                onClick={() => handlePDF(data.content)}
                                 title={data.title}
-                                p={data.content}
+                                p={language.TO_VIEW_FILE_CLICK_HERE}
                                 isTitleFirst={true}
                                 isAdmin={false}
                             />
@@ -274,7 +270,7 @@ const Step = ({ mode }) => {
                                 key={Math.random().toString()}
                                 onClick={handleFile}
                                 title={data.title}
-                                p={data.content}
+                                p={data.content ? data.content : ` ${language.VOLUME_LIMIT} 4Mb`}
                                 isTitleFirst={true}
                                 isAdmin={true}
                                 isDone={isUploaded}
