@@ -7,13 +7,17 @@ export const setToken = (token) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}` //AUTH_TOKEN
 }
 
-const apiCalls = async (method, url, data) => {
+const apiCalls = async (method, url, data,isFile=false) => {
     console.log(" +++  \n api call - send ", method, url, data);
     try {
         const res = await axios({
-            headers: {
-                'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''
-            },
+            headers: isFile? 
+            {
+                'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : '',
+                'Content-Type':  'multipart/form-data' 
+            }
+            :
+            {'Authorization': localStorage.token ? `Bearer ${localStorage.token}` : ''},
             method,
             url,
             data

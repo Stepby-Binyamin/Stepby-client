@@ -5,9 +5,11 @@ import Input from "../../../components/common/Input/Input.jsx"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
+import userContext from "../../../context/userContext"
 
-const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step, id, stepId }) => {
+const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step, id, templateId, stepId }) => {
     const { drawer, language } = useContext(mainContext)
+    const { userData } = useContext(userContext)
 
     const [description, setDescription] = useState()
     const [currentFile, setCurrentFile] = useState()
@@ -33,7 +35,11 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step
     const handleSubmitAnswer = async () => {
         const formData = new FormData();
         formData.append("new_file", currentFile);
-        formData.append("objShortQuestion", JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, client: client, projectName: project, stepNum: step, date: new Date() })) //id={id} stepId={stepId}
+        formData.append("objShortQuestion", JSON.stringify({
+            question: language.SHORT_QUESTION01, answer: description,
+            client: client, projectName: project, stepNum: step,
+            date: new Date(), bizId: userData._id, projectId: templateId, stepId: stepId
+        })) //id={id} stepId={stepId}
         const result = await apiCalls('post', '/files/upload-file/', formData)
         console.log("apiCalls result", result);
         currentFile && setIsUploaded(true)

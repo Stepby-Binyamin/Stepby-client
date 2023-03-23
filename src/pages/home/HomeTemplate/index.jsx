@@ -64,7 +64,7 @@ const HomeTemplate = ({ style = {} }) => {
    return (
       <div className={styles.HomeTemplate} style={style} >
          <NavLink />
-         {userData.permissions !== "admin" &&
+         {userData?.permissions !== "admin" &&
             <NavLinkTab
                state={choose}
                setState={setChoose}
