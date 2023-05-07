@@ -19,6 +19,8 @@ const UploadedFileView = ({ title, setInformation, data }) => {
     const [fileName, setFileName] = useState("")
     const [image, setImage] = useState("")
 
+    const [isLoading, setIsLoading] = useState(false)
+
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;  //react-pdf
 
     // useEffect(() => {
@@ -37,13 +39,13 @@ const UploadedFileView = ({ title, setInformation, data }) => {
 
     const handleSubmitAnswer = async () => {
         if (!fileName) return
+        setIsLoading(true)
         uploadFile(currentFile, "file", null, null, null, data)
             .then((result) => {
                 console.log("🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 ~ file: index.jsx:42 ~ .then ~ result", result)
                 setInformation((curr) => ({ ...curr, step: result }))
                 drawer.setDrawer('')
             })
-
     }
 
     return (
@@ -77,10 +79,17 @@ const UploadedFileView = ({ title, setInformation, data }) => {
 
             <div className={styles.btns}>
                 <div style={{ width: "14%" }}>
-                    <BtnSubmitIcon icon="garbage.svg" color="lite" func={() => setFileName("")} />
+                    <BtnSubmitIcon
+                        icon="garbage.svg"
+                        color="lite"
+                        func={() => setFileName("")} />
                 </div>
                 <div style={{ width: "86%" }}>
-                    <BtnSubmitIcon icon="v.svg" color="gray" func={handleSubmitAnswer} />
+                    <BtnSubmitIcon
+                        icon="v.svg"
+                        color="gray"
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
         </>

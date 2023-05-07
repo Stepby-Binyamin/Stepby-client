@@ -13,6 +13,7 @@ const TempSimpleAnswer = ({ data, setInformation }) => {
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmitAnswer = async () => {
         data = {
@@ -24,6 +25,7 @@ const TempSimpleAnswer = ({ data, setInformation }) => {
         }
         console.log("🚀 ~ file: index.jsx:19 ~ handleSubmitAnswer ~ data", data)
 
+        setIsLoading(true)
         const result = await apiCalls('post', '/files/upload-answer/', data)
         setInformation((curr) => ({ ...curr, step: result }))
         drawer.setDrawer('')
@@ -50,7 +52,12 @@ const TempSimpleAnswer = ({ data, setInformation }) => {
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText
+                        icon="v to text.svg"
+                        color="gray"
+                        text={language.SAVE}
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
 

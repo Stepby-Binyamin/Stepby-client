@@ -9,8 +9,10 @@ import apiCalls from '../../../functions/apiRequest'
 const UploadCShortAnswer = ({ templateId, stepId, widgetId, title, updateWidget }) => {
     const { drawer, language } = useContext(mainContext)
     const [answer, setAnswer] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmitAnswer = () => {
+        setIsLoading(true)
         apiCalls('post', '/files/upload-answer/', { templateId, stepId, widgetId, answer })
             .then(response => {
                 answer && updateWidget(widgetId, answer)
@@ -38,7 +40,12 @@ const UploadCShortAnswer = ({ templateId, stepId, widgetId, title, updateWidget 
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText
+                        icon="v to text.svg"
+                        color="gray"
+                        text={language.SAVE}
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
         </>

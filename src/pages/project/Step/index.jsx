@@ -27,6 +27,8 @@ const Step = ({ mode }) => {
     const [buttons, setButtons] = useState({ edit: false, whatsApp: false, light: false, dark: false, undo: false })
     const [approvedForEditing, setApprovedForEditing] = useState(false)
 
+    const [isLoadingUndo, setIsLoadingUndo] = useState(false)
+    const [isLoadingCompleted, setIsLoadingCompleted] = useState(false)
 
     // Calculate the Days
     // const d = new Date()
@@ -200,8 +202,10 @@ const Step = ({ mode }) => {
         if (missingData) return
         const btnNo = () => { drawer.setDrawer("") }
         const btnYes = () => {
+            setIsLoadingCompleted(true)
             apiCalls('put', `/project/completeStep/${templateId}`, { stepId })
                 .then((res) => {
+                    setIsLoadingCompleted(false)
                     // navigate(`/project/${mode}/${templateId}`)/
                     information.step.isApprove = true
                     buttonsAccordingMode()
@@ -213,8 +217,10 @@ const Step = ({ mode }) => {
         drawer.setDrawer(<Confirm clientName={name} nextStepName={information?.nextStepName} btnYes={btnYes} btnNo={btnNo} />)
     }
     const undo = () => {
+        setIsLoadingUndo(true)
         apiCalls('put', `/project/stepUndo/${templateId}`, { stepId })
             .then((res) => {
+                setIsLoadingUndo(false)
                 information.step.isApprove = false
                 buttonsAccordingMode()
                 drawer.setDrawerContentHeader(<MoreStep templateId={templateId} stepId={stepId} isTemplate={false} isApprove={information?.step.isApprove} />)
@@ -320,7 +326,11 @@ const Step = ({ mode }) => {
                     <BtnSubmitIcon icon="pencil.svg" color="lite" func={stepEdit} />
                 </div>}
                 {buttons.undo && <div style={{ width: "52px" }}>
-                    <BtnSubmitIcon icon="undo.svg" color="lite" func={undo} />
+                    <BtnSubmitIcon
+                        icon="undo.svg"
+                        color="lite"
+                        func={undo}
+                        isLoading={isLoadingUndo} />
                 </div>}
                 {buttons.whatsApp &&
                     <a href={`https://wa.me/${information?.client.phoneNumber}`}>
@@ -330,7 +340,11 @@ const Step = ({ mode }) => {
                     </a>
                 }
                 {buttons.dark && <div style={{ width: "283px", marginRight: '12px' }}>
-                    <BtnSubmitIcon icon="v.svg" color="gray" func={completed} />
+                    <BtnSubmitIcon
+                        icon="v.svg"
+                        color="gray"
+                        func={completed}
+                        isLoading={isLoadingCompleted} />
                 </div>}
                 {buttons.light && <div style={{ width: "52px" }}>
                     <BtnSubmitIcon icon="v.svg" color="lite" func={() => navigate(`/project/biz/${templateId}`, { state: information })} />

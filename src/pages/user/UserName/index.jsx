@@ -19,6 +19,8 @@ const UserName = () => {
   const [data, setData] = useState({})
   const [missingData, setMissingData] = useState({ firstName: false, lastName: false, email: false })
 
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsHeaderSet(false)
@@ -56,6 +58,7 @@ const UserName = () => {
   const handleClick = (newUser) => {
     console.log("🚀 ~ file: index.jsx ~ line 60 ~ handleClick ~ data", data)
     if (data.firstName && data.lastName && (newUser ? data.email : true)) {
+      setIsLoading(true)
       apiCalls('put', '/user/edit-biz', data)
         .then(res => {
           setUserData(res)
@@ -107,7 +110,7 @@ const UserName = () => {
           color='orange'
           icon={userData?.email ? 'v to text.svg' : 'Arrow.svg'}
           func={() => handleClick(userData?.email ? false : true)}
-        />
+          isLoading={isLoading} />
       </div>
     </div>
   )

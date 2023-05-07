@@ -16,6 +16,8 @@ const BusinessCategory = () => {
   const [allCategories, setAllCategories] = useState([])
   const [categories, setCategories] = useState([])
 
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     header.setIsTitle(false)
     header.setIsArrow(userData?.categories.length !== 0)
@@ -49,6 +51,7 @@ const BusinessCategory = () => {
   const goToNextPage = (newUser) => {
     let body = []
     categories.map(cat => cat.isActive === true ? body.push(cat) : null)
+    setIsLoading(true)
     apiCalls('put', '/user/edit-biz', { categories: body })
       .then(res => {
         setUserData(res)
@@ -82,7 +85,8 @@ const BusinessCategory = () => {
       <BtnSubmitIcon
         color='orange'
         icon={userData?.categories.length <= 0 ? 'Arrow.svg' : 'v to text.svg'}
-        func={() => goToNextPage(userData?.categories.length <= 0 ? true : false)} />
+        func={() => goToNextPage(userData?.categories.length <= 0 ? true : false)}
+        isLoading={isLoading} />
     </>)
 }
 export default BusinessCategory

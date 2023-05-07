@@ -75,7 +75,7 @@ const Project = ({ mode }) => {
             })
     }
     const editProjectNameFunc = () => {
-        drawer.setDrawer(<RenameProject projectId={templateId} oldName={curr.name} renameProjectFunc={renameProjectFunc} />)
+        drawer.setDrawer(<RenameProject oldName={curr.name} renameProjectFunc={renameProjectFunc} />)
     }
     const deleteProjectFunc = (page) => {
         apiCalls("delete", `/template/deleteTemplate/${templateId}`)

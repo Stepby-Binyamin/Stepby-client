@@ -1,4 +1,5 @@
 import React from 'react'
+import Loading from '../Loading';
 import styles from "./style.module.css"
 
 // color: orange , gray , lite
@@ -10,7 +11,10 @@ const BtnSubmitIcon = ({ color, icon, func, isLoading = false, ...props }) => {
         <>
             <div className={styles.conteiner}>
                 <button className={`${styles[color]} ${styles.submit}`} onClick={func} {...props}>
-                    <img src={"/images/icon-btns/" + icon} alt="" />
+                    {isLoading ?
+                        <Loading />
+                        :
+                        <img src={"/images/icon-btns/" + icon} alt="" />}
                 </button>
             </div>
         </>

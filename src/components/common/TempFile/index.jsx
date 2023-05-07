@@ -16,6 +16,7 @@ const TempFile = ({ data, setInformation }) => {
 
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e) => setQuestion(e.target.value)
 
@@ -33,6 +34,7 @@ const TempFile = ({ data, setInformation }) => {
         }
         const formData = new FormData();
         formData.append("data", JSON.stringify(data))
+        setIsLoading(true)
         const result = await apiCalls('post', '/files/upload-file/', formData)
         setInformation((curr) => ({ ...curr, step: result }))
         drawer.setDrawer('')
@@ -64,7 +66,12 @@ const TempFile = ({ data, setInformation }) => {
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText
+                        icon="v to text.svg"
+                        color="gray"
+                        text={language.SAVE}
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
         </div>

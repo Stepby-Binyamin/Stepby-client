@@ -15,6 +15,7 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step
     const [currentFile, setCurrentFile] = useState()
     const [fileName, setFileName] = useState()
     const [alert, setAlert] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e) => {
         setDescription(e.target.value);
@@ -40,6 +41,7 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step
             client: client, projectName: project, stepNum: step,
             date: new Date(), bizId: userData._id, projectId: templateId, stepId: stepId
         })) //id={id} stepId={stepId}
+        setIsLoading(true)
         const result = await apiCalls('post', '/files/upload-file/', formData)
         console.log("apiCalls result", result);
         currentFile && setIsUploaded(true)
@@ -72,7 +74,12 @@ const UploadPicture = ({ setIsUploaded, setUploadLocation, client, project, step
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText
+                        icon="v to text.svg"
+                        color="gray"
+                        text={language.SAVE}
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
         </div>

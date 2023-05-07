@@ -14,7 +14,7 @@ const TempPDF = ({ data, setInformation }) => {
     const [question, setQuestion] = useState()
     const [fileName, setFileName] = useState()
     const [alert, setAlert] = useState("")
-
+    const [isLoading, setIsLoading] = useState(false)
 
     const showInfo = (file) => {
         const typeArr = file?.name.slice(file?.name.lastIndexOf(".") + 1);
@@ -45,6 +45,7 @@ const TempPDF = ({ data, setInformation }) => {
         // formData.append("data", JSON.stringify(data))
         // 
         // const result = await apiCalls('post', '/files/upload-file/', formData, true)
+        setIsLoading(true)
         uploadFile(currentFile, "pdf", "biz", question, true, data)
             .then(result => {
                 setInformation((curr) => ({ ...curr, step: result }))
@@ -80,7 +81,12 @@ const TempPDF = ({ data, setInformation }) => {
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText
+                        icon="v to text.svg"
+                        color="gray"
+                        text={language.SAVE}
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
         </div>

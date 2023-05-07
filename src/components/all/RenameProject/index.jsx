@@ -8,18 +8,25 @@ import mainContext from '../../../context/mainContext'
 import apiCalls from '../../../functions/apiRequest'
 import { useState } from 'react'
 
-const RenameProject = ({ projectId, oldName, renameProjectFunc }) => {
-    const navigate = useNavigate();
-    const { header, drawer, language } = useContext(mainContext)
+const RenameProject = ({ oldName, renameProjectFunc }) => {
+    const { language } = useContext(mainContext)
     const [nameProject, setNameProject] = useState(oldName)
-    console.log("🚀 ~ file: index.jsx:15 ~ RenameProject ~ nameProject", nameProject)
+    const [isLoading, setIsLoading] = useState(false)
 
+    const btnSubmit = (e) => {
+        setIsLoading(true)
+        renameProjectFunc(e, nameProject)
+    }
     return (
         <div className={styles.container}>
-            <form onSubmit={(e) => renameProjectFunc(e, nameProject)}>
+            <form onSubmit={btnSubmit}>
                 <input className={styles.keyboard} value={nameProject} onChange={e => setNameProject(e.target.value)} />
                 <div className={styles.btn}>
-                    <BtnSubmitText color={"gray"} text={language.SAVE} icon={"v to text.svg"} />
+                    <BtnSubmitText
+                        color={"gray"}
+                        text={language.SAVE}
+                        icon={"v to text.svg"}
+                        isLoading={isLoading} />
                 </div>
             </form>
         </div>

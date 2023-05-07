@@ -15,6 +15,7 @@ const CreateTemplate = () => {
     const { userData } = useContext(userContext)
 
     const [missingTemplateName, setMissingTemplateName] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const collect = async (e) => {
         e.preventDefault();
@@ -26,9 +27,12 @@ const CreateTemplate = () => {
         const templateName = { templateName: fd.get("templateName", e.target.templateName.value) }
         const res = await apiCalls("post", "/template/createTemplate", templateName)
         console.log("🚀 ~ file: index.jsx:26 ~ collect ~ res", res)
+        setIsLoading(true)
         await apiCalls("post", "/files/create-project", { bizId: userData._id, projectId: res })
-        drawer.setDrawer()
-        navigate(`/template/${res}`)
+            .then(() => {
+                drawer.setDrawer()
+                navigate(`/template/${res}`)
+            })
     }
 
     return (
@@ -40,7 +44,11 @@ const CreateTemplate = () => {
                     missingData={missingTemplateName} />
                 <div className={styles.text}>{language.TEMPLATES_TEXT}</div>
                 <div className={styles.btn}>
-                    <BtnSubmitText color={"gray"} text={language.SAVE} icon={"v to text.svg"} />
+                    <BtnSubmitText
+                        color={"gray"}
+                        text={language.SAVE}
+                        icon={"v to text.svg"}
+                        isLoading={isLoading} />
                 </div>
             </form>
         </div>
