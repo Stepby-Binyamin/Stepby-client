@@ -5,6 +5,7 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
+import uploadFile from '../../../functions/uploadFile'
 
 const TempIMG = ({ data, setInformation }) => {
     const { language, drawer } = useContext(mainContext)
@@ -14,9 +15,8 @@ const TempIMG = ({ data, setInformation }) => {
     const [fileName, setFileName] = useState()
     const [alert, setAlert] = useState("")
 
-    const handleChange = (e) => {
-        setQuestion(e.target.value);
-    }
+    const handleChange = (e) => setQuestion(e.target.value)
+
     const showInfo = (file) => {
         if (file.size / 1024 / 1024 > 4) {
             setAlert("file is too big")
@@ -25,21 +25,23 @@ const TempIMG = ({ data, setInformation }) => {
         setFileName(file.name)
         setCurrentFile(file);
     }
+
     const handleSubmitAnswer = async () => {
-        data = {
-            ...data,
-            type: "img",
-            owner: "biz",
-            title: question,
-            isRequired: true
-        }
-        console.log("🚀 ~ file: index.jsx:30 ~ handleSubmitAnswer ~ data", data)
+        // data = {
+        //     ...data,
+        //     type: "img",
+        //     owner: "biz",
+        //     title: question,
+        //     isRequired: true
+        // }
+        // console.log("🚀 ~ file: index.jsx:30 ~ handleSubmitAnswer ~ data", data)
 
-        const formData = new FormData();
-        formData.append("new_file", currentFile);
-        formData.append("data", JSON.stringify(data))
+        // const formData = new FormData();
+        // formData.append("new_file", currentFile);
+        // formData.append("data", JSON.stringify(data))
 
-        const result = await apiCalls('post', '/files/upload-file/', formData, true)
+        // const result = await apiCalls('post', '/files/upload-file/', formData, true)
+        const result = await uploadFile(currentFile, "img", "biz", question, true, data)
         setInformation((curr) => ({ ...curr, step: result }))
         drawer.setDrawer('')
     }

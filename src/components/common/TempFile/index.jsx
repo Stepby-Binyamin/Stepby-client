@@ -17,12 +17,9 @@ const TempFile = ({ data, setInformation }) => {
     const [question, setQuestion] = useState()
     const [isRequired, setIsRequired] = useState()
 
-    const handleChange = (e) => {
-        setQuestion(e.target.value);
-    }
+    const handleChange = (e) => setQuestion(e.target.value)
 
     const handleRadio = (e) => {
-        // console.dir(e.target.value);
         e.target.value === language.ASK_REQ ? setIsRequired(true) : setIsRequired(false)
     }
 
