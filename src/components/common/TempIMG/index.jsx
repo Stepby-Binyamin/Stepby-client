@@ -14,6 +14,7 @@ const TempIMG = ({ data, setInformation }) => {
     const [question, setQuestion] = useState()
     const [fileName, setFileName] = useState()
     const [alert, setAlert] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e) => setQuestion(e.target.value)
 
@@ -41,6 +42,7 @@ const TempIMG = ({ data, setInformation }) => {
         // formData.append("data", JSON.stringify(data))
 
         // const result = await apiCalls('post', '/files/upload-file/', formData, true)
+        setIsLoading(true)
         const result = await uploadFile(currentFile, "img", "biz", question, true, data)
         setInformation((curr) => ({ ...curr, step: result }))
         drawer.setDrawer('')
@@ -72,7 +74,12 @@ const TempIMG = ({ data, setInformation }) => {
             </div>
             <div className={styles.submitButton}>
                 <div className={styles.sub}>
-                    <BtnSubmitText icon="v to text.svg" color="gray" text={language.SAVE} func={handleSubmitAnswer} />
+                    <BtnSubmitText
+                        icon="v to text.svg"
+                        color="gray"
+                        text={language.SAVE}
+                        func={handleSubmitAnswer}
+                        isLoading={isLoading} />
                 </div>
             </div>
         </div>

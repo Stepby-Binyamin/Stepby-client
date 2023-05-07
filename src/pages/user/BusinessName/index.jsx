@@ -18,7 +18,7 @@ const BusinessName = () => {
     const [language, setLanguage] = useState({});
 
     const [missingBizName, setMissingBizName] = useState(false)
-
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         header.setIsTitle(false)
         header.setIsArrow(userData?.bizName)
@@ -29,6 +29,7 @@ const BusinessName = () => {
     const handleClick = (newUser) => {
         console.log("🚀 ~ file: index.jsx ~ line 28 ~ BusinessName ~ bizName", bizName)
         if (bizName) {
+            setIsLoading(true)
             apiCalls('put', '/user/edit-biz', { bizName: bizName })
                 .then(res => {
                     //TODO- adding apicall to create client's biz folder - shaul
@@ -61,7 +62,8 @@ const BusinessName = () => {
             <div className={styles.btn}>
                 <BtnSubmitIcon color='orange'
                     icon={userData?.bizName ? 'v to text.svg' : 'Arrow.svg'}
-                    func={() => handleClick(userData?.bizName ? false : true)} />
+                    func={() => handleClick(userData?.bizName ? false : true)}
+                    isLoading={isLoading} />
             </div>
         </div>
     )

@@ -8,8 +8,15 @@ const BtnSubmitText = ({ icon, color, text, func, isLoading = false, ...props })
   return (
     <div className={styles.con}>
       <button className={`${styles[color]} ${styles.btn}`} onClick={func}>
-        <img src={`./images/icon-btns/${icon}`} alt="" />
-        {isLoading ? <Loading /> : text}
+        {
+          isLoading ?
+            <Loading />
+            :
+            <>
+              <img src={`./images/icon-btns/${icon}`} alt="" />
+              {text}
+            </>
+        }
       </button>
     </div>
 

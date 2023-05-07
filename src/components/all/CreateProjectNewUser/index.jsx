@@ -19,6 +19,8 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
     const [select, setSelect] = useState(true);
 
     const [missingProjectName, setMissingProjectName] = useState(false);
+    const [isLoadingCreateProject, setIsLoadingCreateProject] = useState(false)
+
 
     useEffect(() => {
         const getData = async () => {
@@ -57,6 +59,7 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
             setMissingProjectName(true)
             return
         }
+        setIsLoadingCreateProject(true)
         data.clients = data.clients?.filter(e => e.isActive === true)
         newProject({ projectName: data.projectName, clientId: data.clients[0]._id, isNewClient: false })
         drawer.setDrawer()
@@ -112,7 +115,8 @@ const CreateProjectNewUser = ({ placeholder, templateName, templateId, ...props 
                         func={btnCreateProject}
                         color={"gray"}
                         text={language.CREATE_PROJECT}
-                        icon={"v to text.svg"} />
+                        icon={"v to text.svg"}
+                        isLoading={isLoadingCreateProject} />
                 </div>}
             {select &&
                 <div className={styles.btnFix}>

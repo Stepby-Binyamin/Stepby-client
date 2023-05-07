@@ -16,6 +16,8 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
     const [missingPhone, setMissingPhone] = useState(false)
     const [missingEmail, setMissingEmail] = useState(false)
 
+    const [isLoadingCreateProject, setIsLoadingCreateProject] = useState(false)
+    const [isLoadingSaveCustomer, setIsLoadingSaveCustomer] = useState(false)
 
     const collect = (e) => {
         e.preventDefault();
@@ -37,16 +39,25 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
             phoneNumber: data.phoneNumber,
             email: data.email
         }
-        createProject ?
+        if (createProject) {
+            setIsLoadingCreateProject(true)
             apiCalls('post', `/project/createProject/${templateId}`, dataToServer)
                 .then(project => {
                     apiCalls("post", "/files/create-project", { bizId: project.creatorId, projectId: project._id })
-                        .then(() => navigate(`/project/biz/${project._id}`))
+                        .then(() => {
+                            navigate(`/project/biz/${project._id}`)
+                            drawer.setDrawer('')
+                        })
                 })
                 .catch(error => { console.log("🚀 ~ file: index.jsx ~ line 30 ~ collect ~ error", error) })
-            :
+        }
+        else {
+            setIsLoadingSaveCustomer(true)
             apiCalls('post', '/user/new-client', data)
-        drawer.setDrawer('')
+                .then(() => {
+                    drawer.setDrawer('')
+                })
+        }
     }
 
     return (
@@ -66,11 +77,19 @@ const CreateClient = ({ createProject = false, data_, templateId }) => {
                 name="email"
                 missingData={missingEmail} />
             <div className={styles.btn}>
-                <BtnSubmitText color={"gray"} text={language.SAVE_CUSTOMER} icon={"v to text.svg"} />
+                <BtnSubmitText
+                    color={"gray"}
+                    text={language.SAVE_CUSTOMER}
+                    icon={"v to text.svg"}
+                    isLoading={isLoadingSaveCustomer} />
             </div>
             {createProject &&
                 <div className={styles.btn}>
-                    <BtnSubmitText color={"gray"} text={language.CREATE_PROJECT} icon={"v to text.svg"} />
+                    <BtnSubmitText
+                        color={"gray"}
+                        text={language.CREATE_PROJECT}
+                        icon={"v to text.svg"}
+                        isLoading={isLoadingCreateProject} />
                 </div>
             }
         </form>

@@ -26,6 +26,8 @@ const Verification = () => {
   const [wrongPassword, setWrongPassword] = useState(false);
   const [language, setLanguage] = useState({})
 
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     sendCode()
     header.setIsTitle(false)
@@ -55,6 +57,7 @@ const Verification = () => {
 
   const handleClick = async () => {
     const body = { phoneNumber: state.phoneNumber, code: code }
+    setIsLoading(true)
     await apiCalls('post', '/user/check-code', body)
       .then(result => {
         setToken(result.token)
@@ -90,7 +93,11 @@ const Verification = () => {
         <SomethingWentWrong sendCode={sendCode} setCounter={setCounter} setWrongPassword={setWrongPassword} />
       </div>
       <div className={styles.btn}>
-        <BtnSubmitIcon color='orange' icon='Arrow.svg' func={handleClick} />
+        <BtnSubmitIcon
+          color='orange'
+          icon='Arrow.svg'
+          func={handleClick}
+          isLoading={isLoading} />
       </div>
     </div >
   )
