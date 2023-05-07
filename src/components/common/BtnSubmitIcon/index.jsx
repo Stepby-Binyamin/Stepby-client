@@ -4,7 +4,8 @@ import styles from "./style.module.css"
 // color: orange , gray , lite
 // icon: plus.svg, Arrow.svg , v.svg
 
-const BtnSubmitIcon = ({ color, icon, func, ...props }) => {
+const BtnSubmitIcon = ({ color, icon, func, isLoading = false, ...props }) => {
+    console.log("🚀 ~ file: index.jsx:8 ~ BtnSubmitIcon ~ BtnSubmitIcon")
     return (
         <>
             <div className={styles.conteiner}>

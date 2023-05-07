@@ -5,6 +5,7 @@ import Input from "../Input/Input"
 import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from "../../../functions/apiRequest"
+import uploadFile from "../../../functions/uploadFile"
 
 const TempPDF = ({ data, setInformation }) => {
     const { language, drawer } = useContext(mainContext)
@@ -37,15 +38,20 @@ const TempPDF = ({ data, setInformation }) => {
             title: question,
             isRequired: true
         }
-        console.log("🚀 ~ file: index.jsx:34 ~ handleSubmitAnswer ~ data", data)
-
-        const formData = new FormData();
-        formData.append("new_file", currentFile);
-        formData.append("data", JSON.stringify(data))
-
-        const result = await apiCalls('post', '/files/upload-file/', formData, true)
-        setInformation((curr) => ({ ...curr, step: result }))
-        drawer.setDrawer('')
+        // console.log("🚀 ~ file: index.jsx:34 ~ handleSubmitAnswer ~ data", data)
+        // 
+        // const formData = new FormData();
+        // formData.append("new_file", currentFile);
+        // formData.append("data", JSON.stringify(data))
+        // 
+        // const result = await apiCalls('post', '/files/upload-file/', formData, true)
+        uploadFile(currentFile, "pdf", "biz", question, true, data)
+            .then(result => {
+                setInformation((curr) => ({ ...curr, step: result }))
+                drawer.setDrawer('')
+            })
+        // setInformation((curr) => ({ ...curr, step: result }))
+        // drawer.setDrawer('')
     }
 
     return (

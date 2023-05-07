@@ -1,12 +1,14 @@
 import React from 'react'
+import Loading from '../../common/Loading'
 import styles from "./style.module.css"
 
-const Answer = ({ isDone, isAdmin, src, title, p, isTitleFirst, onClick, ...props }) => {
+const Answer = ({ isDone, isAdmin, src, title, p, isTitleFirst, onClick, missingData = false, ...props }) => {
 
     return (
-        <div className={`${isAdmin ? styles.user : styles.admin} ${styles.border}`} onClick={onClick}>
+        <div className={`${isAdmin ? styles.user : styles.admin} ${styles.border} ${missingData && styles.missing_data}`} onClick={onClick}>
             <div className={styles.iconSize}>
-                <img src={src} className={styles.center} alt="sideIcon" />
+                {src ? <img src={src} className={styles.center} alt="sideIcon" />
+                    : <Loading />}
             </div>
             {isTitleFirst ?
                 <div className={styles.centerText}>

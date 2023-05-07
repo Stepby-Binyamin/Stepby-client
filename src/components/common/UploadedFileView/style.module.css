@@ -15,6 +15,7 @@
 }
 
 .clientImg{
+    height: 215px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -32,4 +33,24 @@
     /* margin-bottom: 29px; */
     width: 100%;
     padding: 14px;
+}
+
+.previewDocument{
+   height: 50%;
+    scale: 0.5;
+}
+.previewPage{
+    height: 100%;
+    scale: 0.5;
+}
+.previewImg{
+    object-fit: contain;
+    width: 100%;
+}
+.upload{
+    display: flex;
+    width: 365px;
+}
+.fileUpload{
+    display: none
 }

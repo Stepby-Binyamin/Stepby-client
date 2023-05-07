@@ -6,19 +6,17 @@ import BtnSubmitText from "../BtnSubmitText"
 import mainContext from "../../../context/mainContext"
 import apiCalls from '../../../functions/apiRequest'
 
-const UploadCShortAnswer = ({ title, setIsAnswer, client, project, step, id, stepId }) => {
-    console.log("🚀 ~ file: index.jsx:10 ~ UploadCShortAnswer ~ step", step)
+const UploadCShortAnswer = ({ templateId, stepId, widgetId, title, updateWidget }) => {
     const { drawer, language } = useContext(mainContext)
-    const [description, setDescription] = useState()
+    const [answer, setAnswer] = useState()
 
-    const handleSubmitAnswer = async () => {
-        const formData = new FormData();
-        formData.append("objShortQuestion",
-            JSON.stringify({ question: language.SHORT_QUESTION01, answer: description, client: client, projectName: project, stepNum: step, date: new Date() })) //id={id} stepId={stepId}
-        const result = await apiCalls('post', '/files/upload-answer/', formData)
-        console.log("apiCalls result", result);
-        description && setIsAnswer(true)
-        drawer.setDrawer('')
+    const handleSubmitAnswer = () => {
+        apiCalls('post', '/files/upload-answer/', { templateId, stepId, widgetId, answer })
+            .then(response => {
+                answer && updateWidget(widgetId, answer)
+                drawer.setDrawer('')
+            })
+            .catch(err => console.log("🚀 ~ file: index.jsx:21 ~ handleSubmitAnswer ~ err", err))
     }
 
     return (
@@ -32,7 +30,7 @@ const UploadCShortAnswer = ({ title, setIsAnswer, client, project, step, id, ste
                 <Input
                     name={"UploadCShortAnswer"}
                     placeholder={language.YOUR_ANSWER}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => setAnswer(e.target.value)}
                     type="text"
                     autoFocus
                     style={{ borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px", paddingRight: "16px", paddingBottom: "16px", height: "50px" }}
